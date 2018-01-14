@@ -1,0 +1,382 @@
+﻿@{
+    Layout = "~/Views/Layout/BaseListContainer.cshtml";
+    ViewBag.Title = "数据源配置";
+}
+<style>
+    input.n-invalid {
+        border: 1px solid #f04134 !important;
+    }
+</style>
+
+<div id="toolbar" class="toolbar"></div>
+<div></div>
+<div id="grid" style="margin-top:5px"></div>
+<div style="padding: 10px;margin-top:15px;display:none;" id="FormEdit">
+    <form id="form" data-validator-option="{ theme:'yellow_top'}">
+        <div id="container"></div>
+        <table class="lee-form">
+            <tr>
+                <td class="label">
+                    编号
+                </td>
+                <td class="editor">
+                    <input type="text" class='lee-input required' data-rule-password="[/^\d{6}$/, '请填写6位数字']"
+                           data-msg-required="请填写数据源编号"
+                           data-rule="required" data-bind="Code" id='txtCode'>
+                </td>
+                <td class="label">
+                    名称
+                </td>
+                <td class="editor">
+                    <input type="text" class='lee-input required' data-rule="required" data-bind="Name" id='txtName'>
+                </td>
+            </tr>
+
+            <tr>
+                <td class="label">
+                    数据库类型
+                </td>
+                <td class="editor">
+                    <input type="text" class='lee-input required' data-rule="required" data-bind="DBType" id='txtDBType'>
+                </td>
+                <td class="label">
+                    IP地址
+                </td>
+                <td class="editor">
+                    <input type="text" class='lee-input required' data-bind="IPAddress" id='txtIPAdress'>
+                </td>
+            </tr>
+
+            <tr>
+                <td class="label">
+                    用户名
+                </td>
+                <td class="editor">
+                    <input type="text" class='lee-input' data-bind="UserName" id='txtUserName'>
+                </td>
+                <td class="label">
+                    密码
+                </td>
+                <td class="editor">
+                    <input type="password" class='lee-input' data-bind="Password" id='txtPassword'>
+                </td>
+            </tr>
+            <tr>
+
+                <td class="label">
+                    启用
+                </td>
+                <td class="editor" colspan="3">
+                    <span>
+                        <input type="checkbox" class="lee-toggle-switch" data-bind="IsUsed" id="chkIsUsed">
+                        <label for="chkIsUsed"></label>
+                    </span>
+                </td>
+            </tr>
+
+            @*<tr>
+                    <td class="label">
+                        备注
+                    </td>
+                    <td class="editor" colspan="3">
+                        <textarea class='lee-input'></textarea>
+                    </td>
+
+                </tr>*@
+        </table>
+    </form>
+</div>
+<style>
+    body {
+        overflow: hidden;
+        padding: 3px;
+    }
+</style>
+
+
+<script>
+
+
+    (function (window, $) {
+        function ListManger() {
+            this.init();
+        }
+        ListManger.prototype = {
+            init: function () {
+
+            },
+            bind: function () {
+
+            },
+            setCard: function (card) {
+                this.cardManager = card;
+            },
+            initLayout: function () {
+                $("#toolbar").leeToolBar({
+                    items: [
+                        { text: '增加', click: $.proxy(this.addCard, this) },
+                        { text: '修改', click: $.proxy(this.editCard, this) },
+                        { text: '删除', click: $.proxy(this.deleteCard, this) }, { line: true },
+                        { text: '启用', click: $.proxy(this.enable, this) },
+                        { text: '停用', click: $.proxy(this.disable, this) }, { line: true }
+                    ]
+                });
+                this.initGrid();
+            },
+            addCard: function () {
+                this.cardManager.showPage("");
+            },
+            editCard: function () {
+                var id = this.getSelected();
+                if (id) {
+                    this.cardManager.showPage(id);
+                } else {
+                    leeUI.Error("请选中要操作的数据");
+                }
+            },
+            getSelected: function () {
+                var selected = this.grid.getCheckedRows();
+                if (selected && selected.length == 1) {
+                    return selected[0]["ID"];
+                }
+
+                return;
+            },
+            deleteCard: function () {
+                var id = this.getSelected();
+                var self = this;
+                if (id) {
+                    $.leeDialog.confirm("确认要删除数据源链接吗？", "提示", function (type) {
+                        if (type) {
+                            $.leeDialog.loading("正在删除....");
+                            $.post("/FormBuilder.Web/Settings/DeleteModel", { id: id }, function (res) {
+
+                                $.leeDialog.hideLoading();
+                                if (res.res) {
+                                    self.refresh();
+                                    leeUI.Success(res.mes);
+                                } else {
+                                    leeUI.Error(res.mes);
+                                }
+                            });
+                        }
+                    });
+                } else {
+                    leeUI.Error("请选中要操作的数据");
+                }
+            },
+            enable: function () {
+                this.toogle(true);
+            },
+            disable: function () {
+                this.toogle(false);
+            },
+            toogle: function (flag) {
+                var id = this.getSelected();
+                var title = flag ? "启用" : "停用";
+                var self = this;
+                if (id) {
+                    $.leeDialog.confirm("确认要" + title + "这个数据源链接吗？", "提示", function (type) {
+                        if (type) {
+                            $.leeDialog.loading("正在操作....");
+                            $.post("/FormBuilder.Web/Settings/ToogleEnable", { id: id, flag: flag }, function (res) {
+
+                                $.leeDialog.hideLoading();
+                                if (res.res) {
+                                    self.refresh();
+                                    leeUI.Success(res.mes);
+                                } else {
+                                    leeUI.Error(res.mes);
+                                }
+
+                            });
+                        }
+                    });
+                } else {
+                    leeUI.Error("请选中要操作的数据");
+                }
+            },
+            refresh: function () {
+                this.grid.loadData(true);
+            },
+            initGrid: function () {
+                this.grid = $("#grid").leeGrid({
+                    columns: this.getColumns(),
+                    fixedCellHeight: true,
+                    alternatingRow: false,
+                    url: '/FormBuilder.Web/Settings/GetDBSettings',
+                    dataAction: 'server', //服务器排序
+                    usePager: true,       //服务器分页
+                    height: "93%",
+                    checkbox: true,
+                    rownumbers: true,
+                    rowHeight: 30
+                });
+            },
+            getColumns: function () {
+                return [
+                    { display: '编号', name: 'Code', align: 'left', width: 100, minWidth: 60 },
+                    { display: '名称', name: 'Name', minWidth: 120, width: 140 },
+                    { display: '数据库类型', name: 'DBType', minWidth: 120, width: 140 },
+                    { display: 'IP', name: 'IPAddress', minWidth: 120, width: 140 },
+                    { display: '用户名', name: 'UserName', minWidth: 120, width: 140 },
+                    { display: '是否启用', name: 'IsUsed', width: 90, render: leeUI.gridRender.ToogleRender, readonly: true }
+                ];
+            }
+        }
+        window.DBListManger = new ListManger();
+
+    })(window, $);
+
+
+    (function (window, $) {
+        function CardManger() {
+            this.init();
+        }
+        CardManger.prototype = {
+            init: function () {
+                this.status = "";//初始状态为空
+                this.dataModel = {};//数据模型为空
+
+            },
+            bind: function () {
+            },
+            showPage: function (id) {
+                this.CurentKey = id;
+                if (id == "") {
+                    this.status = "add";
+                } else {
+                    this.status = "edit";
+                }
+                this.openDialog();
+                this.getModel();
+            },
+            openDialog: function () {
+                var self = this;
+                this.dialog = $.leeDialog.open({
+                    title: "编辑数据库链接",
+                    width: "600",
+                    height: '400',
+                    target: $("#FormEdit"),
+                    targetBody: true,
+                    isResize: true,
+                    buttons: [{
+                        text: '保存',
+                        cls: 'lee-btn-primary lee-dialog-btn-ok',
+                        onclick: function (item, dialog) {
+                            self.save();
+                        }
+                    }, {
+                        text: '取消',
+                        cls: 'lee-dialog-btn-cancel ',
+                        onclick: function (item, dialog) {
+                            self.dialog.close();
+                        }
+                    }]
+                });
+            },
+            initLayout: function () {
+                $("#txtDBType").leeDropDown({
+                    data: [{ id: "MSS", text: "MSS" }, { id: "ORA", text: "ORA" }]
+                });
+
+
+            },
+            save: function () {
+                if (!$("#form").isValid())
+                    return;
+                $.leeDialog.loading("正在保存....");
+                this.getValue();
+                var self = this;
+                $.post("/FormBuilder.Web/Settings/SaveModel", { id: this.CurentKey, model: JSON.stringify(this.dataModel) }, function (res) {
+                    if (res.res) {
+                        if (res.id) {
+                            self.status = "edit";//初始状态为空
+                            self.CurentKey = res.id;
+                        }
+                        $.leeUI.Success(res.mes);
+                    } else {
+                        $.leeUI.Error(res.mes);
+                    }
+                    $.leeDialog.hideLoading();
+                    DBListManger.refresh();
+                    self.dialog.close();
+
+
+                });
+            },
+            getModel: function () {
+                var self = this;
+                $.leeDialog.loading("加载中....");
+                $.post("/FormBuilder.Web/Settings/GetModel", { id: this.CurentKey }, function (res) {
+                    if (res.res) {
+                        self.dataModel = res.data;
+                        self.setValue();
+                    } else {
+
+                    }
+                    $.leeDialog.hideLoading();
+                });
+            },
+            setValue: function () {
+                this.arr = $("[data-bind]");
+
+
+                for (var i = 0; i < this.arr.length; i++) {
+                    var item = this.arr[i];
+                    var BindKey = $(item).attr("data-bind");
+                    var BindValue = "";
+                    if ($(item).leeUI()) {
+                        $(item).leeUI().setValue(this.dataModel[BindKey]);
+                    } else {
+                        var type = $(item).attr("type");
+                        if (type == "text") {
+                            $(item).val(this.dataModel[BindKey]);
+                        }
+                        else if (type == "checkbox") {
+                            $(item).prop("checked", this.dataModel[BindKey] == "1");
+                        }
+                    }
+                }
+                //if (this.status == "edit") {
+                $("#form").validator("cleanUp");//清除表单验证的全部消息
+                //}
+            },
+            getValue: function () {
+                this.arr = $("[data-bind]");
+                for (var i = 0; i < this.arr.length; i++) {
+                    var item = this.arr[i];
+                    var BindKey = $(item).attr("data-bind");
+                    var BindValue = "";
+                    if ($(item).leeUI()) {
+                        BindValue = $(item).leeUI().getValue();
+                    } else {
+                        var type = $(item).attr("type");
+                        if (type == "text") {
+                            BindValue = $(item).val();
+                        }
+                        else if (type == "checkbox") {
+                            BindValue = $(item).prop("checked") ? "1" : "0";
+                        }
+                    }
+                    this.dataModel[BindKey] = BindValue;
+                }
+            }
+        }
+        window.DBCardManger = new CardManger();
+
+    })(window, $);
+
+
+
+    $(function () {
+        DBListManger.initLayout();
+        DBListManger.setCard(DBCardManger);
+        DBCardManger.initLayout();
+
+
+
+
+
+    });
+</script>

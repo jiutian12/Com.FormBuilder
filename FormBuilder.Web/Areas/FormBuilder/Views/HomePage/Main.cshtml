@@ -1,0 +1,203 @@
+﻿@{
+    Layout = "~/Areas/FormBuilder/Views/Layout/BaseListContainer.cshtml";
+    ViewBag.Title = "开发平台首页";
+}
+
+
+<style>
+    .lee-nav {
+        background-image: linear-gradient(143deg,#2865e2 20%,#2b83f9 81%,#3a9dff);
+    }
+
+    .lee-nav > ul > li > a {
+        background-color: transparent;
+    }
+
+    .lee-nav > ul > li > a:focus, .lee-nav > ul > li > a:hover {
+        background-color: #2f5991;
+        background-color: #4d84cd;
+    }
+
+    .lee-nav > ul > li > a:hover {
+    }
+
+    .lee-navbar .nav-child li > a:hover {
+        background: #fbfbfb;
+    }
+
+    .lee-tab-links li {
+        border-radius: 0;
+    }
+
+    .lee-tab-links li.lee-selected {
+        border-radius: 0;
+        border-top: 2px solid #108ee9;
+    }
+
+    .lee-menu {
+        border-radius: 0;
+        box-shadow: 0 1px 9px rgba(136, 136, 136, 0.59);
+    }
+
+    .lee-menu-item.lee-menu-item-over,
+    .lee-menu-item:hover {
+        background: #2196F3;
+        color: #FFF;
+    }
+</style>
+<div class="lee-nav top-nav">
+    <ul>
+        <li>
+            <a href="#" style="font-size: 18px;"><i style="font-size: 18px;margin-right: 5px;" class="lee-ion-social-foursquare"></i>FormBulider</a>
+        </li>
+    </ul>
+    <ul style="float: right;">
+        <li>
+            <a href="#"><i style="margin-right: 5px;" class="lee-ion-android-apps"></i>表单开发</a>
+            <a href="#"><i style="margin-right: 5px;" class="lee-ion-wrench"></i>开发文档</a>
+        </li>
+        <li class="dropdown ">
+            <a href="#" data-toggle="dropdown">登录/注册<i style="margin-left: 5px;" class="lee-ion-android-arrow-dropdown"></i></a>
+            <ul class="dropdown-menu dropdown-menu-right">
+
+                <li>
+                    <a href="###"><i class="lee-ion-android-contact"></i>个人资料</a>
+                </li>
+                <li>
+                    <a href="###"><i class="lee-ion-android-exit"></i>退出登录</a>
+                </li>
+
+            </ul>
+        </li>
+    </ul>
+
+    <ul></ul>
+</div>
+
+<style>
+    .top-nav {
+        z-index: 1000;
+    }
+
+    .left-nav {
+        position: absolute;
+        width: 220px;
+        left: 0px;
+        padding-top: 0px;
+        top: 44px;
+        bottom: 0;
+        z-index: 4;
+    }
+
+    .center-nav {
+        position: absolute;
+        left: 0;
+        top: 50px;
+        right: 3px;
+        bottom: 3px;
+        margin-left: 225px;
+    }
+
+    .lee-tab-content {
+        position: absolute;
+        bottom: 0;
+        top: 30px;
+    }
+
+
+    .lee-tab-content-item {
+        overflow: hidden;
+    }
+</style>
+
+<section class="left-nav">
+    <ul class="lee-navbar">
+        <li class="open">
+            <div class="nav-header">
+                <i class="lee-ion-android-desktop"></i>
+                <span class="menu-title">系统设置</span>
+                <i class="arrow ion"></i>
+            </div>
+            <ul class="nav-child">
+                <li>
+                    <a class="nav-header" href="#">
+
+                        <span class="menu-title">基础设置</span>
+                        <i class="arrow ion"></i>
+                    </a>
+                    <ul class="nav-child ">
+                        <li class="nav-item ">
+                            <a href="#">
+                                <i class="lee-ion-settings" style="font-size:14px;"></i>
+                                <span class="menu-title">数据源设置</span>
+                            </a>
+                        </li>
+                        <li class="nav-item ">
+                            <a href="#">
+                                <i class="lee-ion-folder" style="font-size:14px;"></i>
+                                <span class="menu-title">元件管理</span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <a class="nav-header" href="#">
+                        <span class="menu-title">开发平台</span>
+                        <i class="arrow ion"></i>
+                    </a>
+                    <ul class="nav-child">
+                        <li class="nav-item">
+                            <a href="#">
+
+                                <span class="menu-title">数据对象</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#">
+                                <span class="menu-title">数据模型</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#">
+                                <span class="menu-title">智能帮助</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#">表单定义</a>
+                        </li>
+
+                    </ul>
+                </li>
+            </ul>
+        </li>
+
+
+    </ul>
+</section>
+
+
+<div class="center-nav">
+    <div class="tabbar" style="overflow:hidden;height:100%;">
+        <div title="首页"></div>
+    </div>
+</div>
+@section ExternalScripts{
+
+    <script src="~/Scripts/FrameWork/page.js"></script>
+    <script src="~/Scripts/FrameWork/framework.js"></script>
+
+}
+
+<script>
+    $(function () {
+        var tab = $(".tabbar").leeTab();
+        //tab.addTabItem({
+        //    tabid: "131",
+        //    text: "百度首页",
+        //    url: "https://www.baidu.com/",
+        //    callback: function () {
+
+        //    }
+        //});
+    });
+</script>

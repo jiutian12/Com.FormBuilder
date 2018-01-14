@@ -1,0 +1,61 @@
+﻿
+@{
+    ViewBag.Title = "Express";
+    Layout = "~/Areas/FormBuilder/Views/Layout/BaseListContainer.cshtml";
+}
+<div id="toolbar"></div>
+<style>
+    .lee-tab-links li {
+        padding: 6px 10px;
+    }
+
+     .lee-layout-header {
+        display: none;
+    }
+
+   .lee-layout-content {
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        margin: 0;
+        height:auto !important;
+    }
+
+    #editor {
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        margin: 0;
+    }
+</style>
+<div id="btngroup">
+
+</div>
+<div id="layout1" style="margin-top:1px;margin-left:1px;">
+    <div position="left" title="参照">
+        <div class="tabinfo" style="margin-top:3px;">
+            <div title="系统变量">
+                <div id="treeSession"></div>
+            </div>
+            <div title="函数">
+                <div id="treeFunc"></div>
+            </div>
+            <div title="数据模型">
+                <div id="treeModel"></div>
+            </div>
+        </div>
+    </div>
+    <div position="center" title="语义化表达式">
+        <pre id="editor"></pre>
+    </div>
+</div>
+@section ExternalScripts{
+    @Scripts.Render("~/Bundle/Scripts/Ace")
+    <script src="~/Scripts/FRM/express.js"></script>
+    <script> expressManger.setModel(@Html.Raw(@ViewData["modelSchema"]));</script>
+    <script> expressManger.init();</script>
+}

@@ -1,0 +1,476 @@
+﻿
+@model FormBuilder.Model.JFBSmartHelp
+@using FormBuilder.Utilities
+@{
+    Layout = "~/Areas/FormBuilder/Views/Layout/BaseListContainer.cshtml";
+    ViewBag.Title = "";
+
+}
+
+@*输入界面配置信息*@
+@Html.Raw("<script>var lookup_config=" + Newtonsoft.Json.JsonConvert.SerializeObject(Model) + "</script>")
+
+@Html.Raw("<script>var modelpkcol='" + Model.pkCol + "';</script>")
+<style>
+    .target .lee-grid-row-cell-inner {
+        color: red;
+    }
+</style>
+<script>
+
+
+
+    function getReturnValue() {
+
+        return $("#grid").leeUI().getSelected();
+    }
+
+
+    $(function () {
+        //$.leeDialog.loading("加载中..");
+        //window.lookupHelper.init();
+        //window.lookupHelper.setOptions({ textField: "Name", codeField: "Code" });
+        //window.lookupHelper.showView();
+    });
+
+
+
+    window.lookupHelper = (function (win, $) {
+
+        function LookupHelper(config) {
+            this.config = config;
+            this.selectField = "";//当前选中过滤字段
+
+        }
+
+        LookupHelper.prototype = {
+            init: function () {
+                this.bind();
+                this.filterlist = this.filterlist || [];
+            },
+            reloadGrid: function () {
+
+                if (this.options.async) {
+                    this.asyncLoadFirst($(".lee-search-words").val());
+                }
+                else {
+                    $("#grid").leeUI().reload();
+                }
+            },
+            bind: function () {
+                var self = this;
+                $(document).on('click', ".dropdown-menu li a", function () {
+                    $(this).closest(".dropdown-menu").find(".active").removeClass("active");
+                    $(this).addClass("active");
+                    $("#chooseField").html($(this).text());
+                    self.selectField = $(this).attr("data-value");
+                });
+
+                $(".search").click(function () {
+                    self.reloadGrid();
+                });
+
+                $(".lee-search-words").keydown(function (event) {
+                    if (event.keyCode == 13) {
+                        self.reloadGrid()
+                    }
+                    showClose();
+                });
+
+                $(".close").click(function () {
+                    $(".lee-search-words").val("");
+                    showClose();
+                    $(".lee-search-words").focus();
+                });
+                //name: p.sortnameParmName,
+                //value: p.sortName
+                function showClose() {
+                    if ($(".lee-search-words").val() == "") {
+                        $(".close").hide();
+                    } else {
+                        $(".close").show();
+                    }
+                }
+            },
+            setOptions: function (opts) {
+                this.options = opts;
+                if (opts.keyword) {
+                    $(".lee-search-words").val(opts.keyword);
+                }
+            },
+            getAlign: function (type) {
+                if (type == "0") {
+                    return "left";
+
+                } else if (type == "1") {
+                    return "center";
+
+                } else {
+                    return "right";
+                }
+            },
+            buildColumns: function () {
+                var columns = [];
+                var self = this;
+                $.each(this.config.ColList, function (i, obj) {
+                    if (obj.visible == "1") {
+                        columns.push({
+                            id: obj.code,
+                            name: obj.code,
+                            display: obj.name,
+                            width: obj.width,
+                            align: self.getAlign(obj.align)
+                        });
+                    }
+                });
+                return columns;
+            },
+            bulidTreeAsyncOptions: function () {
+                // 树点击节点事件
+                var treeInfo = this.config.treeInfo;
+                var self = this;
+                var onTreeExpand = function (rowdata, e) {
+                    var grid = this;
+
+                    if (rowdata._loaded || (rowdata.children && rowdata.children.length > 0)) return;
+                    if (!rowdata._loaded && !rowdata.children) {
+                        grid.toggleLoading(true);
+                    }
+                    var levelField = treeInfo.level;
+                    var gradeField = treeInfo.grade;
+                    var parentIDField = treeInfo.id;
+                    //alert(parentIDField);
+                    //console.log(rowdata);
+                    Page.Service.getTreeAsyncLoadData(self.config.modelID, rowdata[levelField], rowdata[gradeField], rowdata[parentIDField], $(".lee-search-words").val(), "", "", false).done(function (data) {
+                        if (data.res) {
+                            var flag = true;
+                            for (var item in data.data) {
+                                if (data.data[item][self.treeInfo.ischild] == "0") {
+                                    data.data[item].children = [];
+                                }
+                                if (data.data[item]["_istarget"] == "1" && flag) {
+                                    self.setTargetID(data.data[item][modelpkcol]);
+                                    flag = false;
+                                }
+                            }
+
+                            //
+                            grid.append(data.data, rowdata); //添加数据    
+                            e.update();
+                            rowdata._loaded = true;
+                        }
+                        grid.toggleLoading(false);
+                    }).fail(function (data) {
+                        console.log("失败");
+                    });
+                };
+                return onTreeExpand;
+            },
+            asyncLoadFirst: function (keword) {
+                var self = this;
+                Page.Service.getTreeAsyncLoadData(self.config.modelID, "", "", "", (keword ? keword : ""), "", "", false).done(function (data) {
+                    if (data.res) {
+                        var flag = true;
+                        for (var item in data.data) {
+                            if (data.data[item][self.treeInfo.ischild] == "0") {
+                                data.data[item].children = [];
+                            }
+                            if (data.data[item]["_istarget"] == "1" && flag) {
+                                self.setTargetID(data.data[item][modelpkcol]);
+                                flag = false;
+                            }
+                        }
+                        self.grid.loadData({ Rows: data.data }); //添加数据
+                    }
+                    $.leeDialog.hideLoading();
+                }).fail(function (data) {
+                    console.log("失败");
+                });
+            },
+            bulidTreeOptions: function () {
+                this.treeInfo = this.config.treeInfo;
+                var self = this;
+                var treeOpts = {
+                    columnId: this.options.codeField,
+                    idField: this.treeInfo.id,
+                    childrenName: "children",
+                    parentIDField: this.treeInfo.parentid,
+                    isExtend: function (data) {
+                        if (!data._loaded) {
+                            //return false;
+                        }
+                        return true;//是否展开？
+                    },
+                    isParent: function (data) {
+                        //alert(data[self.treeInfo.ischild]);
+                        return data[self.treeInfo.ischild] == '0' ? true : false;
+                        // return data.children && data.children.length > 0;
+                    }
+                }
+                return treeOpts;
+            },
+            bulidOptions: function () {
+                var self = this;
+                var opts = {
+                    columns: this.buildColumns(),
+                    fixedCellHeight: true,//固定行高
+                    alternatingRow: false,
+                    usePager: true,
+                    height: "100%",
+                    checkbox: this.options.isMul,
+                    rownumbers: true,
+                    rowHeight: 30,
+                    url: _global.sitePath + "/DataModel/getModelPageList",
+                    parms: $.proxy(this.getQuery, this),
+                    dataAction: 'server',
+                    onAfterShowData: function () {
+
+                        $.leeDialog.hideLoading();
+                        var manger = $("#grid").leeUI();
+                        if (manger) {
+                            var data = manger.getData();
+                            var index = 0;
+                            for (var item in data) {
+                                if (data[item][modelpkcol] == self.targetID) {
+                                    manger.select(index);
+                                    var row = manger.getRow(index);
+                                    var dom = manger._getRowDomId(row);
+                                    $(document.getElementById(dom)).find(".lee-grid-tree-link-close").click();
+                                    break;
+                                }
+                                index++;
+                            }
+                        }
+                        //targetID
+                        // 返回的数据里找到id
+                        //$(".lee-grid-body-main .target:first .lee-grid-tree-link-close").click();
+                    }
+                };
+                opts.rowClsRender = function (item) {
+                    if (item._istarget == "1") {
+                        return "target";
+                    }
+
+
+                }
+
+                if (!this.options.isMul) {
+                    opts.onDblClickRow = function (data, id, row) {
+                        parent.$("#dialog_lookup_ok").click();
+                    }
+                }
+                if (this.config.type == "1") {
+                    opts.tree = this.bulidTreeOptions();
+                    opts.async = this.options.async;
+
+                    if (opts.async) {
+                        opts.onTreeExpand = this.bulidTreeAsyncOptions();
+                        delete opts.url;
+                        opts.data = [];
+                        opts.dataAction = "local";
+                        opts.usePager = false;
+
+                    }
+                }
+                return opts;
+            },
+            showView: function () {
+
+                var opts = this.bulidOptions();
+                this.grid = $("#grid").leeGrid(opts);
+                if (opts.async)//如果是异步记载
+                    this.asyncLoadFirst();
+            },
+            getQuery: function () {
+                var reobj = [];
+                reobj.push({ name: "modelID", value: this.config.modelID });
+                reobj.push({ name: "filter", value: $.proxy(this.getFilter, this) });
+                reobj.push({ name: "order", value: $.proxy(this.getOrder, this) });
+                return reobj;
+            },
+            setFilter: function (list) {
+                this.filterlist = list;
+            },
+            getFilter: function () {
+                var express = new Utils.Express();
+                var keyword = $(".lee-search-words").val();
+                if (keyword != "") {
+                    if (this.selectField != "") {
+                        //alert(this.selectField);
+                        express.push(this.selectField, keyword);
+                    }
+                    else {
+                        //编号 or 名称字段like
+                        express.add("(", "", this.options.codeField, keyword, "LIKE", "or");
+                        express.add("", ")", this.options.textField, keyword, "LIKE", "and");
+                    }
+                }
+                if (this.options.filter)
+                    express.joinCondition(this.options.filter);
+                return JSON.stringify(express.serialize());
+            },
+            getOrder: function () {
+                var condition = new Utils.SortCondition();
+                if ($("#grid").leeUI()) {
+                    var p = $("#grid").leeUI().options;
+                    if (p.sortName && p.sortOrder) {
+                        condition.push(p.sortName, p.sortOrder);
+                    }
+                }
+                return JSON.stringify(condition.serialize());
+            },
+            setTargetID: function (id) {
+                this.targetID = id;
+            },
+            getReturnValue: function () {
+                var self = this;
+                var data = $("#grid").leeUI().getCheckedRows();
+                if (data.length == 0) return null;
+                if (this.config.type == "1" && data) {
+                    if (this.options.isChildOnly) {
+                        for (var item in data) {
+                            if (data[item][self.treeInfo.ischild] == "0") {
+                                leeUI.Error("非明细节点不能选择！");
+                                return false;
+                                break;
+                            }
+                        }
+                    }
+                }
+                if (this.options.isMul || this.options.isMulGrid)
+                    return data;
+                else
+                    return data;
+            }
+        }
+        var lookupInstance = new LookupHelper(win.lookup_config);
+        return lookupInstance;
+    })(window, $);
+    /* <i class="lee-ion-checkmark" style=""></i>*/
+</script>
+<style>
+    body {
+        overflow: hidden;
+    }
+
+    .dropdownbtn {
+        height: 27px;
+        line-height: 27px;
+        padding: 0px 15px;
+        display: block;
+        border: 1px solid #DDD;
+        margin-right: 3px;
+        border-radius: 2px;
+        color: #5b5b5b;
+    }
+
+    .dropoptions .dropdown-menu > li > a {
+        padding-left: 28px;
+    }
+
+    .dropoptions .dropdown-menu > li > a > i {
+        display: none;
+        position: absolute;
+        left: 10px;
+    }
+
+    .dropoptions .dropdown-menu > li > a.active > i {
+        display: inline-block;
+    }
+
+    .dropdownbtn:hover {
+        background: #fbfbfb;
+    }
+
+    .lee-grid .lee-grid-row-cell {
+        border-right-color: transparent;
+    }
+
+    .lee-grid .lee-grid-row-cell-last {
+        border-right-color: #DDD;
+    }
+
+    .lee-grid-row-alt .lee-grid-row-cell-rownumbers {
+        background: #F5F5F5;
+    }
+
+    .lee-selected .lee-grid-row-cell, .lee-selected td, .lee-grid-row-over td {
+        background: #ecf6fd !important;
+    }
+
+    .lee-grid .lee-grid-header, .lee-grid .lee-grid-hd-cell {
+        /*background: #FFF;*/
+    }
+
+    .close {
+        position: absolute;
+        right: 27px;
+        top: 1px;
+        height: 25px;
+        line-height: 26px;
+        padding: 0 4px;
+        cursor: pointer;
+        display: none;
+        color: #929292;
+    }
+
+    .close:hover {
+        background: #f2f2f2;
+    }
+</style>
+<div class="title"></div>
+
+<div class="search-wrap" style="height:45px;padding-top:10px;padding-left:10px;">
+
+    <div class="search-field" style="float:left;">
+        <li class="dropdown dropoptions">
+            <a href="#" data-toggle="dropdown" class="dropdownbtn"><span id="chooseField">选择字段</span><i style="margin-left: 5px;" class="lee-ion-android-arrow-dropdown"></i></a>
+            <ul class="dropdown-menu">
+
+                <li>
+                    <a href="#" data-value="" class="active">
+                        <i class="lee-ion-checkmark"></i>选择字段
+                    </a>
+                </li>
+                @for (var i = 0; i < Model.ColList.Count; i++)
+                {
+                    if (Model.ColList[i].visible == "1")
+                    {
+                        <li>
+                            <a href="#" data-value="@Model.ColList[i].code">
+                                <i class="lee-ion-checkmark"></i> @Model.ColList[i].name
+                            </a>
+                        </li>
+                    }
+                }
+
+
+
+
+            </ul>
+        </li>
+    </div>
+    <div class="lee-search-wrap" style="float:left;">
+        <input class="lee-search-words" type="text" placeholder="请输入查询关键字">
+        <i class="lee-ion-close close"></i>
+        <button class="search lee-ion-search"></button>
+    </div>
+
+</div>
+<div class="main-wrap" style="margin:0 3px;">
+    <div class="data-wrap">
+        <div class="data-layout" id="grid"></div>
+    </div>
+    <div class="favor-wrap">
+        <div class="favor-layout"></div>
+    </div>
+</div>
+@section ExternalScripts{
+
+    <script src="~/Scripts/Runtime/utils.js"></script>
+    <script src="~/Scripts/Runtime/service.js"></script>
+
+}
+@*  //加载帮助配置信息 加载列信息
+    //加载过滤条件
+    //加载数据模型树形结构*@

@@ -1,0 +1,5 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<module name="WebFrameworkModule">
+  <bind service="Com.CF.WebFramework.Api.IFrameworkExtService, Com.CF.WebFramework.Api" to="Com.CF.WebFramework.Services.Impl.FrameworkExtService, Com.CF.WebFramework.Services" />
+  <bind service="Com.CF.WebFramework.Api.IUserConfigService, Com.CF.WebFramework.Api" to="Com.CF.WebFramework.Services.Impl.UserConfigService, Com.CF.WebFramework.Services" />
+</module>

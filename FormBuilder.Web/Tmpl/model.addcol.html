@@ -1,0 +1,64 @@
+﻿<div class="dialog-contents">
+    <div class="modal-header"><h4>选择字段</h4></div>
+
+    <div class="lee-table" style="border:1px solid #DDD;">
+        <div class="lee-table-header" style="position: relative;">
+
+            <div class="lee-table-header-inner">
+                <table class="lee-table-head">
+                    <colgroup>
+                        <col width="50">
+                        <col width="100">
+                        <col width="100">
+                    </colgroup>
+                    <thead class="lee-table-head">
+                        <tr>
+                            <th>
+                                选择
+                            </th>
+                            <th>
+                                编号
+                            </th>
+                            <th>
+                                名称
+                            </th>
+                        </tr>
+                    </thead>
+                </table>
+                <div class="right-cell"></div>
+            </div>
+        </div>
+        <div class="lee-table-body" style="position: relative;">
+
+            <div class="lee-table-body-inner" style="max-height:400px;overflow:auto;">
+
+                <table>
+                    <colgroup>
+                        <col width="50">
+                        <col width="100">
+                        <col width="100">
+
+                    </colgroup>
+                    <tr ng-repeat='item in data'>
+                        <td>
+                            <input type="checkbox" class="mgc mgc-primary " ng-model="item.checked" />
+
+                        </td>
+                        <td ng-cloak>
+                            <span>{{item.Code}}</span>
+                        </td>
+                        <td>
+                            <span>{{item.Name}}</span>
+
+                        </td>
+                    </tr>
+                </table>
+
+            </div>
+        </div>
+    </div>
+    <div class="ngdialog-buttons" style="margin-top:20px;">
+        <button type="button" class="ngdialog-button ngdialog-button-secondary" ng-click="closeThisDialog(0)">取消</button>
+        <button type="button" class="ngdialog-button ngdialog-button-primary" ng-click="confirm(1)">添加</button>
+    </div>
+</div>

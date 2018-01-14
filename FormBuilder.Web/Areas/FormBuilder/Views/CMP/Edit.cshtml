@@ -1,0 +1,206 @@
+﻿
+@{
+    ViewBag.Title = "构件信息";
+    Layout = "~/Areas/FormBuilder/Views/Layout/BaseListContainer.cshtml";
+}
+
+<style>
+    input.n-invalid {
+        border: 1px solid #f04134 !important;
+    }
+
+    .lee-layout-left {
+        border-top: 0;
+    }
+
+    .lee-layout-right {
+        border-top: 0;
+    }
+
+    .lee-layout-center {
+        border-top: 0px;
+    }
+
+    .lee-layout-collapse-right {
+        border-top: 0;
+    }
+
+    .lee-input:read-only {
+        background: #fbfbfb;
+    }
+
+    #editor {
+        height: 250px;
+        width: 100%;
+        border: 1px solid #DDD;
+    }
+
+    body {
+        overflow-y: hidden;
+        padding: 3px;
+    }
+</style>
+<div style="padding:5px;padding: 5px;border-bottom: 1px solid #CCC;background: #fbfbfb;">
+    <div id="btngroup">
+        <button class="lee-btn " id="btnAddRow">
+            <i class="lee-ion-plus"></i>
+            <span>添加方法</span>
+        </button>
+        <button class="lee-btn " id="btnAddPara">
+            <i class="lee-ion-plus"></i>
+            <span>添加参数</span>
+        </button>
+        <button class="lee-btn lee-btn-primary" id="btnSave">
+            <i class="lee-ion-edit"></i>
+            <span>保存</span>
+        </button>
+    </div>
+
+</div>
+<div id="messagewrap"></div>
+<div id="layout1">
+    <div position="right" title="基本属性">
+        <div class="group-info" style="padding:5px;">
+            <form id="form" data-validator-option="{timely:0, theme:'yellow_top'}">
+                <table class="lee-form">
+                    <tbody>
+                        <tr>
+                            <td class="label " style="width:100px;">
+                                标识
+                            </td>
+                            <td class="readonly">
+                                <input type="text" class='lee-input ' readonly data-bind="ID" id='txtID'>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="label ">
+                                编号
+                            </td>
+                            <td>
+                                <input type="text" class='lee-input' data-rule="required" data-bind="Code" id='txtCode'>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="label">
+                                名称
+                            </td>
+                            <td>
+                                <input type="text" class='lee-input ' data-rule="required" data-bind="Name" id='txtName'>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="label">
+                                程序集
+                            </td>
+                            <td>
+                                <input type="text" class='lee-input ' data-rule="required" data-bind="AssemblyName" id='txtAssemblyName'>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td class="label ">
+                                类名称
+                            </td>
+                            <td>
+                                <input type="text" class='lee-input ' data-rule="required" data-bind="ClassName" id='txtViewType'>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="label ">
+                                是否静态
+                            </td>
+                            <td>
+                                <span>
+                                    <input type="checkbox" class="lee-toggle-switch" data-bind="IsStatic" id="chkIsStatic">
+                                    <label for="chkIsUpdate"></label>
+                                </span> 
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td class="label">
+                                创建人
+                            </td>
+                            <td>
+                                <span data-bind="CreateUser"></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="label">
+                                创建时间
+                            </td>
+                            <td class="readonly">
+                                <span data-bind="CreateTime"></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="label">
+                                修改人
+                            </td>
+                            <td class="readonly">
+                                <span data-bind="LastModifyUser"></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="label">
+                                修改时间
+                            </td>
+                            <td class="readonly">
+                                <span data-bind="LastModifyTime"></span>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </form>
+        </div>
+    </div>
+    <div title="方法信息" position="center">
+        <div style="padding:1px;position:absolute;top:0;bottom:0;right:0;left:0;">
+
+            <div id="grid" style="margin-top:1px">
+
+            </div>
+
+        </div>
+    </div>
+    <div title="参数列表" position="centerbottom">
+        <div style="padding:1px;">
+
+            <div id="grid2" style="margin-top:1px">
+
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+
+
+
+<style>
+    body {
+        overflow: hidden;
+    }
+
+    .lee-btn-small {
+        padding: 0 15px;
+    }
+
+
+
+    .lee-layout-content {
+        overflow: auto;
+        position: relative;
+    }
+</style>
+@section ExternalScripts{
+
+    <script src="~/Scripts/FrameWork/page.js"></script>
+    <script src="~/Scripts/FrameWork/ui.js"></script>
+    <script src="~/Scripts/CMP/edit.js"></script>
+}
+
+<script>
+
+</script>

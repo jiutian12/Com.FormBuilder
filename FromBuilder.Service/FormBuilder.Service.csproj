@@ -1,0 +1,116 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{98C6350B-E664-41D0-B7A0-312E5941A141}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>FormBuilder.Service</RootNamespace>
+    <AssemblyName>FormBuilder.Service</AssemblyName>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Newtonsoft.Json, Version=3.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\reldllFramework\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="NPoco">
+      <HintPath>..\..\refdll\NPoco.3.3.4\lib\net45\NPoco.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Account\AccountService.cs" />
+    <Compile Include="DM.Com\DataModelCom.cs" />
+    <Compile Include="DM.Com\DataModelEngine.cs" />
+    <Compile Include="DM.Com\DMSQL.cs" />
+    <Compile Include="DM.Com\DMTreeHelper.cs" />
+    <Compile Include="DM.Com\ISQLStrategy.cs" />
+    <Compile Include="DM.Com\MSSStrategy.cs" />
+    <Compile Include="DM.Com\MySqlStrategy.cs" />
+    <Compile Include="DS.Com\DataSourceCom.cs" />
+    <Compile Include="FBDataModelService.cs" />
+    <Compile Include="FBDataObjectService.cs" />
+    <Compile Include="FBCMPService.cs" />
+    <Compile Include="FBDBSettingService.cs" />
+    <Compile Include="FBCommonService.cs" />
+    <Compile Include="FBAccountService.cs" />
+    <Compile Include="FBModelSQLService.cs" />
+    <Compile Include="FBFileService.cs" />
+    <Compile Include="FBLog.cs" />
+    <Compile Include="FBMeta.cs" />
+    <Compile Include="FBFormService.cs" />
+    <Compile Include="FBDataSourceService.cs" />
+    <Compile Include="FBSmartHelpService.cs" />
+    <Compile Include="Impl\IFBAccountService.cs" />
+    <Compile Include="Impl\IFBCMPService.cs" />
+    <Compile Include="Impl\IFBModelSQLService.cs" />
+    <Compile Include="Impl\IFBFileService.cs" />
+    <Compile Include="Impl\IFBDataSourceService.cs" />
+    <Compile Include="Impl\IFBFormService.cs" />
+    <Compile Include="Impl\IFBSmartHelpService.cs" />
+    <Compile Include="Impl\IFBCommonService.cs" />
+    <Compile Include="Impl\IFBDataModelService.cs" />
+    <Compile Include="Impl\IFBDBSettingService.cs" />
+    <Compile Include="Impl\IFBDataObjectService.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\FormBuilder.Repository\FormBuilder.Repository.csproj">
+      <Project>{ff91e50d-d2f0-4d94-ad4e-e0f93aff30cc}</Project>
+      <Name>FormBuilder.Repository</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\FromBuilder.DataAccess\FormBuilder.DataAccess.csproj">
+      <Project>{B1848F6C-97F8-454E-BED0-ADDBC2C1258C}</Project>
+      <Name>FormBuilder.DataAccess</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\FromBuilder.Model\FormBuilder.Model.csproj">
+      <Project>{A1B7C964-A987-4E8E-8F58-68F067C0F097}</Project>
+      <Name>FormBuilder.Model</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\FromBuilder.Utilities\FormBuilder.Utilities.csproj">
+      <Project>{b310b0a3-6fdb-4393-a326-6c88ac8152af}</Project>
+      <Name>FormBuilder.Utilities</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="DM.Com\readme.txt" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

@@ -1,0 +1,63 @@
+﻿body {
+}
+
+
+.bg-normal-blue {
+    background: linear-gradient(to right, #347eff, #1ea3ff);
+}
+
+.bg-normal-blue1 {
+    background: linear-gradient(to right,#41b0f3,#3ecbf4);
+}
+
+.bg-normal-blue2 {
+    background: linear-gradient(to right,#44abf6,#2865e2);
+}
+
+.bg-transparent {
+    background: rgba(234,234,234,0.1);
+    border-color: rgba(234,234,234,0.23);
+    box-shadow: 0 5px 10px rgba(234,234,234,0.1) inset;
+}
+
+.bg-green {
+    background-image: linear-gradient(310deg, rgb(147, 173, 52), rgb(25, 138, 98));
+}
+
+.bg-green1 {
+    background-image: linear-gradient(160deg, rgb(86, 72, 193), rgb(111, 227, 231));
+}
+
+.bg-green2 {
+    background-image: linear-gradient(300deg, rgb(123, 67, 151), rgb(43, 133, 166));
+}
+
+.bg-green3 {
+    background-image: linear-gradient(300deg, rgb(134, 0, 115), rgb(79, 22, 112));
+}
+
+.bg-green4 {
+    background-image: linear-gradient(165deg, rgb(36, 133, 86), rgb(22, 34, 110));
+}
+
+.bg-green5 {
+    background-image: linear-gradient(195deg, rgb(209, 102, 69), rgb(19, 5, 46));
+}
+
+.bg-green6 {
+    background-image: linear-gradient(320deg, rgb(210, 60, 57), rgb(220, 167, 74));
+}
+
+.bg-green7 {
+    background-image: linear-gradient(160deg, rgb(127, 114, 128), rgb(0, 0, 0));
+}
+
+
+.bg-green1 {
+    background-image: linear-gradient(330deg, rgb(119, 207, 160), rgb(12, 43, 80));
+}
+
+
+.bg-green1 {
+    background-image: linear-gradient(300deg, rgb(41, 192, 219), rgb(17, 120, 194));
+}

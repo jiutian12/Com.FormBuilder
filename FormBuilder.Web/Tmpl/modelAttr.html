@@ -1,0 +1,336 @@
+<div class="lee-tab">
+    <ul class="lee-tab-header" style="padding-left: 10px;">
+        <li ng-class="{active: tab == 1}" ng-if="vm.type=='element'">
+            <a ng-click="setTab(1)"> 字段属性</a>
+        </li>
+        <li ng-class="{active: tab == 2}" ng-if="vm.type=='element'">
+            <a ng-click="setTab(2)"> 关联</a>
+        </li>
+        <li ng-class="{active: tab == 3}" ng-if="vm.type=='root'">
+            <a ng-click="setTab(3)"> 模型属性</a>
+        </li>
+        <li ng-class="{active: tab == 4}" ng-if="vm.type=='object'">
+            <a ng-click="setTab(4)"> 对象属性</a>
+        </li>
+    </ul>
+    <div class="lee-tab-body">
+        <div class="lee-tab-content" ng-if="tab== 1&&vm.type=='element'">
+            <div class="goup-list">
+                <div class="group-header">
+                    <span class="title">列属性</span>
+                    <a style="float: right;">
+                        <i class="icon iconfont icon-arrows_down"></i>
+                    </a>
+                </div>
+                <div class="group-info">
+                    <table class="prop_grid">
+                        <tr>
+                            <td class="readonly" style="width:100px;">
+                                字段标识
+                            </td>
+                            <td class="readonly">
+                                <span>{{vm.ele.elementid}}</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="readonly">
+                                字段编号
+                            </td>
+                            <td>
+                                <span>{{vm.ele.Code}}</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                字段名称
+                            </td>
+                            <td>
+                                <input type="text" ng-model="vm.ele.Name" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                字段标签
+                            </td>
+                            <td>
+                                <input type="text" ng-model="vm.ele.Label" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="readonly">
+                                数据类型
+                            </td>
+                            <td>
+                                <select ng-model='vm.ele.DatatType'>
+                                    <option value='string'>string</option>
+                                    <option value='bool'>bool</option>
+                                    <option value='decimal'>decimal</option>
+                                    <option value='date'>date</option>
+                                    <option value='datetime'>datetime</option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="readonly">
+                                长度
+                            </td>
+                            <td>
+                                <input type="number" ng-model='vm.ele.Length' />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="readonly">
+                                精度
+                            </td>
+                            <td>
+                                <input type="number" ng-model='vm.ele.Decimal' />
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="group-header">
+                    <span class="title">查询属性</span>
+                    <a style="float: right;">
+                        <i class="icon iconfont icon-arrows_down"></i>
+                    </a>
+                </div>
+                <div class="group-info">
+                    <table class="prop_grid">
+                        <tr>
+                            <td style="width:100px;">
+                                是否更新
+                            </td>
+                            <td>
+                                <input type="checkbox" ng-model='vm.ele.isUpdate' />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                是否列表
+                            </td>
+                            <td>
+                                <input type="checkbox" ng-model='vm.ele.isList' />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                是否卡片
+                            </td>
+                            <td>
+                                <input type="checkbox" ng-model='vm.ele.isCard' />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                是否虚字段
+                            </td>
+                            <td>
+                                <input type="checkbox" ng-model='vm.ele.isVirtual' ng-disabled="true" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="readonly">
+                                虚字段表达式
+                            </td>
+                            <td>
+                                <textarea ng-model='vm.ele.VirtualExpress' ng-disabled="!vm.ele.isVirtual" rows="4"></textarea>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="lee-tab-content" ng-if="tab== 4">
+            <div class="goup-list">
+                <div class="group-header">
+                    <span class="title">属性</span>
+                    <a style="float: right;">
+                        <i class="icon iconfont icon-arrows_down"></i>
+                    </a>
+                </div>
+                <div class="group-info">
+                    <table class="prop_grid">
+                        <tr>
+                            <td class="readonly" style="width:150px;">
+                                标识
+                            </td>
+                            <td class="readonly">
+                                <span>{{vm.object.objectID}}</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="readonly" style="width:150px;">
+                                数据对象编号
+                            </td>
+                            <td class="readonly">
+                                <span>{{vm.object.objectCode}}</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="readonly">
+                                数据对象名称
+                            </td>
+                            <td>
+                                <span>{{vm.object.objectName}}</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="readonly">
+                                标签
+                            </td>
+                            <td>
+
+                                <input type="text" ng-model="vm.object.Label" />
+
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="readonly">
+                                主键
+                            </td>
+                            <td>
+                                <span>{{vm.ele.Code}}</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="readonly">
+                                分级信息
+                            </td>
+                            <td>
+                                <span> </span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="readonly">
+                                过滤条件
+                            </td>
+                            <td>
+                                <span> </span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="readonly">
+                                默认排序
+                            </td>
+                            <td>
+                                <span> </span>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="group-header">
+                    <span class="title">时间戳</span>
+                    <a style="float: right;">
+                        <i class="icon iconfont icon-arrows_down"></i>
+                    </a>
+                </div>
+                <div class="group-info">
+                    <table class="prop_grid">
+                        <tr>
+                            <td style="width:150px;">
+                                最后修改人字段
+                            </td>
+                            <td>
+                                <input type="text" ng-model="vm.object.MuserField" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                最后修改时间字段
+                            </td>
+                            <td>
+                                <input type="text" ng-model="vm.object.MtimeField" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="readonly">
+                                创建人字段
+                            </td>
+                            <td>
+                                <input type="text" ng-model="vm.object.CuserField" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="readonly">
+                                创建时间字段
+                            </td>
+                            <td>
+                                <input type="text" ng-model="vm.object.CtimeField" />
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="lee-tab-content" ng-if="tab== 3">
+            <div class="goup-list">
+                <div class="group-header">
+                    <span class="title">基本属性</span>
+                    <a style="float: right;">
+                        <i class="icon iconfont icon-arrows_down"></i>
+                    </a>
+                </div>
+                <div class="group-info">
+                    <table class="prop_grid">
+                        <tr>
+                            <td class="readonly">
+                                模型标识
+                            </td>
+                            <td class="readonly">
+                                <span>{{vm.root.modelID}}</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                模型编号
+                            </td>
+                            <td>
+                                <input type="text" ng-model='vm.root.modelCode' />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                模型名称
+                            </td>
+                            <td>
+                                <input type="text" ng-model='vm.root.modelName' />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="readonly">
+                                创建时间
+                            </td>
+                            <td class="readonly">
+                                <span>{{vm.root.createTime}}</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="readonly">
+                                创建人
+                            </td>
+                            <td class="readonly">
+                                <span>{{vm.root.createUser}}</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="readonly">
+                                最后修改时间
+                            </td>
+                            <td class="readonly">
+                                <span>{{vm.root.lastModifyTime}}</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="readonly">
+                                最后修改人
+                            </td>
+                            <td class="readonly">
+                                <span>{{vm.root.lastModifyUser}}</span>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

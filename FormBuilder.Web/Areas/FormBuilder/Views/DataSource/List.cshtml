@@ -1,0 +1,152 @@
+﻿@{
+    Layout = "~/Areas/FormBuilder/Views/Layout/BaseListContainer.cshtml";
+    ViewBag.Title = "数据源管理";
+}
+<div id="btngroup">
+    <button class="lee-btn lee-btn-primary" id="btnaddChild">
+        <i class="lee-ion-person-add"></i>
+        <span>增加数据源</span>
+    </button>
+</div>
+<div class="filter_wrap">
+
+    <div class="search_wrap" style="padding: 0px 15px;">
+        <div class="lee-search-wrap">
+            <input id="txtkeyword" class="lee-search-words" type="text" placeholder="请输入查询关键字">
+            <button class="search lee-ion-search" id="btnSearch"></button>
+        </div>
+    </div>
+
+
+    <div class="order_wrap">
+
+    </div>
+</div>
+
+
+<div id="dialog_create" style="display:none;">
+    <div id="bottombar">
+        <table class="lee-table lee-form">
+            <tr>
+                <td>编号</td>
+                <td><input type="text" data-bind="Code" class="lee-input" id="txtCode"></td>
+                <td>名称</td>
+                <td><input type="text" data-bind="Name" class="lee-input" id="txtName"></td>
+            </tr>
+        </table>
+    </div>
+
+</div>
+
+
+<div id="listview" class="lee-list">
+</div>
+<style>
+    #listview {
+        overflow: auto;
+        padding: 10px;
+    }
+
+    .lee-listview-wrapper {
+        overflow: auto;
+    }
+
+    .lee-listview-pager {
+        margin-top: 10px;
+    }
+
+
+
+
+    /*工具栏*/
+    #btngroup {
+        padding: 5px 15px;
+        border-bottom: 1px solid #CCC;
+        margin-bottom: 10px;
+        /*background: #fbfbfb;*/
+        box-shadow: 1px 1px 6px rgba(185, 185, 185, 0.3);
+    }
+
+
+
+    /*添加模型dialog 样式Begin*/
+    #dialog_create #bottombar {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+    }
+
+    #dialog_create #bottombar .lee-form td {
+        border: 0;
+        border-top: 1px solid #DDD;
+    }
+
+    #object_list_view .lee-listivew {
+        position: absolute;
+        top: 0;
+        bottom: 37px;
+        left: 0;
+        right: 0;
+    }
+
+    #object_list_view .lee-listview-pager {
+        bottom: 0;
+        position: absolute;
+        margin-left: 10px;
+        left: 0;
+        right: 0;
+        margin-bottom: 5px;
+    }
+
+    #object_list_view .lee-listview-wrapper {
+        position: absolute;
+        top: 0;
+        right: 0;
+        left: 0;
+        bottom: 40px;
+    }
+
+
+    #object_list_view .box {
+        float: left;
+        padding: 10px;
+        border: 1px solid #DDD;
+        width: 100px;
+        font-size: 12px;
+        margin: 5px;
+        cursor: pointer;
+        text-align: center;
+    }
+
+    #object_list_view .box.active {
+        border: 1px solid #108ee9;
+        font-weight: bold;
+    }
+
+     .lee-panel-footer {
+        background: #FFF;
+    }
+
+    .prevgroup + .separator, .changepage, .changepage + .separator, .selectpagesize, .selectpagesize + .separator, .refreshgroup + .separator {
+        display: none;
+    }
+
+    .lee-panel-footer-inner .group .lee-bar-button {
+        border-color: transparent;
+    }
+
+    .lee-panel-footer-inner .group .lee-bar-button.lee-disabled {
+        border-color: transparent !important;
+        color: #4e4e4e !important;
+    }
+
+    .lee-grid .lee-grid-header, .lee-grid .lee-grid-hd-cell {
+        background: #FDFDFD;
+    }
+</style>
+@section ExternalScripts{
+    <script src="~/Scripts/FrameWork/page.js"></script>
+    <script src="~/Scripts/DS/list.js"></script>
+}
+

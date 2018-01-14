@@ -1,0 +1,70 @@
+﻿
+@{
+    Layout = "~/Areas/FormBuilder/Views/Layout/BaseListContainer.cshtml";
+    ViewBag.Title = "图标选择";
+}
+<style>
+    .iconbox {
+        float: left;
+        width: 40px;
+        /* height: 55px; */
+        padding: 4px;
+        margin: 3px;
+        cursor: pointer;
+        font-size: 18px;
+        transition: all ease .3s;
+    }
+
+    .iconbox:hover {
+        background: #DDD;
+    }
+
+    .iconbox.active {
+        background: #0e7fd1;
+        color: #FFF;
+    }
+
+    .iconbox .preview, .iconbox .description {
+        text-align: center;
+    }
+
+    #icons-list {
+    }
+
+    .lee-tab-content {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        overflow: auto;
+        top: 34px;
+    }
+
+    #icons-list .iconbox {
+        width: auto;
+    }
+
+    #icons-list .iconbox i {
+        height: 16px;
+        width: 16px;
+        display: block;
+        margin: 0 auto;
+    }
+</style>
+<div class="serarch-wrap">
+</div>
+<div id="tab" style="overflow:hidden;margin:3px;">
+    <div id="ionfont" title="字体图标">
+        <div id="iconfont-list">
+
+        </div>
+    </div>
+    <div id="icons" title="系统图标">
+        <div id="icons-list"></div>
+    </div>
+</div>
+
+@section ExternalScripts{
+    <script src="~/Scripts/Common/iconlist.js"></script>
+    <script src="~/Scripts/Common/iconselect.js"></script>
+}

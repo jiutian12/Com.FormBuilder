@@ -1,0 +1,222 @@
+﻿@{
+    Layout = "~/Areas/FormBuilder/Views/Layout/BaseListContainer.cshtml";
+    ViewBag.Title = "表单列表";
+}
+<div id="btngroup">
+    <button class="lee-btn lee-btn-primary" id="btnAddToolbar">
+        <i class="lee-ion-plus-round"></i>
+        <span>新建工具栏</span>
+    </button>
+    <button class="lee-btn lee-btn-primary" id="btnAddItem">
+        <i class="lee-ion-android-apps"></i>
+        <span>添加项(按钮)</span>
+    </button>
+    <button class="lee-btn lee-btn-danger" id="btnRemoveToolbar">
+        <i class="lee-ion-close"></i>
+        <span>删除</span>
+    </button>
+
+    <button class="lee-btn lee-btn-sucess" id="btnSave">
+        <i class="lee-ion-checkmark-round"></i>
+        <span>保存</span>
+    </button>
+    <span class="dropdown dropoptions ">
+        <button data-toggle="dropdown" class=" lee-btn" aria-expanded="true">
+            <i class="lee-ion-arrow-return-left"></i><span id="chooseField" style="margin-left:5px;">引入</span>
+            <i style="margin-left: 5px;margin-right:-5px;" class="lee-ion-android-arrow-dropdown"></i>
+        </button>
+        <ul class="dropdown-menu addToolbar">
+            <li>
+                <a href="#" data-id="0">卡片工具栏</a>
+            </li>
+            <li>
+                <a href="#" data-id="1">列表工具栏</a>
+            </li>
+            <li>
+                <a href="#" data-id="2">字典工具栏</a>
+            </li>
+            <li>
+                <a href="#" data-id="3">子表工具栏</a>
+            </li>
+            <li>
+                <a href="#" data-id="4">其他表单按钮</a>
+            </li>
+        </ul>
+    </span>
+</div>
+
+<style>
+    .lee-form td {
+        border-left: 0;
+        border-right: 0;
+        border-top: 0;
+    }
+
+    .lee-form .label {
+        background: #FFFFFF;
+    }
+
+    .preview {
+        float: left;
+        width: 28px;
+        height: 28px;
+        text-align: center;
+        line-height: 28px;
+        margin-right: 10px;
+        background: #e0e0e0;
+    }
+
+    .lee-tree .lee-tree-icon-none .icon-img {
+        color: #000;
+        line-height: 16px;
+        text-align: center;
+        background-color: #e0e0e0;
+    }
+</style>
+<div id="layout1" style="margin: 0 3px;">
+    <div position="left" title="工具条">
+        <div id="toolbartree"></div>
+    </div>
+    <div position="center">
+        <div id="modelattr" style="margin-top:5px">
+            <div style="padding: 10px;margin-top:15px;" id="FormEdit">
+                <form id="form" data-validator-option="{timely:0, theme:'yellow_top'}">
+                    <div id="container"></div>
+                    <table class="lee-form">
+                        <tr>
+                            <td class="label">
+                                编号
+                            </td>
+                            <td class="editor">
+                                <div style="display:none">
+                                    <input type="text" class='lee-input' data-bind="BarID" id='txtBarID'>
+                                    <input type="text" class='lee-input' data-bind="IsRoot" id='txtIsRoot'>
+                                    <input type="text" class='lee-input' data-bind="ID" id='txtID'>
+                                </div>
+                                <input type="text" class='lee-input ' data-msg-required="请填写编号"
+                                       data-rule="required" data-bind="PropName" id='txtPropName'>
+                            </td>
+                            <td class="label">
+                                名称
+                            </td>
+                            <td class="editor">
+                                <input type="text" class="lee-input" data-rule="required" data-bind="Text" id='txtText'>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="label">
+                                上级
+                            </td>
+                            <td class="editor">
+                                <input type="text" class='lee-input' data-bind="ParentID" id='txtParentID'>
+                            </td>
+                            <td class="label">
+                                类型
+                            </td>
+                            <td class="editor">
+                                <input type="text" class='lee-input' data-bind="BarType" id='txtBarType'>
+
+
+
+
+                                <div style="margin-top:5px;position:relative;" id="btnStyle">
+
+
+                                    <div style="width:120px;margin-left:60px;">
+                                        <input type="text" class='lee-input' data-bind="BtnStyle" id='txtBtnStyle'>
+                                    </div>
+                                    <div style="position:absolute;left:0px;top:5px;color:#f04134;">按钮样式</div>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr class="iconinfo">
+                            <td class="label">
+                                图标
+                            </td>
+                            <td class="editor">
+                                <div class="preview">
+                                </div>
+                                <input type="text" class='lee-input' data-bind="Icon" id='txtIcon' style="display:none;">
+                                <a class="lee-btn lee-btn-primary" id="btnOpenIconSelect">选择图标</a>
+                            </td>
+                            <td class="label">
+                                对齐方式
+                            </td>
+                            <td class="editor">
+
+                                <input type="text" class='lee-input' data-bind="Align" id='txtAlign'>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="label">
+                                点击/值改变事件
+                            </td>
+                            <td class="editor" colspan="3">
+
+                                <pre id="editor" style="height:240px;"></pre>
+                                <textarea class='lee-input ' style="height:40px;display:none;" data-bind="Func" id='Func'></textarea>
+                                @*<input type="text" class='lee-input' data-bind="Func" id='txtFunc'>*@
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="label">
+                                是否启用
+                            </td>
+                            <td class="editor">
+                                <input type="checkbox" class="lee-toggle-switch" data-bind="IsUsed" id='txIsUsed'>
+                                <label for="txIsUsed"></label>
+                            </td>
+                            <td class="label">
+                                排序
+                            </td>
+                            <td class="editor">
+                                <input type="text" class='lee-input' data-bind="Ord" id='txtOrd'>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="label">
+                                绑定状态机
+                            </td>
+                            <td class="editor">
+                                <span id="FSMName">@ViewData["FSMName"]</span>
+                                <input type="hidden" id="txtFSMID" value="@ViewData["FSMID"]" />
+                            </td>
+                            <td class="label">
+                                动作
+                            </td>
+                            <td class="editor">
+                                <input type="text" class='lee-input' data-bind="Action" id='txtAction'>
+                            </td>
+                        </tr>
+                    </table>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    /*工具栏*/
+    #btngroup {
+        padding: 5px 15px;
+        border-bottom: 1px solid #CCC;
+        margin-bottom: 5px;
+        /*background: #fbfbfb;*/
+        box-shadow: 1px ba(185 185,;
+        #ditor height: 250px;
+        width: 100width: 100%;
+        border: 1px solid #DDD;
+    }
+</style>
+@section ExternalScripts{
+    @Scripts.Render("~/Bundle/Scripts/Ace")
+    <script src="~/Scripts/FrameWork/page.js"></script>
+    <script src="~/Scripts/Common/global.js"></script>
+    <script src="~/Scripts/FRM/toolbar.js"></script>
+
+}
+
+<script>
+
+</script>
+

@@ -1,0 +1,4 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<module name="FunctionManageModule">
+  <bind service="Com.CF.FunctionManage.Api.IFunctionManageService, Com.CF.FunctionManage.Api" to="Com.CF.FunctionManage.Services.Impl.FunctionManageService, Com.CF.FunctionManage.Services" />
+</module>

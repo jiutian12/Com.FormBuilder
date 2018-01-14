@@ -1,0 +1,256 @@
+﻿@{
+    Layout = "~/Areas/FormBuilder/Views/Layout/BaseListContainer.cshtml";
+    ViewBag.Title = "数据模型SQL扩展";
+}
+<style>
+    input.n-invalid {
+        border: 1px solid #f04134 !important;
+    }
+
+    .lee-layout-left {
+        border-left: 0;
+        border-top: 0;
+        border-bottom: 0;
+    }
+
+    .lee-layout-center {
+        border-top: 0px;
+        border-right: 0px;
+        border-bottom: 0px;
+    }
+
+    .lee-layout-header {
+        display: none;
+    }
+
+    .lee-input:read-only {
+        background: #fbfbfb;
+    }
+
+    #ordWrap {
+        position: absolute;
+        top: 116px;
+        left: 233px;
+        z-index: 300;
+    }
+
+    #ordWrap div:first-child {
+        border-bottom: 1px solid #FFF;
+    }
+
+    #ordWrap div a {
+        display: block;
+        padding: 4px;
+        color: #FFF;
+        background: rgba(0, 0, 0, 0.7);
+    }
+
+    #ordWrap div a:focus, #ordWrap div a:hover {
+        background: rgba(0, 0, 0, 0.4);
+    }
+
+
+    .formattr {
+        position: absolute;
+        top: 20px;
+        width: 1000px;
+        left: 50%;
+        margin-left: -500px;
+        background: #FFF;
+        padding: 10px;
+        border: 1px solid #DDD;
+        box-shadow: 0 0 5px 1px rgba(0, 0, 0, 0.15);
+        transition: all ease .3s;
+        z-index: 1000;
+        transform: translateY(-110%);
+    }
+
+    .formattr .title .closeattr {
+        color: #DDDDDD;
+        font-size: 12px;
+        position: absolute;
+        right: 10px;
+        top: 5px;
+        cursor: pointer;
+    }
+
+    .formattr .title .closeattr:hover {
+        color: #a2a2a2;
+    }
+
+    .formattr.active {
+        display: block;
+        transform: translateY(0%);
+        top: 20px;
+    }
+
+    .text-muted {
+        color: #777;
+    }
+
+    .text-main,
+    a.text-main:hover,
+    a.text-main:focus {
+        color: #2b425b;
+        font-size: 16px;
+        margin-bottom: 10px;
+    }
+
+    p {
+        margin: 0 0 10px;
+    }
+
+    .media-body,
+    .media-left,
+    .media-right {
+        display: table-cell;
+        vertical-align: top;
+    }
+
+    .media-left {
+        margin-right: 4px;
+        padding: 2px;
+        padding-right: 10px;
+    }
+
+    .media-left i {
+        font-size: 26px;
+        color: #7d7d7d;
+    }
+
+    .btnline {
+        margin-left: 5px;
+        border-left: 1px solid #a9a9a9;
+        margin-right: 5px;
+    }
+
+    .lee-form .label, .lee-form td {
+        background: none;
+        border: none;
+    }
+
+    .lee-form .label {
+        text-align: right;
+    }
+
+    #gridList {
+        border: 0;
+    }
+</style>
+<div style="padding:5px;padding: 5px;border-bottom: 1px solid #CCC;background: #fbfbfb;">
+    <div id="btngroup">
+
+
+        <button class="lee-btn lee-btn-primary" id="btnAdd">
+            <i class=" lee-ion-plus-round"></i>
+            <span>添加</span>
+        </button>
+        <button class="lee-btn lee-btn-danger " id="btnDelete">
+            <i class="lee-ion-close"></i>
+            <span>删除</span>
+        </button>
+        <span class="btnline"></span>
+        <button class="lee-btn lee-btn-sucess" id="btnSave">
+            <i class="lee-ion-edit"></i>
+            <span>保存</span>
+        </button>
+    </div>
+    <div id="searchwrap"></div>
+</div>
+<div id="layout1">
+    <div position="left">
+        <div id="gridList"></div>
+    </div>
+    <div position="center">
+
+        <div title="SQL信息">
+            <div id="modelattr" style="margin-top:5px">
+                <div style="padding: 10px; " id="FormEdit">
+                    <form id="form" data-validator-option="{timely:0, theme:'yellow_top'}">
+                       
+                        <table class="lee-form">
+
+                            <tr>
+                                <td class="label">
+                                    主键
+                                </td>
+                                <td class="editor">
+                                    <input readonly="readonly" type="text" class='lee-input' data-rule="required" data-bind="ID" id='txtID'>
+                                </td>
+
+                            </tr>
+
+                            <tr>
+                                <td class="label">
+                                    触发方式
+
+                                </td>
+                                <td class="editor">
+                                    <input type="text" class='lee-input' data-rule="required" data-bind="ActionType" id='txtActionType'>
+                                </td>
+
+                            </tr>
+
+                            <tr>
+                                <td class="label">
+                                    说明
+                                </td>
+                                <td class="editor">
+                                    <input type="text" class='lee-input' data-bind="Tips" id='txtTips'>
+                                </td>
+
+                            </tr>
+                            <tr>
+                                <td class="label">
+                                    执行SQL
+                                </td>
+                                <td class="editor">
+                                    <pre id="editor" style="height:170px;border:1px solid #DDD;"></pre>
+                                    <textarea class='lee-input ' style="height:40px;display:none;" data-bind="SQLInfo" id='txtSQLInfo'></textarea>
+
+                                </td>
+
+                            </tr>
+                            <tr>
+                                <td class="label">
+                                    是否启用
+                                </td>
+                                <td class="editor">
+                                    <span>
+                                        <input type="checkbox" class="lee-toggle-switch" data-bind="IsUsed" id="chkIsUsed">
+                                        <label for="chkIsUsed"></label>
+                                    </span>
+                                </td>
+
+                            </tr>
+                        </table>
+                        <div class=" lee-alert warning " style="    margin-top: 5px; margin-bottom: 5px; margin-left: 108px; margin-right: 11px;    color: #F44336;">
+                            此功能为模型数据变化时触发的SQL动作，分为新增修改删除三个动作，可以写具体的操作sql，并且支持参数设置可以用【@@模型上主表的字段名】进行传参
+
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+
+
+
+    </div>
+</div>
+
+
+
+
+
+
+@section ExternalScripts{
+
+    @Scripts.Render("~/Bundle/Scripts/Ace")
+    <script src="~/Scripts/FrameWork/page.js"></script>
+    <script src="~/Scripts/Common/global.js"></script>
+    <script src="~/Scripts/DM/sql.js"></script>
+
+}
+
+

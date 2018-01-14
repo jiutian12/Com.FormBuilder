@@ -1,0 +1,14 @@
+*{
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  font-family:"微软雅黑";
+}
+body,h1,h2,div,p,ul,li,table,td,tr,th,h4{
+	margin: :0;
+	padding: 0;
+	margin: 0;
+	font-size: 14px;
+	font-family:"微软雅黑";
+	list-style: none;	
+}

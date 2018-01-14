@@ -1,0 +1,195 @@
+﻿
+@{
+    Layout = "~/Views/Layout/MainContainer.cshtml";
+    ViewBag.Title = "元数据管理";
+}
+
+<div ng-controller='basecontroller'>
+    <div class="lee-loader " ng-show='isloading'>
+        <div class="wrap">
+            <img src="~/css/images/ball-triangle.svg" width="50" />
+            <span>努力加载中</span>
+        </div>
+    </div>
+    <div class="lee-toolbar" style="z-index: 1000;">
+        <div class="lee-toolbar-left">
+            <a title="更换子对象" ng-click='consolejson()'><i class="fa fa-plus"></i><span>新建</span></a>
+            <a title="导入PowerDesign文件" ng-click='consolejson()'><i class="fa fa-file-o"></i><span>查看详情</span></a>
+        </div>
+    </div>
+    <div class="lee-layout">
+        <div class="left-nav fold">
+            <div style="height: 100%;position: relative;overflow: auto;z-index: 20;">
+
+            </div>
+            <div class="btn-fold-menu fold">
+                <i class="icon iconfont icon-arrows_left_double-  icon-arrows_right_double-"></i>
+            </div>
+        </div>
+        <div class="center-nav hideleft" style="padding: 5px 20px;margin-right: 0;">
+            <div class="searchbar" style="margin-left: 5px;margin-bottom: 10px;margin-top: 10px;">
+                <div class="lee-search ">
+                    <input data-input="" class="lee-search-words" type="text" placeholder="请输入查询关键字">
+
+                    <button data-search="" class="search fa fa-search"></button>
+                </div>
+
+            </div>
+            <style>
+                .listzoom {
+                    -webkit-animation: zoomIn .25s backwards;
+                    animation: zoomIn .25s backwards;
+                }
+            </style>
+            <div class="listinfo">
+                <div class="box-mode">
+                    <ul class="lee-list" ng-cloak>
+                        <li ng-cloak ng-repeat="item in metalist" class="listzoom" ng-style="{'animation-delay' : $index * 50 + 'ms'}">
+                            <div class="box">
+                                <span class="tag" ng-class="getTag(item.Type)">{{getTagName(item.Type)}}</span>
+                                <span class="label">
+                                    <a href="#">开发1</a>
+                                </span>
+                                <div class="centericon">
+                                    <i class="fa fa-object-group"></i>
+                                </div>
+                                <div class="cover-info">
+                                    <h4>{{item.Code}}</h4>
+                                    <small>{{item.Name}}</small>
+                                </div>
+                                <div>
+                                    <div class="date">
+                                        <small>{{item.LastModifyTime}}</small>
+                                    </div>
+                                    <div class="bar">
+                                        <a href="#" class="button"><i class="fa fa-cog"></i><span>修改</span></a>
+                                        <a href="#" class="button"><i class="fa fa-remove"></i><span>删除</span></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        @*<li>
+                                <div class="box">
+                                    <span class="tag object">数据对象</span>
+                                    <span class="label">
+                                        <a href="#">开发1</a>
+                                    </span>
+                                    <div class="centericon">
+                                        <i class="fa fa-table"></i>
+                                    </div>
+                                    <div class="cover-info">
+                                        <h4>DO_电子采购_供应商基本信息</h4>
+                                        <small>VmappInfo</small>
+                                    </div>
+                                    <div>
+                                        <div class="date">
+                                            <small>2019-01-01</small>
+                                        </div>
+                                        <div class="bar">
+                                            <a href="#" class="button"><i class="fa fa-cog"></i><span>修改</span></a>
+                                            <a href="#" class="button"><i class="fa fa-cog"></i><span>修改</span></a>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </li>
+                            <li>
+                                <div class="box">
+                                    <span class="tag model">数据模型</span>
+                                    <span class="label">
+                                        <a href="#">开发1</a>
+                                    </span>
+                                    <div class="centericon">
+                                        <i class="fa fa-th"></i>
+                                    </div>
+                                    <div class="cover-info">
+                                        <h4>DO_电子采购_供应商基本信息</h4>
+                                        <small>VmappInfo</small>
+                                    </div>
+                                    <div>
+                                        <div class="date">
+                                            <small>2019-01-01</small>
+                                        </div>
+                                        <div class="bar">
+                                            <a href="#" class="button"><i class="fa fa-cog"></i><span>修改</span></a>
+                                            <a href="#" class="button"><i class="fa fa-cog"></i><span>修改</span></a>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </li>
+                            <li>
+                                <div class="box">
+                                    <span class="tag comp">服务端构件</span>
+                                    <span class="label">
+                                        <a href="#">开发1</a>
+                                    </span>
+                                    <div class="centericon">
+                                        <i class="fa fa-cogs"></i>
+                                    </div>
+                                    <div class="cover-info">
+                                        <h4>DO_电子采购_供应商基本信息</h4>
+                                        <small>VmappInfo</small>
+                                    </div>
+                                    <div>
+                                        <div class="date">
+                                            <small>2019-01-01</small>
+                                        </div>
+                                        <div class="bar">
+                                            <a href="#" class="button"><i class="fa fa-cog"></i><span>修改</span></a>
+                                            <a href="#" class="button"><i class="fa fa-cog"></i><span>修改</span></a>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </li>
+                            <li>
+                                <div class="box">
+                                    <span class="tag help">智能帮助</span>
+                                    <span class="label">
+                                        <a href="#">开发1</a>
+                                    </span>
+                                    <div class="centericon">
+                                        <i class="fa fa-list-ol"></i>
+                                    </div>
+                                    <div class="cover-info">
+                                        <h4>DO_电子采购_供应商基本信息</h4>
+                                        <small>VmappInfo</small>
+                                    </div>
+                                    <div>
+                                        <div class="date">
+                                            <small>2019-01-01</small>
+                                        </div>
+                                        <div class="bar">
+                                            <a href="#" class="button"><i class="fa fa-cog"></i><span>修改</span></a>
+                                            <a href="#" class="button"><i class="fa fa-cog"></i><span>修改</span></a>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </li>*@
+                    </ul>
+                    <div style="margin-left: 5px;clear: both;margin-top: 10px;">
+
+                        <observe totalitems="pager.totalitems" itemsperpage="pager.itemsperpage"></observe>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--<div class="right-nav">
+            <div style="height: 100%;position: relative;overflow: auto;">
+
+            </div>
+            <div class="btn-fold-menu ">
+                <i class="icon iconfont icon-arrows_left_double-  icon-arrows_right_double-"></i>
+            </div>
+        </div>-->
+    </div>
+</div>
+
+
+@section ExternalScripts{
+
+    <script src="~/Scripts/META/meta.js"></script>
+}
+

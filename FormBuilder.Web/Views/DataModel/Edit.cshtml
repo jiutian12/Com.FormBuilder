@@ -1,0 +1,532 @@
+﻿@{
+    Layout = "~/Views/Layout/BaseListContainer.cshtml";
+    ViewBag.Title = "数据模型定义";
+}
+<style>
+    input.n-invalid {
+        border: 1px solid #f04134 !important;
+    }
+
+    .lee-layout-left {
+        border-left: 0;
+        border-top: 0;
+        border-bottom: 0;
+    }
+
+    .lee-layout-center {
+        border-top: 0px;
+        border-right: 0px;
+        border-bottom: 0px;
+    }
+
+    .lee-layout-header {
+        display: none;
+    }
+
+    .lee-input:read-only {
+        background: #fbfbfb;
+    }
+
+    #ordWrap {
+        position: absolute;
+        top: 116px;
+        left: 233px;
+        z-index: 300;
+    }
+
+    #ordWrap div:first-child {
+        border-bottom: 1px solid #FFF;
+    }
+
+    #ordWrap div a {
+        display: block;
+        padding: 4px;
+        color: #FFF;
+        background: rgba(0, 0, 0, 0.7);
+    }
+
+    #ordWrap div a:focus, #ordWrap div a:hover {
+        background: rgba(0, 0, 0, 0.4);
+    }
+
+
+    .formattr {
+        position: absolute;
+        top: 20px;
+        width: 1000px;
+        left: 50%;
+        margin-left: -500px;
+        background: #FFF;
+        padding: 10px;
+        border: 1px solid #DDD;
+        box-shadow: 0 0 5px 1px rgba(0, 0, 0, 0.15);
+        transition: all ease .3s;
+        z-index: 1000;
+        transform: translateY(-110%);
+    }
+
+    .formattr .title .closeattr {
+        color: #DDDDDD;
+        font-size: 12px;
+        position: absolute;
+        right: 10px;
+        top: 5px;
+        cursor: pointer;
+    }
+
+    .formattr .title .closeattr:hover {
+        color: #a2a2a2;
+    }
+
+    .formattr.active {
+        display: block;
+        transform: translateY(0%);
+        top: 20px;
+    }
+
+    .text-muted {
+        color: #777;
+    }
+
+    .text-main,
+    a.text-main:hover,
+    a.text-main:focus {
+        color: #2b425b;
+        font-size: 16px;
+        margin-bottom: 10px;
+    }
+
+    p {
+        margin: 0 0 10px;
+    }
+
+    .media-body,
+    .media-left,
+    .media-right {
+        display: table-cell;
+        vertical-align: top;
+    }
+
+    .media-left {
+        margin-right: 4px;
+        padding: 2px;
+        padding-right: 10px;
+    }
+
+    .media-left i {
+        font-size: 26px;
+        color: #7d7d7d;
+    }
+
+    .btnline {
+        margin-left: 5px;
+        border-left: 1px solid #a9a9a9;
+        margin-right: 5px;
+    }
+
+    }
+</style>
+<div style="padding:5px;padding: 5px;border-bottom: 1px solid #CCC;background: #fbfbfb;">
+    <div id="btngroup">
+        <button class="lee-btn" id="btnShowAttr">
+            <i class="lee-ion-settings"></i>
+            <span>属性</span>
+        </button>
+        <span class="btnline"></span>
+        <button class="lee-btn lee-btn-primary" id="btnaddChild">
+            <i class=" lee-ion-plus-round"></i>
+            <span>添加子对象</span>
+        </button>
+        <button class="lee-btn lee-btn-danger " id="btndelChild">
+            <i class="lee-ion-close"></i>
+            <span>删除子对象</span>
+        </button>
+        <span class="btnline"></span>
+
+        <button class="lee-btn lee-btn " id="btnImport">
+            <i class="lee-ion-android-share"></i>
+            <span>引入字段</span>
+        </button>
+        <button class="lee-btn lee-btn-primary " id="btnAddVCol">
+            <i class="lee-ion-plus-round"></i>
+            <span>添加虚字段</span>
+        </button>
+        <button class="lee-btn lee-btn-danger " id="btndelCol">
+            <i class="lee-ion-close"></i>
+            <span>删除字段</span>
+        </button>
+        <span class="btnline"></span>
+        <button class="lee-btn lee-btn-sucess" id="btnSave">
+            <i class="lee-ion-edit"></i>
+            <span>保存</span>
+        </button>
+    </div>
+    <div id="searchwrap"></div>
+</div>
+<div id="ordWrap">
+    <div class="">
+        <a href="#" class="upwrap lee-ion-android-arrow-up"></a>
+    </div>
+    <div class="">
+        <a href="#" class="downwrap lee-ion-android-arrow-down"></a>
+    </div>
+</div>
+<div id="layout1">
+    <div position="left">
+        <div id="modeltree"></div>
+
+
+    </div>
+    <div position="center">
+        <div class="tabinfo" id="tab" style="padding:5px 3px;">
+            <div title="字段配置">
+                <div id="grid" style="margin-top:5px">
+
+                </div>
+            </div>
+            <div title="基本属性">
+                <div id="modelattr" style="margin-top:5px">
+                    <div style="padding: 10px;margin-top:15px;" id="FormEdit">
+                        <form id="form" data-validator-option="{timely:0, theme:'yellow_top'}">
+                            <div id="container"></div>
+                            <table class="lee-form">
+                                <tr>
+                                    <td class="label">
+                                        编号
+                                    </td>
+                                    <td class="editor">
+                                        <input readonly="readonly" type="text" class='lee-input ' data-rule-password="[/^\d{6}$/, '请填写6位数字']"
+                                               data-msg-required="请填写数据源编号"
+                                               data-rule="required" data-bind="Code" id='txtCode'>
+                                    </td>
+                                    <td class="label">
+                                        名称
+                                    </td>
+                                    <td class="editor">
+                                        <input type="text" class='lee-input ' data-rule="required" data-bind="Name" id='txtName'>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td class="label">
+                                        标签
+
+                                    </td>
+                                    <td class="editor">
+                                        <input type="text" class='lee-input ' data-bind="Label" id='txtLabel'>
+                                    </td>
+                                    <td class="label">
+                                        主键字段
+                                    </td>
+                                    <td class="editor">
+                                        <input type="text" readonly="readonly" class='lee-input' data-bind="PKCOLName" id='txtPKCOLName'>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td class="label">
+                                        父对象
+                                    </td>
+                                    <td class="editor">
+                                        <input type="text" readonly="readonly" class='lee-input' data-bind="ParentObjectName" id='txtParentID'>
+                                    </td>
+                                    <td class="label">
+                                        关联条件
+                                    </td>
+                                    <td class="editor">
+                                        <input type="text" class='lee-input' data-bind="Condition" id='txtCondition'>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="label">
+                                        过滤条件
+                                    </td>
+                                    <td class="editor">
+                                        <input type="text" class='lee-input' data-bind="Filter" id='txtFilter'>
+                                    </td>
+                                    <td class="label">
+                                        分级信息
+                                    </td>
+                                    <td class="editor">
+                                        <input type="text" class='lee-input' data-bind="Tree" id='txtTree'>
+                                    </td>
+                                </tr>
+                                <tr>
+
+                                    <td class="label">
+                                        是否主表
+                                    </td>
+                                    <td class="editor" colspan="3">
+                                        <span>
+                                            <input type="checkbox" disabled="disabled" class="lee-toggle-switch" data-bind="isMain" id="chkIsUsed">
+                                            <label for="chkIsUsed"></label>
+                                        </span>
+                                    </td>
+                                </tr>
+                            </table>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div style="padding: 10px;display:none;" id="RelationEdit">
+
+    <form id="form1" data-validator-option="{timely:0, theme:'yellow_top'}">
+
+        <div id="container"></div>
+        <table class="lee-form">
+            <tr>
+                <td class="label">
+                    关联对象编号
+                </td>
+                <td class="editor">
+                    <input readonly="readonly" type="text" class='lee-input' data-bind="ObjectID" id='txtObjectID'>
+                </td>
+
+                <td class="label">
+                    关联对象名称
+                </td>
+                <td class="editor">
+                    <input readonly="readonly" type="text" class='lee-input' data-bind="ObjectName" id='txtObjectName'>
+                </td>
+
+            </tr>
+
+
+            <tr>
+                <td class="label">
+                    表别名
+                </td>
+                <td class="editor">
+                    <input type="text" class='lee-input' data-bind="ObjectLabel" id='txtObjectLabel'>
+                </td>
+                <td class="label">
+                    链接类型
+                </td>
+                <td class="editor">
+                    <input type="text" class='lee-input' data-bind="JoinType" id='txtJoinType'>
+                </td>
+            </tr>
+            <tr>
+                <td class="label">
+                    本表字段
+                </td>
+                <td class="editor">
+                    <input readonly="readonly" type="text" class='lee-input ' data-rule="required" data-bind="ModelObjectColCode" id='txtModelObjectColCode'>
+                </td>
+                <td class="label">
+                    关联条件
+                </td>
+                <td class="editor">
+                    <input type="text" class='lee-input ' data-rule="required" data-bind="Filter" id='txtFilter'>
+                </td>
+
+
+
+            </tr>
+        </table>
+
+    </form>
+    <div>
+        <div style="margin-bottom:10px;margin-top:10px;">
+            <button class="lee-btn lee-btn " id="btnImportRelObj">
+                <i class="lee-ion-android-share"></i>
+                <span>选择关联对象</span>
+            </button>
+            <button class="lee-btn lee-btn " id="btnImportRel">
+                <i class="lee-ion-android-share"></i>
+                <span>引入字段</span>
+            </button>
+            <button class="lee-btn lee-btn-danger " id="btndeleteRelationCol">
+                <i class="lee-ion-android-delete"></i>
+                <span>删除字段</span>
+            </button>
+
+
+        </div>
+    </div>
+    <div id="gridrelation" style="margin-top:10px"></div>
+</div>
+
+
+
+<div class='formattr'>
+    <div class='title' style="border-bottom: 1px solid #e4e4e4;">
+        <div class="media-left">
+            <i class="lee-ion-settings"></i>
+        </div>
+        <div class="media-body">
+            <span class="text-semibold text-lg text-main">模型属性</span>
+            <p class="text-muted text-sm">Customize Form layout, UIEngine, and color schemes.</p>
+        </div>
+        <a class="closeattr"><i class="fa fa-close"></i></a>
+    </div>
+    <div style="margin-top: 10px;">
+        <table class="lee-form">
+            <tbody>
+                <tr>
+                    <td class="label " style="width:100px;">
+                        标识
+                    </td>
+                    <td class="readonly">
+                        <input type="text" class='lee-input ' readonly data-bind="ID" id='txtID'>
+                    </td>
+                    <td class="label ">
+                        编号
+                    </td>
+                    <td>
+                        <input type="text" class='lee-input' data-rule="required" readonly data-bind="Code" id='txtCode'>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="label">
+                        名称
+                    </td>
+                    <td>
+                        <input type="text" class='lee-input ' data-rule="required" data-bind="Name" id='txtName'>
+                    </td>
+                    <td class="label">
+                        数据源
+                    </td>
+                    <td>
+                        <input type="text" class='lee-input ' data-rule="required" data-bind="DataSource" id='txtDataSource'>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="label">
+                        子对象保存方式
+                    </td>
+                    <td>
+                        <input type="text" class='lee-input' data-rule="required" data-bind="DetailSaveMode" id='txtDetailSaveMode'>
+                    </td>
+                    <td class="label">
+                        启用缓存
+                    </td>
+                    <td>
+                        <span>
+                            <input type="checkbox" class="lee-toggle-switch" data-bind="EnableCache" id="chkEnableCache">
+                            <label for="chkEnableCache"></label>
+                        </span>
+                    </td>
+                </tr>
+
+
+                <tr>
+                    <td class="label" style="line-height: 26px;">
+                        创建人
+                    </td>
+                    <td>
+                        <span data-bind="CreateUser"></span>
+                    </td>
+                    <td class="label">
+                        创建时间
+                    </td>
+                    <td class="readonly">
+                        <span data-bind="CreateTime"></span>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="label" style="line-height: 26px;">
+                        修改人
+                    </td>
+                    <td class="readonly">
+                        <span data-bind="LastModifyUser"></span>
+                    </td>
+                    <td class="label">
+                        修改时间
+                    </td>
+                    <td class="readonly">
+                        <span data-bind="LastModifyTime"></span>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+
+        <div>
+            <button style="float:right;margin-top: 6px;margin-left:5px;" id="btnHideAttr" class="lee-btn lee-btn-danger">关闭</button>
+            <button style="float:right;margin-top: 6px;" id="btnSaveAttr" class="lee-btn lee-btn-primary">保存</button>
+        </div>
+    </div>
+</div>
+<style>
+    ody {
+        overflow: hhidden;
+    }
+
+    .lee-btn-small {
+        padding: 0 15px;
+    }
+</style>
+@section ExternalScripts{
+    <script src="~/Scripts/FrameWork/ui.js"></script>
+    <script src="~/Scripts/DM/core.js"></script>
+    <script src="~/Scripts/DM/tree.js"></script>
+    <script src="~/Scripts/DM/card.js"></script>
+}
+
+
+<script>
+    $(function () {
+        $("#layout1").leeLayout({
+            leftWidth: 250
+        });
+        var tab = $("#tab").leeTab({
+        });
+
+
+        RelationMannger.initLayout();
+
+        TreeManager.refresh();
+        //DataService.getObjectList(BaseManger.getDataModelID()).done(function (data) {
+        //    if (data.res) {
+        //        TreeManager.refreshTree(data.data);
+        //    }
+        //}).fail(function (data) {
+        //    console.log(data);
+        //    //alert(data);
+        //});
+
+        var $injector = new $.leeUI.PopUp.TreeEditInjector({
+            width: 400, height: 300, getData: function () {
+                var arr = [];
+                $.each(CardManager.grid.getData(), function (i, val) {
+                    if (val.isRelated == "0")
+                        arr.push({ text: val.Name, id: val.Code });
+                });
+                return arr;
+            }, getValue: function () {
+                return $("#txtTree").leeUI().getValue();
+            }
+        });
+
+        $("#txtTree").leePopup({
+            onButtonClick: $.leeUI.PopUp.Lookup($injector),
+            onValuechange: function (row) {
+
+            }
+        });
+
+        var $injector2 = new $.leeUI.PopUp.FilterEditorInjector({
+            width: 800, height: 250, getValue: function () {
+                return $("#txtFilter").leeUI().getValue();
+            }, getFields: function () {
+                var data = CardManager.grid.getData();
+                console.log(data);
+                var arr = [];
+                $.each(data, function (i, obj) {
+                    arr.push({ id: obj.Code, text: obj.Name });
+                });
+                return arr;
+                //return [{ id: "d", text: "dsaf" }];
+            }
+        });
+
+        $("#txtFilter").leePopup({ onButtonClick: $.leeUI.PopUp.Lookup($injector2) });
+    });
+</script>

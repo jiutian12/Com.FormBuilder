@@ -1,0 +1,145 @@
+﻿@{
+    Layout = "~/Areas/FormBuilder/Views/Layout/BaseListContainer.cshtml";
+    ViewBag.Title = "查看引用";
+}
+
+
+<div class="view_wrap" style=" margin-left:10px;margin-top:10px;margin-bottom:15px;">
+    <span style="font-size:14px;display:inline-block;padding-left:10px;padding-right:10px; border-left:2px solid #0094ff">查看依赖引用</span>
+    <div class="lee-btn-group" data-toggle="buttons" style="font-size:14px;">
+
+        <label class="lee-btn active" style="font-size:14px;">
+            <i class="lee-ion-ios-keypad"></i>依赖
+            <input type="radio" name="options" value="0" autocomplete="off">
+        </label>
+        <label class="lee-btn " style="font-size:14px;">
+            <i class="lee-ion-navicon"></i>被依赖
+            <input type="radio" name="options" value="1" autocomplete="off">
+        </label>
+    </div>
+</div>
+<div id="grid" style="margin-top:5px"></div>
+
+
+
+
+<script>
+
+
+    (function (window, $) {
+        function ListManger() {
+            this.init();
+        }
+        ListManger.prototype = {
+            init: function () {
+
+            },
+            getParam: function () {
+                var res = [];
+                res.push({ name: "keyword", value: "" });
+                var val = $("input[name='options']:checked").val();
+                res.push({ name: "type", value: val });
+
+                res.push({ name: "id", value: this.getQuery("dataid") });
+                return res;
+            },
+            bind: function () {
+                var g = this;
+                $("input[name='options']").change(function () {
+                    g.refresh();
+                });
+
+                $("body").on("click", "#grid .gridmodify", function (e) {
+                    var grid = $(this).closest(".lee-ui-grid").leeUI();
+
+                    var row = $(this).closest(".lee-grid-row");
+                    var rowobj = grid.getRow(row.attr("id").split("|")[2]);
+
+                    var id = rowobj.id;
+                    var type = rowobj.type;
+                    var url = "";
+                    if (type == "0") {
+                        url = "DataObject/Edit?dataid=";
+                    }
+                    if (type == "1") {
+                        url = "DataModel/Edit?dataid=";
+                    }
+                    if (type == "2") {
+                        url = "SmartHelp/Edit?dataid=";
+                    }
+                    if (type == "3") {
+
+                        url = "Form/Edit?dataid=";
+                    }
+                    if (type == "5") {
+                        url = "Form/DataSource?dataid=";
+                    }
+                    fBulider.core.window.open("", "查看元数据", _global.sitePath + "/" + url + id);
+
+                })
+            },
+            getQuery: function (key) {
+                var search = location.search.slice(1); //得到get方式提交的查询字符串
+                var arr = search.split("&");
+                for (var i = 0; i < arr.length; i++) {
+                    var ar = arr[i].split("=");
+                    if (ar[0] == key) {
+                        if (unescape(ar[1]) == 'undefined') {
+                            return "";
+                        } else {
+                            return unescape(ar[1]);
+                        }
+                    }
+                }
+                return "";
+            },
+            initLayout: function () {
+                this.initGrid();
+                this.bind();
+            },
+            refresh: function () {
+                this.grid.loadData(true);
+            },
+            initGrid: function () {
+                this.grid = $("#grid").leeGrid({
+                    columns: this.getColumns(),
+                    fixedCellHeight: true,
+                    alternatingRow: false,
+                    url: _global.sitePath + '/Form/GetDependence',
+                    dataAction: 'server', //服务器排序
+                    usePager: true,       //服务器分页
+                    height: "100%",
+                    checkbox: true,
+                    parms: $.proxy(this.getParam, this),
+                    rownumbers: true,
+                    rowHeight: 30
+                });
+            },
+            getColumns: function () {
+                return [
+                    { display: '元数据ID', name: 'id', align: 'left', width: 240, minWidth: 60 },
+                    { display: '名称', name: 'name', minWidth: 120, width: 140 },
+                    { display: '类型', name: 'lx', minWidth: 120, width: 140 },
+                    {
+                        display: '操作', width: 90, render: function (g) {
+                            return "<button class='lee-btn lee-btn-primary lee-btn-xs gridmodify'>查看</button> ";
+                        }
+                    }
+                ];
+            }
+        }
+        window.DBListManger = new ListManger();
+
+    })(window, $);
+
+
+
+
+
+    $(function () {
+
+        DBListManger.initLayout();
+
+
+    });
+</script>

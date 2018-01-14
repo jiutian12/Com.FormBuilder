@@ -1,0 +1,40 @@
+﻿
+@{
+    Layout = "~/Areas/FormBuilder/Views/Layout/BaseListContainer.cshtml";
+    ViewBag.Title = "引入数据源";
+}
+
+
+<div class="filter_wrap" style="overflow:auto;">
+
+    <div class="search_wrap" style="padding: 5px 15px;float:left;">
+
+        <div class="lee-search-wrap" style="float:left;">
+            <input id="txtkeyword" class="lee-search-words" type="text" placeholder="请输入查询关键字">
+            <button class="search lee-ion-search" id="btnSearch"></button>
+        </div>
+        <button class="lee-btn lee-btn-primary" id="btnSave" style="margin-left:15px;">
+            <i class="lee-ion-edit"></i>
+            <span>引入</span>
+        </button>
+        <button class="lee-btn lee-btn-danger" id="btnDelete" style="margin-left:5px;">
+            <i class="lee-ion-edit"></i>
+            <span>删除</span>
+        </button>
+        
+    </div>
+
+</div>
+<div id="tab" style="margin:4px;    overflow: hidden;">
+    <div title="已引入数据源" tabid="import">
+        <div id="grid1" style="margin-top:3px;"></div>
+    </div>
+    <div title="未引入" tabid="notImport">
+        <div id="grid2" style="margin-top:3px;"></div>
+    </div>
+</div>
+@section ExternalScripts{
+    @Scripts.Render("~/Bundle/Scripts/Ace")
+    <script src="~/Scripts/FrameWork/page.js"></script>
+    <script src="~/Scripts/FRM/dsinfo.js"></script>
+}

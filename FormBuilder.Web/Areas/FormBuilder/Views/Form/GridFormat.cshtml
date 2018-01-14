@@ -1,0 +1,259 @@
+﻿@{
+    ViewBag.Title = "格式化单元格";
+    Layout = "~/Areas/FormBuilder/Views/Layout/BaseListContainer.cshtml";
+}
+<style>
+    .lee-radiolist-table td {
+        font-size: 12px;
+        padding: 5px;
+    }
+
+    .choose_options {
+        border-bottom: 1px solid #DDD;
+        box-shadow: 3px 2px 8px 0px #efefefd9;
+    }
+
+    .render_format, .render_code {
+        position: absolute;
+        top: 33px;
+        bottom: 0;
+        left: 0;
+        right: 0;
+    }
+
+    .render_format .options {
+        position: absolute;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        width: 200px;
+        border-right: 1px solid #DDD;
+    }
+
+    .render_format .options li {
+        border-bottom: 1px solid #DDD;
+        padding: 8px;
+        cursor: pointer;
+        transition: all ease .3s;
+    }
+
+    .render_format .options li:hover {
+        background: #FBFBFB;
+    }
+
+    .render_format .options li.active {
+        background: #0094ff;
+        color: #FFF;
+    }
+
+    .render_format .options_content {
+        position: absolute;
+        top: 0;
+        right: 0;
+        left: 201px;
+        bottom: 0;
+        overflow: auto;
+    }
+
+    .table {
+        border-spacing: 0;
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+    .table td {
+        padding: 8px;
+        border: 1px dashed #DDD;
+        border-spacing: 0;
+        border-collapse: collapse;
+    }
+
+    .table td:first-child {
+        width: 140px;
+        text-align: center;
+        background: #FBFBFB;
+    }
+
+    .title {
+        font-size: 13px;
+        border-left: 2px solid #0094ff;
+        padding-left: 5px;
+        margin-bottom: 10px;
+        margin-top: 10px;
+    }
+
+    #editor1, #editor2 {
+        height: 150px;
+    }
+
+    #editor {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        margin: 0;
+    }
+
+    .contentinfo {
+        margin: 15px;
+        display: none;
+    }
+
+    .contentinfo.active {
+        display: block;
+    }
+
+    .input {
+        width: 120px;
+        padding: 3px 4px;
+        outline: none;
+        border: 1px solid #cccccc;
+        box-shadow: 0 1px 5px rgba(0, 0, 0, 0.05) inset;
+    }
+
+    .img_preview {
+        background: #fbfbfb;
+        border: 1px solid #DDD;
+        height: 20px;
+        width: 20px;
+        display: inline-block;
+    }
+
+    .handle {
+        cursor: pointer;
+        padding: 3px;
+    }
+
+    .handle:hover {
+        background: #DDD;
+    }
+
+    .grid .item {
+        padding: 10px;
+        position: relative;
+        border-bottom: 1px dashed #DDD;
+    }
+
+    .grid > div {
+        border-bottom: 1px dashed #DDD;
+    }
+
+    .grid > div:last-child {
+        border-bottom: 0;
+    }
+
+    .iconinfo {
+        display: inline-block;
+        background: #DDD;
+        line-height: 24px;
+        padding-left: 5px;
+        padding-right: 5px;
+        position: absolute;
+        top: 11px;
+        margin-left: 5px;
+        width: 26px;
+        height: 26px;
+    }
+
+    .linktr {
+        display: none;
+    }
+</style>
+
+<div>
+    <div class="choose_options" style="position:relative;">
+        <label style="position:absolute;top:7px;left:3px;">格式化类型</label>
+        <div style="display: inline-block;margin-left: 75px;"><input id="formatType" type="text"></div>
+    </div>
+
+    <div class="render_code" style="display:none;">
+        <pre id="editor">function(rowdata, rowindex, value, column){}</pre>
+    </div>
+
+    <div class="render_format">
+        <div>
+            <ul class="options">
+                <li class="active" data-toogle="number">数字</li>
+                <li data-toogle="date">日期</li>
+                <li data-toogle="enum">枚举</li>
+                <li data-toogle="none">无</li>
+            </ul>
+
+            <div class="options_content">
+                <div class="contentinfo number active">
+                    <h1 class=" title">数字</h1>
+                    <table class="table">
+                        <tr>
+                            <td>数字精度</td>
+                            <td><div style="width:200px;"><input type="text" data-bind="number_decimal" id="txt_number_decimal" class="input-text" placeholder="输入精度" /></div></td>
+                        </tr>
+                        <tr>
+                            <td>千分位</td>
+                            <td><input type="checkbox" data-bind="number_isthousand" id="txt_number_isthousand" /></td>
+                        </tr>
+                    </table>
+
+                </div>
+                <div class="contentinfo date">
+                    <h1 class=" title">日期</h1>
+                    <table class="table">
+                        <tr>
+                            <td>掩码</td>
+                            <td><input type="text" style="width:200px;" data-bind="date_mask" id="txt_date_mask" class="input-text" placeholder="输入格式掩码" /></td>
+                        </tr>
+
+                    </table>
+                </div>
+                <div class="contentinfo enum">
+                    <h1 class=" title">枚举</h1>
+
+                    <div class="grid" style="width:500px;border:1px dashed #DDD;min-height:20px;">
+                        <div class="item1" style="padding:10px;">
+                            <button class="lee-btn lee-btn-primary lee-btn-xs add"><i class="lee-ion-plus"></i>添加</button>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="contentinfo none">
+
+                </div>
+                <div class="link" style="margin:15px;">
+                    <h1 class=" title">超链接</h1>
+                    <table class="table">
+
+                        <tr>
+                            <td>是否启用超链接</td>
+                            <td><input type="checkbox" id="chk_islink" /></td>
+                        </tr>
+                        <tr class="linktr">
+                            <td>点击事件</td>
+                            <td>
+                                <pre id="editor1">function(rowdata,column){}
+                                </pre>
+                            </td>
+                        </tr>
+                        <tr class="linktr">
+                            <td>
+                                <span class="titleinfo" title="支持简单的return 一个值作为hover提示</br>也支持 jqueryDeferred对象返回一个promise">鼠标hover事件</span>
+                                <i class="lee-ion-information titleinfo" title="var defer = $.Deferred();</br>defer.resolve({data:'加载内容'});</br>return defer.promise();"></i>
+                            </td>
+                            <td>
+                                <pre id="editor2"></pre>
+                            </td>
+                        </tr>
+                    </table>
+
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+@section ExternalScripts{
+    @Scripts.Render("~/Bundle/Scripts/Ace")
+    <script src="~/Scripts/FRM/gridformat.js"></script>
+}

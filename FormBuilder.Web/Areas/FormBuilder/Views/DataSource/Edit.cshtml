@@ -1,0 +1,231 @@
+﻿@{
+    Layout = "~/Areas/FormBuilder/Views/Layout/BaseListContainer.cshtml";
+    ViewBag.Title = "帮助配置";
+}
+<style>
+    input.n-invalid {
+        border: 1px solid #f04134 !important;
+    }
+
+    .lee-layout-left {
+        border-left: 0;
+        border-top: 0;
+        border-bottom: 0;
+    }
+
+    .lee-layout-right {
+        border-right: 0;
+        border-top: 0;
+        border-bottom: 0;
+    }
+
+    .lee-layout-center {
+        border-top: 0px;
+        border-left: 0px;
+        border-bottom: 0px;
+    }
+
+    .lee-layout-collapse-right {
+        border-top: 0;
+    }
+
+    .lee-input:read-only {
+        background: #fbfbfb;
+    }
+
+    #editor {
+        height: 250px;
+        width: 100%;
+        border: 1px solid #DDD;
+    }
+
+    body {
+        overflow-y: auto !important;
+    }
+</style>
+<div style="padding:5px;padding: 5px;border-bottom: 1px solid #CCC;background: #fbfbfb;">
+    <div id="btngroup">
+        <button class="lee-btn " id="btnAddRow">
+            <i class="lee-ion-plus"></i>
+            <span>添加字段</span>
+        </button>
+        <button class="lee-btn lee-btn-danger" id="btnDelete">
+            <i class="lee-ion-android-remove"></i>
+            <span>删除字段</span>
+        </button>
+        <button class="lee-btn lee-btn-primary" id="btnSave">
+            <i class="lee-ion-edit"></i>
+            <span>保存</span>
+        </button>
+        <button class="lee-btn lee-btn-primary" id="btnPreview">
+            <i class="lee-ion-edit"></i>
+            <span>调试运行</span>
+        </button>
+    </div>
+    <div id="searchwrap"></div>
+
+</div>
+<div id="messagewrap"></div>
+<div id="layout1" style="margin:4px;">
+
+    <div title="基本属性" tabid="base">
+        <div class="group-info" style="padding:5px;">
+            <form id="form" data-validator-option="{timely:0, theme:'yellow_top'}">
+                <table class="lee-form">
+                    <tbody>
+                        <tr>
+                            <td class="label " style="width:100px;">
+                                标识
+                            </td>
+                            <td class="readonly" colspan="3">
+                                <input type="text" class='lee-input ' readonly data-bind="ID" id='txtID'>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="label ">
+                                编号
+                            </td>
+                            <td>
+                                <input type="text" class='lee-input' data-rule="required" data-bind="Code" id='txtCode'>
+                            </td>
+                            <td class="label">
+                                名称
+                            </td>
+                            <td>
+                                <input type="text" class='lee-input ' data-rule="required" data-bind="Name" id='txtName'>
+                            </td>
+                        </tr>
+
+
+                        <tr>
+                            <td class="label ">
+                                数据源类型
+                            </td>
+                            <td>
+                                <input type="text" class='lee-input ' data-rule="required" data-bind="DsType" id='txtDsType'>
+                            </td>
+                            <td class="label ">
+                                数据源编号
+                            </td>
+                            <td>
+                                <input type="text" class='lee-input ' data-bind="DsCode" id='txtDsCode'>
+                                <input type="text" class='lee-input ' style="display:none;" data-bind="Group" id='txtGroup'>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td class="label">
+                                分级信息
+                            </td>
+                            <td class="editor">
+                                <input type="text" class='lee-input' data-bind="Tree" id='txtTree'>
+                            </td>
+                            <td class="label">
+                                是否更新 <i class="lee-ion-help-circled" id="tipIsUpdate" title="如果是sql业务类更新数据需勾选，一般处理比如 (提交审核 审核通过 更新状态等业务)" style="font-size: 14px; margin-left: 5px;"></i>
+                            </td>
+                            <td class="editor">
+                                <span>
+                                    <input type="checkbox" class="lee-toggle-switch" data-bind="IsUpdate" id="chkIsUpdate">
+                                    <label for="chkIsUpdate"></label>
+                                </span>
+                            </td>
+
+                        </tr>
+                        <tr class="container" id="con_sql">
+                            <td class="label ">
+                                SQL/Proc
+                            </td>
+                            <td colspan="3">
+
+                                <pre id="editor"></pre>
+                                <textarea class='lee-input ' style="display:none; height:60px;" data-bind="SqlInfo" id='txtSqlInfo'></textarea>
+                            </td>
+                        </tr>
+                        <tr class="container" id="con_dll">
+                            <td class="label ">
+                                Assembly
+                            </td>
+                            <td colspan="3">
+                                <textarea class='lee-input ' style="height:40px;" data-bind="Reflect" id='txtReflect'></textarea>
+                            </td>
+                        </tr>
+                        <tr class="container" id="con_url">
+
+                            <td class="label ">
+                                Web远程地址
+                            </td>
+                            <td colspan="3">
+                                <textarea class='lee-input ' style="height:40px;" data-bind="RemoteURL" id='txtRemoteURL'></textarea>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="label">
+                                创建人
+                            </td>
+                            <td>
+                                <span data-bind="CreateUser"></span>
+                            </td>
+                            <td class="label">
+                                创建时间
+                            </td>
+                            <td class="readonly">
+                                <span data-bind="CreateTime"></span>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td class="label">
+                                修改人
+                            </td>
+                            <td class="readonly">
+                                <span data-bind="LastModifyUser"></span>
+                            </td>
+                            <td class="label">
+                                修改时间
+                            </td>
+                            <td class="readonly">
+                                <span data-bind="LastModifyTime"></span>
+                            </td>
+                        </tr>
+
+                    </tbody>
+                </table>
+            </form>
+        </div>
+    </div>
+    <div title="字段信息" tabid="grid">
+        <div style="padding:1px;">
+
+            <div id="grid" style="margin-top:1px">
+
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+
+
+
+<style>
+    body {
+        overflow: hidden;
+    }
+
+    .lee-btn-small {
+        padding: 0 15px;
+    }
+</style>
+@section ExternalScripts{
+    @Scripts.Render("~/Bundle/Scripts/Ace")
+    <script src="~/Scripts/FrameWork/page.js"></script>
+    <script src="~/Scripts/FrameWork/ui.js"></script>
+    <script src="~/Scripts/DS/edit.js"></script>
+}
+<script>
+
+
+
+
+</script>

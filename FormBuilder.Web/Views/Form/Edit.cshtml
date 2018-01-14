@@ -1,0 +1,1593 @@
+﻿@{
+    Layout = "~/Views/Layout/FormDesignContainer.cshtml";
+    ViewBag.Title = "表单设计器";
+}
+<div class="toolbar">
+    <a href="#" id='btnLock' title="锁定布局"><i class="fa fa-lock"></i></a>
+    <span class="separator"></span>
+    <a href="#" id='btnFormAttr'><i class="fa fa-cog"></i><span>表单属性</span></a>
+    <a href="#" id='btnToolBar'><i class="fa fa-server"></i><span>工具条</span></a>
+    <a href="#" id='btnDefVal'><i class="fa fa-server"></i><span>默认值</span></a>
+    <a href="#" id='btnDataSource'><i class="fa fa-save"></i><span>自定义数据源</span></a>
+    <a href="#" id='btnSave'><i class="fa fa-save"></i><span>保存</span></a>
+    <a href="#" id='btnCode'><i class="fa fa-amazon"></i><span>生成代码</span></a>
+    <a href="#" id='btnPreview'><i class="fa fa-search"></i><span>预览</span></a>
+    <a href="#" id='btnreLoadForm'><i class="fa fa-refresh"></i><span>重新加载</span></a>
+
+    <span class="separator"></span>
+    <span style="margin-left: 10px;">区域布局</span>
+    <div style="margin-left:5px;display: inline-block;  font-size: 12px;"><input id='chooseregion' value="Center" type="text"></div>
+    <span class="dropdown dropoptions ">
+        <button data-toggle="dropdown" style="padding: 3px 5px;border-radius: 0;border: 0;" class=" lee-btn" aria-expanded="true"><span id="chooseField">更多</span><i style="margin-left: 5px;" class="lee-ion-android-arrow-dropdown"></i></button>
+        <ul class="dropdown-menu">
+            <li>
+                <a href="#" id="btnUserScript">自定义代码</a>
+            </li>
+            <li>
+                <a href="#" id="btnViewDataModel">数据模型</a>
+            </li>
+            <li>
+                <a href="#" id="btnViewDP">查看依赖</a>
+            </li>
+        </ul>
+    </span>
+</div>
+<div class="design-wrap">
+    <div class="left-nav">
+        <ul class="toolbox">
+
+            <ul>
+                <div class="mainlayout" style="padding: 0;">
+
+                    <!-- Nav tabs -->
+                    <ul class="nav nav-tabs" role="tablist">
+                        <li role="presentation" class="active">
+                            <a href="#home" aria-controls="home" role="tab" data-toggle="tab">布局</a>
+                        </li>
+                        <li role="presentation">
+                            <a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">控件</a>
+                        </li>
+                    </ul>
+
+                    <!-- Tab panes -->
+                    <div class="tab-content">
+                        <div role="tabpanel" class="tab-pane active" id="home">
+                            <ul class="toolbox-container">
+                                <li areatype='1'>
+                                    <div class="preview">
+                                    </div>
+                                    <span class="title">流表单布局</span>
+                                </li>
+                                <li areatype='2'>
+                                    <div class="preview">
+                                    </div>
+                                    <span class="title">表格布局</span>
+                                </li>
+
+                                <li areatype='9'>
+                                    Tab流布局
+                                </li>
+
+                                <li areatype='1'>
+                                    1
+                                </li>
+                                <li areatype='2'>
+                                    1:1
+                                </li>
+                                <li areatype='3'>
+                                    1:2
+                                </li>
+                                <li areatype='4'>
+                                    2:1
+                                </li>
+                                <li areatype='5'>
+                                    1:1:1
+                                </li>
+                                <li areatype='6'>
+                                    3:1
+                                </li>
+                                <li areatype='7'>
+                                    1:3
+                                </li>
+                                <li areatype='8'>
+                                    1:1:1:1
+                                </li>
+                            </ul>
+
+                        </div>
+                        <div role="tabpanel" class="tab-pane" id="profile">
+                            <ul class="controllbox-container">
+                                <div class='item' areatype='input' controltype="input">
+                                    <div class="preview">
+                                    </div>
+                                    <span class="title">文本框</span>
+                                </div>
+                                <div class='item' areatype='input' controltype="textarea">
+                                    <div class="preview">
+                                    </div>
+                                    <span class="title">多行文本</span>
+                                </div>
+                                <div class='item' areatype='input' controltype="dropdown">
+                                    <div class="preview">
+                                    </div>
+                                    <span class="title">下拉框</span>
+                                </div>
+                                <div class='item' areatype='input' controltype="date">
+                                    <div class="preview">
+                                    </div>
+                                    <span class="title">日期</span>
+                                </div>
+                                <div class='item' areatype='input' controltype="lookup">
+                                    <div class="preview">
+                                    </div>
+                                    <span class="title">帮助</span>
+                                </div>
+                                <div class='item' areatype='input' controltype="file">
+                                    <div class="preview">
+                                    </div>
+                                    <span class="title">附件</span>
+                                </div>
+                                <div class='item' areatype='input' controltype="grid">
+                                    <div class="preview">
+                                    </div>
+                                    <span class="title">表格</span>
+                                </div>
+                                <div class='item' areatype='input' controltype="checkbox">
+                                    <div class="preview">
+                                    </div>
+                                    <span class="title">复选框【暂未实现】</span>
+                                </div>
+                                <div class='item' areatype='input' controltype="radio">
+                                    <div class="preview">
+                                    </div>
+                                    <span class="title">单选框【暂未实现】</span>
+                                </div>
+                                <div class='item' areatype='input' controltype="bar">
+                                    <div class="preview">
+                                    </div>
+                                    <span class="title">工具条</span>
+                                </div>
+                                <div class='item' areatype='input' controltype="button">
+                                    <div class="preview">
+                                    </div>
+                                    <span class="title">按钮</span>
+                                </div>
+                                <div class='item' areatype='input' controltype="tree">
+                                    <div class="preview">
+                                    </div>
+                                    <span class="title">树</span>
+                                </div>
+                            </ul>
+                        </div>
+
+                    </div>
+
+                </div>
+    </div>
+    <div class="center-nav">
+
+    </div>
+
+</div>
+
+<div class='formattr'>
+    <div class='title' style="border-bottom: 1px solid #e4e4e4;">
+        <div class="media-left">
+            <i class="lee-ion-settings"></i>
+        </div>
+        <div class="media-body">
+            <span class="text-semibold text-lg text-main">表单全局设置</span>
+            <p class="text-muted text-sm">Customize Form layout, UIEngine, and color schemes.</p>
+        </div>
+        <a class="closeattr"><i class="fa fa-close"></i></a>
+    </div>
+    <div style="margin-top: 10px;">
+        <div class="col-sm-7 common-set" style="padding:15px;padding-right: 30px;">
+            <div>
+                <div class="line">
+                    <span class="title">启用WebSocket</span>
+                    <span class="set">
+                        <input type="checkbox" class="toggle-switch" id='attr_websocket'>
+                        <label for="attr_websocket"></label>
+                    </span>
+                </div>
+                <div class="line">
+                    <span class="title">启用区域布局</span>
+                    <span class="set">
+                        <input type="checkbox" class="toggle-switch" id='attr_region'>
+                        <label for="attr_region"></label>
+                    </span>
+                </div>
+
+                <div class="line">
+                    <span class="title">表单基类型</span>
+                    <span class="set">
+                        <input type="text" id='attr_formtype'>
+                    </span>
+                </div>
+
+                <div class="line">
+                    <span class="title">主题配色</span>
+                    <span class="set">
+                        <input type="text" id='attr_theme'>
+                    </span>
+                </div>
+                <div class="line">
+                    <span class="title">绑定模型</span>
+                    <span class="set">
+                        <input type="text" id='attr_datamodel'>
+                    </span>
+                </div>
+                <div class="line">
+                    <span class="title">业务对象</span>
+                    <span class="set">
+                        <input type="text" id='attr_bizobject'>
+                    </span>
+                </div>
+                <div class="line">
+                    <span class="title">表单引擎</span>
+                    <span class="set">
+                        <input type="text" id='attr_engine'>
+                    </span>
+                </div>
+                <div class="line">
+                    <span class="title">状态机</span>
+                    <span class="set">
+                        <input type="text" id='attr_fsmid'>
+                    </span>
+                </div>
+            </div>
+            <!--1.表单类型
+            2.UI引擎
+            3.JS引擎
+            4.。。。-->
+        </div>
+        <div class='region-set col-sm-5' style="padding: 15px;background-color: #f5f6f8;">
+            <div>
+                <p class="text-semibold text-main ">布局显示</p>
+                <div class="line">
+                    <span class="title">Left</span>
+                    <span class="set">
+                        <span>
+                            <span>宽度</span>
+                            <input type="text" class="input-text width" id='attr_l_width' />
+                            <span>标题</span>
+                            <input type="text" class="input-text" placeholder="无则不填" id='attr_l_title' />
+
+                        </span>
+                        <input type="checkbox" class="toggle-switch" id='attr_show_l'>
+                        <label for="attr_show_l"></label>
+                    </span>
+                </div>
+                <div class="line">
+                    <span class="title">Right</span>
+                    <span class="set">
+                        <span>
+                            <span>宽度</span>
+                            <input type="text" class="input-text width" id='attr_r_width' />
+                            <span>标题</span>
+                            <input type="text" class="input-text" placeholder="无则不填" id='attr_r_title' />
+
+                        </span>
+                        <input type="checkbox" class="toggle-switch" id='attr_show_r'>
+                        <label for="attr_show_r"></label>
+                    </span>
+                </div>
+                <div class="line">
+                    <span class="title">Top</span>
+                    <span class="set">
+                        <span>
+                            <span>标题</span>
+                            <input type="text" class="input-text" placeholder="无则不填" id='attr_t_title' />
+                        </span>
+                        <input type="checkbox" class="toggle-switch" id='attr_show_t'>
+                        <label for="attr_show_t"></label>
+                    </span>
+
+                </div>
+                <div class="line">
+                    <span class="title">Bottom</span>
+                    <span class="set">
+                        <span>
+                            <span>标题</span>
+                            <input type="text" class="input-text" placeholder="无则不填" id='attr_b_title' />
+                        </span>
+                        <input type="checkbox" class="toggle-switch" id='attr_show_b'>
+                        <label for="attr_show_b"></label>
+                    </span>
+                </div>
+                <div class="line">
+                    <span class="title">Center</span>
+                    <span class="set">
+                        <span>
+                            <span>标题</span>
+                            <input type="text" class="input-text" placeholder="无则不填" id='attr_c_title' />
+                        </span>
+                        <input type="checkbox" class="toggle-switch" id='attr_show_c'>
+                        <label for="attr_show_c"></label>
+                    </span>
+                </div>
+                <div class="line">
+                    <span class="title">CenterBottom</span>
+                    <span class="set">
+                        <input type="checkbox" class="toggle-switch" id='attr_show_cb'>
+                        <label for="attr_show_cb"></label>
+                    </span>
+                </div>
+
+                <div class="line">
+                    <span class="">FixedTop（固定头部）</span>
+                    <span class="set">
+                        <input type="checkbox" class="toggle-switch" id='attr_fix_t'>
+                        <label for="attr_fix_t"></label>
+                    </span>
+                </div>
+                <div class="line">
+                    <span class="">FixedBottom（固定底部）</span>
+                    <span class="set">
+                        <input type="checkbox" class="toggle-switch" id='attr_fix_b'>
+                        <label for="attr_fix_b"></label>
+                    </span>
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+</div>
+<div class="region-wrap">
+    <div class="layout-tree"></div>
+    <div class="layout-sort"></div>
+</div>
+<div class="aside columnattr">
+    <div class="aside-container mainlayout">
+        <ul class="nav nav-tabs" role="tablist">
+            <li role="presentation" class="active">
+                <a href="#home" aria-controls="home" role="tab" data-toggle="tab">属性</a>
+            </li>
+            <li role="presentation" class="">
+                <a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">事件</a>
+            </li>
+            <i class="hidepanel fa fa-close" onclick="hidePanel('column')"></i>
+        </ul>
+        <div class="tab-content">
+            <div role="tabpanel" class="tab-pane active" id="home">
+                <style>
+                    .propgrid {
+                        width: 100%;
+                        margin-top: 1px;
+                    }
+
+                    .propgrid .title {
+                        width: 90px;
+                        background: #fbfbfb;
+                    }
+
+                    .propgrid td,
+                    .propgrid th {
+                        padding: 5px 5px;
+                        border: 1px solid #DDD;
+                        font-size: 12px;
+                    }
+
+                    .propgrid th {
+                        background: #fbfbfb;
+                        padding: 7px 5px;
+                    }
+
+                    .propgrid li {
+                        border-bottom: 1px solid #DDD;
+                        padding: 0px 0px;
+                    }
+
+                    .propgrid li .left {
+                        width: 60px;
+                        display: inline-block;
+                        padding-right: 5px;
+                        padding-top: 5px;
+                        padding-bottom: 5px;
+                        text-align: right;
+                        border-right: 1px solid #DDD;
+                    }
+
+                    .propgrid .input {
+                        width: 100%;
+                        padding: 3px 4px;
+                        outline: none;
+                        border: 1px solid #cccccc;
+                        box-shadow: 0 1px 5px rgba(0, 0, 0, 0.05) inset;
+                    }
+
+                    .noborder {
+                        border: 0;
+                        margin: 0;
+                        border: 1px dashed #DDD;
+                    }
+
+                    .noborder .table-item {
+                        border: 0;
+                    }
+
+                    .fixed {
+                        position: absolute;
+                        top: 0;
+                        right: 0;
+                        bottom: 0;
+                        left: 0;
+                    }
+
+                    .lee-layout-left .lee-layout-content {
+                        position: absolute;
+                        top: 32px;
+                        bottom: 0;
+                        left: 0;
+                        right: 0;
+                    }
+
+                    .lee-layout-top .lee-layout-content {
+                        position: absolute;
+                        top: 0px;
+                        bottom: 0;
+                        left: 0;
+                        right: 0;
+                    }
+                </style>
+                <div>
+
+                    <table class="propgrid">
+                        <tr>
+                            <th>
+                                属性
+                            </th>
+                            <th>
+                                值
+                            </th>
+                        </tr>
+                        <tr>
+                            <td class="title">id</td>
+                            <td><span class="value" id='col_id'>laout000001</span></td>
+                        </tr>
+                        <tr>
+                            <td class="title">type</td>
+                            <td><span class="value" id='col_type'>列</span></td>
+                        </tr>
+                        <tr>
+                            <td class="title">auto</td>
+                            <td>
+                                <input type="checkbox" id='col_auto' />
+                            </td>
+                        </tr>
+                        <tr style="display:none;">
+                            <td class="title">border</td>
+                            <td>
+                                <input type="checkbox" id='col_border' />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="title">fill</td>
+                            <td>
+                                <input type="checkbox" id='col_fill' />
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td class="title">height</td>
+                            <td>
+                                <input class="input" type="text" id='col_height' />
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td class="title">minheight</td>
+                            <td>
+                                <input class="input" type="text" id='col_minheight' />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="title">title</td>
+                            <td>
+                                <input class="input" type="text" id='col_title' />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="title">showtitle</td>
+                            <td>
+                                <input type="checkbox" id='col_showtitle' />
+
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td class="title">formstyle</td>
+                            <td>
+                                <select class="input" id="col_formstyle">
+                                    <option value="0">默认</option>
+                                    <option value="1">无边框</option>
+                                    <option value="2">查询条件</option>
+                                </select>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td class="title">是否查询区域</td>
+                            <td>
+                                <input type="checkbox" id='col_isqry' />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="title">作用数据源</td>
+                            <td>
+                                <input type="text" class="input" id='col_dsid' />
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+
+            </div>
+            <div role="tabpanel" class="tab-pane " id="profile">
+                <table class="propgrid">
+                    <tr>
+                        <th>
+                            属性
+                        </th>
+                        <th>
+                            值
+                        </th>
+                    </tr>
+
+                    <tr>
+                        <td class="title">onBeforeInit</td>
+                        <td>
+                            <input id='col_onBeforeInit' class="input" type="text" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="title">onAfterInit</td>
+                        <td>
+                            <input id='col_onAfterInit' class="input" type="text" />
+                        </td>
+                    </tr>
+                </table>
+            </div>
+
+        </div>
+    </div>
+</div>
+<div class="aside inputattr">
+    <div class="aside-container mainlayout">
+        <ul class="nav nav-tabs" role="tablist">
+            <li role="presentation" class="active">
+                <a href="#inputhome" aria-controls="home" role="tab" data-toggle="tab">属性</a>
+            </li>
+            <li role="presentation" class="">
+                <a href="#eventlistener" aria-controls="profile" role="tab" data-toggle="tab">事件</a>
+            </li>
+            <li role="presentation" class="">
+                <a href="#extend" aria-controls="defvalue" role="tab" data-toggle="tab">扩展</a>
+            </li>
+            <li role="presentation" class="">
+                <a href="#formula" aria-controls="defvalue" role="tab" data-toggle="tab">公式</a>
+            </li>
+            <i class="hidepanel fa fa-close" onclick="hidePanel('input')"></i>
+        </ul>
+        <div class="tab-content">
+            <div role="tabpanel" class="tab-pane active" id="home">
+
+                <div>
+
+                    <table class="propgrid">
+                        <tr>
+                            <th>
+                                属性
+                            </th>
+                            <th>
+                                值
+                            </th>
+                        </tr>
+                        <tr>
+                            <td class="title">id</td>
+                            <td><span class="value" id='txt_id'></span></td>
+                        </tr>
+                        <tr>
+                            <td class="title">type</td>
+                            <td>
+                                <select class="input" id='txt_type'>
+                                    <option value="input">文本框</option>
+                                    <option value="textarea">多行文本</option>
+                                    <option value="date">日期</option>
+                                    <option value="number">数值</option>
+                                    <option value="dropdown">下拉</option>
+                                    <option value="lookup">帮助</option>
+                                    <option value="checkbox">复选框</option>
+                                    <option value="radio">单选框</option>
+                                    <option value="file">附件</option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="title"><span title='控件的标题信息'></span>label</td>
+                            <td><input id='txt_label' class="input" type="text" /></td>
+                        </tr>
+                        <tr class='tr_main'>
+                            <td class="title">colspan</td>
+                            <td>
+                                <select class="input" id='txt_colspan'>
+                                    <option value="1">1栏（100%）</option>
+
+                                    <option value="2">2栏（50%）</option>
+
+                                    <option value="3">3栏（33.33%）</option>
+                                    <option value="4">4栏（25%）</option>
+                                    <option value="5">5栏（20%）</option>
+                                    <option value="8">8栏（12.5%）</option>
+                                    <option value="10">10栏（10%）</option>
+                                    <option value="20">20栏（5%）</option>
+
+                                    <option value="60">常用栏（60%）</option>
+                                    <option value="45">常用（45%）</option>
+                                    <option value="30">常用（30%）</option>
+
+
+                                </select>
+
+                        </tr>
+                        <tr>
+                            <td class="title">required</td>
+                            <td><input id='txt_required' type="checkbox" /></td>
+                        </tr>
+                        <tr>
+                            <td class="title">readonly</td>
+                            <td><input id='txt_readonly' type="checkbox" /></td>
+                        </tr>
+                    </table>
+
+                    <div class="propgroup">
+                        <h4 class="arrow_label">绑定信息</h4>
+                        <i class="fa fa-angle-down toggle"></i>
+                    </div>
+                    <table class="propgrid">
+                        <tr>
+                            <td class="title">bindtable</td>
+                            <td><input id='txt_bindtable' class="input" type="text" /></td>
+                        </tr>
+                        <tr>
+                            <td class="title">bindfield</td>
+                            <td><input id='txt_bindfield' class="input" type="text" /></td>
+                        </tr>
+
+                    </table>
+
+
+                </div>
+                <style>
+                    #control_eidtor .mul {
+                        display: none;
+                    }
+                </style>
+                <div id="control_eidtor">
+                    <div class="ed_warp" id="ed_checkbox_warp">
+                        <div class="propgroup">
+                            <h4 class="arrow_label">复选框编辑器</h4>
+                            <i class="fa fa-angle-down toggle"></i>
+                        </div>
+                        <table class="propgrid">
+
+                            <tr>
+                                <td class="title">ismul</td>
+                                <td><input id='ed_checkbox_ismul' type="checkbox" /></td>
+                            </tr>
+                            <tr class="mul">
+                                <td class="title">source</td>
+                                <td><input id='ed_checkbox_source' class="input" type="text" /></td>
+                            </tr>
+                            <tr class="mul dm">
+                                <td class="title">datasource</td>
+                                <td><input id='ed_checkbox_datasource' class="input" type="text" /></td>
+                            </tr>
+                            <tr class="mul dm">
+                                <td class="title">filter</td>
+                                <td><input id='ed_checkbox_filter' class="input" type="text" /></td>
+                            </tr>
+                            <tr class=" mul dm">
+                                <td class="title">order</td>
+                                <td><input id='ed_checkbox_order' class="input" type="text" /></td>
+                            </tr>
+                            <tr class="mul dm">
+                                <td class="title">keyfield</td>
+                                <td><input id='ed_checkbox_keyfield' class="input" type="text" /></td>
+                            </tr>
+                            <tr class="mul dm">
+                                <td class="title">valfield</td>
+                                <td><input id='ed_checkbox_valfield' class="input" type="text" /></td>
+                            </tr>
+                            <tr class="mul str">
+                                <td class="title">jsonstring</td>
+                                <td><input id='ed_checkbox_jsonstring' class="input" type="text" /></td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div class="ed_warp" id="ed_radio_warp">
+                        <div class="propgroup">
+                            <h4 class="arrow_label">单选框编辑器</h4>
+                            <i class="fa fa-angle-down toggle"></i>
+                        </div>
+                        <table class="propgrid">
+                            <tr>
+                                <td class="title">source</td>
+                                <td><input id='ed_radio_source' class="input" type="text" /></td>
+                            </tr>
+                            <tr class="dm">
+                                <td class="title">datasource</td>
+                                <td><input id='ed_radio_datasource' class="input" type="text" /></td>
+                            </tr>
+                            <tr class="dm">
+                                <td class="title">filter</td>
+                                <td><input id='ed_radio_filter' class="input" type="text" /></td>
+                            </tr>
+                            <tr class="dm">
+                                <td class="title">order</td>
+                                <td><input id='ed_radio_order' class="input" type="text" /></td>
+                            </tr>
+                            <tr class="dm">
+                                <td class="title">keyfield</td>
+                                <td><input id='ed_radio_keyfield' class="input" type="text" /></td>
+                            </tr>
+                            <tr class="dm">
+                                <td class="title">valfield</td>
+                                <td><input id='ed_radio_valfield' class="input" type="text" /></td>
+                            </tr>
+                            <tr class="str">
+                                <td class="title">jsonstring</td>
+                                <td><input id='ed_radio_jsonstring' class="input" type="text" /></td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div class="ed_warp" id="ed_dropdown_warp">
+                        <div class="propgroup">
+                            <h4 class="arrow_label">下拉框编辑器</h4>
+                            <i class="fa fa-angle-down toggle"></i>
+                        </div>
+                        <table class="propgrid">
+                            <tr>
+                                <td class="title">source</td>
+                                <td><input id='ed_dropdown_source' class="input" type="text" /></td>
+                            </tr>
+                            <tr class="dm">
+                                <td class="title">datasource</td>
+                                <td><input id='ed_dropdown_datasource' class="input" type="text" /></td>
+                            </tr>
+                            <tr class="dm">
+                                <td class="title">filter</td>
+                                <td><input id='ed_dropdown_filter' class="input" type="text" /></td>
+                            </tr>
+                            <tr class="dm">
+                                <td class="title">order</td>
+                                <td><input id='ed_dropdown_order' class="input" type="text" /></td>
+                            </tr>
+                            <tr class="dm">
+                                <td class="title">keyfield</td>
+                                <td><input id='ed_dropdown_keyfield' class="input" type="text" /></td>
+                            </tr>
+                            <tr class="dm">
+                                <td class="title">valfield</td>
+                                <td><input id='ed_dropdown_valfield' class="input" type="text" /></td>
+                            </tr>
+                            <tr class="str">
+                                <td class="title">jsonstring</td>
+                                <td><input id='ed_dropdown_jsonstring' class="input" type="text" /></td>
+                            </tr>
+                            <tr>
+                                <td class="title">ismul</td>
+                                <td><input id="ed_dropdown_ismul" type="checkbox"></td>
+                            </tr>
+                            <tr>
+                                <td class="title">issuggest</td>
+                                <td><input id="ed_dropdown_issuggest" type="checkbox"></td>
+                            </tr>
+                            <tr>
+                                <td class="title">islabel</td>
+                                <td><input id="ed_dropdown_islabel" type="checkbox"></td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div class="ed_warp" id="ed_file_warp">
+                        <div class="propgroup">
+                            <h4 class="arrow_label">附件控件</h4>
+                            <i class="fa fa-angle-down toggle"></i>
+                        </div>
+                        <table class="propgrid">
+
+                            <tr>
+                                <td class="title">是否多选</td>
+                                <td><input id="ed_file_ismul" type="checkbox"></td>
+                            </tr>
+                            <tr>
+                                <td class="title">卡片模式</td>
+                                <td><input id="ed_file_iscard" type="checkbox"></td>
+                            </tr>
+                            <tr>
+                                <td class="title">图片预览</td>
+                                <td><input id="ed_file_ispreview" type="checkbox"></td>
+                            </tr>
+                            <tr>
+                                <td class="title">文件类型过滤</td>
+                                <td>
+                                    <textarea id="ed_file_ext" class="input" style="height:40px;"></textarea>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="title">按钮文字</td>
+                                <td>
+                                    <input id='ed_file_buttontext' class="input" type="text" />
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div class="ed_warp" id="ed_date_warp">
+                        <div class="propgroup">
+                            <h4 class="arrow_label">日期控件</h4>
+                            <i class="fa fa-angle-down toggle"></i>
+                        </div>
+                        <table class="propgrid">
+                            <tr>
+                                <td class="title">format</td>
+                                <td><input id='ed_date_format' class="input" type="text" /></td>
+                            </tr>
+                            <tr>
+                                <td class="title">valueformat</td>
+                                <td><input id='ed_date_valueformat' class="input" type="text" /></td>
+                            </tr>
+                            <tr>
+                                <td class="title">showtime</td>
+                                <td><input id="ed_date_showtime" type="checkbox"></td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div class="ed_warp" id="ed_number_warp">
+                        <div class="propgroup">
+                            <h4 class="arrow_label">数值控件</h4>
+                            <i class="fa fa-angle-down toggle"></i>
+                        </div>
+                        <table class="propgrid">
+                            <tr>
+                                <td class="title">精度</td>
+                                <td><input id='ed_number_decimal' class="input" type="text" /></td>
+                            </tr>
+
+                            <tr>
+                                <td class="title">千分位</td>
+                                <td><input id="ed_number_thousand" type="checkbox"></td>
+                            </tr>
+                        </table>
+                    </div>
+
+                    <div class="ed_warp" id="ed_textarea_warp">
+                        <div class="propgroup">
+                            <h4 class="arrow_label">多行文本</h4>
+                            <i class="fa fa-angle-down toggle"></i>
+                        </div>
+                        <table class="propgrid">
+                            <tr>
+                                <td class="title">高度</td>
+                                <td><input id='ed_textarea_height' class="input" type="text" /></td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div class="ed_warp" id="ed_lookup_warp">
+                        <div class="propgroup">
+                            <h4 class="arrow_label">帮助控件</h4>
+                            <i class="fa fa-angle-down toggle"></i>
+                        </div>
+                        <table class="propgrid">
+                            <tr>
+                                <td class="title" width="90">帮助字典</td>
+                                <td><input id='ed_help_helpdict' class="input" type="text" /></td>
+                            </tr>
+                            <tr>
+                                <td class="title">绑定字段</td>
+                                <td><input id='ed_help_bindfield' class="input" type="text" /></td>
+                            </tr>
+                            <tr>
+                                <td class="title">编号字段</td>
+                                <td><input id='ed_help_codefield' class="input" type="text" /></td>
+                            </tr>
+                            <tr>
+                                <td class="title">字段映射</td>
+                                <td><input id='ed_help_fieldmap' class="lee-btn lee-btn-primary" type="button" value='配置' /> </td>
+                            </tr>
+                            <tr>
+                                <td class="title">过滤条件</td>
+                                <td><input id='ed_help_filter' class="input" type="text" /> </td>
+                            </tr>
+                            <tr>
+                                <td class="title">弹窗高度</td>
+                                <td><input id='ed_help_dialogheight' class="input" type="text" /> </td>
+                            </tr>
+                            <tr>
+                                <td class="title">弹窗宽度</td>
+                                <td><input id='ed_help_dialogwidth' class="input" type="text" /> </td>
+                            </tr>
+                            <tr>
+                                <td class="title">启用编号检索</td>
+                                <td> <input id="ed_help_nameswitch" type="checkbox"></td>
+                            </tr>
+                            <tr>
+                                <td class="title">是否多选</td>
+                                <td> <input id="ed_help_ismul" type="checkbox"></td>
+                            </tr>
+                            <tr>
+                                <td class="title">明细带出多行</td>
+                                <td> <input id="ed_help_ismulgrid" type="checkbox"></td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+
+            </div>
+            <div role="tabpanel" class="tab-pane " id="profile">
+                <table class="propgrid">
+                    <tr>
+                        <th>
+                            属性
+                        </th>
+                        <th>
+                            值
+                        </th>
+                    </tr>
+
+                    <tr>
+                        <td class="title">onBlur</td>
+                        <td>
+                            <input id='txt_onBlur' class="input" type="text" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="title">onFocus</td>
+                        <td>
+                            <input id='txt_onFocus' class="input" type="text" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="title">onChange</td>
+                        <td>
+                            <input id='txt_onChange' class="input" type="text" />
+                        </td>
+                    </tr>
+                </table>
+            </div>
+
+            <div role="tabpanel" class="tab-pane " id="defvalue">
+
+                <div class="propgroup">
+                    <h4 class="arrow_label">校验</h4>
+                    <i class="fa fa-angle-down toggle"></i>
+                </div>
+
+                @*<table class="propgrid">
+                        <tr>
+
+
+                            <td class="title" title="默认值类型">deftype</td>
+                            <td><input id='txt_deftype' class="input" type="text" /></td>
+                        </tr>
+                        <tr>
+                            <td class="title" title="默认值">defvalue</td>
+                            <td><input id='txt_defvalue' class="input" type="text" /></td>
+                        </tr>
+                    </table>*@
+                <style>
+                    .setrules li {
+                        padding: 5px;
+                        border: 1px solid #DDD;
+                        margin: 4px;
+                        border-radius: 3px;
+                    }
+
+
+
+                    .setrules li .handlebar {
+                        float: right;
+                        color: #616161;
+                        margin-right: 5px;
+                        width: 20px;
+                        text-align: center;
+                    }
+
+                    .setrules li.nodata {
+                        border: 1px dotted #DDD;
+                        padding: 5px;
+                        background: #e8e8e8;
+                    }
+
+                    .setrules li .handlebar:hover {
+                        color: #000;
+                        background: #CCC;
+                    }
+                </style>
+                <div style="border-top:1px solid #DDD;"></div>
+                <div style="margin:4px;">
+                    <div class="dropdown dropoptions ">
+                        <button data-toggle="dropdown" class=" lee-btn lee-btn-primary" aria-expanded="true"><span id="chooseField">添加规则</span><i style="margin-left: 5px;" class="lee-ion-android-arrow-dropdown"></i></button><div class="dropdown-backdrop"></div>
+                        <ul class="dropdown-menu" id="checkrules_dropdown"></ul>
+                    </div>
+                </div>
+                <div style="border: 1px dashed #DDD;">
+                    <ul class="setrules">
+                        @*<li>最大长度(40)<a href="#" class="handlebar lee-ion-android-delete"></a><a href="#" class="handlebar lee-ion-edit"></a></li>*@
+
+
+                    </ul>
+                </div>
+
+                <div class="propgroup">
+                    <h4 class="arrow_label">查询条件</h4>
+                    <i class="fa fa-angle-down toggle"></i>
+                </div>
+                <table class="propgrid">
+                    <tbody>
+                        <tr>
+                            <td class="title">参与过滤</td>
+                            <td> <input id='txt_filter' type="checkbox" /></td>
+                        </tr>
+                        <tr>
+                            <td class="title">依据字段</td>
+                            <td><input id='txt_filterfield' class="input" type="text" /> </td>
+                        </tr>
+                        <tr>
+                            <td class="title">比较方式</td>
+                            <td>
+                                <select class="input" id='txt_filtertype'>
+                                    <option value="0">=</option>
+                                    <option value="1">全匹配</option>
+                                    <option value="2">左匹配</option>
+                                    <option value="3">右匹配</option>
+                                    <option value="4">IN</option>
+                                </select>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="aside gridattr">
+    <div class="aside-container mainlayout">
+        <ul class="nav nav-tabs" role="tablist">
+            <li role="presentation" class="active">
+                <a href="#home" aria-controls="home" role="tab" data-toggle="tab">属性</a>
+            </li>
+            <li role="presentation" class="">
+                <a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">事件</a>
+            </li>
+            <i class="hidepanel fa fa-close" onclick="hidePanel('grid')"></i>
+        </ul>
+        <div class="tab-content">
+            <div role="tabpanel" class="tab-pane active" id="home">
+
+                <div>
+
+                    <table class="propgrid">
+                        <tr>
+                            <th>
+                                属性
+                            </th>
+                            <th>
+                                值
+                            </th>
+                        </tr>
+                        <tr>
+                            <td class="title">id</td>
+                            <td><span class="value" id='grid_id'></span></td>
+                        </tr>
+                        <tr>
+                            <td class="title">type</td>
+                            <td>
+                                表格
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="title"><span title='控件的标题信息'></span>label</td>
+                            <td><input id='grid_label' class="input" type="text" /></td>
+                        </tr>
+                        <tr>
+                            <td class="title">colspan</td>
+                            <td>
+                                <select class="input" id='grid_colspan'>
+                                    <option value="1">1栏（100%）</option>
+                                    <option value="2">2栏（50%）</option>
+                                    <option value="3">3栏（33.33%）</option>
+                                    <option value="4">4栏（25%）</option>
+
+
+                                    <option value="5">5栏（20%）</option>
+                                    <option value="8">8栏（12.5%）</option>
+                                    <option value="10">10栏（10%）</option>
+                                    <option value="20">20栏（5%）</option>
+
+                                    <option value="60">常用栏（60%）</option>
+                                    <option value="45">常用（45%）</option>
+                                    <option value="30">常用（30%）</option>
+
+                                </select>
+
+                        </tr>
+
+                        <tr>
+                            <td class="title">readonly</td>
+                            <td><input id='grid_readonly' type="checkbox" /></td>
+                        </tr>
+                        <tr>
+                            <td class="title"><span title='grid的外间距'></span>margin</td>
+                            <td><input id='grid_margin' class="input" type="text" /></td>
+                        </tr>
+                        <tr>
+                            <td class="title">border</td>
+                            <td><input id='grid_border' type="checkbox" /></td>
+                        </tr>
+                        <tr>
+                            <td class="title">rownumber</td>
+                            <td><input id='grid_rownumber' type="checkbox" /></td>
+                        </tr>
+                        <tr>
+                            <td class="title">checkbox</td>
+                            <td><input id='grid_checkbox' type="checkbox" /></td>
+                        </tr>
+                        <tr>
+                            <td class="title" title="是否分页">pager</td>
+                            <td><input id='grid_pager' type="checkbox" /></td>
+                        </tr>
+                        <tr>
+                            <td class="title" title="高度">height</td>
+                            <td><input id='grid_height' class="input" type="text" /></td>
+                        </tr>
+                        <tr>
+                            <td class="title" title="是否树形">tree</td>
+                            <td><input id='grid_tree' type="checkbox" /></td>
+                        </tr>
+                        <tr>
+                            <td class="title" title="树形显示字段">treefield</td>
+                            <td><input id='grid_treefield' class="input" type="text" /></td>
+                        </tr>
+                        <tr>
+                            <td class="title" title="异步加载">async</td>
+                            <td><input id='grid_async' type="checkbox" /></td>
+                        </tr>
+                        <tr>
+                            <td class="title">columns</td>
+                            <td><input id='grid_columns' class="lee-btn lee-btn-primary" type="button" value='配置' /></td>
+                        </tr>
+                        <tr>
+                            <td class="title"><span title='子表的工具条'></span>toolbarid</td>
+                            <td><input id='grid_barid' class="input" type="text" /></td>
+                        </tr>
+                    </table>
+
+                    <div class="propgroup">
+                        <h4 class="arrow_label">绑定信息</h4>
+                        <i class="fa fa-angle-down toggle"></i>
+                    </div>
+                    <table class="propgrid">
+                        <tr>
+                            <td class="title">bindtable</td>
+                            <td><input id='grid_bindtable' class="input" type="text" /></td>
+                        </tr>
+                    </table>
+                </div>
+
+            </div>
+            <div role="tabpanel" class="tab-pane " id="profile">
+                <table class="propgrid">
+                    <tr>
+                        <th>
+                            属性
+                        </th>
+                        <th>
+                            值
+                        </th>
+                    </tr>
+
+                    <tr>
+                        <td class="title">onAfterShowData</td>
+                        <td>
+                            <input id='txt_onAfterShowData' class="input" type="text" />
+                        </td>
+                    </tr>
+                </table>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+
+<div class="aside barattr">
+    <div class="aside-container mainlayout">
+        <ul class="nav nav-tabs" role="tablist">
+            <li role="presentation" class="active">
+                <a href="#home" aria-controls="home" role="tab" data-toggle="tab">属性</a>
+            </li>
+            <li role="presentation" class="">
+                <a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">事件</a>
+            </li>
+            <i class="hidepanel fa fa-close" onclick="hidePanel('bar')"></i>
+        </ul>
+        <div class="tab-content">
+            <div role="tabpanel" class="tab-pane active" id="home">
+                <div>
+                    <table class="propgrid">
+                        <tr>
+                            <th>
+                                属性
+                            </th>
+                            <th>
+                                值
+                            </th>
+                        </tr>
+                        <tr>
+                            <td class="title">id</td>
+                            <td><span class="value" id='bar_id'></span></td>
+                        </tr>
+                        <tr>
+                            <td class="title">type</td>
+                            <td>
+                                工具条
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="title"><span title='控件的标题信息'></span>toolbarid</td>
+                            <td><input id='bar_barid' class="input" type="text" /></td>
+                        </tr>
+
+                    </table>
+
+
+                </div>
+
+            </div>
+            <div role="tabpanel" class="tab-pane " id="profile">
+                <table class="propgrid">
+                    <tr>
+                        <th>
+                            属性
+                        </th>
+                        <th>
+                            值
+                        </th>
+                    </tr>
+
+                    <tr>
+                        <td class="title">onAfterShowData</td>
+                        <td>
+                            <input id='txt_onAfterShowData' class="input" type="text" />
+                        </td>
+                    </tr>
+                </table>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+
+
+<div class="aside buttonattr">
+    <div class="aside-container mainlayout">
+        <ul class="nav nav-tabs" role="tablist">
+            <li role="presentation" class="active">
+                <a href="#home" aria-controls="home" role="tab" data-toggle="tab">属性</a>
+            </li>
+            <li role="presentation" class="">
+                <a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">事件</a>
+            </li>
+            <i class="hidepanel fa fa-close" onclick="hidePanel('button')"></i>
+        </ul>
+        <div class="tab-content">
+            <div role="tabpanel" class="tab-pane active" id="home">
+
+                <div>
+
+                    <table class="propgrid">
+                        <tr>
+                            <th>
+                                属性
+                            </th>
+                            <th>
+                                值
+                            </th>
+                        </tr>
+                        <tr>
+                            <td class="title">id</td>
+                            <td><span class="value" id='button_id'></span></td>
+                        </tr>
+                        <tr>
+                            <td class="title">type</td>
+                            <td>
+                                按钮
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td class="title"><span title='宽度'></span>colspan</td>
+                            <td>
+                                <select class="input" id='button_colspan'>
+                                    <option value="1">1栏（100%）</option>
+                                    <option value="2">2栏（50%）</option>
+                                    <option value="3">3栏（33.33%）</option>
+                                    <option value="4">4栏（25%）</option>
+
+                                    <option value="5">5栏（20%）</option>
+                                    <option value="8">8栏（12.5%）</option>
+                                    <option value="10">10栏（10%）</option>
+                                    <option value="20">20栏（5%）</option>
+
+                                    <option value="60">常用栏（60%）</option>
+                                    <option value="45">常用（45%）</option>
+                                    <option value="30">常用（30%）</option>
+                                </select>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td class="title"><span title='对齐方式'></span>align</td>
+                            <td>
+                                <select class="input" id='button_align'>
+                                    <option value="1">边线对齐</option>
+                                    <option value="2">居中</option>
+                                    <option value="3">右对齐</option>
+                                    <option value="4">左对齐</option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="title"><span title='按钮文字'></span>text</td>
+                            <td><input id='button_text' class="input" type="text" /></td>
+                        </tr>
+                        <tr>
+                            <td class="title"><span title='按钮图标'></span>icon</td>
+                            <td><input id='button_icon' class="input" type="text" /></td>
+                        </tr>
+
+                        <tr>
+                            <td class="title"><span title='按钮类型'></span>btntext</td>
+                            <td>
+                                <select class="input" id='button_style'>
+                                    <option value="1">default</option>
+                                    <option value="2">primary</option>
+                                    <option value="3">sucess</option>
+                                    <option value="4">info</option>
+                                    <option value="5">danger</option>
+                                </select>
+                            </td>
+                        </tr>
+
+                    </table>
+
+
+                </div>
+
+            </div>
+            <div role="tabpanel" class="tab-pane " id="profile">
+                <table class="propgrid">
+                    <tr>
+                        <th>
+                            属性
+                        </th>
+                        <th>
+                            值
+                        </th>
+                    </tr>
+                    <tr>
+                        <td class="title">onClick</td>
+                        <td>
+                            <input id='button_onClick' class="input" type="text" />
+                        </td>
+                    </tr>
+                </table>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+
+
+<div class="aside treeattr">
+    <div class="aside-container mainlayout">
+        <ul class="nav nav-tabs" role="tablist">
+            <li role="presentation" class="active">
+                <a href="#home" aria-controls="home" role="tab" data-toggle="tab">属性</a>
+            </li>
+            <li role="presentation" class="">
+                <a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">事件</a>
+            </li>
+            <i class="hidepanel fa fa-close" onclick="hidePanel('tree')"></i>
+        </ul>
+        <div class="tab-content">
+            <div role="tabpanel" class="tab-pane active" id="home">
+
+                <div>
+
+                    <table class="propgrid">
+                        <tr>
+                            <th>
+                                属性
+                            </th>
+                            <th>
+                                值
+                            </th>
+                        </tr>
+                        <tr>
+                            <td class="title">id</td>
+                            <td><span class="value" id='tree_id'></span></td>
+                        </tr>
+                        <tr>
+                            <td class="title">type</td>
+                            <td>
+                                树
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td class="title"><span title='标题'></span>title</td>
+                            <td><input id='tree_title' class="input" type="text" /></td>
+                        </tr>
+                        <tr>
+                            <td class="title"><span title='是否多选'></span>checkbox</td>
+
+                            <td><input id='tree_checkbox' type="checkbox" /></td>
+                        </tr>
+                        <tr>
+                            <td class="title"><span title='是否过滤'></span>filter</td>
+
+                            <td><input id='tree_filter' type="checkbox" /></td>
+
+                        </tr>
+                        <tr>
+                            <td class="title"><span title='绑定数据源'></span>datasource</td>
+
+
+                            <td>
+                                <input id='tree_datasource' class="input" type="text" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="title"><span title='名称字段'></span>nameField</td>
+
+                            <td>
+                                <input id='tree_nameField' class="input" type="text" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="title"><span title='id字段'></span>IDField</td>
+
+
+                            <td>
+                                <input id='tree_IDField' class="input" type="text" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="title"><span title='pid字段'></span>parentIDField</td>
+
+
+                            <td>
+                                <input id='tree_parentIDField' class="input" type="text" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="title"><span title='图标字段'></span>iconField</td>
+
+
+                            <td>
+                                <input id='tree_iconField' class="input" type="text" />
+                            </td>
+                        </tr>
+
+                    </table>
+
+
+                </div>
+
+            </div>
+            <div role="tabpanel" class="tab-pane " id="profile">
+                <table class="propgrid">
+                    <tr>
+                        <th>
+                            属性
+                        </th>
+                        <th>
+                            值
+                        </th>
+                    </tr>
+                    <tr>
+                        <td class="title">onClick</td>
+                        <td>
+                            <input id='tree_onClick' class="input" type="text" />
+                        </td>
+                    </tr>
+                </table>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<pre id="editor"></pre>
+<div class='columnsset'></div>
+<div class='tabset'></div>
+
+
+<div id="dialog_defval" style="display:none;height:100%;position:relative;">
+    <div id="defval_toolbar" style="height:40px;font-size:12px;">
+        <span style="margin-left: 10px;">表名称:</span>
+        <div style="display:inline-block;margin-top:5px;margin-left:5px;"><input id="selectObject" class="lee-text-field" /></div>
+        <button class="lee-btn lee-btn-primary" id="btnRefreshDef">
+            <i class="lee-ion-refresh"></i>
+            <span>刷新模型</span>
+        </button>
+    </div>
+    <div style="top:40px;position:absolute;bottom:0;left:0;right:0;">
+        <div id="defval_grid"></div>
+    </div>
+</div>
+
+<style>
+    .rulebox {
+        position: absolute;
+        border: 1px solid #DDD;
+        width: 500px;
+        right: 285px;
+        top: 0px;
+        background: #FFF;
+        transform: translate(0, 142px);
+        transition: all ease .3s;
+        transform: translate(0, -100%);
+    }
+
+    .rulebox .title {
+        background: #f5f5f5;
+        padding: 7px;
+        font-size: 14px;
+        border-bottom: 1px solid #DDD;
+    }
+</style>
+@*popover形式展现*@
+<div class="rulebox">
+    <div class="title">校验规则</div>
+    <div style="padding:5px;">
+        <table class="propgrid">
+            <tr>
+                <td>类型</td>
+                <td><span id="rule_name"></span></td>
+            </tr>
+            <tr style="display:none;">
+                <td>文字提示</td>
+                <td>
+                    <textarea id="rule_tips" class="input" style="height:40px;"></textarea>
+                </td>
+
+            </tr>
+            <tr>
+                <td>参数设置</td>
+                <td>
+
+                    <textarea id="rule_params" class="input" style="height:80px;"></textarea>
+                    <span id="rule_description"></span>
+                </td>
+
+            </tr>
+        </table>
+        <div style="margin-top:5px;text-align:right;">
+            <button class="lee-btn lee-btn-primary" id="rulebox_confirm">确定</button>
+            <button class="lee-btn lee-btn-danger" id="rulebox_cancel">关闭</button>
+        </div>
+    </div>
+</div>
+
+<div class="clacbox">
+
+</div>

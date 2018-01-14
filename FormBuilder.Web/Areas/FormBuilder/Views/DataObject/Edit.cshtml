@@ -1,0 +1,190 @@
+﻿@{
+    Layout = "~/Areas/FormBuilder/Views/Layout/BaseListContainer.cshtml";
+    ViewBag.Title = "数据对象定义";
+}
+<style>
+    input.n-invalid {
+        border: 1px solid #f04134 !important;
+    }
+
+    .lee-layout-left {
+        border-left: 0;
+        border-top: 0;
+        border-bottom: 0;
+    }
+
+    .lee-layout-right {
+        border-right: 0;
+        border-top: 0;
+        border-bottom: 0;
+    }
+
+    .lee-layout-center {
+        border-top: 0px;
+        border-left: 0px;
+        border-bottom: 0px;
+    }
+
+    .lee-layout-collapse-right {
+        border-top: 0;
+    }
+
+    .lee-input:read-only {
+        background: #fbfbfb;
+    }
+</style>
+<div style="padding:5px;padding: 5px;border-bottom: 1px solid #CCC;background: #fbfbfb;">
+    <div id="btngroup">
+        <button class="lee-btn " id="btnAddRow">
+            <i class="lee-ion-plus"></i>
+            <span>添加行</span>
+        </button>
+        <button class="lee-btn lee-btn-danger" id="btnDelete">
+            <i class="lee-ion-android-remove"></i>
+            <span>删除行</span>
+        </button>
+        <button class="lee-btn" id="btnUp">
+            <i class="lee-ion-plus"></i>
+            <span>上移</span>
+        </button>
+        <button class="lee-btn" id="btnDown">
+            <i class="lee-ion-android-remove"></i>
+            <span>下移</span>
+        </button>
+        <button class="lee-btn lee-btn-primary" id="btnSave">
+            <i class="lee-ion-edit"></i>
+            <span>保存</span>
+        </button>
+
+        <button class="lee-btn lee-btn-sucess" id="btnImport">
+            <i class="lee-ion-android-expand"></i>
+            <span>从数据库导入</span>
+        </button>
+    </div>
+    <div id="searchwrap"></div>
+
+</div>
+<div id="messagewrap"></div>
+<div id="layout1" style="margin-top:0px;">
+    <div position="right" title="基本属性">
+        <div class="group-info" style="padding:5px;">
+            <form id="form" data-validator-option="{timely:0, theme:'yellow_top'}">
+                <table class="lee-form">
+                    <tbody>
+                        <tr>
+                            <td class="label " style="width:100px;">
+                                标识
+                            </td>
+                            <td class="readonly">
+                                <input type="text" class='lee-input ' readonly data-bind="ID" id='txtID'>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="label ">
+                                编号
+                            </td>
+                            <td>
+                                <input type="text" class='lee-input' data-rule="required" data-bind="Code" id='txtCode'>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="label">
+                                名称
+                            </td>
+                            <td>
+                                <input type="text" class='lee-input ' data-rule="required" data-bind="AiasName" id='txtAiasName'>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="label ">
+                                表名
+                            </td>
+                            <td>
+                                <input type="text" class='lee-input ' data-rule="required" data-bind="TableName" id='txtTableName'>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="label">
+                                创建人
+                            </td>
+                            <td>
+                                <span data-bind="CreateUser"></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="label">
+                                创建时间
+                            </td>
+                            <td class="readonly">
+                                <span data-bind="CreateTime"></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="label">
+                                修改人
+                            </td>
+                            <td class="readonly">
+                                <span data-bind="LastModifyUser"></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="label">
+                                修改时间
+                            </td>
+                            <td class="readonly">
+                                <span data-bind="LastModifyTime"></span>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </form>
+        </div>
+    </div>
+    <div position="center">
+        <div style="padding:1px;">
+
+            <div id="grid" style="margin-top:1px">
+
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+<div id="dialog_create" style="display:none;">
+    @*<div id="object_list_view">
+
+        </div>*@
+
+    <div id="DOGRID">
+        <div id="" style="width:200px; margin-left:90px; font-size: 12px;height: 30px;margin-top: 3px;">
+            <input type="text" id="txtSchema" />
+        </div>
+        <span style="position: absolute;top: 7px;left: 3px;">数据库架构</span>
+        <div class="lee-search-wrap" style="position:absolute;right:3px;top:3px;">
+            <input id="txtkeywordList" style="width:200px;" class="lee-search-words" type="text" placeholder="请输入查询关键字">
+            <button class="search lee-ion-search" id="btnSearchList"></button>
+        </div>
+
+        <div id="gridinfo"></div>
+    </div>
+</div>
+
+<style>
+    body {
+        overflow: hidden;
+    }
+
+    .lee-btn-small {
+        padding: 0 15px;
+    }
+</style>
+@section ExternalScripts{
+    <script src="~/Scripts/FrameWork/page.js"></script>
+    <script src="~/Scripts/FrameWork/ui.js"></script>
+    <script src="~/Scripts/DO/edit.js"></script>
+}
+
+@Html.Raw("<script>var list_schema=" + @ViewData["schema"] + "</script>")
+

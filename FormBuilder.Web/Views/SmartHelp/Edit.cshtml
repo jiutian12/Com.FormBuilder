@@ -1,0 +1,230 @@
+﻿@{
+    Layout = "~/Views/Layout/BaseListContainer.cshtml";
+    ViewBag.Title = "帮助配置";
+}
+<style>
+    input.n-invalid {
+        border: 1px solid #f04134 !important;
+    }
+
+    .lee-layout-left {
+        border-left: 0;
+        border-top: 0;
+        border-bottom: 0;
+    }
+
+    .lee-layout-right {
+        border-right: 0;
+        border-top: 0;
+        border-bottom: 0;
+    }
+
+    .lee-layout-center {
+        border-top: 0px;
+        border-left: 0px;
+        border-bottom: 0px;
+    }
+
+    .lee-layout-collapse-right {
+        border-top: 0;
+    }
+
+    .lee-input:read-only {
+        background: #fbfbfb;
+    }
+
+    #ordWrap {
+        position: absolute;
+        top: 42px;
+        z-index: 300;
+        right: 6px;
+    }
+
+    #ordWrap div:first-child {
+        border-bottom: 1px solid #FFF;
+    }
+
+    #ordWrap div a {
+        display: block;
+        padding: 4px;
+        color: #FFF;
+        background: rgba(0, 0, 0, 0.7);
+    }
+
+    #ordWrap div a:focus, #ordWrap div a:hover {
+        background: rgba(0, 0, 0, 0.4);
+    }
+</style>
+<div style="padding:5px;padding: 5px;border-bottom: 1px solid #CCC;background: #fbfbfb;">
+    <div id="btngroup">
+        <button class="lee-btn " id="btnImport">
+            <i class="lee-ion-plus"></i>
+            <span>引入字段</span>
+        </button>
+        <button class="lee-btn lee-btn-danger" id="btnDelete">
+            <i class="lee-ion-android-remove"></i>
+            <span>删除行</span>
+        </button>
+        @*<button class="lee-btn lee-btn-primary" id="btnSearch">
+                <i class="lee-ion-edit"></i>
+                <span>查询条件</span>
+            </button>*@
+        <button class="lee-btn lee-btn-primary" id="btnSave">
+            <i class="lee-ion-edit"></i>
+            <span>保存</span>
+        </button>
+        <button class="lee-btn lee-btn-primary" id="btnPreview">
+            <i class="lee-ion-edit"></i>
+            <span>预览</span>
+        </button>
+    </div>
+    <div id="searchwrap"></div>
+
+</div>
+<div id="messagewrap"></div>
+<div id="layout1" style="margin-top:0px;">
+    <div position="right" title="基本属性">
+        <div class="group-info" style="padding:5px;">
+            <form id="form" data-validator-option="{timely:0, theme:'yellow_top'}">
+                <table class="lee-form">
+                    <tbody>
+                        <tr>
+                            <td class="label " style="width:100px;">
+                                标识
+                            </td>
+                            <td class="readonly">
+                                <input type="text" class='lee-input ' readonly data-bind="ID" id='txtID'>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="label ">
+                                编号
+                            </td>
+                            <td>
+                                <input type="text" class='lee-input' data-rule="required" data-bind="Code" id='txtCode'>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="label">
+                                名称
+                            </td>
+                            <td>
+                                <input type="text" class='lee-input ' data-rule="required" data-bind="Name" id='txtName'>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="label">
+                                帮助标题
+                            </td>
+                            <td>
+                                <input type="text" class='lee-input ' data-rule="required" data-bind="Title" id='txtTitle'>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="label ">
+                                <a class="openModel" style="text-decoration:underline;" href="javascript:void(0)">数据模型</a>
+                            </td>
+                            <td>
+                                <input type="text" class='lee-input ' data-rule="required" data-bind="ModelID" id='txtModelID'>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="label ">
+                                帮助类型
+                            </td>
+                            <td>
+                                <input type="text" class='lee-input ' data-rule="required" data-bind="ViewType" id='txtViewType'>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="label ">
+                                过滤条件
+                            </td>
+                            <td>
+                                <input type="text" class='lee-input ' data-bind="Filter" id='txtFilter'>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="label ">
+                                排序条件
+                            </td>
+                            <td>
+                                <input type="text" class='lee-input ' data-bind="Sort" id='txtSort'>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="label">
+                                创建人
+                            </td>
+                            <td>
+                                <span data-bind="CreateUser"></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="label">
+                                创建时间
+                            </td>
+                            <td class="readonly">
+                                <span data-bind="CreateTime"></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="label">
+                                修改人
+                            </td>
+                            <td class="readonly">
+                                <span data-bind="LastModifyUser"></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="label">
+                                修改时间
+                            </td>
+                            <td class="readonly">
+                                <span data-bind="LastModifyTime"></span>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </form>
+        </div>
+    </div>
+    <div position="center">
+        <div style="padding:1px;">
+            <div id="ordWrap">
+                <div class="">
+                    <a href="#" class="upwrap lee-ion-android-arrow-up"></a>
+                </div>
+                <div class="">
+                    <a href="#" class="downwrap lee-ion-android-arrow-down"></a>
+                </div>
+            </div>
+            <div id="grid" style="margin-top:1px">
+
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+
+<style>
+    body {
+        overflow: hidden;
+    }
+
+    .lee-btn-small {
+        padding: 0 15px;
+    }
+</style>
+@section ExternalScripts{
+    <script src="~/Scripts/FrameWork/page.js"></script>
+    <script src="~/Scripts/SHelp/edit.js"></script>
+}
+<script>
+
+
+
+
+</script>

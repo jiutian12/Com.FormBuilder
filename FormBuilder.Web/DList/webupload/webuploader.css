@@ -1,0 +1,227 @@
+.webuploader-container {
+    position: relative;
+}
+
+.webuploader-element-invisible {
+    position: absolute !important;
+    clip: rect(1px 1px 1px 1px); /* IE6, IE7 */
+    clip: rect(1px,1px,1px,1px);
+}
+
+.webuploader-pick {
+    position: relative;
+    display: inline-block;
+    cursor: pointer;
+    background: #00b7ee;
+    padding: 10px 15px;
+    color: #fff;
+    text-align: center;
+    border-radius: 3px;
+    overflow: hidden;
+}
+
+.webuploader-pick-hover {
+    background: #00a2d4;
+}
+
+.webuploader-pick-disable {
+    opacity: 0.6;
+    pointer-events: none;
+}
+
+
+
+
+.webuploader-pick {
+    background-color: #108ee9;
+    border-color: #0e7fd1;
+}
+
+.webuploader-pick-hover {
+    background-color: #31a0f1;
+    border-color: #2c9ef1;
+}
+
+.lee-upload-files {
+    border: 1px solid #DDD;
+    padding: 10px;
+    box-shadow: 0 1px 3px rgba(136, 136, 136, 0.2);
+}
+
+.lee-upload-files .progress .title {
+    margin-bottom: 5px;
+}
+
+.lee-upload-files .progressbar {
+    width: 300px;
+    border: 1px solid #DDD;
+    padding: 3px;
+    margin-bottom: 5px;
+}
+
+.lee-upload-files .progressbar .line {
+    height: 4px;
+    transition: all ease .3s;
+    background: rgba(33, 150, 243, 0.82);
+    width: 30%;
+}
+
+.lee-upload-files .list .item {
+    margin: 5px;
+    padding: 7px 15px;
+    display: inline-block;
+    position: relative;
+    padding-right: 25px;
+    background: #eff5fe;
+    background: rgba(170, 170, 170, 0.12);
+    cursor: pointer;
+    font-size: 13px;
+    transition: all ease .3s;
+}
+
+.lee-upload-files .list .item a {
+    text-decoration: underline;
+    color: #F44336;
+}
+
+.lee-upload-files .list .item:hover {
+}
+
+.lee-upload-files .item span.op {
+    margin-left: 3px;
+    display: inline-block;
+    position: absolute;
+    top: 6px;
+    right: 8px;
+    transition: all ease .3s;
+}
+
+.lee-upload-files .list .item .op:hover {
+    color: royalblue;
+    transform: rotate(90deg);
+}
+
+
+.lee-upload-files .file-item .delete {
+    transition: all ease .3s;
+}
+
+.lee-upload-files .file-item .delete:hover {
+    transform: rotate(90deg);
+}
+
+
+
+.lee-upload-files .file-list {
+    width: 100%;
+    overflow: auto;
+}
+
+
+
+
+/*卡片展现模式*/
+
+.lee-upload-files .file-item {
+    line-height: 1.428571429;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    -webkit-transition: all .2s ease-in-out;
+    transition: all .2s ease-in-out;
+    width: 140px;
+    height: 140px;
+    float: left;
+    position: relative;
+    margin: 0 20px 20px 0;
+    padding: 4px;
+    -webkit-box-shadow: 0 1px 2px rgba(0,0,0,0.075);
+    box-shadow: 0 1px 2px rgba(0,0,0,0.075);
+}
+
+.lee-upload-files .file-item img {
+    width: 100%;
+}
+
+.lee-upload-files .file-item .info, .file-item .panel, .file-item .error {
+    position: absolute;
+    left: 4px;
+    right: 4px;
+    height: 20px;
+    font-size: 14px;
+    line-height: 20px;
+    color: white;
+}
+
+.lee-upload-files .file-item .error {
+    background: red;
+    top: 4px;
+    color: white;
+    text-align: center;
+}
+
+
+
+.lee-upload-files .file-item .info {
+    bottom: 4px;
+    text-indent: 5px;
+    background: rgba(0, 0, 0, 0.6);
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    font-size: 12px;
+    z-index: 10;
+}
+
+.lee-upload-files .file-item .panel {
+    height: 24px;
+    opacity: 0;
+    top: 4px;
+    line-height: 24px;
+    transition: all ease .3s;
+    background: rgba(0, 0, 0, 0.6);
+}
+
+.lee-upload-files .file-item .panel .op {
+    float: right;
+    margin-right: 8px;
+    cursor: pointer;
+}
+
+.lee-upload-files .file-item:hover .panel {
+    transform: translateY(0px);
+    opacity: 1;
+}
+
+.single .webuploader-pick {
+    background-color: transparent;
+    border: 1px dashed #DDD;
+    width: 100px;
+    padding: 0;
+    height: 100px;
+}
+
+.single .webuploader-pick i {
+    line-height: 100px;
+    font-size: 20px;
+    color: #8d8d8d;
+}
+
+.single .lee-upload-files {
+    float: left;
+    border: 0;
+    padding: 0;
+    box-shadow: none;
+}
+
+.single .picker {
+    float: left;
+}
+
+.lee-upload .disabled .webuploader-pick {
+    background: #fbfbfb;
+}
+
+.lee-upload .disabled label {
+    cursor: not-allowed !important;
+}

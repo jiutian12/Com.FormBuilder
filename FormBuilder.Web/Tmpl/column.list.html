@@ -1,0 +1,47 @@
+<div style="margin-top: 15px;">
+	<div></div>
+	<ul class="objectlist">
+		<li style="background: #EEEEEE;">
+			<span class="left">数据对象编号</span>
+			<span class="right">对象名称</span>
+		</li>
+		<li ng-repeat="vm in data">
+			<span class="left">{{vm.Code}}</span>
+			<span class="right">{{vm.Name}}</span>
+		</li>
+	</ul>
+	<div class="ngdialog-buttons">
+		<button type="button" class="ngdialog-button ngdialog-button-secondary" ng-click="closeThisDialog(0)">取消</button>
+		<button type="button" class="ngdialog-button ngdialog-button-primary" ng-click="confirm(1)">确定</button>
+	</div>
+</div>
+<style>
+	.objectlist {
+		margin-bottom: 10px;
+	}
+	
+	.objectlist li {
+		border-bottom: 1px solid #DDD;
+		padding: 5px;
+		transition: all .3s;
+		cursor: pointer;
+	}
+	
+	.objectlist li:first-child {
+		border-top: 1px solid #DDD;
+	}
+	
+	.objectlist li:hover {
+		background: #EEEEEE;
+	}
+	
+	.objectlist li .left {
+		width: 120px;
+		display: inline-block;
+	}
+	
+	.objectlist li .right {
+		width: 60%;
+		display: inline-block;
+	}
+</style>

@@ -1,0 +1,156 @@
+﻿@model FormBuilder.Model.FBForm
+@using FormBuilder.Utilities
+@{
+    Layout = "~/Areas/FormBuilder/Views/Layout/BaseListContainer.cshtml";
+    ViewBag.Title = "";
+
+}
+<style>
+    body {
+        padding: 1px;
+        overflow: hidden;
+    }
+
+    .noborder {
+        border: none !important;
+    }
+
+    .lee-layout-header {
+        /*background: #FFF;*/
+    }
+
+    .lee-grid .lee-grid-header, .lee-grid .lee-grid-hd-cell {
+        background: #f7f7f7;
+    }
+
+    .buttoninfo {
+        margin-top: 3px;
+    }
+
+
+    input.n-invalid, textarea.n-invalid {
+        border: 1px solid #f04134 !important;
+    }
+
+    .lee-text-required input {
+        background: #faffbd;
+    }
+
+    input.required, .textarea.required {
+        background: #faffbd;
+    }
+
+    .lee-layout-center .lee-layout-content {
+        overflow: auto;
+    }
+
+    .lee-tab-links {
+        overflow: hidden;
+    }
+
+    .lee-auto-grid {
+        padding-bottom: 1px;
+    }
+
+    .lee-radiolist-table .lee-radio-wrapper, .lee-radiolist-table label {
+        font-size: 12px;
+        margin-left: 2px;
+    }
+
+    .lee-hidden {
+        display: none !important;
+    }
+
+
+    .lee-panel-footer {
+        background: #FFF;
+    }
+
+    .prevgroup + .separator, .changepage, .changepage + .separator, .selectpagesize, .selectpagesize + .separator, .refreshgroup + .separator {
+        display: none;
+    }
+
+    .lee-panel-footer-inner .group .lee-bar-button {
+        border-color: transparent;
+    }
+
+    .lee-panel-footer-inner .group .lee-bar-button.lee-disabled {
+        border-color: transparent !important;
+        color: #4e4e4e !important;
+    }
+
+    .lee-grid .lee-grid-header, .lee-grid .lee-grid-hd-cell {
+        background: #FDFDFD;
+    }
+
+
+    .lee-table-form-border textarea:read-only, .lee-table-form-border textarea:disabled {
+        background: #fbfbfb;
+    }
+
+    .lee-input:read-only, .lee-input:disabled {
+        background: #fbfbfb;
+    }
+
+    input.n-invalid, textarea.n-invalid {
+        border: 1px solid #f04134 !important;
+    }
+
+    .lee-text-required input {
+        background: #faffbd;
+    }
+
+    input.required, .textarea.required {
+        background: #faffbd;
+    }
+</style>
+@*输出页面布局信息*@
+<form id="form">
+    <div id="page">
+        @Html.Raw(BASE64.DeCode(Model.HtmlInfo))
+    </div>
+</form>
+
+
+
+@*输出上下文配置信息*@
+
+@section ExternalScripts{
+    <link href="~/CSS/runtime.css" rel="stylesheet" />
+    <script src="~/Scripts/Runtime/core.js"></script>
+    @*工具类*@
+    <script src="~/Scripts/Runtime/utils.js"></script>
+    @*状态机*@
+    <script src="~/Scripts/Runtime/fsm.js"></script>
+    @*上下文身份*@
+    <script src="~/Scripts/Runtime/context.js"></script>
+    @*表达式*@
+    <script src="~/Scripts/Runtime/Express/parser.js"></script>
+    <script src="~/Scripts/Runtime/Express/calc.js"></script>
+    @*校验*@
+    <script src="~/Scripts/Runtime/validate.js"></script>
+    <script src="~/Scripts/Runtime/model.js"></script>
+    <script src="~/Scripts/Runtime/service.js"></script>
+
+    <script src="~/Scripts/Runtime/ui.js"></script>
+    @Html.Raw("<script> Page.Context.set(" + Newtonsoft.Json.JsonConvert.SerializeObject(SessionProvider.Provider.Current()) + ")</script>")
+    <script>
+
+        @Html.Raw(Model.UserJS)
+    </script>
+    <style>
+    @Model.CSSInfo
+    </style>
+}
+
+
+@*输入界面配置信息*@
+
+@Html.Raw("<script>var formConfig=" + Model.Config + "</script>")
+@Html.Raw("<script>var pageConfig=" + BASE64.DeCode(Model.JSInfo) + "</script>")
+@Html.Raw("<script>var toolbarConfig=" + Model.ToolBarConfig + "</script>")
+@Html.Raw("<script>var modelSchema=" + Model.SchemaInfo + "</script>")
+@Html.Raw("<script>var modelID=\"" + Model.ModelID + "\"</script>")
+@Html.Raw("<script>var defaultValue=" + (Model.DefaultInfo == null ? "{}" : Model.DefaultInfo) + ";</script>")
+@Html.Raw("<script>var dsSchema=" + (Model.dsSchema == null ? "{}" : Model.dsSchema) + ";</script>")
+@Html.Raw("<script>var expressInfo=" + (Model.ExpressInfo == null ? "{}" : Model.ExpressInfo) + ";</script>")

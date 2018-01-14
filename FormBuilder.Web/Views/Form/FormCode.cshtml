@@ -1,0 +1,109 @@
+﻿@model FormBuilder.Model.FBForm
+@using FormBuilder.Utilities
+@{
+    Layout = "~/Views/Layout/BaseListContainer.cshtml";
+    ViewBag.Title = "用户自定义代码";
+}
+<div id="btngroup">
+    <button class="lee-btn lee-btn-primary" id="btnAddToolbar" onclick="pubData()">
+        <i class="lee-ion-edit"></i>
+        <span>发布自定义代码</span>
+    </button>
+    <button class="lee-btn lee-btn-sucess" id="btnRemoveToolbar">
+        <i class="lee-ion-ios-book"></i>
+        <span>常用API参考</span>
+    </button>
+</div>
+
+
+<div id="tabinfo" style="padding:5px;">
+    <div id="tab1" title="表单代码">
+        <pre id="editor1" class="editor">@Html.Raw(BASE64.DeCode(Model.JSInfo))</pre>
+    </div>
+    <div id="tab2" title="Html">
+        <pre id="editor2" class="editor">@HtmlParser.ConvertToXml(BASE64.DeCode(Model.HtmlInfo),true)</pre>
+    </div>
+    <div id="tab3" title="JavaScript">
+        <pre id="editor3" class="editor">@Model.UserJS</pre>
+    </div>
+    <div id="tab4" title="CSS">
+        <pre id="editor4" class="editor">@Model.CSSInfo</pre>
+    </div>
+</div>
+<style>
+    #btngroup {
+        padding: 5px 15px;
+        border-bottom: 1px solid #CCC;
+        margin-bottom: 5px;
+        /*background: #fbfbfb;*/
+        box-shadow: 1px 1px 6px rgba(185, 185, 185, 0.3);
+    }
+
+    .editor {
+        width: 100%;
+        margin: 0;
+        margin-top: 1px;
+        border: 1px solid #DDD;
+    }
+
+    .lee-tab-links {
+        overflow: hidden;
+    }
+</style>
+@section ExternalScripts{
+    @Scripts.Render("~/Bundle/Scripts/Ace")
+    <script src="~/Scripts/FrameWork/page.js"></script>
+}
+
+<script>
+    var editor1, editor2, editor3, editor4;
+    $(function () {
+        $("#tabinfo").leeTab({});
+
+        $(".editor").css("height", $(window).height() - 90);
+
+        editor1 = ace.edit("editor1");
+
+        editor1.session.setMode("ace/mode/javascript");
+        var val = editor1.session.getValue();
+        var o = JSON.parse(val);// may throw if json is malformed
+        val = JSON.stringify(o, null, 4); // 4 is the indent size,该方法来自https://github.com/beautify-web/js-beautify/blob/master/js/lib/beautify.js
+        editor1.session.setValue(val);
+
+        editor2 = ace.edit("editor2");
+
+        editor2.session.setMode("ace/mode/html");
+
+        editor2.getSession().setMode("ace/mode/xml");
+
+        editor3 = ace.edit("editor3");
+
+        editor3.session.setMode("ace/mode/javascript");
+
+
+        editor4 = ace.edit("editor4");
+
+        editor4.session.setMode("ace/mode/css");
+    });
+
+    function pubData() {
+        var id = fBulider.utils.getQuery("dataid");
+
+
+        var model = {
+            ID: id,
+            CSSINFO: editor4.getValue(),
+            USERJS: editor3.getValue()
+        };
+
+
+        fBulider.core.dataService.requestApi("/Form/publicUser", { model: JSON.stringify(model) }, "正在发布...").done(function (data) {
+            if (data.res) {
+                leeUI.Success(data.mes);
+            }
+        }).fail(function (data) {
+            console.log(data);
+        });
+    }
+</script>
+

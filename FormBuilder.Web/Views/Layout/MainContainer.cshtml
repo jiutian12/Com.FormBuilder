@@ -1,0 +1,28 @@
+﻿<!DOCTYPE html>
+<html ng-app="formbulider">
+
+@Styles.Render("~/Bundle/Styles/Common")
+@Styles.Render("~/Bundle/Styles/LEEUI")
+@Scripts.Render("~/Bundle/Scripts/Common")
+@Scripts.Render("~/Bundle/Scripts/Angular")
+<body>
+    <div class="site-header">
+        @*导航信息*@
+    </div>
+    <div>
+        @RenderBody()
+    </div>
+    <div class="site-footer">
+        @*底部工具栏信息*@
+    </div>
+
+
+    @Scripts.Render("~/Bundle/Scripts/AngularBase")
+    @Scripts.Render("~/Bundle/Scripts/LEEUI")
+
+    @if (IsSectionDefined("ExternalScripts"))
+    {
+        @RenderSection("ExternalScripts", false)
+    }
+</body>
+</html>

@@ -1,0 +1,327 @@
+﻿@model FormBuilder.Model.FBForm
+@using FormBuilder.Utilities
+@{
+    Layout = "~/Views/Layout/BaseListContainer.cshtml";
+    ViewBag.Title = "";
+
+}
+<style>
+    .aside {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        right: 0;
+        width: 400px;
+        background: #fff;
+        padding-bottom: 46px;
+        -webkit-box-shadow: 0 7px 21px rgba(0,0,0,.3);
+        box-shadow: 0 7px 21px rgba(0,0,0,.3);
+        overflow: hidden;
+    }
+
+    .mask {
+        position: fixed;
+        left: 0;
+        width: 100%;
+        top: 0;
+        bottom: 0;
+        z-index: 9999;
+        background: rgba(136, 136, 136, 0.2);
+    }
+</style>
+@*输出页面布局信息*@
+<div style="padding:30px;">
+    <div style="width:300px;">
+        <input type="text" id="lookuptest" />
+    </div>
+</div>
+<div>
+    <div id="select" style="margin:5px;"><select multiple></select></div>
+</div>
+<div style="margin:5px;"><input type="text" id="choosen" /></div>
+<div style="margin:5px;"><input type="text" id="datetest" /></div>
+<input type="text" id="checklist" value="02" />
+<div style="margin:5px;" id="uploader-demo ">
+    <input type="text" id="file" />
+
+
+
+    <div class="lee-upload-files">
+        <div class="progress">
+            <div class="progressbar">
+                <div class="line"></div>
+            </div>
+            <div class="title">正在上传</div>
+        </div>
+        <div id="fileList" class="file-list">
+            <div id="WU_FILE_0" class="file-item  ">
+                <img src="/FormBuilder.Web/css/images/excel.png">
+                <div class="info">pic_05.gif</div>
+                @*<div class="error">上传失败</div>*@
+
+            </div>
+            <div id="WU_FILE_0" class="file-item  ">
+                <img src="data:image/jpeg;base64,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">
+                <div class="info">pic_05.gif</div>
+
+                <div class="panel">
+
+                    <i class="lee-ion-android-close op"></i>
+                    <i class="lee-ion-archive op"></i>
+                </div>
+            </div>
+        </div>
+        <div class="list">
+            <div class="item"><a href="#">中国科学院.jpg</a><span class="op"><i class="lee-ion-android-close"></i></span></div>
+            <div class="item"><a href="#">测试文件2342134.jpg</a><span class="op"><i class="lee-ion-android-close"></i></span></div>
+            <div class="item"><a href="#">213421341234.jpg</a><span class="op"><i class="lee-ion-android-close"></i></span></div>
+            <div class="item"><a href="#">1234.jpg</a><span class="op"><i class="lee-ion-android-close"></i></span></div>
+        </div>
+
+
+        <div style="text-align:center; font-size: 20px;color:#5b5b5b;">
+            <span><i class="lee-ion-ios-list-outline" style="font-size: 30px;"></i></span>
+            <div>暂无数据</div>
+
+        </div>
+
+
+    </div>
+</div>
+
+<div class="dropdown-mul-1" style="margin:5px;">
+    <!-- PS: select标签需手动设置隐藏 -->
+    <select style="display:none" name="" id="" placeholder="请选择">
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+        <option value="5">5</option>
+        <option value="6">6</option>
+        <option value="7">7</option>
+        <option value="8">8</option>
+        <option value="9">9</option>
+        <option value="10">10</option>
+        <option value="11">11</option>
+        <option value="12">12</option>
+    </select>
+</div>
+@*<div class="mask">
+        <div class="aside left">
+
+        </div>
+    </div>*@
+
+<script>
+    $(function () {
+        $("#lookuptest").leeLookup();
+        $("#file").leeUpload();
+        $("#checklist").leeRadioList({ data: [{ "id": "01", text: "蒙古" }, { "id": "02", text: "蒙古" }] });
+        $("#datetest").leeDate();
+        var options = {
+            isMul: true,
+            labelMode: false,
+            limitCount: 12,
+            url: "/FormBuilder.Web/Demo/Query",
+            data: [{
+                "id": "13", // value值
+                "name": "Betty Deborah Jackson" // 名称
+            },
+            {
+                "id": "14", // value值
+                "name": "Betty Deborah Jackson" // 名称
+            },
+            {
+                "id": "15", // value值
+                "name": "Betty Deborah Jackson" // 名称
+            }]
+        };
+
+        //$("#select").dropdown(options);
+
+
+        //$('.dropdown-mul-1').dropdown({
+        //    limitCount: 40,
+
+        //    choice: function () {
+        //        console.log(arguments, this);
+        //    }
+        //});
+
+        $("#choosen").leeChoosen(options);
+
+    });
+</script>
+@*输出上下文配置信息*@
+
+<link href="/FormBuilder.Web/DList/webupload/webuploader.css" rel="stylesheet" />
+
+@section ExternalScripts{
+
+    @Scripts.Render("~/Bundle/Scripts/WebUploader")
+
+
+}
+
+<style>
+    .lee-upload-files {
+        border: 1px solid #DDD;
+        padding: 10px;
+        box-shadow: 0 1px 3px rgba(136, 136, 136, 0.2);
+    }
+
+    .webuploader-pick {
+        background-color: #108ee9;
+        border-color: #0e7fd1;
+    }
+
+    .webuploader-pick-hover {
+        background-color: #31a0f1;
+        border-color: #2c9ef1;
+    }
+
+    .progress .title {
+        margin-bottom: 5px;
+    }
+
+    .progressbar {
+        width: 300px;
+        border: 1px solid #DDD;
+        padding: 3px;
+        margin-bottom: 5px;
+    }
+
+    .progressbar .line {
+        height: 4px;
+        transition: all ease .3s;
+        background: rgba(33, 150, 243, 0.82);
+        width: 30%;
+    }
+
+    .list .item {
+        margin: 5px;
+        padding: 7px 15px;
+        display: inline-block;
+        position: relative;
+        padding-right: 25px;
+        background: #eff5fe;
+        background: rgba(170, 170, 170, 0.12);
+        cursor: pointer;
+        font-size: 13px;
+        transition: all ease .3s;
+    }
+
+    .list .item a {
+        text-decoration: underline;
+        color: #F44336;
+    }
+
+    .list .item:hover {
+    }
+
+    .item span.op {
+        margin-left: 3px;
+        display: inline-block;
+        position: absolute;
+        top: 6px;
+        right: 8px;
+        transition: all ease .3s;
+    }
+
+    .list .item .op:hover {
+        color: royalblue;
+        transform: rotate(90deg);
+    }
+
+
+
+    .lee-radiolist-table .lee-radio-wrapper, .lee-radiolist-table label {
+        font-size: 12px;
+        margin-left: 2px;
+    }
+
+
+
+
+
+    .file-list {
+        width: 100%;
+        overflow: auto;
+    }
+
+
+
+
+    /*卡片展现模式*/
+
+    .file-item {
+        line-height: 1.428571429;
+        background-color: #fff;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        -webkit-transition: all .2s ease-in-out;
+        transition: all .2s ease-in-out;
+        width: 140px;
+        height: 140px;
+        float: left;
+        position: relative;
+        margin: 0 20px 20px 0;
+        padding: 4px;
+        -webkit-box-shadow: 0 1px 2px rgba(0,0,0,0.075);
+        box-shadow: 0 1px 2px rgba(0,0,0,0.075);
+    }
+
+    .file-item img {
+        width: 100%;
+    }
+
+    .file-item .info, .file-item .panel, .file-item .error {
+        position: absolute;
+        left: 4px;
+        right: 4px;
+        height: 20px;
+        font-size: 14px;
+        line-height: 20px;
+        color: white;
+    }
+
+    .file-item .error {
+        background: red;
+        top: 4px;
+        color: white;
+        text-align: center;
+    }
+
+
+
+    .file-item .info {
+        bottom: 4px;
+        text-indent: 5px;
+        background: rgba(0, 0, 0, 0.6);
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        font-size: 12px;
+        z-index: 10;
+    }
+
+    .file-item .panel {
+        height: 24px;
+        opacity: 0;
+        top: 4px;
+        line-height: 24px;
+        transition: all ease .3s;
+        background: rgba(0, 0, 0, 0.6);
+    }
+
+    .file-item .panel .op {
+        float: right;
+        margin-right: 8px;
+        cursor: pointer;
+    }
+
+    .file-item:hover .panel {
+        transform: translateY(0px);
+        opacity: 1;
+    }
+</style>

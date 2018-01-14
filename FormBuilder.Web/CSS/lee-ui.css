@@ -1,0 +1,369 @@
+* {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box !important;
+    font-family: "微软雅黑";
+}
+
+body, h1, h2, div, p, ul, li, table, td, tr, th, h4 {
+    margin: :0;
+    padding: 0;
+    margin: 0;
+    font-size: 14px;
+    font-family: "微软雅黑";
+    list-style: none;
+}
+
+.lee-header {
+    background: #f8f8f8;
+    padding: 6px;
+    border-bottom: 1px solid #DDD;
+}
+
+.lee-toolbar {
+    background: #e3e8ea;
+    position: fixed;
+    border-bottom: 1px solid #bbbbbb;
+    padding: 0 10px;
+    height: 40px;
+    width: 100%;
+}
+
+.lee-toolbar-left a:hover {
+    opacity: 1;
+    /*background: #c9ccce;*/
+    text-decoration: none;
+}
+
+.lee-toolbar-left a {
+    transition: all ease-out 0.3s;
+    line-height: 40px;
+    height: 40px;
+    margin: 0 3px;
+    padding: 0 5px;
+    display: inline-block;
+    text-align: center;
+    opacity: 0.6;
+    cursor: pointer;
+    color: #000000;
+}
+
+.lee-toolbar-left a i {
+    font-size: 16px;
+}
+
+.lee-toolbar-left a span {
+    margin-left: 5px;
+}
+
+.lee-tab-header {
+    height: 32px;
+    background: #e3e8ea;
+    border-bottom: 1px solid #DDD;
+}
+
+.lee-tab-header li {
+    padding: 0px 20px;
+    height: 31px;
+    line-height: 31px;
+    cursor: pointer;
+    display: inline-block;
+    margin: 0;
+    padding: 0 18px;
+    text-align: center;
+    display: block;
+    float: left;
+    background: #e8e8e8;
+    font-size: 14px;
+}
+
+.lee-tab-header li a {
+    color: #000000;
+}
+
+.lee-tab-header li i {
+    font-size: 16px;
+    margin-right: 5px;
+    vertical-align: middle;
+}
+
+.lee-tab-header li:hover {
+    background: #f0f0f0;
+}
+
+.lee-tab-header li.active {
+    background: #f7f7f7;
+    color: #666666;
+    border-bottom: 0;
+}
+
+.lee-tab-body {
+    background: #f7f7f7;
+}
+
+.group-header {
+    padding: 10px;
+    border-bottom: 1px solid #DDD;
+    background: #f7f7f7;
+}
+
+.group-header .title {
+    border-left: 2px solid #003EFF;
+    padding-left: 5px;
+}
+
+.group-info {
+    overflow: auto;
+    /*padding: 0px 10px;*/
+}
+
+.group-info .list-item {
+    padding: 10px;
+    border-bottom: 1px dashed #DDD;
+}
+
+.group-info .list-item label {
+    position: absolute;
+    width: 100px;
+    text-align: right;
+    padding-right: 15px;
+}
+
+.group-info .list-item .editor {
+    margin-left: 100px;
+}
+
+.group-info .list-item .editor input {
+    border: 0;
+    width: 100%;
+    border: 1px solid #a7a7a7;
+}
+
+
+/*属性grid列表*/
+
+.prop_grid {
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+
+.prop_grid td {
+    border: 1px solid #DDD;
+    padding: 5px;
+}
+
+.prop_grid td.readonly {
+    color: #a6a6a6;
+}
+
+.prop_grid tr:first-child td {
+    border-top: 0;
+}
+
+.prop_grid tr td:first-child {
+    border-left: 0;
+    padding-left: 15px;
+}
+
+.prop_grid tr td:last-child {
+    border-right: 0;
+}
+
+.prop_grid input[type='text'], .prop_grid input[type='number'],
+.prop_grid textarea {
+    width: 100%;
+    border: 0;
+    background: transparent;
+    outline: none;
+    resize: none;
+}
+
+.prop_grid select {
+    width: 100%;
+    border: 1px solid #b4b3b3;
+    padding: 3px;
+    outline: none;
+    border: 0;
+    background: transparent;
+}
+
+
+/*全局loadding遮罩*/
+
+.lee-loading-mask {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 9999;
+    cursor: progress;
+    background: rgba(0, 0, 0, .4);
+    -webkit-backface-visibility: hidden;
+    -webkit-animation: fadeIn .5s;
+    animation: fadeIn .5s;
+}
+
+.lee-loading-content {
+    position: absolute;
+    width: 200px;
+    height: 100px;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    margin: auto;
+    z-index: 10000;
+    -moz-border-radius: 8px;
+    border-radius: 8px;
+    background-color: rgba(0, 0, 0, .6);
+    color: #FFF;
+    font-size: 14px;
+    cursor: auto;
+    -webkit-animation: zoomIn .5s;
+    animation: zoomIn .5s;
+}
+
+.lee-loading-content.ng-hide-add {
+    display: block !important;
+    -webkit-animation: zoomOut .5s;
+    animation: zoomOut .5s;
+}
+
+.lee-loading-mask.ng-hide-add {
+    display: block !important;
+    -webkit-animation: fadeOut .5s;
+    animation: fadeOut .5s;
+}
+
+.lee-loading-header {
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    margin: auto;
+    width: 140px;
+    height: 24px;
+}
+
+.app-saving-loading-icon.ui.loader {
+    height: 24px !important;
+    padding-top: 0;
+}
+
+.ui.inline.loader {
+    position: relative;
+    vertical-align: middle;
+    margin: 0;
+    left: 0;
+    top: 0;
+    -webkit-transform: none;
+    -ms-transform: none;
+    transform: none;
+    display: inline-block;
+    min-width: 24px;
+}
+
+.ui.loader:after {
+    position: absolute;
+    content: '';
+    top: 0;
+    left: 50%;
+    -webkit-animation: loader .6s linear;
+    animation: loader .6s linear;
+    -webkit-animation-iteration-count: infinite;
+    animation-iteration-count: infinite;
+    border-radius: 500rem;
+    border-color: #aaa transparent transparent;
+    border-style: solid;
+    box-shadow: 0 0 0 1px transparent;
+    border-width: 3px;
+}
+
+.ui.loader:before {
+    position: absolute;
+    content: '';
+    top: 0;
+    left: 50%;
+    border-radius: 500rem;
+    border: 3px solid rgba(0, 0, 0, .1);
+}
+
+.app-saving-loading-icon.ui.loader:after,
+.app-saving-loading-icon.ui.loader:before {
+    width: 24px;
+    height: 24px;
+    margin: 0 0 0 -12px;
+}
+
+.app-saving-loading-msg {
+    display: inline-block;
+    line-height: 24px;
+    padding-left: 11px;
+}
+
+@-webkit-keyframes loader {
+    from {
+        -webkit-transform: rotate(0);
+        transform: rotate(0);
+    }
+
+    to {
+        -webkit-transform: rotate(360deg);
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes loader {
+    from {
+        -webkit-transform: rotate(0);
+        transform: rotate(0);
+    }
+
+    to {
+        -webkit-transform: rotate(360deg);
+        transform: rotate(360deg);
+    }
+}
+
+
+/*全局信息提示*/
+
+.lee-notify {
+    position: fixed;
+    top: 10px;
+    left: 10px;
+    z-index: 1040;
+    box-sizing: border-box;
+    width: 350px;
+}
+
+.lee-notify.center {
+    left: 0;
+    right: 0;
+    margin: auto;
+}
+
+.lee-notify .tips.ng-hide-add {
+    display: block !important;
+    -webkit-animation: slideOutUp .25s;
+    animation: slideOutUp .25s;
+}
+
+.lee-notify .tips {
+    background-color: rgba(0, 0, 0, .6);
+    color: #FFF;
+    padding: 20px;
+    border-radius: 8px;
+    animation: slideInDown .25s;
+    -webkit-animation: slideInDown .25s;
+    margin-bottom: 5px;
+}
+
+label {
+    font-weight: normal;
+}

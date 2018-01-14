@@ -1,0 +1,261 @@
+﻿@{
+    Layout = "~/Views/Layout/MainContainer.cshtml";
+    ViewBag.Title = "数据对象定义";
+}
+
+<style>
+    .lee-toolbar-left a i {
+        font-size: 20px;
+        vertical-align: middle;
+    }
+
+    .lee-layout .right-nav {
+        width: 350px;
+    }
+
+    .lee-layout .center-nav {
+        margin-right: 350px;
+    }
+</style>
+<div ng-controller='basecontroller'>
+    <div class="lee-loader lightgray" ng-show='isloading'>
+        <div class="wrap">
+            <img src="~/css/images/ball-triangle.svg" width="50" />
+            <span>努力加载中</span>
+        </div>
+    </div>
+    <div ng-show='istoast'>
+        <div class="lee-mask"></div>
+        <div class="lee-toast">
+            <i class="lee-loading lee-icon-toast"></i>
+            <p class="lee-toast-content">数据加载中</p>
+        </div>
+    </div>
+
+
+    <div class="lee-toolbar">
+        <div class="lee-toolbar-left">
+            <a title="添加列" ng-click='consolejson()'><i class="fa fa-plus"></i><span>添加列</span></a>
+            <a title="导入PowerDesign文件" ng-click='consolejson()'><i class="fa fa-file-o"></i><span>导入PowerDesign文件</span></a>
+            <a title="导入数据库表" ng-click='consolejson()'><i class="fa fa-file-o"></i><span>导入数据库表</span></a>
+            <a title="更换子对象" ng-click='saveInfo()'><i class="fa fa-save"></i><span>保存</span></a>
+        </div>
+    </div>
+    <div class="lee-layout">
+
+        <div class="center-nav hideleft" style="padding-right: 2px;">
+
+            <div class="lee-table">
+                <div class="lee-table-header">
+                    <div class="lee-table-header-lock">
+                    </div>
+                    <div class="lee-table-header-inner">
+                        <table class="lee-table-head">
+                            <colgroup>
+                                <col width="50">
+                                <col width="100">
+                                <col width="100">
+                                <col width="100">
+                                <col width="100">
+                                <col width="100">
+                                <col width="100">
+                                <col width="80">
+                                <col width="80">
+                                <col width="80">
+                                <col width="80">
+                            </colgroup>
+                            <thead class="lee-table-head">
+                                <tr>
+                                    <th>
+                                        主键
+                                    </th>
+                                    <th>
+                                        编号
+                                    </th>
+                                    <th>
+                                        名称
+                                    </th>
+                                    <th>
+                                        数据类型
+                                    </th>
+                                    <th>
+                                        长度
+                                    </th>
+                                    <th>
+                                        精度
+                                    </th>
+                                    <th>
+                                        默认值
+                                    </th>
+                                    <th>
+                                        是否必须
+                                    </th>
+                                    <th>
+                                        是否唯一
+                                    </th>
+                                    <th>
+                                        备注
+                                    </th>
+                                    <th style="text-align: center;">
+                                        删除
+                                    </th>
+                                </tr>
+                            </thead>
+                        </table>
+                        <div class="right-cell"></div>
+                    </div>
+                </div>
+                <div class="lee-table-body">
+                    <div class="lee-table-body-lock">
+                    </div>
+                    <div class="lee-table-body-inner">
+                        <table>
+                            <colgroup>
+                                <col width="50">
+                                <col width="100">
+                                <col width="100">
+                                <col width="100">
+                                <col width="100">
+                                <col width="100">
+                                <col width="100">
+                                <col width="80">
+                                <col width="80">
+                                <col width="80">
+                                <col width="80">
+                            </colgroup>
+                            <tr ng-repeat='item in data'>
+                                <td>
+                                    <input ng-model='item.IsPrimary' type="checkbox" class="mgc mgc-primary " />
+                                </td>
+                                <td ng-cloak>
+                                    <input class="table-edit" ng-model='item.Code' type="text" />
+                                </td>
+                                <td>
+                                    <input class="table-edit" ng-model='item.Name' type="text" />
+                                </td>
+                                <td>
+                                    <select class="table-select" ng-model='item.DataType'>
+                                        <option value="varchar">varchar</option>
+                                        <option value="char">char</option>
+                                        <option value="decimal">decimal</option>
+                                        <option value="date">date</option>
+                                    </select>
+                                </td>
+                                <td>
+                                    <input ng-model='item.Length' class="table-edit" max="100" min="0" ng-model='item.code' type="number" />
+                                </td>
+                                <td>
+                                    <input ng-model='item.Decimal' class="table-edit" ng-model='item.code' type="number" />
+                                </td>
+                                <td>
+                                    <input ng-model='item.DefaultValue' class="table-edit" ng-model='item.code' type="text" />
+
+                                </td>
+                                <td>
+                                    <input ng-model='item.IsRequired' type="checkbox" class="mgc mgc-primary ">
+                                </td>
+                                <td>
+                                    <input ng-model='item.IsUninque' type="checkbox" class="mgc mgc-primary ">
+                                </td>
+                                <td>
+                                    <input ng-model='item.Note' class="table-edit" ng-model='item.code' type="text" />
+                                </td>
+                                <td align="center">
+                                    <a href="#" style="color:#000000;" ng-click="removeRow($index)"><i class="fa fa-minus"></i></a>
+                                </td>
+                            </tr>
+
+                        </table>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="right-nav">
+            <div style="height: 100%;position: relative;overflow: auto;">
+                <div class="goup-list">
+                    <div class="group-header" style="padding: 6px 10px;">
+                        <span class="title">列属性</span>
+                        <a style="float: right;">
+                            <i class="icon iconfont icon-arrows_down"></i>
+                        </a>
+                    </div>
+                    <div class="group-info">
+                        <table class="prop_grid">
+                            <tbody>
+                                <tr>
+                                    <td class="readonly" style="width:100px;">
+                                        标识
+                                    </td>
+                                    <td class="readonly">
+                                        <input type="text" ng-model="model.ID">
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        编号
+                                    </td>
+                                    <td>
+                                        <input type="text" ng-model="model.Code">
+
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        表名
+                                    </td>
+                                    <td>
+                                        <input type="text" ng-model="model.TableName">
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="readonly">
+                                        创建人
+                                    </td>
+                                    <td class="readonly">
+                                        <span>{{model.CreateUser}}</span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="readonly">
+                                        创建时间
+                                    </td>
+                                    <td class="readonly">
+                                        <span>{{model.CreateTime}}</span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="readonly">
+                                        修改人
+                                    </td>
+                                    <td class="readonly">
+                                        <span>{{model.LastModifyUser}}</span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="readonly">
+                                        修改时间
+                                    </td>
+                                    <td class="readonly">
+                                        <span>{{model.LastModifyTime}}</span>
+                                    </td>
+                                </tr>
+
+
+                            </tbody>
+                        </table>
+                    </div>
+
+                </div>
+            </div>
+            <div class="btn-fold-menu ">
+                <i class="icon iconfont icon-arrows_left_double-  icon-arrows_right_double-"></i>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section ExternalScripts{
+
+    <script src="~/Scripts/DO/object.js"></script>
+}

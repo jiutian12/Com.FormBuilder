@@ -1,0 +1,59 @@
+﻿@{
+    Layout = "~/Views/Layout/MainContainer.cshtml";
+    ViewBag.Title = "数据模型定义";
+}
+
+@section ExternalScripts{
+    <script src="~/Scripts/DM/model.js"></script>
+
+}
+@Styles.Render("~/Bundle/Styles/Ztree")
+@Scripts.Render("~/Bundle/Scripts/Ztree")
+<style>
+    .lee-layout .right-nav {
+        width: 450px;
+    }
+
+    .lee-layout .center-nav {
+        margin-left: 0;
+        margin-right: 450px;
+    }
+</style>
+<div ng-controller='basecontroller'>
+    <div ng-show='istoast'>
+        <div class="lee-mask"></div>
+        <div class="lee-toast">
+            <i class="lee-loading lee-icon-toast"></i>
+            <p class="lee-toast-content">数据加载中</p>
+        </div>
+    </div>
+    <div class="lee-toolbar">
+        <div class="lee-toolbar-left">
+            <a title="删除字段" ng-click='removeCol()'><i class="fa fa-remove"></i><span>删除字段</span></a>
+            <a title="添加字段" ng-click='addCol()'><i class="fa fa-plus"></i><span>添加字段</span></a>
+            <a title="添加字段" ng-click='addVCol()'><i class="fa fa-plus"></i><span>添加虚字段</span></a>
+            <a class="disabled" title="删除子对象" ng-click='removeChild()'><i class="fa fa-cut"></i><span>删除子对象</span></a>
+            <a class="disabled" title="添加子对象" ng-click='addChild()'><i class="fa fa-plus"></i><span>添加子对象</span></a>
+            <a class="disabled" title="添加子对象" ng-click='saveModel()'><i class="fa fa-save"></i><span>保存</span></a>
+        </div>
+    </div>
+    <div class="lee-layout">
+        <div class="center-nav">
+            <div class="lee-header">
+                数据模型  <span>DM_数据模型定义</span>
+            </div>
+            <div>
+                <model-tree tree='treedata'></model-tree>
+            </div>
+
+        </div>
+        <div class="right-nav">
+            <div style="height: 100%;position: relative;overflow: auto;">
+                <model-attr props='props'></model-attr>
+            </div>
+            <div class="btn-fold-menu ">
+                <i class="icon iconfont icon-arrows_left_double-  icon-arrows_right_double-"></i>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,13 @@
+﻿
+@{
+    
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+<script src="~/Assets/jquery-1.10.2.min.js"></script>
+<script>
+    $.post("/FBMeta/GetFBMetaData", { "pagesize": "10", index: "1", condition: "" }, function (res) {
+        alert(res);
+    })
+</script>

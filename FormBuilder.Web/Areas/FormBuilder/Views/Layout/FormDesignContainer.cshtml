@@ -1,0 +1,38 @@
+﻿<!DOCTYPE html>
+<html>
+@Styles.Render("~/Bundle/Styles/FormDesign")
+@Styles.Render("~/Bundle/Styles/BASEUI")
+
+@Scripts.Render("~/Bundle/Scripts/Common")
+
+
+
+
+
+<body>
+    <div class="lee-global-load">
+        <div>
+            <img src="~/css/images/loading-tip.gif">
+            <div>努力加载中...</div>
+        </div>
+    </div>
+    <div class="site-header">
+        @*导航信息*@
+    </div>
+    <div>
+        @RenderBody()
+    </div>
+    <div class="site-footer">
+        @*底部工具栏信息*@
+    </div>
+
+    @Scripts.Render("~/Bundle/Scripts/Ace")
+    @Scripts.Render("~/Bundle/Scripts/Layer")
+    @Scripts.Render("~/Bundle/Scripts/LEEUI")
+    @Scripts.Render("~/Bundle/Scripts/FormDesign")
+    @if (IsSectionDefined("ExternalScripts"))
+    {
+        @RenderSection("ExternalScripts", false)
+    }
+</body>
+</html>

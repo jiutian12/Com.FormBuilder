@@ -1,0 +1,90 @@
+<style>
+    .pager span[disabled] {
+        float: left;
+        display: inline;
+        padding: 3px 10px 3px 10px;
+        margin-right: 5px;
+        border-radius: 3px;
+        -moz-border-radius: 3px;
+        -webkit-border-radius: 3px;
+        border: 1px solid #dfdfdf;
+        background-color: #FFF;
+        color: #dfdfdf;
+    }
+
+    .pager span {
+        float: left;
+        border: 1px solid #ccc;
+        display: inline;
+        padding: 3px 10px 3px 10px;
+        margin-right: 5px;
+        border-radius: 3px;
+        -moz-border-radius: 3px;
+        -webkit-border-radius: 3px;
+        cursor: pointer;
+        background: #fff;
+        text-decoration: none;
+        color: #333;
+    }
+
+    .pager span:hover {
+        border: 1px solid #31ace2;
+        background-color: #31ace2;
+        color: #fff;
+    }
+
+    .pager span.active {
+        background: #f0fdff;
+        color: #31ace2;
+        border: 1px solid #31ace2;
+    }
+
+    .pager span.search {
+        border: 1px solid #31ace2;
+        background-color: #31ace2;
+        color: #fff;
+    }
+
+    .pager span.search:hover {
+        opacity: 0.7;
+    }
+
+    .pager span[disabled] {
+        float: left;
+        display: inline;
+        padding: 3px 10px 3px 10px;
+        margin-right: 5px;
+        border-radius: 3px;
+        -moz-border-radius: 3px;
+        -webkit-border-radius: 3px;
+        border: 1px solid #dfdfdf;
+        background-color: #FFF;
+        color: #dfdfdf;
+    }
+
+    .pager .go {
+        float: left;
+        display: inline-block;
+        margin-right: 5px;
+    }
+
+    .pager .go input {
+        border: 1px solid #ccc;
+        margin-top: 2px;
+        outline: none;
+        width: 40px;
+    }
+</style>
+<div class="pager">
+    <span ng-click="first()" ng-disabled="isFirst()">{{ getText('first') }}</span>
+    <span ng-click="provie()" ng-disabled="isFirst()">{{ getText('provie') }}</span>
+    <span ng-repeat="i in page" ng-click="selectPage(i.indexPage)" ng-class="{active: i.active}">{{ i.text }}</span>
+    <span ng-click="next()" ng-disabled="isLast()">{{ getText('next') }}</span>
+    <span ng-click="last()" ng-disabled="isLast()">{{ getText('last') }}</span>
+
+    <span>共{{ totalPages }}页，{{ totalItems }}条</span>
+    <a class="go" ng-show="showgo()">
+        <input type="number" min="1">
+    </a>
+    <span class="search" ng-show="showgo()">跳转</span>
+</div>

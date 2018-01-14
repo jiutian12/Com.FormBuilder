@@ -1,0 +1,553 @@
+﻿@using FormBuilder.Utilities;
+@{
+    Layout = "~/Areas/FormBuilder/Views/Layout/BaseListContainer.cshtml";
+    ViewBag.Title = "数据源管理";
+}
+<link href="~/CSS/file.css" rel="stylesheet" />
+
+<link href="~/CSS/animate.css" rel="stylesheet" />
+
+<style>
+    body {
+        overflow: hidden;
+    }
+
+    .dropdown-menu > li > a {
+        line-height: 1.428571429;
+    }
+
+    .lee-slide-mask {
+        position: absolute;
+        left: 0;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        filter: alpha(opacity=65);
+        opacity: 0.65;
+        background: #FFFFFF;
+        font-size: 1px;
+        overflow: hidden;
+        display: none;
+        z-index: 10000;
+    }
+
+    .lee-slide-container {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        right: 0;
+        width: 400px;
+        background: #fff;
+        padding-bottom: 46px;
+        -webkit-box-shadow: 0 7px 21px rgba(0,0,0,.3);
+        box-shadow: 0 7px 21px rgba(0,0,0,.3);
+        overflow: hidden;
+        z-index: 10010;
+        display: none;
+        animation-duration: .3s;
+        animation-fill-mode: both;
+    }
+
+    .lee-slide-header {
+        height: 40px;
+        border-bottom: 1px solid #DDD;
+        position: relative;
+        line-height: 40px;
+        background: #f9f9f9;
+    }
+
+    .lee-slide-header span {
+        font-size: 16px;
+        margin-left: 10px;
+    }
+
+    .lee-slide-header a {
+        position: absolute;
+        right: 0;
+        top: 0px;
+        display: block;
+        height: 39px;
+        width: 36px;
+        text-align: center;
+        cursor: pointer;
+        color: #757474;
+        font-size: 16px;
+    }
+
+    .lee-slide-header a:hover {
+        background: #ebebeb;
+    }
+
+    .lee-slide-header .refresh {
+        right: 36px;
+    }
+
+
+
+    .timeline {
+        padding-top: 20px;
+        padding-bottom: 100px;
+    }
+
+    .timeline dl:after {
+        clear: both;
+    }
+
+
+    .timeline {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+    }
+
+    .lee-slide-content {
+        position: absolute;
+        top: 40px;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        overflow: auto;
+        padding-top: 10px;
+        padding-left: 15px;
+    }
+
+    .timeline-item {
+        position: relative;
+        padding: 0 0 12px;
+        list-style: none;
+        margin: 0;
+    }
+
+    .timeline .tail {
+        position: absolute;
+        left: 5px;
+        top: 0;
+        height: 100%;
+        border-left: 2px solid #e9e9e9;
+    }
+
+    .timeline-item-pending .tail {
+        display: none;
+    }
+
+    .timeline .head {
+        position: absolute;
+        width: 12px;
+        height: 12px;
+        background-color: #fff;
+        border-radius: 100px;
+        border: 2px solid transparent;
+    }
+
+    .timeline .blue {
+        border-color: #108ee9;
+        color: #108ee9;
+    }
+
+    .timeline .red {
+        border-color: #f04134;
+        color: #f04134;
+    }
+
+    .timeline .green {
+        border-color: #00a854;
+        color: #00a854;
+    }
+
+    .timeline .custom {
+        position: absolute;
+        text-align: center;
+        width: 40px;
+        left: -14px;
+        line-height: 1;
+        margin-top: 6px;
+        border: 0;
+        height: auto;
+        border-radius: 0;
+        padding: 3px 0;
+        font-size: 12px;
+        -webkit-transform: translateY(-50%);
+        -ms-transform: translateY(-50%);
+        transform: translateY(-50%);
+    }
+
+    .timeline .content {
+        padding: 0 0 10px 24px;
+        font-size: 12px;
+        position: relative;
+        top: -3px;
+    }
+
+    .timeline .content b {
+        font-size: 14px;
+        font-weight: bold;
+    }
+
+    .timeline .content .time {
+        margin-left: 10px;
+    }
+
+    .timeline .content p {
+        margin-top: 10px;
+    }
+
+    .timeline .timeline-item:last-child .tail {
+        border-left: 2px dotted #e9e9e9;
+        display: none;
+    }
+
+    .timeline .timeline-item:last-child .content {
+        min-height: 48px;
+    }
+</style>
+
+
+<div id="btngroup" class="top-nav ">
+    <span class="title">元数据资源管理器</span>
+
+    <span class="dropdown dropoptions ">
+        <button data-toggle="dropdown" class=" lee-btn" aria-expanded="true"><span id="chooseField">新建</span><i style="margin-left: 5px;margin-right:-5px;" class="lee-ion-android-arrow-dropdown"></i></button>
+        <ul class="dropdown-menu addMeta">
+            <li>
+                <a href="#" data-id="0">数据对象</a>
+            </li>
+            <li>
+                <a href="#" data-id="1">数据模型</a>
+            </li>
+            <li>
+                <a href="#" data-id="2">智能帮助</a>
+            </li>
+            <li>
+                <a href="#" data-id="3">表单</a>
+            </li>
+            <li>
+                <a href="#" data-id="5">自定义取数</a>
+            </li>
+            <li>
+                <a href="#" data-id="6">构件</a>
+            </li>
+        </ul>
+    </span>
+    <button class="lee-btn lee-btn-primary" id="btnAdd">
+        <i class="lee-ion-person-add"></i>新建目录
+    </button>
+    <button class="lee-btn lee-btn-primary" id="btnModify">
+        <i class="lee-ion-edit"></i>修改
+    </button>
+    <button class="lee-btn lee-btn-danger" id="btnDelete">
+        <i class="lee-ion-android-delete"></i>删除
+    </button>
+    <button class="lee-btn" id="btnMove">
+        <i class="lee-ion-arrow-move"></i>移动
+    </button>
+
+
+
+
+    <span class="dropdown dropoptions " style="float: right;margin-right: 9px;">
+        <button data-toggle="dropdown" class=" lee-btn" aria-expanded="true" style="border: 0;background: transparent;background: #108ee9;color: #FFF;">
+            <i class="lee-ion-person-add"></i><span id="chooseField">@Html.Raw(SessionProvider.Provider.Current().UserName)</span><i style="margin-left: 5px;margin-right:-5px;" class="lee-ion-android-arrow-dropdown"></i>
+        </button>
+        <ul class="dropdown-menu dropdown-menu-right userinfo">
+            <li>
+                <a href="#" onclick="openLog();" data-id="0">操作记录</a>
+            </li>
+            <li>
+                <a href="~/FormBuilder/login/logout" data-id="1">注销</a>
+            </li>
+        </ul>
+
+    </span>
+    <div class="filter_wrap" style="float: right;margin-top: 8px;">
+
+        <div class="search_wrap" style="padding: 0px 15px;">
+            <div class="lee-search-wrap">
+                <input id="txtkeyword" class="lee-search-words" type="text" placeholder="请输入查询关键字">
+                <button class="search lee-ion-search" id="btnSearch"></button>
+            </div>
+        </div>
+
+
+        <div class="order_wrap">
+
+        </div>
+    </div>
+</div>
+<style>
+    .top-nav {
+        z-index: 1000;
+        height: 44px;
+        background: #f9f9f9;
+        border-bottom: 1px solid #DDD;
+        line-height: 38px;
+    }
+
+    .top-nav .title {
+        border-left: 2px solid #49a9ee;
+        padding-left: 10px;
+        display: inline-block;
+        line-height: 20px;
+        font-size: 18px;
+        float: left;
+        margin-top: 10px;
+        color: #5b5b5b;
+        margin-left: 31px;
+        margin-right: 40px;
+    }
+
+    .top-nav button i {
+        margin-right: 5px;
+    }
+
+    .left-nav {
+        position: absolute;
+        width: 220px;
+        left: 0px;
+        padding-top: 0px;
+        top: 44px;
+        bottom: 0;
+        z-index: 4;
+    }
+
+    .center-nav {
+        position: absolute;
+        left: 0;
+        top: 50px;
+        right: 3px;
+        bottom: 3px;
+        margin-left: 225px;
+        overflow: auto;
+    }
+
+    .lee-tab-content {
+        position: absolute;
+        bottom: 0;
+        top: 30px;
+    }
+
+
+    .lee-tab-content-item {
+        overflow: hidden;
+    }
+
+    .file_site_map {
+        font-family: 宋体;
+        padding-left: 12px;
+        padding-top: 10px;
+        border-bottom: 1px solid #eee;
+        padding-bottom: 10px;
+    }
+
+    #bottombar {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+    }
+
+    #bottombar .lee-form td {
+        border: 0;
+        border-top: 1px solid #DDD;
+    }
+
+    #gridinfo {
+        margin-top: 3px;
+    }
+
+    .lee-panel-footer {
+        background: #FFF;
+    }
+
+    .prevgroup + .separator, .changepage, .changepage + .separator, .selectpagesize, .selectpagesize + .separator, .refreshgroup + .separator {
+        display: none;
+    }
+
+    .lee-panel-footer-inner .group .lee-bar-button {
+        border-color: transparent;
+    }
+
+    .lee-panel-footer-inner .group .lee-bar-button.lee-disabled {
+        border-color: transparent !important;
+        color: #4e4e4e !important;
+    }
+
+    .lee-grid .lee-grid-header, .lee-grid .lee-grid-hd-cell {
+        background: #FDFDFD;
+    }
+</style>
+
+<section class="left-nav">
+    <ul class="lee-navbar">
+        <li class="open">
+            <div class="nav-header">
+                <i class="lee-ion-android-desktop"></i>
+                <span class="menu-title">常用目录</span>
+                <i class="arrow ion"></i>
+            </div>
+            <ul class="nav-child">
+                <li>
+                    <a class="nav-header" href="#">
+
+                        <span class="menu-title">最近修改</span>
+                        <i class="arrow ion"></i>
+                    </a>
+                    <ul class="nav-child ">
+                        <li class="nav-item " data-id="my">
+                            <a href="#">
+                                <i class="lee-ion-settings" style="font-size:14px;"></i>
+                                <span class="menu-title">我创建的</span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+
+                <li>
+                    <a class="nav-header" href="#">
+
+                        <span class="menu-title">系统预制</span>
+                        <i class="arrow ion"></i>
+                    </a>
+                    <ul class="nav-child ">
+                        <li class="nav-item active" data-id="">
+                            <a href="#">
+                                <i class="lee-ion-settings" style="font-size:14px;"></i>
+                                <span class="menu-title">根目录</span>
+                            </a>
+                        </li>
+                        <li class="nav-item " data-id="SYS">
+                            <a href="#">
+                                <i class="lee-ion-settings" style="font-size:14px;"></i>
+                                <span class="menu-title">系统目录</span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+
+            </ul>
+        </li>
+
+
+    </ul>
+</section>
+
+
+<div class="center-nav">
+
+    <div class="headerwrap">
+        <div class="view_wrap" style="float:right;margin-right:5px;">
+
+            <div class="lee-btn-group" data-toggle="buttons">
+
+                <label class="lee-btn ">
+                    <i class="lee-ion-ios-keypad"></i>
+                    <input type="radio" name="viewtype" value="card" autocomplete="off">
+                </label>
+                <label class="lee-btn active">
+                    <i class="lee-ion-navicon"></i>
+                    <input type="radio" name="viewtype" value="list" autocomplete="off">
+                </label>
+            </div>
+        </div>
+        <div class="file_site_map" style="height: 35px;">
+            <div class="breadcrumb">
+                <a href="#" style="color:#0000FF"> 返回上一级</a>
+                |
+                <a href="#" style="color:#0000FF">全部文件</a>
+            </div>
+        </div>
+    </div>
+    <div id="fileWrap" class="file-view file-list" style="overflow: auto;  display: block;">
+        <div class="listheader">
+            <dd class="info_wrap header">  <span class="chk"></span>  <span class=""></span>  <div class="textline"> 文件名</div>  <div class="filetag">类型</div>  <div class="filetime">修改时间</div>  <div class="fileuser">修改人</div></dd>
+        </div>
+    </div>
+
+
+
+</div>
+
+<div id="dialog_addFolder" style="display:none;">
+    <div id="bottombar">
+        <table class="lee-table lee-form">
+            <tr>
+                <td style="border:0;">文件夹名称</td>
+                <td style="border:0;">
+                    <input type="hidden" class="lee-input" id="txtFolderID">
+                    <input type="text" class="lee-input" id="txtFolderName">
+                </td>
+            </tr>
+
+        </table>
+    </div>
+</div>
+
+<div id="dialog_moveFolder" style="display:none;">
+    <div id="folderTree">
+
+    </div>
+</div>
+
+
+
+<div id="dialog_addFrm" style="display:none;">
+    <div id="DMGRID">
+
+    </div>
+    <div id="DOGRID">
+        <div class="lee-search-wrap">
+            <input id="txtkeywordList" class="lee-search-words" type="text" placeholder="请输入查询关键字">
+            <button class="search lee-ion-search" id="btnSearchList"></button>
+        </div>
+        <div id="gridinfo"></div>
+    </div>
+    <div id="bottombar">
+        <table class="lee-table lee-form">
+            <tr>
+                <td>编号</td>
+                <td><input type="text" data-bind="Code" class="lee-input" id="txtCode"></td>
+                <td>名称</td>
+                <td><input type="text" data-bind="Name" class="lee-input" id="txtName"></td>
+            </tr>
+
+        </table>
+    </div>
+
+</div>
+<style>
+    .lee-menu i {
+        margin-right: 8px;
+    }
+</style>
+<div class="lee-menu" id="contextMenu" style="display:none; ">
+
+    <div class="lee-menu-inner">
+
+        <div class="lee-menu-item">
+            <div class="lee-menu-item-text rename"><i class="lee-ion-compose"></i> 重命名</div>
+        </div>
+        <div class="lee-menu-item">
+            <div class="lee-menu-item-text delete"><i class="lee-ion-trash-a"></i>删除</div>
+        </div>
+        <div class="lee-menu-item">
+            <div class="lee-menu-item-text move"><i class="lee-ion-arrow-move"></i>移动</div>
+        </div>
+        <div class="lee-menu-item">
+            <div class="lee-menu-item-text viewDepend"><i class="lee-ion-arrow-swap"></i>查看依赖</div>
+        </div>
+
+    </div>
+</div>
+
+
+<script>
+
+
+
+</script>
+
+
+@section ExternalScripts{
+
+    <script src="~/Scripts/FrameWork/core.js"></script>
+    <script src="~/Scripts/Common/explorer.js"></script>
+}

@@ -1,0 +1,227 @@
+﻿@model FormBuilder.Model.FBForm
+@using FormBuilder.Utilities
+@{
+    Layout = "~/Areas/FormBuilder/Views/Layout/BaseListContainer.cshtml";
+    ViewBag.Title = "用户自定义代码";
+}
+<div id="btngroup">
+    <button class="lee-btn lee-btn-primary" id="btnAddToolbar" onclick="pubData()">
+        <i class="lee-ion-edit"></i>
+        <span>保存并发布</span>
+    </button>
+    <button class="lee-btn lee-btn-sucess" id="btnRemoveToolbar">
+        <i class="lee-ion-ios-book"></i>
+        <span>API参考</span>
+    </button>
+</div>
+
+
+<div id="tabinfo" style="padding:5px;">
+    <div id="tab1" title="表单代码">
+        <pre id="editor1" class="editor">@Html.Raw(BASE64.DeCode(Model.JSInfo))</pre>
+    </div>
+    <div id="tab2" title="Html">
+        <pre id="editor2" class="editor">@HtmlParser.ConvertToXml(BASE64.DeCode(Model.HtmlInfo),true)</pre>
+    </div>
+    <div id="tab5" title="外联脚本/样式">
+        <div id="gridinfo"></div>
+    </div>
+    <div id="tab3" title="JavaScript">
+        <pre id="editor3" class="editor">@Model.UserJS</pre>
+    </div>
+    <div id="tab4" title="CSS">
+        <pre id="editor4" class="editor">@Model.CSSInfo</pre>
+    </div>
+</div>
+<style>
+    #btngroup {
+        padding: 5px 15px;
+        border-bottom: 1px solid #CCC;
+        margin-bottom: 5px;
+        /*background: #fbfbfb;*/
+        box-shadow: 1px 1px 6px rgba(185, 185, 185, 0.3);
+    }
+
+    .editor {
+        width: 100%;
+        margin: 0;
+        margin-top: 1px;
+        border: 1px solid #DDD;
+    }
+
+    .lee-tab-links {
+        overflow: hidden;
+    }
+
+    #gridinfo {
+        margin-top: 2px;
+    }
+
+    .rowbtn {
+        padding: 3px;
+        color: #5b5b5b;
+    }
+
+    .rowbtn:hover {
+        background: #CCC;
+    }
+</style>
+@section ExternalScripts{
+    @Scripts.Render("~/Bundle/Scripts/Ace")
+    <script src="~/Scripts/FrameWork/page.js"></script>
+}
+
+<script>
+    var editor1, editor2, editor3, editor4;
+    $(function () {
+        $("#tabinfo").leeTab({
+            onAfterSelectTabItem: function (tabid, id) {
+                $(window).trigger("resize");
+            }
+        });
+
+        $(".editor").css("height", $(window).height() - 90);
+
+        editor1 = ace.edit("editor1");
+
+        editor1.session.setMode("ace/mode/javascript");
+        var val = editor1.session.getValue();
+        var o = JSON.parse(val);// may throw if json is malformed
+        val = JSON.stringify(o, null, 4); // 4 is the indent size,该方法来自https://github.com/beautify-web/js-beautify/blob/master/js/lib/beautify.js
+        editor1.session.setValue(val);
+
+        editor2 = ace.edit("editor2");
+
+        editor2.session.setMode("ace/mode/html");
+
+        editor2.getSession().setMode("ace/mode/xml");
+
+        editor3 = ace.edit("editor3");
+
+        editor3.session.setMode("ace/mode/javascript");
+
+
+        editor4 = ace.edit("editor4");
+
+        editor4.session.setMode("ace/mode/css");
+
+        initGrid();
+        loadGrid();
+    });
+
+    function pubData() {
+        var id = fBulider.utils.getQuery("dataid");
+
+
+        var model = {
+            ID: id,
+            CSSINFO: editor4.getValue(),
+            USERJS: editor3.getValue()
+        };
+        var data = grid.getData();
+
+
+        fBulider.core.dataService.requestApi("/Form/publicUser", { model: JSON.stringify(model), link: JSON.stringify(data) }, "正在发布...").done(function (data) {
+            if (data.res) {
+                leeUI.Success(data.mes);
+            }
+        }).fail(function (data) {
+            console.log(data);
+        });
+    }
+    var grid;
+    function initGrid() {
+        grid = $("#gridinfo").leeGrid({
+            columns: [
+                 {
+                     display: '引用类型', name: 'LinkType', align: 'center', width: 120, editor: {
+                         type: "dropdown",
+                         data: [
+                             { id: "0", text: "样式表CSS" },
+                             { id: "1", text: "脚本JS" }
+                         ]
+                     }, render: leeUI.gridRender.DropDownRender
+                 },
+                 { display: '是否系统', name: 'IsSys', width: 80, render: leeUI.gridRender.CheckboxRender, readonly: true },
+                 { display: '是否启用', name: 'IsEnable', width: 80, render: leeUI.gridRender.CheckboxRender },
+                 { display: '外链地址', name: 'LinkURL', align: 'left', width: 350, editor: { type: "text" } },
+                 { display: '备注', name: 'Note', align: 'left', width: 150, editor: { type: "text" } },
+                 {
+                     display: '操作', width: 100, render: function (g, rowindex, value, column, length) {
+
+                         return "<a class='rowbtn' onclick=\"addRow()\" href='javascript:void(0)' title='添加'  ><i class='lee-ion-plus-round'></i></a><a  class='rowbtn' onclick=\"delRow('" + g["__id"] + "')\"  href='javascript:void(0)' title='删除'  ><i class='lee-ion-minus-round'></i></a>";
+                     }
+                 },
+                 {
+                     display: '顺序', width: 100, render: function (g, rowindex, value, column, length) {
+                         var html = [];
+                         if (rowindex != 0) {
+                             html.push("<a class='rowbtn' onclick=\"upRow('" + g["__id"] + "')\" href='javascript:void(0)'  ><i class='lee-ion-arrow-up-c'></i></a>");
+                         }
+
+                         if (rowindex != length - 1) {
+                             html.push("<a class='rowbtn' onclick=\"downRow('" + g["__id"] + "')\"  href='javascript:void(0)'  ><i class='lee-ion-arrow-down-c'></i></a>");
+                         }
+                         return html.join("");
+                     }
+                 }
+            ],
+            fixedCellHeight: true,
+            alternatingRow: false,
+            data: { Rows: [] },
+            height: "99%",
+            heightDiff: "10",
+            usePager: false,
+            rownumbers: true,
+            enabledEdit: true,
+            rowHeight: 30,
+            noDataRender: function (g) {
+                return "<button  onclick=\"addRow()\" class='lee-btn lee-btn-primary' > <i class='lee-ion-plus-round'  style='margin-right:5px;'></i>添加</button>";
+            }
+        });
+        grid._onResize();
+    }
+
+
+
+
+
+    function delRow(rowid) {
+        var rowdata = grid.getRow(rowid);
+
+        grid.remove(rowdata);
+    }
+
+    function upRow(rowid) {
+        var rowData = grid.getRow(rowid);
+        grid.up(rowData);
+    }
+
+    function downRow(rowid) {
+        var rowData = grid.getRow(rowid);
+        grid.down(rowData);
+    }
+    function addRow() {
+        var obj = {
+            ID: Guid.NewGuid().ToString(),
+            FormID: fBulider.utils.getQuery("dataid"),
+            LinkType: "0",
+            IsSys: "0",
+            IsEnable: "1",
+            LinkURL: "",
+            Note: "",
+            Ord: "",
+        };
+        grid.add(obj);
+    }
+    function loadGrid() {
+        fBulider.core.dataService.requestApi("/Form/getFormLink", { frmID: fBulider.utils.getQuery("dataid") }, "加载数据...").done(function (data) {
+            if (data.res) {
+
+                $("#gridinfo").leeGrid().loadData({ Rows: data.data });
+            }
+        }).fail(function (data) {
+            console.log(data);
+        });
+    }
+</script>

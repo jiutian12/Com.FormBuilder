@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<module name="CommunityModule">
+  <bind service="FormBuilder.DataAccess.Interface.IDbContext, FormBuilder.DataAccess" to="FormBuilder.DataAccess.MainDbContext, FormBuilder.DataAccess" />
+  <bind service="FormBuilder.Service.IFBDataObjectService, FormBuilder.Service" to="FormBuilder.Service.FBDataObjectService, FormBuilder.Service" />
+  <bind service="FormBuilder.Service.IFBDBSettingService, FormBuilder.Service" to="FormBuilder.Service.FBDBSettingService, FormBuilder.Service" />
+  <bind service="FormBuilder.Service.IFBDataModelService, FormBuilder.Service" to="FormBuilder.Service.FBDataModelService, FormBuilder.Service" />
+  <bind service="FormBuilder.Service.IFBCommonService, FormBuilder.Service" to="FormBuilder.Service.FBCommonService, FormBuilder.Service" />
+  <bind service="FormBuilder.Service.IFBSmartHelpService, FormBuilder.Service" to="FormBuilder.Service.FBSmartHelpService, FormBuilder.Service" />
+  <bind service="FormBuilder.Service.IFBFormService, FormBuilder.Service" to="FormBuilder.Service.FBFormService, FormBuilder.Service" />
+  <bind service="FormBuilder.Service.IFBDataSourceService, FormBuilder.Service" to="FormBuilder.Service.FBDataSourceService, FormBuilder.Service" />
+  <bind service="FormBuilder.Service.IFBFileService, FormBuilder.Service" to="FormBuilder.Service.FBFileService, FormBuilder.Service" />
+  <bind service="FormBuilder.Utilities.ISessionProvider, FormBuilder.Utilities" to="FormBuilder.Utilities.BaseSessionProvider, FormBuilder.Utilities" />
+  <bind service="FormBuilder.Service.IFBAccountService, FormBuilder.Service" to="FormBuilder.Service.FBAccountService, FormBuilder.Service" />
+  <bind service="FormBuilder.Service.IFBModelSQLService, FormBuilder.Service" to="FormBuilder.Service.FBModelSQLService, FormBuilder.Service" />
+  <bind service="FormBuilder.Service.IFBCMPService, FormBuilder.Service" to="FormBuilder.Service.FBCMPService, FormBuilder.Service" />
+
+
+</module>
