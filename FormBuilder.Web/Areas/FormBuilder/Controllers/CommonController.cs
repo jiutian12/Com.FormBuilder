@@ -12,8 +12,8 @@ namespace FormBuilder.Web.Areas.FormBuilder.Controllers
 {
     public class CommonController : Controller
     {
-        #region ctr
-
+        #region ctr  
+         
         IFBCommonService _service;
         IFBDataModelService _serviceDM;
         IFBDataObjectService _serviceDO;
