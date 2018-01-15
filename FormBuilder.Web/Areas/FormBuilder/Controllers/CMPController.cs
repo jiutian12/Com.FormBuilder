@@ -210,10 +210,10 @@ namespace FormBuilder.Web.Areas.FormBuilder.Controllers
             {
 
                 HttpPostedFileBase file = Request.Files["file"];
-                var path = AppDomain.CurrentDomain.BaseDirectory + "DllTmp/";
-                path += file.FileName;
+                // var path = AppDomain.CurrentDomain.BaseDirectory + "DllTmp/";
+                //path += file.FileName;
 
-                file.SaveAs(path);
+                //file.SaveAs(path);
 
 
                 List<FBComponent> list = new List<FBComponent>();
