@@ -18,6 +18,8 @@ namespace FormBuilder.Web.Areas.FormBuilder.Controllers
 
         IFBCMPService _service;
 
+        public static LogHelper log = LogFactory.GetLogger(typeof(CMPController));
+
         public CMPController(IFBCMPService service)
         {
             this._service = service;
@@ -182,6 +184,7 @@ namespace FormBuilder.Web.Areas.FormBuilder.Controllers
             }
             catch (Exception ex)
             {
+                log.Error(string.Format("执行构件发生异常 构件ID:{0},方法名：{1} 参数：{2}", componentID, methodName, paraArr), ex);
                 return Json(new { res = false, mes = "操作失败" + ex.Message });
                 //throw ex;
             }
@@ -196,8 +199,11 @@ namespace FormBuilder.Web.Areas.FormBuilder.Controllers
             return bytes;
         }
 
+        /// <summary>
+        /// 获取dll的方法列表
+        /// </summary>
+        /// <returns></returns>
         [HttpPost]
-        // GET: FBMeta
         public JsonResult getMethodList()
         {
             try

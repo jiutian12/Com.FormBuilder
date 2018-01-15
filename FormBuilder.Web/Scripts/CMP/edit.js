@@ -185,14 +185,14 @@ fBulider.page.CMPCardController.leeExtend(fBulider.page.UIController, {
                     ]
                 }, render: leeUI.gridRender.DropDownRender
             },
-            { display: '备注', name: 'Note', align: 'left', width: 120, editor: { type: "text" } }
+            { display: '备注', name: 'Note', align: 'left', width: 250, editor: { type: "text" } }
         ];
     },
     getGridParaOptions: function () {
         return [
-            { display: '参数名称', name: 'ParamName', align: 'left', width: 130, editor: { type: "text" } },
+            { display: '参数名称', name: 'ParamName', align: 'left', width: 180, editor: { type: "text" } },
             {
-                display: '参数类型', name: 'ParamType', align: 'left', width: 150, editor: {
+                display: '参数类型', name: 'ParamType', align: 'left', width: 180, editor: {
                     type: "dropdown",
                     data: [
                         { id: "1", "text": "System.String" },
@@ -202,7 +202,7 @@ fBulider.page.CMPCardController.leeExtend(fBulider.page.UIController, {
                     ]
                 }, render: leeUI.gridRender.DropDownRender
             },
-            { display: '备注', name: 'Note', align: 'left', width: 150, editor: { type: "text" } }
+            { display: '备注', name: 'Note', align: 'left', width: 250, editor: { type: "text" } }
         ];
     },
     setValue: function (data) {
