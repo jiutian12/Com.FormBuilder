@@ -37,9 +37,28 @@
 
     body {
         overflow-y: hidden;
-        padding: 3px;
+        padding: 1px;
+    }
+
+    .webuploader-pick {
+        background-color: #108ee9;
+        border-color: #0e7fd1;
+        padding: 4px 15px;
+        line-height: 1.5;
+        border: 1px solid #DDD;
+        border-color: #0e7fd1;
     }
 </style>
+
+
+
+
+<div id="dialog_create" style="display:none;">
+    <div id="treeInfo">
+
+    </div>
+</div>
+
 <div style="padding:5px;padding: 5px;border-bottom: 1px solid #CCC;background: #fbfbfb;">
     <div id="btngroup">
         <button class="lee-btn " id="btnAddRow">
@@ -50,6 +69,9 @@
             <i class="lee-ion-plus"></i>
             <span>添加参数</span>
         </button>
+
+
+        <div class='picker' id="btnUpload" style="display:inline-block;float: left;margin-right: 5px;">选择dll</div>
         <button class="lee-btn lee-btn-primary" id="btnSave">
             <i class="lee-ion-edit"></i>
             <span>保存</span>
@@ -102,7 +124,7 @@
                                 类名称
                             </td>
                             <td>
-                                <input type="text" class='lee-input ' data-rule="required" data-bind="ClassName" id='txtViewType'>
+                                <input type="text" class='lee-input ' data-rule="required" data-bind="ClassName" id='txtClassName'>
                             </td>
                         </tr>
                         <tr>
@@ -112,8 +134,8 @@
                             <td>
                                 <span>
                                     <input type="checkbox" class="lee-toggle-switch" data-bind="IsStatic" id="chkIsStatic">
-                                    <label for="chkIsUpdate"></label>
-                                </span> 
+                                    <label for="chkIsStatic"></label>
+                                </span>
                             </td>
                         </tr>
 

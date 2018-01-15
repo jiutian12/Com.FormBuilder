@@ -6,6 +6,9 @@ using System.Web.Mvc;
 using FormBuilder.Model;
 using FormBuilder.Service;
 using FormBuilder.Utilities;
+using System.Reflection;
+using System.Data;
+using System.IO;
 
 namespace FormBuilder.Web.Areas.FormBuilder.Controllers
 {
@@ -184,8 +187,109 @@ namespace FormBuilder.Web.Areas.FormBuilder.Controllers
             }
         }
 
+        private byte[] StreamToBytes(Stream stream)
+        {
+            byte[] bytes = new byte[stream.Length];
+            stream.Read(bytes, 0, bytes.Length);
+            // 设置当前流的位置为流的开始
+            stream.Seek(0, SeekOrigin.Begin);
+            return bytes;
+        }
+
+        [HttpPost]
+        // GET: FBMeta
+        public JsonResult getMethodList()
+        {
+            try
+            {
+
+                HttpPostedFileBase file = Request.Files["file"];
+                var path = AppDomain.CurrentDomain.BaseDirectory + "DllTmp/";
+                path += file.FileName;
+
+                file.SaveAs(path);
 
 
+                List<FBComponent> list = new List<FBComponent>();
+
+                Assembly ass = Assembly.Load(StreamToBytes(file.InputStream));
+
+
+                foreach (var type in ass.GetTypes())
+                {
+
+                    FBComponent model = new FBComponent();
+                    model.AssemblyName = type.Namespace;
+                    model.ClassName = type.Name;
+                    MethodInfo[] members = type.GetMethods(BindingFlags.Public | BindingFlags.Instance);//
+                    model.MethodList = new List<FBCMPMethod>();
+                    foreach (MethodInfo member in members)
+                    {
+                        if (member.Name != "ToString"
+                                  && member.Name != "Equals"
+                                  && member.Name != "GetHashCode"
+                                  && member.Name != "GetType")
+                        {
+                            FBCMPMethod mMethod = new FBCMPMethod();
+                            mMethod.MethodName = member.Name;
+                            mMethod.ReturnType = getByType(member.ReturnType);
+                            mMethod.ParaList = new List<FBCMPPara>();
+
+                            foreach (var para in member.GetParameters())
+                            {
+
+
+                                FBCMPPara mPara = new FBCMPPara();
+
+                                mPara.ParamName = para.Name;
+                                mPara.ParamType = getByType(para.ParameterType);
+                                mMethod.ParaList.Add(mPara);
+
+                            }
+                            model.MethodList.Add(mMethod);
+
+                        }
+
+                        //Console.WriteLine(type.Name + "." + member.Name);
+                    }
+                    list.Add(model);
+                }
+
+                return Json(new { res = true, data = list });
+            }
+            catch (Exception ex)
+            {
+                return Json(new { res = false, mes = "操作失败" + ex.Message });
+                //throw ex;
+            }
+        }
+
+
+        private string getByType(Type t)
+        {
+            var def = "";
+            if (t.Equals(typeof(System.String)))
+            {
+                def = "1";
+            }
+            else if (t.Equals(typeof(void)))
+            {
+                def = "0";
+            }
+            else if (t.Equals(typeof(DataSet)))
+            {
+                def = "3";
+            }
+            else if (t.Equals(typeof(DataTable)))
+            {
+                def = "4";
+            }
+            else
+            {
+                def = "2";
+            }
+            return def;
+        }
 
         #endregion
     }

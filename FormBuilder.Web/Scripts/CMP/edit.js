@@ -49,6 +49,114 @@ fBulider.page.CMPCardController.leeExtend(fBulider.page.UIController, {
             rowHeight: 30
         });
 
+        this.initUpload();
+
+    },
+
+    initUpload: function () {
+        var self = this;
+        var BASE_URL = _global.sitePath + "/DList/webupload";
+        var uploader = WebUploader.create({
+            auto: true,
+            duplicate: true,
+            swf: BASE_URL + '/Uploader.swf',
+            server: _global.sitePath + "/CMP/getMethodList",
+            pick: $("#btnUpload")
+        });
+
+        uploader.on('uploadSuccess', function (file, response) {
+            if (response.res) {
+                self.openDialog(response.data);
+
+            } else {
+                leeUI.Error(response.mes)
+            }
+        });
+    },
+
+    openDialog: function (assData) {
+
+        var self = this;
+        this.hashData = {};
+        this.hashMethod = {};
+        var data = [];
+
+
+        $.each(assData, function (i, obj) {
+            if (!self.hashData[obj.AssemblyName]) {
+                self.hashData[obj.AssemblyName] = {
+                    ID: obj.AssemblyName, Name: obj.AssemblyName, ParentID: "", children: []
+                };
+            }
+            self.hashData[obj.AssemblyName].children.push({
+                ID: obj.ClassName,
+                Name: obj.ClassName,
+                ParentID: obj.AssemblyName,
+                isSelect: true
+            });
+            self.hashMethod[obj.AssemblyName + "." + obj.ClassName] = obj;
+        });
+
+
+        $.each(this.hashData, function (key, value) {
+            data.push(value);
+        });
+
+
+        //$("#treeInfo").leeUI().destroy();
+        $("#treeInfo").leeTree({
+            data: data,
+            idFieldName: 'ID',
+            textFieldName: "Name",
+            parentIDFieldName: "ParentID",
+            checkbox: false,
+            onSelect: function (data) {
+                return false;
+                // self.onSelect(data);
+            },
+            onBeforeSelect: function (data) {
+                return data.data.isSelect ? true : false;
+
+            },
+            onCancelselect: function (data, treeitem) {
+                //console.log(data.data);
+                //console.log(data.target);
+            }
+        });
+
+        this.dialog = $.leeDialog.open({
+            title: "选择导入的类",
+            width: "400",
+            height: '355',
+            target: $("#dialog_create"),
+            targetBody: true,
+            isResize: true,
+            buttons: [{
+                text: '确定',
+                cls: 'lee-btn-primary lee-dialog-btn-ok',
+                onclick: function (item, dialog) {
+                    var selected = $("#treeInfo").leeUI().getSelected();
+                    if (selected) {
+                        self.confirmAdd(selected.data);
+                        dialog.close();
+                    }
+                }
+            }, {
+                text: '取消',
+                cls: 'lee-dialog-btn-cancel ',
+                onclick: function (item, dialog) {
+                    dialog.close();
+                }
+            }]
+        });
+
+    },
+    confirmAdd: function (selected) {
+
+        var data = this.hashMethod[selected.ParentID + "." + selected.ID].MethodList;
+        $("#txtAssemblyName").val(selected.ParentID);
+        $("#txtClassName").val(selected.ID);
+        this.setGridValue(data);
 
 
     },
@@ -71,8 +179,9 @@ fBulider.page.CMPCardController.leeExtend(fBulider.page.UIController, {
                     data: [
                         { id: "0", "text": "void" },
                         { id: "1", "text": "System.String" },
-                        { id: "2", "text": "Object" },
-                        { id: "3", "text": "DataSet" }
+                        { id: "2", "text": "Dictionnary<string,object>" },
+                        { id: "3", "text": "System.Data.DataSet" },
+                        { id: "4", "text": "System.Data.DataTable" }
                     ]
                 }, render: leeUI.gridRender.DropDownRender
             },
@@ -88,8 +197,8 @@ fBulider.page.CMPCardController.leeExtend(fBulider.page.UIController, {
                     data: [
                         { id: "1", "text": "System.String" },
                         { id: "2", "text": "Dictionnary<string,object>" },
-                        { id: "3", "text": "DataSet" },
-                        { id: "4", "text": "DataTable" }
+                        { id: "3", "text": "System.Data.DataSet" },
+                        { id: "4", "text": "System.Data.DataTable" }
                     ]
                 }, render: leeUI.gridRender.DropDownRender
             },
