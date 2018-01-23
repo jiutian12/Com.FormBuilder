@@ -1261,6 +1261,8 @@
     <Content Include="Scripts\Runtime\Controller\dict.js" />
     <Content Include="Scripts\Runtime\core.js" />
     <Content Include="Scripts\Runtime\Controller\list.js" />
+    <Content Include="Scripts\Runtime\Expression\calc.js" />
+    <Content Include="Scripts\Runtime\Expression\parser.js" />
     <Content Include="Scripts\Runtime\Express\calc.js" />
     <Content Include="Scripts\Runtime\Express\parser.js" />
     <Content Include="Scripts\Runtime\fsm.js" />
