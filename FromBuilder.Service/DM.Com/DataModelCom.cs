@@ -489,7 +489,7 @@ namespace FormBuilder.Service
                             }
                         }
                     }
-                  
+
 
                     Sql sql = DataModelEngine.BuildDeleteSql(item);
                     if (item.isMain == "1")
@@ -1081,12 +1081,12 @@ namespace FormBuilder.Service
                     var table = list[0].Relation.Where(p => p.ID == realtionID).ToList();
                     if (table.Count > 0)
                     {
-                        item.ParamName = string.Format("{0}.{1}", table[0].ObjectCode, res[0].Code);
+                        item.ParamName = string.Format("{0}.{1}", table[0].ObjectLabel, res[0].Code);
                     }
                 }
                 else
                 {
-                    item.ParamName = string.Format("{0}.{1}", list[0].Code, item.ParamName);
+                    item.ParamName = string.Format("{0}.{1}", list[0].Label, item.ParamName);
                 }
             }
 
@@ -1139,7 +1139,7 @@ namespace FormBuilder.Service
 
         }
 
- 
+
 
 
     }

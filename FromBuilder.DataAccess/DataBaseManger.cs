@@ -59,6 +59,8 @@ namespace FormBuilder.DataAccess
         /// <returns></returns>
         public static Database GetDB(string code)
         {
+            if (code == null) code = "defalutconnection";
+
             if (_dictDataBase.ContainsKey(code))
             {
                 return new Database(_dictDataBase[code].ConnectStr, _dictDataBase[code].DbType);

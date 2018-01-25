@@ -3143,6 +3143,7 @@
             g.reRender({
                 rowdata: editParm.record
             });
+            g.trigger('afterSubmitEdit',[editParm]);
             return true;
         },
         _getCurrentPageData: function (source) {
