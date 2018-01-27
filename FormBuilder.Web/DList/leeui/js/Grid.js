@@ -2689,7 +2689,7 @@
                 $(g.element).addClass("lee-empty");
 
                 $("<div></div>").addClass("lee-grid-body-inner").appendTo(g.gridbody).css({
-                    width: g.gridheader.find(">div:first").width(),
+                    width: g.gridheader.find(">div:first").width() - 40,
                     height: "100%"
                 });
                 if (p.pagerRender) {
@@ -3014,8 +3014,7 @@
                 }
             }
 
-            if (this.options.treeIconRender)
-            {
+            if (this.options.treeIconRender) {
                 return this.options.treeIconRender.call(this, rowdata); //这里直接返回样式
             }
             return "";
@@ -3037,7 +3036,7 @@
 
             var columnname = column.name,
 				columnindex = column.columnindex;
-             
+
             if (!column || column.readonly || !column.editor || column.editor.readonly) return;
             if (column.editor.type && p.editors[column.editor.type]) {
                 var currentdata = g._getValueByName(rowdata, columnname);
@@ -3143,7 +3142,7 @@
             g.reRender({
                 rowdata: editParm.record
             });
-            g.trigger('afterSubmitEdit',[editParm]);
+            g.trigger('afterSubmitEdit', [editParm]);
             return true;
         },
         _getCurrentPageData: function (source) {
