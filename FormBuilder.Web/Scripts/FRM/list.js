@@ -272,7 +272,7 @@ fBulider.page.FrmController.leeExtend(fBulider.page.ListViewController, {
                 dataAction: 'server', //服务器排序
                 usePager: true,       //服务器分页
                 height: "100%",
-                checkbox: true,
+                //checkbox: true,
                 rownumbers: true,
                 rowHeight: 30
             });
@@ -283,11 +283,16 @@ fBulider.page.FrmController.leeExtend(fBulider.page.ListViewController, {
     },
     getColumns: function () {
         return [
+            {
+                display: '操作', align: 'center', width: 160, render: function (g) {
+                    return "<button class='lee-btn lee-btn-primary lee-btn-xs gridmodify'>修改</button> <button class='lee-btn lee-btn-danger  lee-btn-xs griddelete'>删除</button> <button class='lee-btn   lee-btn-xs gridview'>预览</button> ";
+                }
+            },
             { display: '标识', name: 'ID', align: 'left', width: 260, minWidth: 60 },
             { display: '编号', name: 'Code', align: 'left', width: 160 },
             { display: '名称', name: 'Name', align: 'left', width: 140 },
             {
-                display: '类型', name: 'Type', align: 'center', width: 140, render: function (g) {
+                display: '类型', name: 'Type', align: 'center', width: 80, render: function (g) {
                     if (g.Type == "1") {
                         return "字典";
                     } else if (g.Type == "2") {
@@ -299,12 +304,7 @@ fBulider.page.FrmController.leeExtend(fBulider.page.ListViewController, {
                 }
             },
             { display: '最后修改时间', name: 'LastModifyTime', align: 'center', minWidth: 120, width: 160 },
-            { display: '备注', name: 'Note', align: 'left', width: 140 },
-             {
-                 display: '操作', align: 'center', width: 160, render: function (g) {
-                     return "<button class='lee-btn lee-btn-primary lee-btn-xs gridmodify'>修改</button> <button class='lee-btn lee-btn-danger  lee-btn-xs griddelete'>删除</button> <button class='lee-btn   lee-btn-xs gridview'>预览</button> ";
-                 }
-             }
+            { display: '备注', name: 'Note', align: 'left', width: 140 }
         ];
     },
     toggleTab: function () {

@@ -114,18 +114,20 @@ namespace FormBuilder.Service
         #region 分页获取表单列表
         public GridViewModel<FBForm> getPageList(string type, string keyword, int currentPage, int perPage, out long totalPages, out long totalItems)
         {
-            Sql sql = new Sql("select * from FBForm where 1=1");
+            Sql sql = new Sql("select * from FBForm where 1=1 ");
             if (!string.IsNullOrEmpty(keyword))
             {
                 sql.Append(new Sql(" and (Code like '" + keyword + "%' or Name like  '" + keyword + "%')"));
 
             }
-            sql.Append(" order by lastModifytime desc");
+
             if (!string.IsNullOrEmpty(type))
             {
-                sql.Append(new Sql(" and type='" + type + "'"));
+                sql.Append(new Sql(" and type='" + type + "' "));
 
             }
+
+            sql.Append(new Sql(" order by lastModifytime desc "));
             Page<FBForm> page = base.Page<FBForm>(currentPage, perPage, sql);
             totalPages = page.TotalPages;
 
@@ -134,7 +136,8 @@ namespace FormBuilder.Service
 
             GridViewModel<FBForm> model = new GridViewModel<FBForm>();
             model.Rows = page.Items;
-            model.TotalCount = totalPages;
+            model.TotalCount = totalItems;
+            model.Total = totalItems;
             return model;
         }
         #endregion

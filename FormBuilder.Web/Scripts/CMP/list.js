@@ -92,13 +92,13 @@ fBulider.page.DataSourceController.leeExtend(fBulider.page.ListViewController, {
             var rowobj = grid.getRow(row.attr("id").split("|")[2]);
 
             var id = rowobj.ID;
-            fBulider.core.window.open("", "修改数据对象", _global.sitePath + "/CMP/Edit?dataid=" + id);
+            fBulider.core.window.open("", "修改构件", _global.sitePath + "/CMP/Edit?dataid=" + id);
 
         })
         //绑定修改事件
         $("body").on("click", "#listview .btnedit", function (e) {
             var li = $(this).closest("li");
-            fBulider.core.window.open("", "修改模型", _global.sitePath + "/CMP/Edit?dataid=" + li.attr("data-id"));
+            fBulider.core.window.open("", "修改构件", _global.sitePath + "/CMP/Edit?dataid=" + li.attr("data-id"));
             li = null;
         });
 
@@ -123,7 +123,7 @@ fBulider.page.DataSourceController.leeExtend(fBulider.page.ListViewController, {
                 dataAction: 'server', //服务器排序
                 usePager: true,       //服务器分页
                 height: "100%",
-                checkbox: true,
+                //checkbox: true,
                 rownumbers: true,
                 rowHeight: 30
             });
@@ -134,17 +134,18 @@ fBulider.page.DataSourceController.leeExtend(fBulider.page.ListViewController, {
     },
     getColumns: function () {
         return [
+
+            {
+                display: '操作', align: 'center', width: 140, render: function (g) {
+                    return "<button class='lee-btn lee-btn-primary lee-btn-xs gridmodify'>修改</button> <button class='lee-btn lee-btn-danger  lee-btn-xs griddelete'>删除</button>";
+                }
+            },
             { display: '标识', name: 'ID', align: 'left', width: 220, minWidth: 60 },
             { display: '编号', name: 'Code', align: 'left', width: 160 },
             { display: '名称', name: 'Name', align: 'left', width: 140 },
             { display: '程序集', name: 'AssemblyName', align: 'left', width: 140 },
             { display: '创建人', name: 'CreateUser', align: 'center', width: 140 },
-            { display: '最后修改时间', name: 'LastModifyTime', align: 'center', minWidth: 120, width: 160 },
-            {
-                display: '操作', align: 'center', width: 160, render: function (g) {
-                    return "<button class='lee-btn lee-btn-primary lee-btn-xs gridmodify'>修改</button> <button class='lee-btn lee-btn-danger  lee-btn-xs griddelete'>删除</button>";
-                }
-            }
+            { display: '最后修改时间', name: 'LastModifyTime', align: 'center', minWidth: 120, width: 160 }
         ];
     },
     toggleTab: function () {
