@@ -753,6 +753,11 @@ namespace FormBuilder.Service
                     string updateSql = string.Format("update {0} set {1}=@0,{2}=@1 where {3}=@2", item.Code, time.createTime, time.createUser, dataField);
                     var sql = new Sql(updateSql, timeNow, opUser, dataID);
                     db.Execute(sql);
+
+                    //更新最后修改时间字段
+                    updateSql = string.Format("update {0} set {1}=@0,{2}=@1 where {3}=@2", item.Code, time.lastModifyTime, time.lastModifyUser, dataField);
+                    sql = new Sql(updateSql, timeNow, opUser, dataID);
+                    db.Execute(sql);
                 }
             }
         }

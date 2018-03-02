@@ -2054,6 +2054,7 @@ window.Page.UI = (function (ui, service, model, win, $) {
                 })
             }
 
+
             return func;
         },
         bulidColumnsEditor: function (column) {

@@ -122,6 +122,27 @@ namespace FormBuilder.Service
         }
 
 
+        public string remoteCheck(CheckExits model, string frmID, string dataModelID)
+        {
+            Sql sql = new NPoco.Sql(string.Format("select count(1) from {0} where {1}='{2}'", model.TableName, model.ValidField, model.ValidValue));
+
+            if (!string.IsNullOrEmpty(model.DataID))
+            {
+                sql.Append(string.Format(" and {0}<>'{1}' ", model.KeyField, model.DataID));
+            }
+            if (model.Filter != null)
+            {
+                sql.Append(ConditionParser.Serialize(model.Filter));
+            }
+
+            if (this.Db.Single<long>(sql) > 0)
+            {
+                return string.Format("{0}的值已存在", model.Label);
+            }
+            return "";
+        }
+
+
         #endregion
 
 
@@ -150,7 +171,7 @@ namespace FormBuilder.Service
         {
             Sql sql = new Sql("select * from FBLog where 1=1 ");
 
-          
+
 
             if (!string.IsNullOrEmpty(keyword))
             {

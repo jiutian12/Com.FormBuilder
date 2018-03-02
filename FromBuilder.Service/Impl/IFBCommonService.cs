@@ -18,6 +18,8 @@ namespace FormBuilder.Service
         /// <returns></returns>
         string remoteCheck(CheckExits model);
 
+        string remoteCheck(CheckExits model, string frmID, string dataModelID);
+
         List<FBMetaData> getFolderList(string parentID, string userID, bool isSYS, bool isFolder, string keyword);
 
         List<FBMetaData> searchMetaData(string keyword, string parentID);
