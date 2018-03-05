@@ -4,6 +4,23 @@ window.Page.Service = window.Page.Service || {};
 window.Page.Service = (function (service, win, $) {
 
 
+    var requestHeder = {};
+
+
+    $.ajaxSetup({
+        error: function (jqXHR, textStatus, errorMsg) {
+            console.log('发送AJAX请求到"' + this.url + '"时出错[' + jqXHR.status + ']：' + errorMsg);
+        },
+        success: function (data) {
+            //console.log("请求状态成功");
+        },
+        beforeSend: function (XHR) {
+            XHR.setRequestHeader("runtime", "1");
+            $.each(requestHeder, function (key, value) {
+                XHR.setRequestHeader(key, value);
+            });
+        }
+    });
     service.defaults = {
         baseURL: _global.sitePath,
         invokeURL: ""
@@ -12,6 +29,11 @@ window.Page.Service = (function (service, win, $) {
 
     /*定时轮训服务*/
     service.heartBreak = function () {
+    }
+
+    /*设置请求header*/
+    service.setRequsetHeader = function (key, value) {
+        requestHeder[key] = value;
     }
 
     //请求通用的ajax封装

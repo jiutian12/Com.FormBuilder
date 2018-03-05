@@ -64,6 +64,8 @@ $(function () {
     Page.Model.setDefaultValue(defaultValue);
     Page.UI.run();
 
+    Page.Service.setRequsetHeader("modelID", modelID);
+
 
     // 初始化tab页
     $(".tablayout").leeTab({

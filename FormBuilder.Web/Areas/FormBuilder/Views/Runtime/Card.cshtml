@@ -1,5 +1,6 @@
 ﻿@model FormBuilder.Model.FBForm
 @using FormBuilder.Utilities
+@using System.Text;
 @{
     Layout = "~/Areas/FormBuilder/Views/Layout/BaseListContainer.cshtml";
     ViewBag.Title = "";
@@ -135,15 +136,60 @@
     </style>
 
 }
+
+@{
+    if (HttpContext.Current.Request.QueryString.Get("cache") == "1")
+    {
+        var filePath = Server.MapPath("~/Scripts/Static/" + Model.ID + ".js");//获取想创建文件的物理路径
+        if (!System.IO.File.Exists(filePath))
+        {
+
+            StringBuilder sb = new StringBuilder();
+            FileStream fs1 = new FileStream(filePath, FileMode.Create, FileAccess.Write);//创建写入文件
+            StreamWriter sw = new StreamWriter(fs1);
+            sb.Append("var formConfig=");
+            sb.Append(Model.Config + ";");
+
+            sb.Append("var pageConfig=");
+            sb.Append(BASE64.DeCode(Model.JSInfo) + ";");
+
+            sb.Append("var toolbarConfig=");
+            sb.Append(Model.ToolBarConfig + ";");
+
+            sb.Append("var modelSchema=");
+            sb.Append(Model.SchemaInfo + ";");
+
+            sb.Append("var modelID=\"");
+            sb.Append(Model.ModelID + "\";");
+
+            sb.Append("var defaultValue=");
+            sb.Append((Model.DefaultInfo == null ? "{}" : Model.DefaultInfo) + ";");
+
+
+            sb.Append("var dsSchema=");
+            sb.Append((Model.dsSchema == null ? "{}" : Model.dsSchema) + ";");
+
+
+            sb.Append("var expressInfo=");
+            sb.Append((Model.ExpressInfo == null ? "{}" : Model.ExpressInfo) + ";");
+
+            sw.Write(sb.ToString());//开始写入值
+            sw.Close();
+            fs1.Close();
+        }
+        @Html.Raw(" <script src=\"/FormBuilder.Web/Scripts/Static/" + Model.ID + ".js\"></script>")
+    }
+    else
+    {
+        @Html.Raw("<script>var formConfig=" + Model.Config + "</script>")
+        @Html.Raw("<script>var pageConfig=" + BASE64.DeCode(Model.JSInfo) + "</script>")
+        @Html.Raw("<script>var toolbarConfig=" + Model.ToolBarConfig + "</script>")
+        @Html.Raw("<script>var modelSchema=" + Model.SchemaInfo + "</script>")
+        @Html.Raw("<script>var modelID=\"" + Model.ModelID + "\"</script>")
+        @Html.Raw("<script>var defaultValue=" + (Model.DefaultInfo == null ? "{}" : Model.DefaultInfo) + ";</script>")
+        @Html.Raw("<script>var dsSchema=" + (Model.dsSchema == null ? "{}" : Model.dsSchema) + ";</script>")
+        @Html.Raw("<script>var expressInfo=" + (Model.ExpressInfo == null ? "{}" : Model.ExpressInfo) + ";</script>")
+    }
+}
 @*输入界面配置信息*@
-
-@Html.Raw("<script>var formConfig=" + Model.Config + "</script>")
-@Html.Raw("<script>var pageConfig=" + BASE64.DeCode(Model.JSInfo) + "</script>")
-@Html.Raw("<script>var toolbarConfig=" + Model.ToolBarConfig + "</script>")
-@Html.Raw("<script>var modelSchema=" + Model.SchemaInfo + "</script>")
-@Html.Raw("<script>var modelID=\"" + Model.ModelID + "\"</script>")
-@Html.Raw("<script>var defaultValue=" + (Model.DefaultInfo == null ? "{}" : Model.DefaultInfo) + ";</script>")
-@Html.Raw("<script>var dsSchema=" + (Model.dsSchema == null ? "{}" : Model.dsSchema) + ";</script>")
-@Html.Raw("<script>var expressInfo=" + (Model.ExpressInfo == null ? "{}" : Model.ExpressInfo) + ";</script>")
-
 

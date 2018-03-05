@@ -8,6 +8,7 @@ using FormBuilder.Model;
 using FormBuilder.Repository;
 using FormBuilder.Utilities;
 using NPoco;
+using FormBuilder.DataAccess;
 
 namespace FormBuilder.Service
 {
@@ -134,8 +135,9 @@ namespace FormBuilder.Service
             {
                 sql.Append(ConditionParser.Serialize(model.Filter));
             }
-
-            if (this.Db.Single<long>(sql) > 0)
+            var ds = DataModelCom.getDataSource(dataModelID, this.Db);
+            Database ywdb = DataBaseManger.GetDB(ds);
+            if (ywdb.Single<long>(sql) > 0)
             {
                 return string.Format("{0}的值已存在", model.Label);
             }

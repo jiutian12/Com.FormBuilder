@@ -46,7 +46,7 @@
         var dataType = defalutCol[tableName + "." + col].dataType;
         if (dataType == "6") { //bit bool类型
             if (value) {
-                value = value == "1" ? true : false; 
+                value = value == "1" ? true : false;
             } else {
                 value = null;
             }
@@ -196,7 +196,15 @@
             }
         }
         var index = hashSchema[sourceid];
-        return model.schema[index].treeInfo;
+        if (index) {
+            return model.schema[index].treeInfo;
+        } else {
+            index = hashSchema[this.mainTable.id];
+            return model.schema[index].treeInfo;
+        }
+
+
+
     }
     // 处理模型缓存
     model.setCache = function () {

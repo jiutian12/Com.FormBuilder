@@ -72,8 +72,20 @@ namespace FormBuilder.Web.Controllers
         {
             try
             {
+
+                string res = "";
+                var modelID = HttpContext.Request.Headers.Get("modelID");
+
                 var data = Newtonsoft.Json.JsonConvert.DeserializeObject<CheckExits>(model);
-                var res = this._service.remoteCheck(data);
+                if (string.IsNullOrEmpty(model))
+                {
+                    res = this._service.remoteCheck(data, "", modelID);
+                }
+                else
+                {
+                    res = this._service.remoteCheck(data);
+                }
+
                 if (res != "")
                 {
                     return Json(new { error = res });
@@ -255,7 +267,7 @@ namespace FormBuilder.Web.Controllers
                             model.Name = entity.Name;
                             model.Code = entity.Code;
                             model.MainObectID = entity.ModelID;
-                            model.parentID= entity.ParentID;
+                            model.parentID = entity.ParentID;
                             this._serviceDM.AddModel(model);
                         }
                         break;

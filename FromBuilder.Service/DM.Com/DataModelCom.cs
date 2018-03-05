@@ -1046,6 +1046,11 @@ namespace FormBuilder.Service
             return model;
         }
 
+        public static string getDataSource(string ModelID, Database Db)
+        {
+            return getDataModelInfo(ModelID,Db).DataSource;
+        }
+
         /// <summary>
         /// 获取模型的执行数据源
         /// </summary>

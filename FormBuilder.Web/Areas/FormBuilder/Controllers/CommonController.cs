@@ -13,7 +13,7 @@ namespace FormBuilder.Web.Areas.FormBuilder.Controllers
     public class CommonController : Controller
     {
         #region ctr  
-         
+
         IFBCommonService _service;
         IFBDataModelService _serviceDM;
         IFBDataObjectService _serviceDO;
@@ -79,8 +79,20 @@ namespace FormBuilder.Web.Areas.FormBuilder.Controllers
         {
             try
             {
+
+                string res = "";
+                var modelID = HttpContext.Request.Headers.Get("modelID");
+
                 var data = Newtonsoft.Json.JsonConvert.DeserializeObject<CheckExits>(model);
-                var res = this._service.remoteCheck(data);
+                if (!string.IsNullOrEmpty(modelID))
+                {
+                    res = this._service.remoteCheck(data, "", modelID);
+                }
+                else
+                {
+                    res = this._service.remoteCheck(data);
+                }
+
                 if (res != "")
                 {
                     return Json(new { error = res });
@@ -89,6 +101,7 @@ namespace FormBuilder.Web.Areas.FormBuilder.Controllers
                 {
                     return Json(new { });
                 }
+
             }
             catch (Exception ex)
             {
