@@ -2396,7 +2396,7 @@ window.Page.UI = (function (ui, service, model, win, $) {
             if (obj.Func.indexOf("function") == 0) {
                 func = new Function("item", "g", "keyword", "(" + obj.Func + ")(item,keyword)");
             } else {
-                if (obj.Func.indexOf("return") !== 0 && obj.Func != "" && obj.Action != "") {
+                if (obj.Func.indexOf("return") == -1 && obj.Func != "" && obj.Action != "") {
                     obj.Func = "return " + obj.Func;
                 }
                 func = new Function("item", "g", "keyword", obj.Func);
