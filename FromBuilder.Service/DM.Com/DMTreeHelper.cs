@@ -98,6 +98,35 @@ namespace FormBuilder.Service
             return maxPath;
         }
 
+        public void updateParentMXField(FBDataModelObjects objectModel, string dataid, Dictionary<string, object> dict)
+        {
+
+
+            string parentID = dict[this.tree.parentid].ToString();
+            var tableName = objectModel.Code;
+
+            //this.tree = Newtonsoft.Json.JsonConvert.DeserializeObject<JFBTreeStruct>(objectModel.Tree);
+
+            if (!string.IsNullOrEmpty(this.tree.parentid))
+            {
+                //父子结构
+                string vssql = "select count(1) from {0} where {1}=@0";
+
+
+                vssql = string.Format(vssql, objectModel.Code, this.tree.parentid);
+
+
+                if (db.ExecuteScalar<long>(new Sql(vssql, dataid)) == 0)
+                {
+
+
+                    Sql execSql = new Sql(string.Format("update {0} set {1}=@1 where {2}=@0", objectModel.Code, this.tree.isdetail, objectModel.PKCOLName), parentID, 1);
+                    db.Execute(execSql);
+                }
+
+            }
+        }
+
 
         public void updateMXField(FBDataModelObjects objectModel, TreeNode tree)
         {

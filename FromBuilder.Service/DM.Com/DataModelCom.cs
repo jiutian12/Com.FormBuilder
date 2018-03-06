@@ -145,6 +145,38 @@ namespace FormBuilder.Service
         }
         #endregion
 
+
+
+
+
+
+
+        private static Dictionary<string, object> getSingleDataRow(string modelID, string dataid, Database Db)
+        {
+            FBDataModel modelDM = getDataModelInfo(modelID, Db);
+            Database ywDB = getModelDataSource(modelDM.DataSource);
+
+
+            List<dynamic> result = new List<dynamic>();
+
+            //var relationList = DataModelCom.getModelRelations(modelID, Db);
+            var list = getModelObjects(modelID, false, Db);
+            if (list.Count == 1)
+            {
+                DataModelEngine.setStrategy(getStrategy(ywDB));
+
+                StringBuilder sb = DataModelEngine.BuildSelectSql(list[0], list[0].Relation);
+                if (list[0].isMain == "1")
+                {
+                    sb.AppendFormat(" and {2}.{0}='{1}'", list[0].PKCOLName, dataid, list[0].Label);
+                }
+
+                return ywDB.SingleOrDefault<Dictionary<string, object>>(sb.ToString());// 业务db
+            }
+            return null;
+
+
+        }
         #region 获取分页的主表信息 QueryListPage
         public static GridViewModel<dynamic> getModelPageList(string modelID, int currentPage, int perPage, string filter, string order, out long totalPages, out long totalItems, Database Db)
         {
@@ -502,7 +534,20 @@ namespace FormBuilder.Service
                     }
 
                     ywDB.Execute(sql);
+
+                    if (item.Tree != "")
+                    {
+
+                        DMTreeHelper treeHelper = new DMTreeHelper();
+                        treeHelper.db = ywDB;
+                        treeHelper.tree = Newtonsoft.Json.JsonConvert.DeserializeObject<JFBTreeStruct>(item.Tree);
+                        var data = getSingleDataRow(modelID, dataid, Db);
+                        treeHelper.updateParentMXField(item, dataid, data);
+                        // 找到上级 找到同级 同级没有更新上级
+                    }
                 }
+
+
                 //这里调用扩展构件 表单扩展删除后事件
                 //广播删除后事件
                 //记录日志
@@ -913,7 +958,7 @@ namespace FormBuilder.Service
 
             var list = getModelObjects(modelID, false, Db);
             var mainCode = list[0].Code;//主表编号
-            //界面上先删后增
+                                        //界面上先删后增
             foreach (DataRow row in dsDel.Rows)
             {
                 // 删除主表信息
@@ -1048,7 +1093,7 @@ namespace FormBuilder.Service
 
         public static string getDataSource(string ModelID, Database Db)
         {
-            return getDataModelInfo(ModelID,Db).DataSource;
+            return getDataModelInfo(ModelID, Db).DataSource;
         }
 
         /// <summary>
