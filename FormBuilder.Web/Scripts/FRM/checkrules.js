@@ -28,10 +28,37 @@
                 self.editRule(id);
             });
 
+            $(".setrules").on("click", "li .up", function () {
+                var index = $(this).closest("li").index();
+                self.up(index);
+            });
+            $(".setrules").on("click", "li .down", function () {
+                var index = $(this).closest("li").index();
+                self.down(index);
+            });
             $("#checkrules_dropdown>li>a").bind("click", function () {
                 var id = $(this).attr("data-id");
                 self.addRule(id);
             });
+        },
+        up: function (index) {
+            this.data.splice(index - 1, 0, (this.data[index]));    //删除后一项 
+            this.data.splice(index + 1, 1);
+
+
+            this.initList();
+
+
+            this.listener.call(this, this.data);
+        },
+        down: function (index) {
+            this.data.splice(index + 2, 0, (this.data[index]));    // 删除前一项 
+
+            this.data.splice(index, 1);
+
+            this.initList();
+
+            this.listener.call(this, this.data);
         },
         setValue: function (data) {
             this.data = data;
@@ -47,7 +74,7 @@
         initList: function () {
             var htmlarr = [];
             $.each(this.data, function (i, row) {
-                htmlarr.push('<li data-id=' + row["id"] + ' >' + row["name"] + row["params"] + '<a  href="#" class="handlebar delete lee-ion-android-delete"></a><a href="#" class="handlebar edit lee-ion-edit"></a></li>');
+                htmlarr.push('<li data-id=' + row["id"] + ' >' + row["name"] + row["params"] + '<a  href="#" class="handlebar delete lee-ion-android-delete"></a><a href="#" class="handlebar edit lee-ion-edit"></a><a href="#" class="handlebar up lee-ion-arrow-up-b"></a><a href="#" class="handlebar down lee-ion-arrow-down-b"></a></li>');
             });
             if (htmlarr.length == 0) htmlarr.push("<li class='nodata'>暂无规则设置</li>");
             $(".setrules").html(htmlarr.join(""));

@@ -1089,6 +1089,7 @@
     <Content Include="DList\leeui\css\common.css" />
     <Content Include="DList\leeui\css\gradient.css" />
     <Content Include="DList\leeui\css\icon.css" />
+    <Content Include="DList\leeui\css\images\common.png" />
     <Content Include="DList\leeui\css\images\tfs-icons.png" />
     <Content Include="DList\leeui\font\fontawesome-webfont.svg" />
     <Content Include="DList\leeui\font\ionicons.svg" />

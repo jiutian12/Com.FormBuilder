@@ -866,15 +866,38 @@ window.Page.UI = (function (ui, service, model, win, $) {
                         ui.event.register(id, "afterShowData", function (e, data) {
                             if (data.Rows.length > 0) {
                                 var index = 0;
+                                var selrow;
                                 if (self.lastID) {
                                     for (var i = 0; i < data.Rows.length; i++) {
                                         if (data.Rows[i][model.pkCol] == self.lastID) {
                                             index = i;
+                                            selrow = data.Rows[i];
+                                            break;
+                                        } else if (data.Rows[i].__hasChildren) {
+                                            loop(data.Rows[i].children)
                                         }
                                     }
                                 }
+                                function loop(childrens) {
+                                    for (var i = 0; i < childrens.length; i++) {
+                                        if (childrens[i][model.pkCol] == self.lastID) {
+                                            index = i;
+                                            selrow = childrens[i];
+                                            break;
+                                        } else {
+                                            loop(childrens[i].children)
+                                        }
+
+                                    }
+                                }
+                                if (selrow) {
+                                    $("#" + this.id).leeUI().select(selrow);
+                                } else {
+
+                                    $("#" + this.id).leeUI().select(0);
+                                }
                                 //alert(index); 树形grid的时候 这里记录索引有问题 todo
-                                $("#" + this.id).leeUI().select(index);
+
                             }
 
                         });
