@@ -5,6 +5,12 @@ $.validator.config({
         email: [/^([a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+(.[a-zA-Z0-9_-])+/, "请填写有效的邮箱"],
         website: [/^([hH][tT]{2}[pP]:\/\/|[hH][tT]{2}[pP][sS]:\/\/)(([A-Za-z0-9-~]+)\.)+([A-Za-z0-9-~\/])+$/, "请填写有效的网址"],
         chinese: [/^[\u0391-\uFFE5]+$/, "请填写中文字符"],
+        userfunc: function (element, parms) {
+            var value = element.value;
+            var funcStr = Base64.decode(parms[0].split(",")[1])
+            var applyFunc = new Function("value", "return (" + funcStr + ")(value)");
+            return applyFunc(value);
+        },
         checkExits: function (element, parms) {
             var arr = parms[0].split(",")
             var data = JSON.stringify({
@@ -60,6 +66,12 @@ var Rules = {
         var flag = /^[\u0391-\uFFE5]+$/.test(value);
         return { res: flag, mes: params ? params : "请录入中文字符！" };
     },
+    userfunc: function (value, parmams) {
+        var funcStr = Base64.decode(parmams[0].split(",")[1])
+        var applyFunc = new Function("value", "return (" + funcStr + ")(value)");
+        var res = applyFunc(value);
+        return { res: (res == true ? true : false), mes: res };
+    },
     startWith: function (value, params) {
         if (!value || !params) {
             return { res: true, mes: "需要以" + params + "开始" };
@@ -110,7 +122,7 @@ var Rules = {
         },
         setRules: function (rules) {
             this.rules = rules;
-            $('#form').validator({ timely: 1, theme: 'yellow_top' });
+            $('#form').validator({ timely: 1, theme: 'yellow_bottom' });
             $('#form').validator("setField", this.rules);
         },
 

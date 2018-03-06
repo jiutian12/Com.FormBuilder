@@ -178,6 +178,11 @@ namespace FormBuilder.Service
                 modelmain.Code = obj.Code;
                 modelmain.Name = obj.AiasName;
                 modelmain.ObjectID = model.MainObectID;
+                var listres = list.Where(p => p.IsPrimary == "1").ToList();
+                if (listres.Count <= 0)
+                {
+                    throw new Exception("数据对象必须定义一个主键！");
+                }
                 modelmain.PKCOLName = list.Where(p => p.IsPrimary == "1").ToList()[0].Code;
                 modelmain.Level = "1";
                 modelmain.isMain = "1";
