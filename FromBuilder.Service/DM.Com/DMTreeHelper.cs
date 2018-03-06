@@ -52,13 +52,19 @@ namespace FormBuilder.Service
             var format = tree.format == "" ? "44444444444444444444" : tree.format;
             var formatIndexLen = 4;
             var alllen = 0;
+            //var indexLen = 0;
             var i = 1;
             foreach (var len in format)
             {
-
+                //indexLen += int.Parse(len.ToString());
+                //2
                 if (i >= int.Parse(level))
                 {
                     formatIndexLen = Convert.ToInt32(len.ToString());
+                    if (!isSame)
+                    {
+                        alllen += int.Parse(len.ToString());
+                    }
                     break;
                 }
                 alllen += int.Parse(len.ToString());
@@ -67,7 +73,7 @@ namespace FormBuilder.Service
             if (isSame)
             {
 
-                path = path.Substring(0, alllen);
+                path = path.Substring(0, alllen); //3001
                 //处理path
             }
             else
