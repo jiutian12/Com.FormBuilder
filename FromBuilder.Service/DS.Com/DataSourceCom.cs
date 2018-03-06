@@ -361,7 +361,9 @@ namespace FormBuilder.Service
                     i++;
                 }
 
-                return new Sql(sql, arr);
+
+                object[] para = arr.ToArray();
+                return new Sql(sql, para);
             }
             else if (!string.IsNullOrEmpty(sql))
             {
