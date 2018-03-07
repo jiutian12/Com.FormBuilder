@@ -139,7 +139,7 @@
         { id: "startWith", name: "以XX开头", "desc": "例如 Pre 那么输入必须以Pre才可以 ", tips: "" },
         { id: "endWith", name: "以XX结束", "desc": "例如 End 那么输入必须以End才结束 ：", tips: "" },
         { id: "checkExits", name: "远程校验", "desc": "表名称,验证字段名 例如 ExpertSort,Code", tips: "" },
-        { id: "userfunc", name: "自定义function", "desc": "例如  </br>function(value){  </br>&nbsp;&nbsp; if(value=='') </br>&nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; return /^[0-9a-zA-Z]*$/.test(value) || '不允许保存空格、汉字和*、！、=、+、-等特殊字符'; </br> return true 则表示成功 其他均表示失败}" }
+        { id: "userfunc", name: "自定义function", "desc": "例子  </br>function(value){  </br>&nbsp;&nbsp; if(value=='') </br>&nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; return /^[0-9a-zA-Z]*$/.test(value) || '不允许保存空格、汉字和*、！、=、+、-等特殊字符';</br>} </br> return true 则表示成功 其他均表示失败" }
     ];
     var RuleEditManger = {
         init: function () {
