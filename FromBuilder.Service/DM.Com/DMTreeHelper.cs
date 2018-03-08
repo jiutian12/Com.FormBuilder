@@ -116,7 +116,7 @@ namespace FormBuilder.Service
                 vssql = string.Format(vssql, objectModel.Code, this.tree.parentid);
 
 
-                if (db.ExecuteScalar<long>(new Sql(vssql, dataid)) == 0)
+                if (db.ExecuteScalar<long>(new Sql(vssql, parentID)) == 0)
                 {
 
 

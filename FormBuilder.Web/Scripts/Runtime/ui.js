@@ -711,6 +711,9 @@ window.Page.UI = (function (ui, service, model, win, $) {
                 //更新所有 or 指刷新节点
             } else {
                 ui.gridController.reloadMain(); // 刷新主表
+
+
+
             }
             //ui.gridController.mainGrid.loadData(true);
         },
@@ -723,6 +726,7 @@ window.Page.UI = (function (ui, service, model, win, $) {
                 if (type) {
                     service.deleteModel(modelID, dataID).done(function (data) {
                         self.lastID = "";
+                        self.saveExpandStatus();
                         self.reload();
                         if (data.res)
                             leeUI.Success(data.mes);
@@ -732,10 +736,20 @@ window.Page.UI = (function (ui, service, model, win, $) {
                 }
             });
         },
+        saveExpandStatus: function () {
+            this.expandrows = [];
+            var self = this;
+            var grid = ui.gridController.mainGrid;
+            var lnks = $(".lee-grid-tree-link-open");
+            $.each(lnks, function (i, ele) {
+                var domid = $(ele).closest("tr").attr("id");
+                var idField = model.pkCol;
+                var rowkey = grid._getRowByDomId(domid)[idField];
+                self.expandrows.push(rowkey);
+            });
+        },
         /*字典类保存方法*/
         _saveData: function (callback) {
-
-
             //validate 
             var self = this;
             this.getCtrl();
@@ -744,6 +758,7 @@ window.Page.UI = (function (ui, service, model, win, $) {
             data["FBFileSave"] = ui.fileManager.getAllData();//绑定附件数据
             var tmpid = model.getMainDataID();
             var treeCurrent = model.getCurrentTreeObj();
+            this.saveExpandStatus();
             //模型id 数据
             service.saveModel(
                 modelID,
@@ -754,7 +769,6 @@ window.Page.UI = (function (ui, service, model, win, $) {
                 self.lastID = tmpid;
                 self.reload();
                 if (data.res) {
-                    //callback(data.res);
                     leeUI.Success(data.mes);
                 }
                 callback(data.res);
@@ -914,6 +928,9 @@ window.Page.UI = (function (ui, service, model, win, $) {
                             });
                         });
                         ui.event.register(id, "afterShowData", function (e, data) {
+                            var grid = $("#" + id).leeUI();
+                            if (grid.treeload) return;
+
                             if (data.Rows.length > 0) {
                                 var index = 0;
                                 var selrow;
@@ -934,21 +951,28 @@ window.Page.UI = (function (ui, service, model, win, $) {
                                             index = i;
                                             selrow = childrens[i];
                                             break;
-                                        } else {
+                                        } else if (childrens[i].__hasChildren) {
                                             loop(childrens[i].children)
                                         }
 
                                     }
                                 }
                                 if (selrow) {
-                                    $("#" + this.id).leeUI().select(selrow);
+                                    grid.select(selrow);
                                 } else {
-
-                                    $("#" + this.id).leeUI().select(0);
+                                    grid.select(0);
                                 }
                                 //alert(index); 树形grid的时候 这里记录索引有问题 todo
 
                             }
+                            var rows = self.expandrows;
+                            var data = grid.rows;
+                            for (var i = 0; i < data.length; i++) {
+                                if ($.inArray(data[i][model.pkCol], rows) != -1) {
+                                    grid.expand(data[i]);
+                                }
+                            }
+                            self.expandrows = [];
 
                         });
 
@@ -1962,8 +1986,11 @@ window.Page.UI = (function (ui, service, model, win, $) {
                                 data.data[item].children = [];
                             }
                         }
+                        grid.treeload = true;
                         grid.append(data.data, rowdata); //添加数据    
                         e.update();
+                        grid.treeload = false;
+                        ui.event.trigger(grid.id, "afterShowData", grid.currentData);
                         rowdata._loaded = true;
                     }
                     grid.toggleLoading(false);
