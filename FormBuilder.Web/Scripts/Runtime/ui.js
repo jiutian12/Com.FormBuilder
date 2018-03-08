@@ -264,19 +264,21 @@ window.Page.UI = (function (ui, service, model, win, $) {
             this.addControl(ctrl.type, ctrl);
             this.addControlLabel(ctrl.id, ctrl.label);
         },
-        editCard: function (frmID, formState, title) {
+        editCard: function (frmID, formState, title, gridid, isrefresh) {
             var grid = ui.gridController.mainGrid;
+            if (gridid)
+                grid = $("#" + gridid).leeUI();
             var selected = grid.getSelected();
             if (selected) {
                 var dataID = selected[model.pkCol];
-                this.openForm(dataID, frmID, "card", "modify", formState, title)
+                this.openForm(dataID, frmID, "card", "modify", formState, title, isrefresh)
             } else {
                 $.leeUI.Error("请选中要编辑的记录");
             }
         },
-        addCard: function (frmID, formState, title) {
+        addCard: function (frmID, formState, title, isrefresh) {
 
-            this.openForm("", frmID, "card", "add", formState, title);
+            this.openForm("", frmID, "card", "add", formState, title, isrefresh);
         },
         addSameCard: function (frmID, gridid, formState, title, isrefresh) {
             var grid = $("#" + gridid).leeUI();
