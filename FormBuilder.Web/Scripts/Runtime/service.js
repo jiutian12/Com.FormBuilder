@@ -136,10 +136,10 @@ window.Page.Service = (function (service, win, $) {
         return defer.promise();
     }
     // 保存卡片数据(包含子对象)
-    service.saveModelALL = function (modelID, dataID, model, status) {
+    service.saveModelALL = function (modelID, dataID, model, status, treeNode) {
         var defer = $.Deferred();
         this.requestApi("/DataModel/saveModelALL", {
-            modelID: modelID, dataID: dataID, model: model, status: status
+            modelID: modelID, dataID: dataID, model: model, status: status, treeNode: treeNode
         }, "正在保存...").done(function (data) {
             defer.resolve(data);
         }).fail(function (data) {

@@ -822,13 +822,13 @@ namespace FormBuilder.Service
         #endregion
 
         #region  保存所有的数据 包子表
-        public void saveModelALL(string modelID, string dataID, DataSet ds, string status)
+        public void saveModelALL(string modelID, string dataID, DataSet ds, string status, TreeNode tree)
         {
             //try
             //{
             //    base.Db.BeginTransaction();
             FBDataModel model = this.GetModel(modelID);
-            DataModelCom.saveModelALL(modelID, model, dataID, ds, status, base.Db);
+            DataModelCom.saveModelALL(modelID, model, dataID, ds, status, tree, base.Db);
 
             //    base.Db.CompleteTransaction();
             //}

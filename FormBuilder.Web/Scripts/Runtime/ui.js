@@ -278,6 +278,31 @@ window.Page.UI = (function (ui, service, model, win, $) {
 
             this.openForm("", frmID, "card", "add", formState, title);
         },
+        addSameCard: function (frmID, gridid, formState, title, isrefresh) {
+            var grid = $("#" + gridid).leeUI();
+            var selected = grid.getSelected();
+
+            var dataID = "";
+            this.openForm(dataID, frmID, "card", "addsame", formState, title, isrefresh, null, null, function () {
+                var dgContext = parent.document.getElementById('frmView' + dataID).contentWindow;
+                dgContext.Page.UI.instance.initTreeInfo(selected);
+            });
+
+        },
+        addChildCard: function (frmID, gridid, formState, title, isrefresh) {
+            var grid = $("#" + gridid).leeUI();
+            var selected = grid.getSelected();
+            if (selected) {
+                var dataID = "";
+                this.openForm(dataID, frmID, "card", "addchild", formState, title, isrefresh, null, null, function () {
+
+                    var dgContext = parent.document.getElementById('frmView' + dataID).contentWindow;
+                    dgContext.Page.UI.instance.initTreeInfo(selected);
+                })
+            } else {
+                $.leeUI.Error("请选中一行数据");
+            }
+        },
         deleteCard: function () {
             var self = this;
             var grid = ui.gridController.mainGrid;
@@ -309,7 +334,7 @@ window.Page.UI = (function (ui, service, model, win, $) {
             else
                 window.close();
         },
-        openForm: function (dataID, frmID, type, action, formState, title, isrefresh, height, width) {
+        openForm: function (dataID, frmID, type, action, formState, title, isrefresh, height, width, callback) {
             // 表单
             //window.open(url);
             height = height || "480";
@@ -319,13 +344,16 @@ window.Page.UI = (function (ui, service, model, win, $) {
             var self = this;
             window.top.$.leeDialog.open({
                 title: title,
-                name: 'frmView',
+                name: 'frmView' + dataID,
                 isHidden: false,
                 showMax: true,
                 width: width,
                 slide: false,
                 height: height,
                 overflow: "hidden",
+                onLoaded: function () {
+                    if (callback) callback();
+                },
                 onClose: function () {
                     //alert(1);
                     if (isrefresh)
@@ -1105,6 +1133,8 @@ window.Page.UI = (function (ui, service, model, win, $) {
             if (action.toLowerCase() == "add") {
                 this.add();
                 //ui.stateMachine.action("add"); // 
+            } else if (action.toLowerCase() == "addsame" || action.toLowerCase() == "addchild") {
+                action = "add";
             } else {
                 this.loadData();//查看和修改则加载数据               
             }
@@ -1113,6 +1143,43 @@ window.Page.UI = (function (ui, service, model, win, $) {
         },
         bind: function () {
             this.setPageReadOnly();
+        },
+        initTreeInfo: function (row) {
+            this.setQueryTreeSelect(row);
+            var status = this.getStatus();
+            if (status == "addchild") {
+                this.addChild();
+            } else if (status == "addsame") {
+                this.addSame();
+            }
+        },
+        setQueryTreeSelect: function (row) {
+            this.selected = row;
+        },
+        getQueryTreeSelect: function () {
+            return this.selected;
+        },
+        addSame: function () {
+            var selected = this.getQueryTreeSelect();
+            model.setMainModel([model.getDefaultDataRow("", true, selected, true)]);
+            model.clearDetailModel();
+
+            this.setDataID(model.getMainDataID());
+            this.bindCtrl();
+            ui.fileManager.initParamsEmpty();
+            return true;
+        },
+        addChild: function () {
+            var selected = this.getQueryTreeSelect();
+
+            model.setMainModel([model.getDefaultDataRow("", true, selected, false)]);
+
+            model.clearDetailModel();
+            this.setDataID(model.getMainDataID());
+            this.bindCtrl();
+            ui.fileManager.initParamsEmpty();
+
+            return true;
         },
         add: function () {
             // 卡片新增方法
@@ -1188,8 +1255,17 @@ window.Page.UI = (function (ui, service, model, win, $) {
             this.getCtrl();
             var data = model.getSaveData();
             data["FBFileSave"] = ui.fileManager.getAllData();//绑定附件数据
+            //获取到树形
+            var treeCurrent = model.getCurrentTreeObj();
+
             //模型id 数据
-            service.saveModelALL(modelID, this.getDataID(), JSON.stringify(data), this.status).done(function (data) {
+            service.saveModelALL(
+                modelID,
+                this.getDataID(),
+                JSON.stringify(data),
+                this.status,
+                JSON.stringify(treeCurrent)
+            ).done(function (data) {
                 //self.reload();
                 if (data.res) {
                     leeUI.Success(data.mes);
@@ -1200,8 +1276,7 @@ window.Page.UI = (function (ui, service, model, win, $) {
                 callback(data.res);
                 //成功后刷新列表
                 //触发保存成功事件
-            })
-            .fail(function (data) {
+            }).fail(function (data) {
                 console.log("失败");
             });
         },
@@ -2536,6 +2611,7 @@ window.Page.UI = (function (ui, service, model, win, $) {
             this.add(barid, ctrl);
         },
         add: function (barid, ctrl) {
+            this.toolbars = this.toolbars || {};
             this.toolbars[barid] = { ctrl: ctrl };
         }
     };

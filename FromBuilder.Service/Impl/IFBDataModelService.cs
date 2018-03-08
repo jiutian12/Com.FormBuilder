@@ -157,7 +157,7 @@ namespace FormBuilder.Service
         void saveModel(string modelID, DataSet ds, string status, TreeNode tree);
 
 
-        void saveModelALL(string modelID, string dataID, DataSet ds, string status);
+        void saveModelALL(string modelID, string dataID, DataSet ds, string status, TreeNode tree);
 
         void saveModelList(string modelID, DataSet ds, DataTable dsDel);
 

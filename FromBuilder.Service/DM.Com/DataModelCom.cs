@@ -808,7 +808,7 @@ namespace FormBuilder.Service
         }
 
         #region 数据模型通用保存方法 包括子表 SaveModelALL
-        public static void saveModelALL(string modelID, FBDataModel model, string dataID, DataSet ds, string status, Database Db)
+        public static void saveModelALL(string modelID, FBDataModel model, string dataID, DataSet ds, string status, TreeNode treeNode, Database Db)
         {
 
             Database ywDB = getModelDataSource(model.DataSource);
@@ -828,7 +828,23 @@ namespace FormBuilder.Service
                 {
                     if (item.isMain == "1")
                     {
+
+
                         mainCode = item.Code;
+
+                        // 处理树形数据
+                        if (status == "addsame" || status == "addchild")
+                        {
+                            DMTreeHelper treeHelper = new DMTreeHelper();
+                            treeHelper.db = ywDB;
+                            treeHelper.tree = Newtonsoft.Json.JsonConvert.DeserializeObject<JFBTreeStruct>(item.Tree);
+                            if (treeHelper.isPath())  // 新增状态处理分级码
+                                treeHelper.getMaxPath(item, treeNode.grade, treeNode.level, status == "addsame", ref ds);
+
+                            if (status == "addchild")
+                                // 更新上级是否明细字段
+                                treeHelper.updateMXField(item, treeNode);
+                        }
                         if (editFlag)
                         {
                             sqlActionMgr.ExecBeforeSave(ds.Tables[item.Code]);
@@ -839,6 +855,8 @@ namespace FormBuilder.Service
                             sqlActionMgr.ExecBeforeInsert(ds.Tables[item.Code]);
                             ywDB.Execute(DataModelEngine.BuildInsertSql(item, ds)[0]);
                         }
+
+
                         //保存卡片附件信息
                         saveFileList(modelID, dataID, ds, Db);
                         saveTimeStampInfo(item, editFlag, true, dataID, ywDB); // 时间戳处理

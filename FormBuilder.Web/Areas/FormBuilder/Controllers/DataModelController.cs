@@ -609,12 +609,18 @@ namespace FormBuilder.Web.Areas.FormBuilder.Controllers
         /// <param name="status"></param>
         /// <returns></returns>
         [HttpPost]
-        public JsonResult saveModelALL(string modelID, string dataID, string model, string status)
+        public JsonResult saveModelALL(string modelID, string dataID, string model, string status, string treeNode)
         {
             try
             {
                 var data = Newtonsoft.Json.JsonConvert.DeserializeObject<DataSet>(model);
-                this._service.saveModelALL(modelID, dataID, data, status);
+
+                TreeNode parentTree = null;
+                if (!string.IsNullOrEmpty(treeNode))
+                {
+                    parentTree = Newtonsoft.Json.JsonConvert.DeserializeObject<TreeNode>(treeNode);
+                }
+                this._service.saveModelALL(modelID, dataID, data, status, parentTree);
                 return Json(new { res = true, mes = "保存成功" });
             }
             catch (Exception ex)
