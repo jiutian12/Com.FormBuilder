@@ -264,39 +264,59 @@ window.Page.UI = (function (ui, service, model, win, $) {
             this.addControl(ctrl.type, ctrl);
             this.addControlLabel(ctrl.id, ctrl.label);
         },
-        editCard: function (frmID, formState, title, gridid, isrefresh) {
+        openCard: function (frmID, action, opts) {
+            var formState = opts.formState || "";
+            var title = opts.title;
+            var height = opts.height;
+            var width = opts.width;
+            if (action == "modify") {
+                this.editCard(frmID, formState, title, opts.gridid, opts.isrefresh, height, width)
+            }
+            if (action == "add") {
+                this.addCard(frmID, formState, title, opts.isrefresh, height, width)
+            }
+            if (action == "addsame") {
+                this.addSameCard(frmID, opts.gridid, formState, title, opts.isrefresh, height, width)
+            }
+            if (action == "addchild") {
+                this.addChildCard(frmID, opts.gridid, formState, title, opts.isrefresh, height, width)
+            }
+            if (action == "view") {
+                //this.addChildCard(frmID, opts.gridid, formState, title, opts.isrefresh, height, width)
+            }
+        },
+        editCard: function (frmID, formState, title, gridid, isrefresh, height, width) {
             var grid = ui.gridController.mainGrid;
             if (gridid)
                 grid = $("#" + gridid).leeUI();
             var selected = grid.getSelected();
             if (selected) {
                 var dataID = selected[model.pkCol];
-                this.openForm(dataID, frmID, "card", "modify", formState, title, isrefresh)
+                this.openForm(dataID, frmID, "card", "modify", formState, title, isrefresh, height, width)
             } else {
                 $.leeUI.Error("请选中要编辑的记录");
             }
         },
-        addCard: function (frmID, formState, title, isrefresh) {
-
+        addCard: function (frmID, formState, title, isrefresh, height, width) {
             this.openForm("", frmID, "card", "add", formState, title, isrefresh);
         },
-        addSameCard: function (frmID, gridid, formState, title, isrefresh) {
+        addSameCard: function (frmID, gridid, formState, title, isrefresh, height, width) {
             var grid = $("#" + gridid).leeUI();
             var selected = grid.getSelected();
 
             var dataID = "";
-            this.openForm(dataID, frmID, "card", "addsame", formState, title, isrefresh, null, null, function () {
+            this.openForm(dataID, frmID, "card", "addsame", formState, title, isrefresh, height, width, function () {
                 var dgContext = parent.document.getElementById('frmView' + dataID).contentWindow;
                 dgContext.Page.UI.instance.initTreeInfo(selected);
             });
 
         },
-        addChildCard: function (frmID, gridid, formState, title, isrefresh) {
+        addChildCard: function (frmID, gridid, formState, title, isrefresh, height, width) {
             var grid = $("#" + gridid).leeUI();
             var selected = grid.getSelected();
             if (selected) {
                 var dataID = "";
-                this.openForm(dataID, frmID, "card", "addchild", formState, title, isrefresh, null, null, function () {
+                this.openForm(dataID, frmID, "card", "addchild", formState, title, isrefresh, height, width, function () {
 
                     var dgContext = parent.document.getElementById('frmView' + dataID).contentWindow;
                     dgContext.Page.UI.instance.initTreeInfo(selected);
@@ -341,7 +361,7 @@ window.Page.UI = (function (ui, service, model, win, $) {
             //window.open(url);
             height = height || "480";
 
-            width = width || "900";
+            width = width || "800";
             title = title || "详情";
             var self = this;
             window.top.$.leeDialog.open({
@@ -359,7 +379,7 @@ window.Page.UI = (function (ui, service, model, win, $) {
                 onClose: function () {
                     //alert(1);
                     if (isrefresh)
-                        self.reload();
+                        self.reload(true);
                 },
                 url: _global.sitePath + "/Runtime/" + type
                     + "?frmid=" + frmID
@@ -1102,8 +1122,11 @@ window.Page.UI = (function (ui, service, model, win, $) {
             this.deleteData.push(data);
         },
         /*刷新界面数据*/
-        reload: function () {
+        reload: function (iscustom) {
             ui.gridController.reloadMain(); // 刷新主表
+
+            if (iscustom)
+                ui.gridController.reloadOther();
             //ui.gridController.mainGrid.loadData(true);
         },
         bind: function () {
@@ -1824,6 +1847,13 @@ window.Page.UI = (function (ui, service, model, win, $) {
             if (this.load(this.mainGridID)) {
                 this.mainGrid.loadData(true);
             }
+        },
+        reloadOther: function () {
+            var self = this;
+            $.each(this.grids, function (key, obj) {
+                if (key != self.mainGridID)
+                    obj.grid.loadData(true);
+            });
         },
         load: function (gridid, filter, keyword) {
             var self = this;
