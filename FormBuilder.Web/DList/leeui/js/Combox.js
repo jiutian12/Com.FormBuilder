@@ -334,7 +334,8 @@
             if (!value && !g.unselect) return;
             g.unselect = $('<div class="lee-clear"><i class="lee-icon lee-icon-close lee-clear-achor"></i></div>').hide();
             g.wrapper.hover(function () {
-                g.unselect.show();
+                if (!p.disabled)
+                    g.unselect.show();
             }, function () {
                 g.unselect.hide();
             })
