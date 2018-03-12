@@ -1882,6 +1882,7 @@ window.Page.UI = (function (ui, service, model, win, $) {
         load: function (gridid, filter, keyword) {
             var self = this;
             var flag = false;
+            if (!gridid) return;
             var bindtable = this.grids[gridid].ctrl.bindtable;
 
 
