@@ -1124,6 +1124,7 @@
     <Content Include="DList\leeui\js\Tree.js" />
     <Content Include="DList\leeui\js\Upload.js" />
     <Content Include="DList\leeui\layout.js" />
+    <Content Include="DList\leeui\leeui.js" />
     <Content Include="DList\leeui\leeui.min.js" />
     <Content Include="DList\ngdialog\ngDialog-custom-width.css" />
     <Content Include="DList\ngdialog\ngDialog-theme-default.css" />

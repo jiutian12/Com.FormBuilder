@@ -358,7 +358,8 @@ var EditorFactory = (function () {
                 "#ed_dropdown_order",
 				"#ed_dropdown_ismul",
 				"#ed_dropdown_issuggest",
-                "#ed_dropdown_islabel"
+                "#ed_dropdown_islabel",
+                "#ed_dropdown_isbit"
 
 
             ];
@@ -401,7 +402,9 @@ var EditorFactory = (function () {
             $("#ed_dropdown_ismul").prop("checked", editor.ismul);
             $("#ed_dropdown_issuggest").prop("checked", editor.issuggest);
             $("#ed_dropdown_islabel").prop("checked", editor.islabel);
+            $("#ed_dropdown_isbit").prop("checked", editor.isbit);
 
+            
             this.setVisible(editor.source);
 
         },
@@ -450,7 +453,8 @@ var EditorFactory = (function () {
             this.editor.jsonstring = $("#ed_dropdown_jsonstring").leeUI().getValue();
             this.editor.ismul = $("#ed_dropdown_ismul").prop("checked");
             this.editor.issuggest = $("#ed_dropdown_issuggest").prop("checked");
-            this.editor.islabel = $("#ed_dropdown_v").prop("checked");
+            this.editor.islabel = $("#ed_dropdown_islabel").prop("checked");
+            this.editor.isbit = $("#ed_dropdown_isbit").prop("checked");
         },
         getCompleteName: function (key) {
             return "ed_dropdown_" + key;

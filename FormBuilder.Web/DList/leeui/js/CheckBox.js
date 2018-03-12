@@ -114,7 +114,7 @@
         },
         _getValue: function () {
             if (this.options.notbit) {
-                alert(1);
+                //alert(1);
                 return (this.element.checked ? "1" : "0");
             }
             return this.element.checked;

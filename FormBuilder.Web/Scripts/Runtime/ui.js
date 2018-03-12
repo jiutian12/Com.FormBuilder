@@ -3279,6 +3279,7 @@ window.Page.UI = (function (ui, service, model, win, $) {
 
             }
 
+            opts.isbit = editor.isbit;
 
             opts.isMultiSelect = editor.ismul;
 

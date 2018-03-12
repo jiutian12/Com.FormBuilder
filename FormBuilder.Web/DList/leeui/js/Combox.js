@@ -13,6 +13,7 @@
         resize: true, //是否调整大小
         isMultiSelect: false, //是否多选
         isShowCheckBox: false, //是否选择复选框
+        isbit: false,
         columns: null, //表格状态
         width: null,
         selectBoxWidth: null, //宽度
@@ -507,10 +508,17 @@
             }
         },
         _setValue: function (value, text) {
+
+
             var g = this,
 				p = this.options;
+
+            if (p.isbit) {
+                if (value) value = "1";
+                else value = "0";
+            }
             var isInit = false,
-				isTriggerEvent = true;
+                isTriggerEvent = true;
             if (text == "init") {
                 text = null;
                 isInit = true;
@@ -949,6 +957,9 @@
 
             var g = this,
 				p = this.options;
+            if (p.isbit) {
+                return $(this.valueField).val() == "1" ? true : false
+            }
             if (p.isTextBoxMode) {
                 return g.inputText.val();
             }
