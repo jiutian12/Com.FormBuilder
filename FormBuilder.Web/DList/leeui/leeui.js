@@ -17363,7 +17363,7 @@ jQuery.fn.leePager = function(maxentries, opts) {
 		callback: function() {
 			return false;
 		}
-	}, opts || {});
+	}, opts || {})
 
 	return this.each(function() {
 		/**
