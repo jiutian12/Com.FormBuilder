@@ -285,6 +285,18 @@ window.Page.UI = (function (ui, service, model, win, $) {
                 //this.addChildCard(frmID, opts.gridid, formState, title, opts.isrefresh, height, width)
             }
         },
+        copyCard: function (frmID, formState, title, gridid, isrefresh, height, width) {
+            var grid = ui.gridController.mainGrid;
+            if (gridid)
+                grid = $("#" + gridid).leeUI();
+            var selected = grid.getSelected();
+            if (selected) {
+                var dataID = selected[model.pkCol];
+                this.openForm(dataID, frmID, "card", "copy", formState, title, isrefresh, height, width)
+            } else {
+                $.leeUI.Error("请选中要复制的记录");
+            }
+        },
         editCard: function (frmID, formState, title, gridid, isrefresh, height, width) {
             var grid = ui.gridController.mainGrid;
             if (gridid)
@@ -1184,11 +1196,36 @@ window.Page.UI = (function (ui, service, model, win, $) {
                 //ui.stateMachine.action("add"); // 
             } else if (action.toLowerCase() == "addsame" || action.toLowerCase() == "addchild") {
                 action = "add";
+            } else if (action.toLowerCase() == "copy") {
+                this.copy(this.getDataID());
+                action = "modify";
             } else {
                 this.loadData();//查看和修改则加载数据               
             }
             // 状态机设置当前动作
             ui.stateMachine.action(action.toLowerCase());
+        },
+        copy: function (dataid) {
+            var self = this;
+            service.getModelByDataID(modelID, dataid).done(function (data) {
+                if (data.res) {
+                    //self.setStatus("edit");
+                    //console.log(data);
+                    // 处理主表  处理明细表字段
+                    var newid = Guid.NewGuid().ToString();
+                    model.setModel(data.data);
+                    model.setMainModelObject(model.pkCol, newid);
+                    self.setDataID(newid);
+                    self.bindCtrl();
+                    self.setStatus("add");
+                } else {
+                    $.leeUI.Warn(data.mes);
+                }
+
+            })
+            .fail(function (data) {
+                console.log("失败");
+            });
         },
         bind: function () {
             this.setPageReadOnly();

@@ -186,4 +186,4 @@ jQuery.fn.leePager = function (maxentries, opt) {
         // 回调函数
         //opts.callback(current_page, this);
     });
-}
+};

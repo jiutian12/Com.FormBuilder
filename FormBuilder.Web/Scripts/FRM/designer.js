@@ -1064,8 +1064,8 @@ var leeManger = {
                 if (obj._isleaf && obj._level != maxlevel) {
                     rowspan = maxlevel - obj._level + 1;
                 }
-
-                headhtml.push("<th gid='" + id + "' rowspan='" + rowspan + "'  colspan='" + obj["_colspan"] + "'  cid='" + obj["colid"] + "'><span>" + obj["colname"] + "</span></th>");
+                var ismx = obj._isleaf ? "1" : "0";
+                headhtml.push("<th gid='" + id + "' ismx='" + ismx + "'  rowspan='" + rowspan + "'  colspan='" + obj["_colspan"] + "'  cid='" + obj["colid"] + "'><span>" + obj["colname"] + "</span></th>");
             });
             headhtml.push("</tr>");
 

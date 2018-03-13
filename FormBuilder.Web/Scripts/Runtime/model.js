@@ -287,6 +287,7 @@
     model.getModel = function () {
         return defaultInstance;
     }
+    
     model.setMainModelObject = function (key, value) {
 
         var index = this.getModelObjectIndex(model.mainTableName);
