@@ -73,11 +73,24 @@ namespace FormBuilder.Utilities
                             {
                                 DataRow trow = dsTitle.Rows[cj];
                                 string colname = trow[0].ToString();
-                                CellType vtype = getCellType(row[colname], colname);
+                                CellType vtype;
+                                if (!row.ContainsKey(colname))
+                                {
+                                    vtype = getCellType("", colname);
+                                }
+                                else
+                                {
+                                    vtype = getCellType(row[colname], colname);
 
-                                if (!row.ContainsKey(colname)) continue;
+                                }
 
                                 ICell ecell = derow.CreateCell(cj, vtype);
+                                if (!row.ContainsKey(colname))
+                                {
+                                    ecell.SetCellValue("");
+                                    continue;
+
+                                }
                                 switch (vtype)
                                 {
                                     case CellType.Blank:
