@@ -43,6 +43,18 @@
       <HintPath>..\packages\Ninject.3.2.0.0\lib\net45-full\Ninject.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="NPOI">
+      <HintPath>..\..\refdll\NPOI.2.2.1\lib\net40\NPOI.dll</HintPath>
+    </Reference>
+    <Reference Include="NPOI.OOXML">
+      <HintPath>..\..\refdll\NPOI.2.2.1\lib\net40\NPOI.OOXML.dll</HintPath>
+    </Reference>
+    <Reference Include="NPOI.OpenXml4Net">
+      <HintPath>..\..\refdll\NPOI.2.2.1\lib\net40\NPOI.OpenXml4Net.dll</HintPath>
+    </Reference>
+    <Reference Include="NPOI.OpenXmlFormats">
+      <HintPath>..\..\refdll\NPOI.2.2.1\lib\net40\NPOI.OpenXmlFormats.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Web" />
@@ -58,6 +70,7 @@
     <Compile Include="Base.Condition\CheckExits.cs" />
     <Compile Include="Base.Condition\Condition.cs" />
     <Compile Include="Base.Condition\SortCondition.cs" />
+    <Compile Include="Base.Excel\DataToExcel.cs" />
     <Compile Include="Base.File\IFileProvider.cs" />
     <Compile Include="Base.GridView\GridViewModel.cs" />
     <Compile Include="Base.Security\DESEncrypt.cs" />
