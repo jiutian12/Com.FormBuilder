@@ -368,6 +368,41 @@ window.Page.UI = (function (ui, service, model, win, $) {
             else
                 window.close();
         },
+        exportExcel: function (gridid) {
+            var grid = $("#" + gridid).leeUI();
+
+            var data = grid.getData();
+            var cols = grid.options.columns;
+            var datacols = [];
+            $.each(cols, function (i, row) {
+                datacols.push({
+                    name: row["name"],
+                    display: row["display"],
+                    width: row["width"]
+                });
+            });
+
+
+
+
+
+
+            var url = "/FormBuilder.Web/FormBuilder/DataModel/getExcel";
+            function getiframeDocument($iframe) {
+                var iframeDoc = $iframe[0].contentWindow || $iframe[0].contentDocument;
+                if (iframeDoc.document) {
+                    iframeDoc = iframeDoc.document;
+                }
+                return iframeDoc;
+            }
+            var $iframe = $("<iframe style='display: none' src='about:blank'></iframe>").appendTo("body");
+            $iframe.ready(function () {
+                var formDoc = getiframeDocument($iframe);
+                formDoc.write("<html><head></head><body><form method='Post' action='" + url + "'><input type='hidden' name='data' value='" + JSON.stringify(data) + "'/><input type='hidden' name='cols' value='" + JSON.stringify(datacols) + "'/></form></body></html>");
+                var $form = $(formDoc).find('form');
+                $form.submit();
+            });
+        },
         openForm: function (dataID, frmID, type, action, formState, title, isrefresh, height, width, callback) {
             // 表单
             //window.open(url);

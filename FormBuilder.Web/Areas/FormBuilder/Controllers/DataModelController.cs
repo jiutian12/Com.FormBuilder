@@ -8,6 +8,8 @@ using FormBuilder.Model;
 using FormBuilder.Service;
 using FormBuilder.Utilities;
 using Newtonsoft.Json;
+using System.Threading.Tasks;
+using System.IO;
 
 namespace FormBuilder.Web.Areas.FormBuilder.Controllers
 {
@@ -567,6 +569,17 @@ namespace FormBuilder.Web.Areas.FormBuilder.Controllers
             }
         }
         #endregion
+
+
+        [HttpPost]
+        public ActionResult getExcel(string cols, string data)
+        {
+            DataTable dt = Newtonsoft.Json.JsonConvert.DeserializeObject<DataTable>(cols);
+            List<Dictionary<string, object>> list = Newtonsoft.Json.JsonConvert.DeserializeObject<List<Dictionary<string, object>>>(data);
+            DataToExcel converter = new DataToExcel();
+            Stream stream = new MemoryStream(converter.tOExcel(dt, list));
+            return new FileStreamResult(stream, "application/x-xls");
+        }
 
 
         #region 数据模型通用保存restful 方法 只有主表

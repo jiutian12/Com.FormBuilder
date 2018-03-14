@@ -24,7 +24,7 @@ namespace FormBuilder.Utilities
         /// <param name="dsTitle">0 第一列为列名，1第二列为显示名,2第三列宽度,3第四列，格式方式</param>
         /// <param name="dsData"></param>
         /// <returns></returns>
-        public byte[] tOExcel(DataSet dsTitle, List<Dictionary<string, object>> dsData)
+        public byte[] tOExcel(DataTable dsTitle, List<Dictionary<string, object>> dsData)
         {
             try
             {
@@ -47,12 +47,12 @@ namespace FormBuilder.Utilities
                 nstyle.DataFormat = nformat.GetFormat("#,##0.00");
                 nstyle.Alignment = HorizontalAlignment.Right;
                 // ebook.Add(esheet);
-                if (dsTitle != null && dsTitle.Tables.Count > 0 && dsTitle.Tables[0].Rows.Count > 0)
+                if (dsTitle.Rows.Count > 0)
                 {
                     IRow erow = esheet.CreateRow(rowi);
 
                     int i = 0;
-                    foreach (DataRow row in dsTitle.Tables[0].Rows)
+                    foreach (DataRow row in dsTitle.Rows)
                     {
                         ICell ecell = erow.CreateCell(i, CellType.String);
                         esheet.SetColumnWidth(i, 256 * (row[2] == DBNull.Value ? 80 : Convert.ToInt32(row[2])) / 10);
@@ -69,12 +69,13 @@ namespace FormBuilder.Utilities
                             rowi++;
                             IRow derow = esheet.CreateRow(rowi);
                             //填数据
-                            for (int cj = 0; cj < dsTitle.Tables[0].Rows.Count; cj++)
+                            for (int cj = 0; cj < dsTitle.Rows.Count; cj++)
                             {
-                                DataRow trow = dsTitle.Tables[0].Rows[cj];
+                                DataRow trow = dsTitle.Rows[cj];
                                 string colname = trow[0].ToString();
                                 CellType vtype = getCellType(row[colname], colname);
 
+                                if (!row.ContainsKey(colname)) continue;
 
                                 ICell ecell = derow.CreateCell(cj, vtype);
                                 switch (vtype)
@@ -99,7 +100,7 @@ namespace FormBuilder.Utilities
                                         ecell.CellStyle = nstyle;
                                         break;
                                     case CellType.String:
-                                        ecell.SetCellValue(row[colname].ToString());
+                                        ecell.SetCellValue(row[colname] == null ? "" : row[colname].ToString());
                                         break;
 
 
