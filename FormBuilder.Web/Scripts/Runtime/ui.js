@@ -370,7 +370,7 @@ window.Page.UI = (function (ui, service, model, win, $) {
         },
         exportExcel: function (gridid) {
             var grid = $("#" + gridid).leeUI();
-
+            var self = this;
             var data = grid.getData();
             var cols = grid.options.columns;
             var datacols = [];
@@ -378,16 +378,105 @@ window.Page.UI = (function (ui, service, model, win, $) {
                 datacols.push({
                     name: row["name"],
                     display: row["display"],
-                    width: row["width"]
+                    width: row["width"],
+                    checked: 1
                 });
+            });
+            var gridnew = $("<div></div>");
+            var gridm;
+            $.leeDialog.open({
+                title: "请选择导出配置",
+                width: "500",
+                height: '300',
+                target: gridnew,
+                overflow: "hidden",
+                isResize: true,
+                onStopResize: function () {
+                    gridm._onResize();
+                },
+                buttons: [{
+                    text: '导出当前',
+                    cls: 'lee-btn-primary lee-dialog-btn-ok',
+                    onclick: function (item, dialog) {
+                        confrimExport("");
+                    }
+                }, {
+                    text: '导出所有',
+                    cls: ' lee-dialog-btn-ok',
+                    onclick: function (item, dialog) {
+                        confrimExport("all");
+                    }
+                }]
             });
 
 
+            gridm = gridnew.leeGrid({
+                columns: [
+                    { display: '列名', name: 'display', align: 'left', width: 100, },
+                    { display: '列宽', name: 'width', align: 'left', width: 100, },
+                    { display: '是否导出', name: 'checked', align: 'center', width: 80, render: leeUI.gridRender.CheckboxRender }
+                ],
+                alternatingRow: false,
+                data: {
+                    Rows: datacols
+                },
+                enabledEdit: true,
+                usePager: false,
+                inWindow: false,
+                height: "100%",
+                rownumbers: true,
+                rowHeight: 30
+            });
+            gridm._onResize();
 
 
 
+            function confrimExport(type) {
+                var datacolsgrid = gridm.getData();
+                var arr = [];
+                $.each(datacolsgrid, function (i, row) {
+                    if (row.checked == "1") {
+                        arr.push({
+                            name: row["name"],
+                            display: row["display"],
+                            width: row["width"]
+                        });
+                    }
+                });
+                if (arr.length == 0) {
+                    leeUI.Error("请选中要导出的列");
+                    return;
+                }
+                var url = _global.sitePath + "/DataModel/getExcel";
+                var obj = {};
+                if (type == "all") {
 
-            var url = "/FormBuilder.Web/FormBuilder/DataModel/getExcel";
+                    var ctrl = ui.gridController.grids[gridid].ctrl;
+                    var isDataModel = model.isMainSource(ctrl.bindtable);
+
+
+                    var filter = ui.params.getFilterDataSource(ctrl.bindtable).serialize();
+                    url = _global.sitePath + "/DataModel/getExcelServer";
+                    obj = {
+                        cols: JSON.stringify(arr),
+                        modelID: (isDataModel ? modelID : ctrl.bindtable),
+                        keyword: "",
+                        filter: filter,
+                        order: "",
+                        isCustom: !isDataModel
+                    };
+                } else {
+                    obj = {
+                        cols: JSON.stringify(arr),
+                        data: JSON.stringify(data)
+                    };
+                }
+
+                self.createPostForm(url, obj);
+            }
+        },
+        createPostForm: function (url, obj) {
+
             function getiframeDocument($iframe) {
                 var iframeDoc = $iframe[0].contentWindow || $iframe[0].contentDocument;
                 if (iframeDoc.document) {
@@ -398,9 +487,19 @@ window.Page.UI = (function (ui, service, model, win, $) {
             var $iframe = $("<iframe style='display: none' src='about:blank'></iframe>").appendTo("body");
             $iframe.ready(function () {
                 var formDoc = getiframeDocument($iframe);
-                formDoc.write("<html><head></head><body><form method='Post' action='" + url + "'><input type='hidden' name='data' value='" + JSON.stringify(data) + "'/><input type='hidden' name='cols' value='" + JSON.stringify(datacols) + "'/></form></body></html>");
+                var arr = [];
+                arr.push("<html><head></head><body><form method='Post' action='" + url + "'>");
+                //formDoc.write("<html><head></head><body><form method='Post' action='" + url + "'><input type='hidden' name='data' value='" + JSON.stringify(data) + "'/><input type='hidden' name='cols' value='" + JSON.stringify(datacols) + "'/></form></body></html>");
+
+                for (var key in obj) {
+                    arr.push("<input type='hidden' name='" + key + "' value='" + obj[key] + "'/>")
+                }
+                arr.push("</form></body></html>");
+                formDoc.write(arr.join(""));
                 var $form = $(formDoc).find('form');
                 $form.submit();
+
+
             });
         },
         openForm: function (dataID, frmID, type, action, formState, title, isrefresh, height, width, callback) {

@@ -572,13 +572,59 @@ namespace FormBuilder.Web.Areas.FormBuilder.Controllers
 
 
         [HttpPost]
+        public ActionResult getExcelServer(string modelID, string keyword, string filter, string order, bool isCustom, string cols)
+        {
+            try
+            {
+                // var data = this._service.getModelTreeDataALL(modelID, keyword, filter, order);
+                DataTable dt = Newtonsoft.Json.JsonConvert.DeserializeObject<DataTable>(cols);
+                List<Dictionary<string, object>> data;
+                if (isCustom)
+                {
+                    data = this._serviceCutomDS.getModelTreeDataALL(modelID, keyword, filter, order);
+                }
+                else
+                {
+                    data = this._service.getModelTreeDataALL(modelID, keyword, filter, order);
+                }
+
+                DataToExcel converter = new DataToExcel();
+                var bytes = converter.tOExcel(dt, data);
+
+
+                Response.Charset = "UTF-8";
+                Response.ContentType = "application/octet-stream";
+                //Response.ContentEncoding = encoding;
+                Response.AddHeader("Content-Disposition", "attachment; filename=" + HttpUtility.UrlEncode("导出.xls", System.Text.Encoding.UTF8));
+                Response.BinaryWrite(bytes);
+                Response.Flush();
+                Response.End();
+                return new EmptyResult();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        [HttpPost]
         public ActionResult getExcel(string cols, string data)
         {
             DataTable dt = Newtonsoft.Json.JsonConvert.DeserializeObject<DataTable>(cols);
             List<Dictionary<string, object>> list = Newtonsoft.Json.JsonConvert.DeserializeObject<List<Dictionary<string, object>>>(data);
             DataToExcel converter = new DataToExcel();
-            Stream stream = new MemoryStream(converter.tOExcel(dt, list));
-            return new FileStreamResult(stream, "application/x-xls");
+            var bytes = converter.tOExcel(dt, list);
+            //return new FileStreamResult(stream, "application/x-xls");
+
+
+            Response.Charset = "UTF-8";
+            Response.ContentType = "application/octet-stream";
+            //Response.ContentEncoding = encoding;
+            Response.AddHeader("Content-Disposition", "attachment; filename=" + HttpUtility.UrlEncode("导出.xls", System.Text.Encoding.UTF8));
+            Response.BinaryWrite(bytes);
+            Response.Flush();
+            Response.End();
+            return new EmptyResult();
         }
 
 
