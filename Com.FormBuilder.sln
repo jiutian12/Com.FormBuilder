@@ -41,6 +41,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "06 SQL", "06 SQL", "{4ACADD
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FormBuilder.Test", "FormBuilder.Test\FormBuilder.Test.csproj", "{74C89FD3-2972-4015-93F9-F3162EFE1463}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FormBuilder.SessionProvider", "FormBuilder.SessionProvider\FormBuilder.SessionProvider.csproj", "{EFFB8BF3-ABFA-43BF-9013-A3973CFB9961}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -91,6 +93,10 @@ Global
 		{74C89FD3-2972-4015-93F9-F3162EFE1463}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{74C89FD3-2972-4015-93F9-F3162EFE1463}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{74C89FD3-2972-4015-93F9-F3162EFE1463}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EFFB8BF3-ABFA-43BF-9013-A3973CFB9961}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EFFB8BF3-ABFA-43BF-9013-A3973CFB9961}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EFFB8BF3-ABFA-43BF-9013-A3973CFB9961}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EFFB8BF3-ABFA-43BF-9013-A3973CFB9961}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -107,5 +113,6 @@ Global
 		{14715653-1E84-4342-8BCB-DD04DDF90E09} = {D1694CD3-CEF8-4329-9CF6-B1F287BF8050}
 		{9CD94FA2-EFCB-4BCD-8505-DEC11FB4294C} = {D1694CD3-CEF8-4329-9CF6-B1F287BF8050}
 		{74C89FD3-2972-4015-93F9-F3162EFE1463} = {377F5021-A2E6-4ED0-8DED-E18A29257B4B}
+		{EFFB8BF3-ABFA-43BF-9013-A3973CFB9961} = {D1694CD3-CEF8-4329-9CF6-B1F287BF8050}
 	EndGlobalSection
 EndGlobal

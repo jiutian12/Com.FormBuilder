@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Remoting.Messaging;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -36,6 +37,10 @@ namespace FormBuilder.Utilities
         {
             try
             {
+                // 这里可以做线程缓存处理 ？这里需要check校验？ 分两步 第一步bulid 然后校验
+
+                // Session build -StateCheck
+
                 ISessionKey user = new ISessionKey();
                 user = JsonConvert.DeserializeObject<ISessionKey>(DESEncrypt.Decrypt(CookieHelper.GetCookie(LoginUserKey)));
                 //if (user == null)
@@ -43,6 +48,7 @@ namespace FormBuilder.Utilities
                 //    return getDebugSession();
                 //    //throw new Exception("登录信息超时，请重新登录。");
                 //}
+
                 return user;
             }
             catch
@@ -51,6 +57,9 @@ namespace FormBuilder.Utilities
                 throw new Exception("登录信息超时，请重新登录。");
             }
         }
+
+
+
 
         public void EmptyCurrent()
         {
@@ -73,6 +82,41 @@ namespace FormBuilder.Utilities
                 return true;
             else
                 return false;
+        }
+
+
+
+
+        /// <summary>
+        /// buildSession信息
+        /// </summary>
+        private void buildSession(string stateCookie)
+        {
+            var parts = stateCookie.Split('.');
+            if (parts.Length != 3) throw new Exception("invalid Session Info!");
+            var payload = parts[1];
+            var payloadJson = Encoding.UTF8.GetString(Base64UrlDecode(payload));
+            var session = Newtonsoft.Json.JsonConvert.DeserializeObject<ISessionKey>(payloadJson);
+
+            //解析完成后存储在当前线程上下文
+
+
+        }
+
+        private static byte[] Base64UrlDecode(string input)
+        {
+            var output = input;
+            output = output.Replace('-', '+'); // 62nd char of encoding  
+            output = output.Replace('_', '/'); // 63rd char of encoding  
+            switch (output.Length % 4) // Pad with trailing '='s  
+            {
+                case 0: break; // No pad chars in this case  
+                case 2: output += "=="; break; // Two pad chars  
+                case 3: output += "="; break; // One pad char  
+                default: throw new System.Exception("Illegal base64url string!");
+            }
+            var converted = Convert.FromBase64String(output); // Standard base64 decoder  
+            return converted;
         }
     }
 }

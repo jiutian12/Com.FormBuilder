@@ -28,6 +28,8 @@ namespace FormBuilder.Service
             var model = db.Fetch<FBUserInfo>(sql);
             if (model.Count <= 0)
             {
+                // 用户状态
+
                 mes = "用户名或密码不正确";
                 return false;
             }
@@ -50,8 +52,12 @@ namespace FormBuilder.Service
             info.UserName = user.UserName;
             info.UserCode = user.UserCode;
             info.CurDate = DateTime.Now.ToString("yyyy-MM-dd");
+            // 
+            // 这里自己写入即可？不需要做分支？JWTtoken？
             SessionProvider.Provider.AddCurrent(info);
             // 写入cookie
+            // 更新token 在线用户
+            // 记录登陆日志
         }
 
         public static void LogOut()
