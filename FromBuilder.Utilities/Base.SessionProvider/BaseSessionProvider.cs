@@ -16,13 +16,9 @@ namespace FormBuilder.Utilities
         private string LoginTokenKey = "FormBuilderSid";
         public void AddCurrent(ISessionKey user)
         {
-
-
-            // 登录成功写入cookie
+            // 登录成功写入cookie 写入JWTtoken？
             CookieHelper.WriteCookie(LoginUserKey, DESEncrypt.Encrypt(JsonConvert.SerializeObject(user)));
-
             CookieHelper.WriteCookie(LoginTokenKey, user.UserID);
-
             // 数据库的话记录   tokenid
         }
 

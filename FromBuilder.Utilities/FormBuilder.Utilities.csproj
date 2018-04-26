@@ -84,6 +84,7 @@
     <Compile Include="Base.Log\LogFactory.cs" />
     <Compile Include="Base.Log\LogHelper.cs" />
     <Compile Include="Base.Common\BASE64.cs" />
+    <Compile Include="Base.Web\JsonWebToken.cs" />
     <Compile Include="ConfigHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
