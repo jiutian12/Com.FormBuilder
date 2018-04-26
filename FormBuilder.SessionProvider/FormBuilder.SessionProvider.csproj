@@ -33,6 +33,10 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="NPoco, Version=3.3.4.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\refdll\NPoco.3.3.4\lib\net45\NPoco.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -45,6 +49,20 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Session.cs" />
     <Compile Include="StateChecker.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\FormBuilder.Core\FormBuilder.Core.csproj">
+      <Project>{988139a7-ff27-4cfa-bba0-1abeb5e078e5}</Project>
+      <Name>FormBuilder.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\FromBuilder.DataAccess\FormBuilder.DataAccess.csproj">
+      <Project>{b1848f6c-97f8-454e-bed0-addbc2c1258c}</Project>
+      <Name>FormBuilder.DataAccess</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\FromBuilder.Utilities\FormBuilder.Utilities.csproj">
+      <Project>{b310b0a3-6fdb-4393-a326-6c88ac8152af}</Project>
+      <Name>FormBuilder.Utilities</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
