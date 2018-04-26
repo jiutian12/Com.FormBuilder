@@ -59,6 +59,10 @@ namespace FormBuilder.Utilities
         public string IPAddress { get; set; }
 
 
+        public string Token { get; set; }
+
+
+
         //其他信息后续扩展
 
     }
