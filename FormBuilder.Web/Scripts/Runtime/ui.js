@@ -2214,6 +2214,8 @@ window.Page.UI = (function (ui, service, model, win, $) {
                 opts.url = this.bulidRequestUrl(ctrl);
                 opts.parms = this.bulidParams(ctrl);
                 opts.dataAction = 'server';
+
+                opts.pageSize = ctrl.pagesize;
                 //opts.scrollToPage = true;
                 //opts.scroll = true;
                 //opts.pageSize = 5;

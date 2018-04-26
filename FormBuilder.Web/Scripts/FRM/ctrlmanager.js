@@ -484,7 +484,7 @@ GridManager.prototype = {
             "#grid_label,#grid_colspan,#grid_readonly,#grid_onAfterShowData",
             "#grid_border,#grid_rownumber,#grid_checkbox,#grid_pager,#grid_margin,#grid_async",
             "#grid_tree,#grid_treefield,#grid_height,#grid_qrycmptype,#grid_isqry,#grid_qryexp",
-            "#grid_height,#grid_top,#grid_left,#grid_width"
+            "#grid_height,#grid_top,#grid_left,#grid_width,#grid_pagesize"
         ]; $(ctlrArr.join(",")).change(function () {
             //alert($(this).attr("id"));
             self.onPropChanged();
@@ -642,6 +642,9 @@ GridManager.prototype = {
         $("#grid_qryds").leeUI().setValue(obj.qryds);
 
         $("#grid_qrycmptype").val(obj.qrycmptype);
+        $("#grid_pagesize").val(obj.pagesize);
+
+        
 
         $("#grid_qryexp").val(obj.qryexp);
 
@@ -821,7 +824,9 @@ GridManager.prototype = {
         this.obj.height = $("#grid_height").val();
         this.obj.top = $("#grid_top").val();
         this.obj.left = $("#grid_left").val();
+        this.obj.pagesize = $("#grid_pagesize").val();
 
+        
 
 
         //this.obj.readonly = $("#grid_readonly").prop("checked");

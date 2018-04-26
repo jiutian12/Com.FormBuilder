@@ -246,7 +246,7 @@
     <div style="margin-top: 10px;">
         <div class="col-sm-7 common-set" style="padding:15px;padding-right: 30px;">
             <div>
-                <div class="line">
+                <div class="line" style="display:none;">
                     <span class="title">启用WebSocket</span>
                     <span class="set">
                         <input type="checkbox" class="toggle-switch" id='attr_websocket'>
@@ -302,7 +302,7 @@
                 <div class="line">
                     <span class="title">备注</span>
                     <span class="set">
-                        <textarea class="input-text" style="width:300px;height:60px;" id="txtNote"></textarea>
+                        <textarea class="input-text" style="width:300px;height:100px;" id="txtNote"></textarea>
                     </span>
                 </div>
             </div>
@@ -514,7 +514,7 @@
                         </tr>
                         <tr>
                             <td class="title">id</td>
-                            <td><span class="value" id='col_id'>laout000001</span></td>
+                            <td><span class="value" id='col_id'></span></td>
                         </tr>
                         <tr>
                             <td class="title">type</td>
@@ -527,27 +527,27 @@
                             </td>
                         </tr>
                         <tr style="display:none;">
-                            <td class="title"><span title='显示边框'>border</span></td>
+                            <td class="title"><span title='显示边框'>显示边框</span></td>
                             <td>
                                 <input type="checkbox" id='col_border' />
                             </td>
                         </tr>
                         <tr>
-                            <td class="title"><span title='是否填充布局'>fill</span></td>
+                            <td class="title"><span title='是否填充布局 勾选后 默认会填充父容器、自身会变成绝对布局'>是否填充</span></td>
                             <td>
                                 <input type="checkbox" id='col_fill' />
                             </td>
                         </tr>
 
                         <tr>
-                            <td class="title"><span title='高度'>height</span></td>
+                            <td class="title"><span title='高度'>高度</span></td>
                             <td>
                                 <input class="input" type="text" id='col_height' />
                             </td>
                         </tr>
 
                         <tr>
-                            <td class="title"><span title='最小高度'>minheight</span></td>
+                            <td class="title"><span title='最小高度'>最小高度</span></td>
                             <td>
                                 <input class="input" type="text" id='col_minheight' />
                             </td>
@@ -559,7 +559,7 @@
                             </td>
                         </tr>
                         <tr>
-                            <td class="title"><span title='panel是否显示标题'>showtitle</span></td>
+                            <td class="title"><span title='panel是否显示标题'>显示标题</span></td>
                             <td>
                                 <input type="checkbox" id='col_showtitle' />
 
@@ -567,7 +567,7 @@
                         </tr>
 
                         <tr>
-                            <td class="title"><span title='panel内部样式'>formstyle</span></td>
+                            <td class="title"><span title='panel内部样式'>风格</span></td>
                             <td>
                                 <select class="input" id="col_formstyle">
                                     <option value="0">默认</option>
@@ -677,11 +677,11 @@
                             </td>
                         </tr>
                         <tr>
-                            <td class="title"><span title='控件的标题信息'>label</span></td>
+                            <td class="title"><span title='控件的标题信息'>标题</span></td>
                             <td><input id='txt_label' class="input" type="text" /></td>
                         </tr>
                         <tr class='tr_main'>
-                            <td class="title"><span title='占用列'>colspan</span></td>
+                            <td class="title"><span title='占用列'>宽度</span></td>
                             <td>
                                 <select class="input" id='txt_colspan'>
                                     <option value="1">1栏（100%）</option>
@@ -701,15 +701,15 @@
 
                         </tr>
                         <tr>
-                            <td class="title"><span title='如果不想启用百分比布局可以使用定宽来处理那么colspan不起作用'>width</span></td>
+                            <td class="title"><span title='如果不想启用百分比布局可以使用定宽来处理那么colspan不起作用'>宽度</span></td>
                             <td><input id='txt_width' class="input" type="text" /></td>
                         </tr>
                         <tr>
-                            <td class="title"><span title=''>height</span></td>
+                            <td class="title"><span title=''>高度</span></td>
                             <td><input id='txt_height' class="input" type="text" /></td>
                         </tr>
                         <tr>
-                            <td class="title"><span title=''>position</span></td>
+                            <td class="title"><span title=''>坐标</span></td>
                             <td>
                                 <span style="margin-right:4px;">top</span>
                                 <input id='txt_top' style="width:50px;" class="input" type="text" />
@@ -718,19 +718,19 @@
                             </td>
                         </tr>
                         <tr>
-                            <td class="title"><span title='必填'>required</span></td>
+                            <td class="title"><span title='必填'>必填</span></td>
                             <td><input id='txt_required' type="checkbox" /></td>
                         </tr>
                         <tr>
-                            <td class="title"><span title='只读'>readonly</span></td>
+                            <td class="title"><span title='只读'>只读</span></td>
                             <td><input id='txt_readonly' type="checkbox" /></td>
                         </tr>
                         <tr>
-                            <td class="title"><span title='为空提示'>placeholder</span></td>
+                            <td class="title"><span title='为空提示'>空值提示</span></td>
                             <td><input id='txt_placeholder' class="input" type="text" /></td>
                         </tr>
                         <tr>
-                            <td class="title"><span title='单元格进行格式化处理'>格式化</span></td>
+                            <td class="title"><span title='单元格进行格式化处理 可以对标题进行超链接 点击事件等操作格式化'>格式化</span></td>
                             <td>
                                 <input id='txt_openFormat' class="lee-btn lee-btn-primary" type="button" value='配置' />
                             </td>
@@ -745,12 +745,12 @@
                     <table class="propgrid">
                         <tr>
                             <td class="title">
-                                <span title='绑定数据源'>bindtable</span>
+                                <span title='绑定数据源'>绑定数据源</span>
                             </td>
                             <td><input id='txt_bindtable' class="input" type="text" /></td>
                         </tr>
                         <tr>
-                            <td class="title"><span title='绑定字段'>bindfield</span></td>
+                            <td class="title"><span title='绑定字段'>绑定字段</span></td>
                             <td><input id='txt_bindfield' class="input" type="text" /></td>
                         </tr>
 
@@ -1265,7 +1265,7 @@
                             <td><input id='grid_label' class="input" type="text" /></td>
                         </tr>
                         <tr>
-                            <td class="title">colspan</td>
+                            <td class="title">宽度</td>
                             <td>
                                 <select class="input" id='grid_colspan'>
                                     <option value="1">1栏（100%）</option>
@@ -1285,7 +1285,7 @@
                             </td>
                         </tr>
                         <tr>
-                            <td class="title"><span title='百分比/数字/auto(自动填充)'>size</span></td>
+                            <td class="title"><span title='百分比/数字/auto(自动填充)'>大小</span></td>
                             <td>
                                 <span>width</span>
                                 <input id='grid_width' class="input" style="width:50px;" type="text" />
@@ -1299,7 +1299,7 @@
                                 <td></td>
                             </tr>*@
                         <tr>
-                            <td class="title"><span title=''>position</span></td>
+                            <td class="title"><span title=''>坐标</span></td>
                             <td>
                                 <span style="margin-right:4px;">top</span>
                                 <input id='grid_top' style="width:50px;" class="input" type="text" />
@@ -1322,7 +1322,7 @@
                                 <td></td>
                             </tr>*@
                         <tr>
-                            <td class="title"><span title='grid的外间距'>margin</span></td>
+                            <td class="title"><span title='grid的外间距'>外边距</span></td>
                             <td><input id='grid_margin' class="input" type="text" /></td>
                         </tr>
                         <tr>
@@ -1330,7 +1330,7 @@
                             <td><input id='grid_barid' class="input" type="text" /></td>
                         </tr>
                         <tr>
-                            <td class="title">columns</td>
+                            <td class="title">列配置</td>
                             <td><input id='grid_columns' class="lee-btn lee-btn-primary" type="button" value='配置' /></td>
                         </tr>
                         <tr>
@@ -1350,7 +1350,10 @@
                                 <input id='grid_pager' type="checkbox" />
                             </td>
                         </tr>
-
+                        <tr>
+                            <td class="title"><span title='分页大小'>分页大小</span></td>
+                            <td><input id='grid_pagesize' class="input" type="text" /></td>
+                        </tr>
 
 
                     </table>
@@ -1361,11 +1364,11 @@
                     </div>
                     <table class="propgrid">
                         <tr>
-                            <td class="title"><span title='绑定数据源'>bindtable</span></td>
+                            <td class="title"><span title='绑定数据源'>绑定数据源</span></td>
                             <td><input id='grid_bindtable' class="input" type="text" /></td>
                         </tr>
                         <tr>
-                            <td class="title"><span title='过滤条件'>filter</span></td>
+                            <td class="title"><span title='过滤条件'>过滤条件</span></td>
                             <td><input id='grid_filter' class="input" type="text" /></td>
                         </tr>
                     </table>
@@ -1375,15 +1378,15 @@
                     </div>
                     <table class="propgrid">
                         <tr>
-                            <td class="title"><span title='是否树形 注意绑定数据源必须配置分级结构'>tree</span></td>
+                            <td class="title"><span title='是否树形 注意绑定数据源必须配置分级结构'>是否树形展示</span></td>
                             <td><input id='grid_tree' type="checkbox" /></td>
                         </tr>
                         <tr>
-                            <td class="title"><span title='树形显示字段'>treefield</span></td>
+                            <td class="title"><span title='树形显示字段'>树显示字段</span></td>
                             <td><input id='grid_treefield' class="input" type="text" /></td>
                         </tr>
                         <tr>
-                            <td class="title"><span title='异步加载'>async</span></td>
+                            <td class="title"><span title='异步加载 必须配置绑定模型/数据源的分级信息'>是否分级加载</span></td>
                             <td><input id='grid_async' type="checkbox" /></td>
                         </tr>
                     </table>
