@@ -50,27 +50,27 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Account\AccountService.cs" />
-    <Compile Include="DM.Com\DataModelCom.cs" />
-    <Compile Include="DM.Com\DataModelEngine.cs" />
-    <Compile Include="DM.Com\DMSQL.cs" />
-    <Compile Include="DM.Com\DMTreeHelper.cs" />
-    <Compile Include="DM.Com\ISQLStrategy.cs" />
-    <Compile Include="DM.Com\MSSStrategy.cs" />
-    <Compile Include="DM.Com\MySqlStrategy.cs" />
-    <Compile Include="DS.Com\DataSourceCom.cs" />
-    <Compile Include="FBDataModelService.cs" />
-    <Compile Include="FBDataObjectService.cs" />
-    <Compile Include="FBCMPService.cs" />
-    <Compile Include="FBDBSettingService.cs" />
-    <Compile Include="FBCommonService.cs" />
-    <Compile Include="FBAccountService.cs" />
-    <Compile Include="FBModelSQLService.cs" />
-    <Compile Include="FBFileService.cs" />
-    <Compile Include="FBLog.cs" />
-    <Compile Include="FBMeta.cs" />
-    <Compile Include="FBFormService.cs" />
-    <Compile Include="FBDataSourceService.cs" />
-    <Compile Include="FBSmartHelpService.cs" />
+    <Compile Include="CustomForm\DataModel\DataModelCom.cs" />
+    <Compile Include="CustomForm\DataModel\DataModelEngine.cs" />
+    <Compile Include="CustomForm\DataModel\DMSQL.cs" />
+    <Compile Include="CustomForm\DataModel\DMTreeHelper.cs" />
+    <Compile Include="CustomForm\DataModel\ISQLStrategy.cs" />
+    <Compile Include="CustomForm\DataModel\MSSStrategy.cs" />
+    <Compile Include="CustomForm\DataModel\MySqlStrategy.cs" />
+    <Compile Include="CustomForm\DataSource\DataSourceCom.cs" />
+    <Compile Include="CustomForm\FBDataModelService.cs" />
+    <Compile Include="CustomForm\FBDataObjectService.cs" />
+    <Compile Include="CustomForm\FBCMPService.cs" />
+    <Compile Include="CustomForm\FBDBSettingService.cs" />
+    <Compile Include="CustomForm\FBCommonService.cs" />
+    <Compile Include="Account\FBAccountService.cs" />
+    <Compile Include="CustomForm\FBModelSQLService.cs" />
+    <Compile Include="CustomForm\FBFileService.cs" />
+    <Compile Include="Common\FBLog.cs" />
+    <Compile Include="CustomForm\FBMeta.cs" />
+    <Compile Include="CustomForm\FBFormService.cs" />
+    <Compile Include="CustomForm\FBDataSourceService.cs" />
+    <Compile Include="CustomForm\FBSmartHelpService.cs" />
     <Compile Include="Impl\IFBAccountService.cs" />
     <Compile Include="Impl\IFBCMPService.cs" />
     <Compile Include="Impl\IFBModelSQLService.cs" />
@@ -85,6 +85,10 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\FormBuilder.Core\FormBuilder.Core.csproj">
+      <Project>{988139a7-ff27-4cfa-bba0-1abeb5e078e5}</Project>
+      <Name>FormBuilder.Core</Name>
+    </ProjectReference>
     <ProjectReference Include="..\FormBuilder.Repository\FormBuilder.Repository.csproj">
       <Project>{ff91e50d-d2f0-4d94-ad4e-e0f93aff30cc}</Project>
       <Name>FormBuilder.Repository</Name>
@@ -103,7 +107,9 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="DM.Com\readme.txt" />
+    <Content Include="Account\readme.txt" />
+    <Content Include="CustomForm\DataModel\readme.txt" />
+    <Content Include="CustomForm\readme.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
