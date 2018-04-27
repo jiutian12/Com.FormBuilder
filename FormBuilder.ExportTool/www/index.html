@@ -107,9 +107,9 @@
 					<div><span>已选中{{explen}}条元数据<a @click="modal=true">查看详情</a></span></div>
 					<i-form model="form">
 						<Form-item label='导出日志'>
-							<i-input v-model="loginfo" readonly type="textarea" :autosize="{minRows: 12,maxRows: 15}" placeholder="Enter something..."></i-input>
+							<i-input v-model="loginfo" readonly type="textarea" id="txtlog" :autosize="{minRows: 12,maxRows: 15}" placeholder="Enter something..."></i-input>
 						</Form-item>
-						<i-progress :percent="1" hide-info></i-progress>
+						<i-progress :percent="per" hide-info></i-progress>
 
 						<i-button type="primary" @click='beginExport()' style="float: right;margin-left:10px;margin-top: 10px;">开始</i-button>
 

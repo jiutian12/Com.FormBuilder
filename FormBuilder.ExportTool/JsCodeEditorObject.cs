@@ -155,16 +155,23 @@ namespace FormBuilder.ExportTool
             List<meata> list = (List<meata>)obj;
             MyDelegate inv = new MyDelegate(AppendLog);
             MyDelegate exec = new MyDelegate(ExecScript);
+            var len = 0;
             foreach (var item in list)
             {
+                len++;
                 parentForm.BeginInvoke(inv, "开始导出:" + item.name);
+                var progress = len * 100 / list.Count;
+                parentForm.BeginInvoke(exec, "JSBridge.progress(" + progress.ToString() + ")");
+
+
                 Thread.Sleep(200);
+
             }
 
             parentForm.BeginInvoke(exec, "JSBridge.done()");
         }
 
-         
+
 
 
 

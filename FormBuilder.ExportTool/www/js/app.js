@@ -8,6 +8,9 @@ window.JSBridge = {
 		app.load(false);
 		alert(mes);
 	},
+    progress:function(per){
+        app.progress(per);
+    },
 	begin: function(total) {
 		// 开始导出
 	},
@@ -156,12 +159,13 @@ var app = new Vue({
 		loginfo: "",
 		keyword: "",
 		viewindex: 0,
+        per:0,
 		form: {
-			dbtype: "",
-			ip: "",
-			catlog: "",
-			username: "",
-			password: "",
+			dbtype: "MSS",
+			ip: "LIWL01\SQLEXPRESS",
+			catlog: "FormBulider",
+			username: "sa",
+			password: "123456a?",
             port:""
 		}
 	},
@@ -169,6 +173,12 @@ var app = new Vue({
 
 	},
 	methods: {
+        progress:function(num){
+            this.per=num;
+        },
+        clearlog:function(){
+            this.loginfo="";
+        },
 		load: function(flag, mes) {
 			this.isloading = flag;
 			this.loadingtext = mes || "加载中...";
@@ -184,6 +194,7 @@ var app = new Vue({
 		},
 		append: function(mes) {
 			this.loginfo += mes + "\n";
+            $("#txtlog>textarea")[0].scrollTop=$("#txtlog>textarea")[0].scrollHeight
 		},
 		beginExport: function() {
 			
@@ -195,28 +206,15 @@ var app = new Vue({
 
 			this.explen = data.length;
 			this.expdata=data;
+            this.per=0;
+            this.clearlog();
 			this.viewindex = 2;
 		},
 		step: function(index) {
 			this.viewindex = index;
 		},
 		handleSubmit: function(index) {
-			var self = this;
-			if(this.form.userName == "") {
-				this.$Message.error("请输入登录账号！");
-				return;
-			}
-			if(this.form.password == "") {
-				this.$Message.error("请输入登录密码！");
-				return;
-			}
-			var loginContext = getLoginContext(this.form.userName, this.form.password);
-			gsp.rtf.loginSpi.login(loginContext, function(loginResult) {
-				self.$Message.success('登录成功！正在跳转。。。。');
-				window.location.href = "main.html";;
-			}, function(ex) {
-				self.$Message.error(ex.Message);
-			});
+ 
 
 		}
 	}
