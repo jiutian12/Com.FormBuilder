@@ -8,17 +8,11 @@ namespace FormBuilder.ExportTool
 {
     public class TableContants
     {
-        
-        
-        
-         
+
+
+
+
     }
 
-    public class TableItem {
-        public string tablename { get; set; }
 
-        public string keyfield { get; set; }
-
-        public string 
-    }
 }

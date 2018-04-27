@@ -121,15 +121,7 @@
     </tables>
   </package>
   <!--文件夹-->
-  <package>
-    <tablegroup>FOLDER</tablegroup>
-    <tables>
-      <item>
-        <name>ID</name>
-        <keyfield>ID</keyfield>
-        <main>1</main>
-        <desc></desc>
-      </item>
-    </tables>
+  <package name="FOLDER" id="9">
+    <item key="ID" tablename="FBMetaData" ismain="1" desc="元数据"/>
   </package>
 </root>
