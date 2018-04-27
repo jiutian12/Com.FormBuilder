@@ -26,38 +26,11 @@ window.JSBridge = {
 var data;
 var hostBridge = {
 	initDB: function() {
-		data = [{
-				id: "01",
-				type: "9",
-				pId: "",
-				open: true,
-				name: "1我是顶级目录"
-			},
-			{
-				id: "0101",
-				type: "9",
-				pId: "01",
-				open: true,
-				name: "专家分类字典"
-			},
-			{
-				id: "010101",
-				type: "9",
-				pId: "0101",
-				name: "我是下级目录"
-			},
-			{
-				id: "010102",
-				type: "9",
-				pId: "0101",
-				name: "我是下级目录"
-			}
-		];
-		window.setTimeout(function() {
-			JSBridge.load(data);
-		}, 600);
+ 
 
 	},
+    begin:function(){
+    }
 };
 var count = 0;
 var treeManager = {
@@ -215,6 +188,7 @@ var app = new Vue({
 		beginExport: function() {
 			
 			this.append("开始导出..... 一共" + this.explen + "条记录");
+            hostBridge.begin(JSON.stringify(this.expdata)); // 传递数据连接信息
 		},
 		stepExport: function() {
 			var data = treeManager.getSelect();
