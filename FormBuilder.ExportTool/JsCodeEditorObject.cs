@@ -2,8 +2,8 @@
 
 using Chromium.Remote;
 using NetDimension.NanUI.ChromiumCore;
-
-
+using NPoco;
+using System.Collections.Generic;
 
 namespace FormBuilder.ExportTool
 {
@@ -17,6 +17,7 @@ namespace FormBuilder.ExportTool
 
         public string username { get; set; }
         public string password { get; set; }
+        public string port { get; set; }
 
     }
 
@@ -28,11 +29,13 @@ namespace FormBuilder.ExportTool
 
         public string mtype { get; set; }
 
-        public string user { get; set; }
+        public string createuser { get; set; }
 
         public string time { get; set; }
 
         public string name { get; set; }
+
+
     }
     class JsCodeEditorObject : JSObject
     {
@@ -55,6 +58,14 @@ namespace FormBuilder.ExportTool
             if (e.Arguments.Length > 0)
             {
                 var str = e.Arguments[0].StringValue;
+                var model = Newtonsoft.Json.JsonConvert.DeserializeObject<dbstr>(str);
+                initDataBase(model);
+
+                var sql = "select id as id,name as name,parentid as pid,type as mtype,createuser as createuser ,lastmodifytime as time from fbmetadata";
+
+                List<meata> list = db.Fetch<meata>(sql);
+
+                parentForm.ExecuteJavascript("JSBridge.load(" + Newtonsoft.Json.JsonConvert.SerializeObject(list) + ");");
             }
             //parentForm.ExecuteJavascript("JSBridge.load([]);");
 
@@ -69,6 +80,30 @@ namespace FormBuilder.ExportTool
                 var str = e.Arguments.First(p => p.IsBool).StringValue;
             }
 
+        }
+
+        private Database db;
+
+        private void initDataBase(dbstr model)
+        {
+            var dbType = DatabaseType.MySQL;
+            string connectionStr = "Data Source={0};Initial Catalog={1};User ID={2};Password={3};";
+            connectionStr = string.Format(connectionStr, model.ip, model.catlog, model.username, model.password);
+            if (model.dbtype.ToUpper() == "MSS")
+            {
+                dbType = DatabaseType.SqlServer2008;
+                connectionStr += "Persist Security Info = True;";
+            }
+            else if (model.dbtype.ToUpper() == "ORA")
+            {
+                dbType = DatabaseType.Oracle;
+            }
+            else if (model.dbtype.ToUpper() == "MYSQL")
+            {
+                connectionStr += "port=" + model.port + ";";
+            }
+
+            db = new Database(connectionStr, dbType);
         }
     }
 }

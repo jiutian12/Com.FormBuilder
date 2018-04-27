@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html>
 
 	<head>
@@ -50,13 +50,17 @@
 							<i-form model="form" label-width="120">
 								<Form-item label="数据库类型">
 									<i-select v-model="form.dbtype">
-										<i-option value="MSS">SQLServer</i-option>
-										<i-option value="MySql">MySQL</i-option>
+										<i-option value="MSS">MSS</i-option>
+										<i-option value="MYSQL">MYSQL</i-option>
+                                        <i-option value="ORA">ORA</i-option>
 									</i-select>
 								</Form-item>
 								<Form-item label="服务器地址">
 									<i-input v-model="form.ip" placeholder="输入服务器的IP地址"></i-input>
 								</Form-item>
+                                <Form-item label="端口" v-if="form.dbtype=='MYSQL'">
+                                    <i-input v-model="form.port" placeholder="输入服务器的IP地址"></i-input>
+                                </Form-item>
 								<Form-item label="数据库名称">
 									<i-input v-model="form.catlog" placeholder="数据库名称"></i-input>
 								</Form-item>

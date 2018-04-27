@@ -188,7 +188,8 @@ var app = new Vue({
 			ip: "",
 			catlog: "",
 			username: "",
-			password: ""
+			password: "",
+            port:""
 		}
 	},
 	computed: {
