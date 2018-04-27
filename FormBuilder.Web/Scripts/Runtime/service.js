@@ -9,7 +9,7 @@ window.Page.Service = (function (service, win, $) {
 
     $.ajaxSetup({
         error: function (jqXHR, textStatus, errorMsg) {
-            console.log('发送AJAX请求到"' + this.url + '"时出错[' + jqXHR.status + ']：' + errorMsg);
+            //console.log('发送AJAX请求到"' + this.url + '"时出错[' + jqXHR.status + ']：' + errorMsg);
         },
         success: function (data) {
             //console.log("请求状态成功");
@@ -47,6 +47,12 @@ window.Page.Service = (function (service, win, $) {
                 //取消loading//如果有报错提示
                 if (data.res == false) {
                     leeUI.Error(data.mes);
+                    if (data.redirect) {
+                        window.setTimeout(function () {
+                            // 这里加上系统地址
+                            window.top.location.href = data.redirect;
+                        }, 500);
+                    }
                 }
                 defer.resolve(data);
             })

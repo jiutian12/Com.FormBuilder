@@ -10,6 +10,7 @@ using FormBuilder.Utilities;
 using Newtonsoft.Json;
 using System.Threading.Tasks;
 using System.IO;
+using FormBuilder.Web.App_Start;
 
 namespace FormBuilder.Web.Areas.FormBuilder.Controllers
 {
@@ -437,6 +438,7 @@ namespace FormBuilder.Web.Areas.FormBuilder.Controllers
         #region  获取数据模型上的单一数据(也就是卡片数据的结构化数据)
 
         [HttpPost]
+        [AjaxAuthentication]
         public string getModelDataByDataID(string modelID, string dataID, bool detail)
         {
             try
@@ -776,6 +778,7 @@ namespace FormBuilder.Web.Areas.FormBuilder.Controllers
 
         #region 获取数据模型主表的分页接口【分页】
         [HttpPost]
+       
         // GET: FBMeta
         public string getDSPageList(string dsID, string pagesize, string page, string filter, string order, string sortname, string sortorder)
         {

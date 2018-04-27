@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using FormBuilder.Service;
 using FormBuilder.Utilities;
+using FormBuilder.Web.App_Start;
 
 namespace FormBuilder.Web.Areas.FormBuilder.Controllers
 {
@@ -27,6 +28,8 @@ namespace FormBuilder.Web.Areas.FormBuilder.Controllers
             this._serviceHelp = serviceHelp;
         }
         #endregion
+
+        [Authentication]
         // GET: Runtime
         public ActionResult Dict(string frmid)
         {

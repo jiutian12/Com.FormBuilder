@@ -626,6 +626,7 @@ namespace FormBuilder.Service
                 {
                     if (item.isMain == "1")
                     {
+                        mainCode = item.Code;//记录主表编号
                         // 更新主表
                         if (editFlag)
                         {
