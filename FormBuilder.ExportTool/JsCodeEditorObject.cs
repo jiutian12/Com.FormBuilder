@@ -7,6 +7,8 @@ using System.Collections.Generic;
 using System;
 using System.Threading.Tasks;
 using System.Threading;
+using System.Windows.Forms;
+using System.Text;
 
 namespace FormBuilder.ExportTool
 {
@@ -155,6 +157,7 @@ namespace FormBuilder.ExportTool
             List<meata> list = (List<meata>)obj;
             MyDelegate inv = new MyDelegate(AppendLog);
             MyDelegate exec = new MyDelegate(ExecScript);
+            MyDelegate save = new MyDelegate(SaveFile);
             var len = 0;
             foreach (var item in list)
             {
@@ -168,17 +171,36 @@ namespace FormBuilder.ExportTool
 
             }
 
+
             parentForm.BeginInvoke(exec, "JSBridge.done()");
+
+            parentForm.BeginInvoke(save, "sadfsadf");
+
         }
 
+        public void SaveFile(string str)
+        {
+            var currentFilePath = "";
+            var result = false;
+            var saveFileDialog = new SaveFileDialog()
+            {
+                AddExtension = true,
+                Filter = "支持的文件|*.sql",
+                OverwritePrompt = true,
+                FileName = DateTime.Now.ToString("yyyyMMdd-HHmmss")
+            };
+            if (saveFileDialog.ShowDialog(parentForm) == DialogResult.OK)
+            {
+                currentFilePath = saveFileDialog.FileName;
+                result = true;
 
+            }
 
+            if (result)
+            {
+                System.IO.File.WriteAllText(currentFilePath, str, Encoding.UTF8);
 
-
-
-
-
-
-
+            }
+        }
     }
 }

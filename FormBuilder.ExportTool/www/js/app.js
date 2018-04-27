@@ -162,7 +162,7 @@ var app = new Vue({
         per:0,
 		form: {
 			dbtype: "MSS",
-			ip: "LIWL01\SQLEXPRESS",
+			ip: "LIWL01\\SQLEXPRESS",
 			catlog: "FormBulider",
 			username: "sa",
 			password: "123456a?",
