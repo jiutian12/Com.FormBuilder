@@ -6,7 +6,9 @@ window.JSBridge = {
 	},
 	handleError: function(mes) {
 		app.load(false);
-		alert(mes);
+		app.error(mes);
+
+
 	},
     progress:function(per){
         app.progress(per);
@@ -23,7 +25,7 @@ window.JSBridge = {
 	},
 	done: function() {
 		//完成导出
-		alert("完成")
+		app.scuess("导出完成！")
 	}
 };
 var data;
@@ -68,8 +70,12 @@ var treeManager = {
 					} else if(!treeNode.tree_icon) {
 						tree_icon = treeNode.type;
 					}
+                    var css="";
+                    if(treeNode.mtype=="9"||treeNode.mtype==null) {
+                        css="x-folder";
+                    }
 					icoObj.before(switchObj).before(c)
-						.before('<span id="' + treeNode.tId + '_my_ico"  class="tree_icon button"><i class="x-item-file x-folder txt small"></i></span>')
+						.before('<span id="' + treeNode.tId + '_my_ico"  class="tree_icon button"><i class="x-item-file '+css+' txt small"></i></span>')
 						.remove();
 
 					if(treeNode.ext != undefined) { //如果是文件则用自定义图标
@@ -82,13 +88,40 @@ var treeManager = {
 						switchObj.before(spaceStr);
 					}
 
-					var info = '<span class="time"> 2018-04-17 11:33:33</span>';
-					info += '<span class="size">李伟龙</span>';
-					info += '<span class="type">目录</span>';
+					var info = '<span class="time"> '+treeNode.time+'</span>';
+					info += '<span class="size">'+treeNode.createuser+'</span>';
+					info += '<span class="type">'+getMetaName(treeNode.mtype)+'</span>';
 					//info += '<span class="menu-item-parent icon-ellipsis-vertical"></span>';
 					$("#" + treeNode.tId + "_span").after(info);
 
 					switchObj.parent().addClass(treeNode.menuType);
+
+                    function getMetaName(type){
+                        var res="文件夹";    
+                        switch(type) {
+                            case "0":
+                                res="数据对象";
+                                break;
+                            case "1":
+                                res="数据模型";
+                                break;
+                            case "2":
+                                res="智能帮助";
+                                break;
+                            case "3":
+                                res="自定义表单";
+                                break;
+                            case "5":
+                                res="自定义数据源";
+                                break;
+                            case "6":
+                                res="业务构件";
+                                break;
+                            default:
+                                break;
+                        }
+                        return res;
+                    }
 
 				}
 			}
@@ -192,6 +225,18 @@ var app = new Vue({
 			hostBridge.initDB(JSON.stringify(this.form)); // 传递数据连接信息
 			// 成功后回调 
 		},
+        error:function(desc){
+            this.$Notice.warning({
+                title: '系统提示',
+                desc: desc
+            });
+        },
+        scuess:function(desc){
+            this.$Notice.success({
+                title: '系统提示',
+                desc: desc
+            });
+        },
 		append: function(mes) {
 			this.loginfo += mes + "\n";
             $("#txtlog>textarea")[0].scrollTop=$("#txtlog>textarea")[0].scrollHeight
@@ -210,6 +255,9 @@ var app = new Vue({
             this.clearlog();
 			this.viewindex = 2;
 		},
+        open:function(){
+            hostBridge.open();
+        },
 		step: function(index) {
 			this.viewindex = index;
 		},

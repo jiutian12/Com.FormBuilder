@@ -57,34 +57,47 @@ namespace FormBuilder.ExportTool
             AddFunction("initDB").Execute += initDB;
 
             AddFunction("begin").Execute += beginExport;
+            AddFunction("open").Execute += open;
 
+        }
+
+        private void open(object sender, Chromium.Remote.Event.CfrV8HandlerExecuteEventArgs e)
+        {
+            parentForm.ShowDevTools();
         }
 
 
         #region 初始化数据库
         private void initDB(object sender, Chromium.Remote.Event.CfrV8HandlerExecuteEventArgs e)
         {
-            parentForm.ShowDevTools();
-            if (e.Arguments.Length > 0)
+            try
             {
-                var str = e.Arguments[0].StringValue;
-                var model = Newtonsoft.Json.JsonConvert.DeserializeObject<dbstr>(str);
-                initDataBase(model);
+                if (e.Arguments.Length > 0)
+                {
+                    var str = e.Arguments[0].StringValue;
+                    var model = Newtonsoft.Json.JsonConvert.DeserializeObject<dbstr>(str);
+                    initDataBase(model);
 
-                //var sql = "select id as id,name as name,parentid as pid,type as mtype,createuser as createuser ,lastmodifytime as time from fbmetadata";
+                    //var sql = "select id as id,name as name,parentid as pid,type as mtype,createuser as createuser ,lastmodifytime as time from fbmetadata";
 
-                //List<meata> list = db.Fetch<meata>(sql);
-
-
-
-                //parentForm.ExecuteJavascript("JSBridge.load(" + Newtonsoft.Json.JsonConvert.SerializeObject(list) + ");");
+                    //List<meata> list = db.Fetch<meata>(sql);
 
 
-                Action action = new Action(loadMetaData);
 
-                //新建一个Task
-                Task t1 = new Task(action);
-                t1.Start();
+                    //parentForm.ExecuteJavascript("JSBridge.load(" + Newtonsoft.Json.JsonConvert.SerializeObject(list) + ");");
+
+
+                    Action action = new Action(loadMetaData);
+
+                    //新建一个Task
+                    Task t1 = new Task(action);
+                    t1.Start();
+                }
+            }
+            catch (Exception ex)
+            {
+                ExecScript("JSBridge.handleError('" + ex.Message + "')");
+
             }
             //parentForm.ExecuteJavascript("JSBridge.load([]);");
 
@@ -115,12 +128,20 @@ namespace FormBuilder.ExportTool
         public void loadMetaData()
         {
             MyDelegate md = new MyDelegate(ExecScript);
-            var sql = "select id as id,name as name,parentid as pid,type as mtype,createuser as createuser ,lastmodifytime as time from fbmetadata";
+            MyDelegate exec = new MyDelegate(ExecScript);
+            try
+            {
 
-            List<meata> list = db.Fetch<meata>(sql);
+                var sql = "select id as id,name as name,parentid as pid,type as mtype,createuser as createuser ,lastmodifytime as time from fbmetadata";
 
-            parentForm.BeginInvoke(md, "JSBridge.load(" + Newtonsoft.Json.JsonConvert.SerializeObject(list) + ");");
+                List<meata> list = db.Fetch<meata>(sql);
 
+                parentForm.BeginInvoke(md, "JSBridge.load(" + Newtonsoft.Json.JsonConvert.SerializeObject(list) + ");");
+            }
+            catch (Exception ex)
+            {
+                parentForm.BeginInvoke(exec, "JSBridge.handleError(\"" + ex.Message + "\")");
+            }
         }
 
 
