@@ -154,27 +154,35 @@ namespace FormBuilder.ExportTool
 
         public void StartExport(Object obj)
         {
-            List<meata> list = (List<meata>)obj;
             MyDelegate inv = new MyDelegate(AppendLog);
             MyDelegate exec = new MyDelegate(ExecScript);
             MyDelegate save = new MyDelegate(SaveFile);
-            var len = 0;
-            foreach (var item in list)
+            try
             {
-                len++;
-                parentForm.BeginInvoke(inv, "开始导出:" + item.name);
-                var progress = len * 100 / list.Count;
-                parentForm.BeginInvoke(exec, "JSBridge.progress(" + progress.ToString() + ")");
+                StringBuilder sb = new StringBuilder();
+                List<meata> list = (List<meata>)obj;
+                SQLBuilder.db = db;
+                var len = 0;
+                foreach (var item in list)
+                {
+                    len++;
+                    parentForm.BeginInvoke(inv, "开始导出:" + item.name);
+                    var progress = len * 100 / list.Count;
+                    sb.Append(SQLBuilder.buildSql(item.id, item.mtype));
+                    parentForm.BeginInvoke(exec, "JSBridge.progress(" + progress.ToString() + ")");
+                    Thread.Sleep(200);
+
+                }
 
 
-                Thread.Sleep(200);
+                parentForm.BeginInvoke(exec, "JSBridge.progress(100);JSBridge.done();");
 
+                parentForm.BeginInvoke(save, sb.ToString());
             }
-
-
-            parentForm.BeginInvoke(exec, "JSBridge.done()");
-
-            parentForm.BeginInvoke(save, "sadfsadf");
+            catch (Exception ex)
+            {
+                parentForm.BeginInvoke(exec, "JSBridge.handleError('" + ex.Message + "')");
+            }
 
         }
 
