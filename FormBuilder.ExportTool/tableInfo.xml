@@ -1,0 +1,50 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<root>
+
+  <!--数据对象-->
+  <package name="DO" id="0">
+    <item key="ID" tablename="FBDataObject" ismain="1" desc="数据对象表"/>
+    <item key="ObjectID" tablename="FBDataObjectCols" ismain="0" desc="数据对象列信息"/>
+  </package>
+  
+  <!--数据模型-->
+  <package name="DM" id="1">
+    <item key="ID" tablename="FBDataModel" ismain="1" desc="帮助表"/>
+    <item key="ModelID" tablename="FBDataModelObjects" ismain="0" desc="数据模型表关系"/>
+    <item key="ModelID" tablename="FBDataModelCols" ismain="0" desc="数据模型列信息"/>
+    <item key="ModelID" tablename="FBDataModelRealtions" ismain="0" desc="关联信息"/>
+    <item key="ModelID" tablename="FBModelDeleteCheck" ismain="0" desc="删除检查"/>
+    <item key="ModelID" tablename="FBModelModifyCheck" ismain="0" desc="修改检查"/>
+    <item key="ModelID" tablename="FBModelSQL" ismain="0" desc="SQL扩展"/>
+  </package>
+  
+  <!--智能帮助-->
+  <package name="SHP" id="2">
+    <item key="ID" tablename="FBSmartHelp" ismain="1" desc="帮助表"/>
+    <item key="HelpID" tablename="FBSmartHelpCols" ismain="0" desc="帮助列信息"/>
+  </package>
+
+  <!--自定义表单-->
+  <package name="FRM" id="3">
+    <item key="ID" tablename="FBForm" ismain="1" desc="自定义表单"/>
+    <item key="FormID" tablename="FBFormDS" ismain="0" desc="表单数据源"/>
+    <item key="FormID" tablename="FBFormRef" ismain="0" desc="表单引用"/>
+    <item key="FormID" tablename="FBFormToolBar" ismain="0" desc="表单工具栏"/>
+  </package>
+
+  <!--自定义数据源-->
+  <package name="DS" id="5">
+    <item key="ID" tablename="FBDataSource" ismain="1" desc="自定义取数"/>
+    <item key="DSID" tablename="FBDataSourceCols" ismain="0" desc="数据源列"/>
+  </package>
+  <!--构件-->
+  <package name="CMP" id="6">
+    <item key="ID" tablename="FBComponent" ismain="1" desc="构件主表"/>
+    <item key="CMPID" tablename="FBCMPMethod" ismain="0" desc="构件方法表"/>
+    <item key="CMPID" tablename="FBCMPPara" ismain="0" desc="构件方法"/>
+  </package>
+  <!--文件夹-->
+  <package name="FOLDER" id="9">
+    <item key="ID" tablename="FBMetaData" ismain="1" desc="元数据"/>
+  </package>
+</root>
