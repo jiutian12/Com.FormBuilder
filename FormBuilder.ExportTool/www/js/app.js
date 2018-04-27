@@ -187,7 +187,7 @@ var app = new Vue({
 			dbtype: "",
 			ip: "",
 			catlog: "",
-			userName: "",
+			username: "",
 			password: ""
 		}
 	},
@@ -205,7 +205,7 @@ var app = new Vue({
 		},
 		enter: function() {
 			this.load(true, "初始化数据库信息")
-			hostBridge.initDB(); // 传递数据连接信息
+			hostBridge.initDB(JSON.stringify(this.form)); // 传递数据连接信息
 			// 成功后回调 
 		},
 		append: function(mes) {

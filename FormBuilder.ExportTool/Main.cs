@@ -6,14 +6,21 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using Chromium;
+using NetDimension.NanUI;
+
 
 namespace FormBuilder.ExportTool
 {
-    public partial class Main : Form
+    public partial class Main : HtmlUIForm
     {
-        public Main()
+        public Main() : base("http://res.welcome.local/www/index.html")
         {
             InitializeComponent();
+
+            GlobalObject.Add("hostBridge", new JsCodeEditorObject(this));
+
+            //ShowDevTools();
         }
     }
 }
