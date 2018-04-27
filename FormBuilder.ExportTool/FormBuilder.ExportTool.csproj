@@ -70,13 +70,28 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <None Include="www\CSS\font\fontawesome-webfont.eot" />
+    <None Include="www\CSS\font\fontawesome-webfont.ttf" />
+    <None Include="www\CSS\font\fontawesome-webfont.woff" />
+    <None Include="www\CSS\font\fontawesome-webfont.woff2" />
+    <None Include="www\CSS\font\FontAwesome.otf" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="www\CSS\app.css" />
+    <Content Include="www\CSS\fontawsome\font-awesome-ie7.css" />
+    <Content Include="www\CSS\fontawsome\font-awesome-ie7.min.css" />
+    <Content Include="www\CSS\fontawsome\font-awesome.css" />
+    <Content Include="www\CSS\fontawsome\font-awesome.min.css" />
+    <Content Include="www\CSS\font\fontawesome-webfont.svg" />
+    <Content Include="www\CSS\images\folder_win10_small.png" />
+    <Content Include="www\CSS\images\txt_small.png" />
+    <Content Include="www\CSS\tree.css" />
     <Content Include="www\index.html" />
+    <Content Include="www\js\app.js" />
     <Content Include="www\Scripts\app.js" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="www\CSS\" />
+    <Folder Include="www\vendor\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
