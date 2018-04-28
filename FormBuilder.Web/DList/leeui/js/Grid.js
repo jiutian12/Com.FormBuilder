@@ -521,6 +521,9 @@
                     }
                 },
                 success: function (data) {
+                    if (data.error) {
+                        leeUI.Error(data.mes);
+                    }
                     g.trigger('success', [data, g]);
                     //没有data 或者没有data.Rows 或者data.Rows.length<=0
                     if (!data || !data[p.root] || !data[p.root].length) {
