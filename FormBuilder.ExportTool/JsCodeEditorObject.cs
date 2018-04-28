@@ -9,6 +9,8 @@ using System.Threading.Tasks;
 using System.Threading;
 using System.Windows.Forms;
 using System.Text;
+using System.Xml.Serialization;
+using System.IO;
 
 namespace FormBuilder.ExportTool
 {
@@ -58,7 +60,74 @@ namespace FormBuilder.ExportTool
 
             AddFunction("begin").Execute += beginExport;
             AddFunction("open").Execute += open;
+            AddFunction("load").Execute += loadconfig;
 
+        }
+
+        /// <summary>
+        /// 加载配置
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void loadconfig(object sender, Chromium.Remote.Event.CfrV8HandlerExecuteEventArgs e)
+        {
+            e.SetReturnValue(Newtonsoft.Json.JsonConvert.SerializeObject(getHisList()));
+        }
+
+
+        private List<dbstr> getHisList()
+        {
+
+            FileStream fs = null;
+            try
+            {
+                fs = new FileStream("dbhis.xml", FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
+                XmlSerializer serializer = new XmlSerializer(typeof(List<dbstr>));
+                return (List<dbstr>)serializer.Deserialize(fs);
+            }
+            catch (Exception ex)
+            {
+                return new List<dbstr>();
+            }
+            finally
+            {
+                if (fs != null)
+                    fs.Close();
+            }
+        }
+
+        private void saveconfig(dbstr item)
+        {
+            var list = getHisList();
+
+            var listr = list.Where(n => n.ip == item.ip).ToList();
+            foreach (var info in listr)
+            {
+                info.ip = item.ip;
+                info.catlog = item.catlog;
+                info.password = item.password;
+                info.dbtype = item.dbtype;
+                info.port = item.port;
+                info.username = item.username;
+
+            }
+
+            if (listr.Count < 1)
+            {
+                list.Add(item);
+
+            }
+
+            using (System.IO.StringWriter stringWriter = new StringWriter(new StringBuilder()))
+            {
+                XmlSerializer xmlSerializer = new XmlSerializer(typeof(List<dbstr>));
+                xmlSerializer.Serialize(stringWriter, list);
+                FileStream fs = new FileStream("dbhis.xml", FileMode.OpenOrCreate);
+                StreamWriter sw = new StreamWriter(fs, Encoding.UTF8);
+                sw.Write(stringWriter.ToString().Replace("utf-16", "utf-8"));
+                sw.Close();
+                fs.Close();
+            }
         }
 
         private void open(object sender, Chromium.Remote.Event.CfrV8HandlerExecuteEventArgs e)
@@ -77,7 +146,7 @@ namespace FormBuilder.ExportTool
                     var str = e.Arguments[0].StringValue;
                     var model = Newtonsoft.Json.JsonConvert.DeserializeObject<dbstr>(str);
                     initDataBase(model);
-
+                    saveconfig(model);
                     //var sql = "select id as id,name as name,parentid as pid,type as mtype,createuser as createuser ,lastmodifytime as time from fbmetadata";
 
                     //List<meata> list = db.Fetch<meata>(sql);
@@ -106,7 +175,7 @@ namespace FormBuilder.ExportTool
 
         private void initDataBase(dbstr model)
         {
-            var dbType = DatabaseType.MySQL;
+            DatabaseType dbType = DatabaseType.MySQL;
             string connectionStr = "Data Source={0};Initial Catalog={1};User ID={2};Password={3};";
             connectionStr = string.Format(connectionStr, model.ip, model.catlog, model.username, model.password);
             if (model.dbtype.ToUpper() == "MSS")

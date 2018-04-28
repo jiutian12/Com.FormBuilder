@@ -1,126 +1,133 @@
 ﻿<!DOCTYPE html>
 <html>
 
-	<head>
-		<meta charset="utf-8" />
-		<title></title>
-		<link rel="stylesheet" href="vendor/ztree/css/zTreeStyle/zTreeStyle.css" />
-		<link href="css/tree.css" rel="stylesheet" />
-		<link rel="stylesheet" href="css/fontawsome/font-awesome.css" />
-		<link href="vendor/iview/iview.css" rel="stylesheet" />
-		<link rel="stylesheet" href="css/app.css" />
-		<script type="text/javascript" src="vendor/jquery-1.10.2.min.js"></script>
-		<script type="text/javascript" src="vendor/vue.min.js"></script>
-		<script type="text/javascript" src="vendor/ztree/js/jquery.ztree.all-3.5.min.js"></script>
-		<script type="text/javascript" src="vendor/ztree/js/jquery.ztree.exhide-3.5.min.js"></script>
-		<!-- import iView -->
-		<script src="vendor/iview/iview.min.js"></script>
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <link rel="stylesheet" href="vendor/ztree/css/zTreeStyle/zTreeStyle.css" />
+    <link href="css/tree.css" rel="stylesheet" />
+    <link rel="stylesheet" href="css/fontawsome/font-awesome.css" />
+    <link href="vendor/iview/iview.css" rel="stylesheet" />
+    <link rel="stylesheet" href="css/app.css" />
+    <script type="text/javascript" src="vendor/jquery-1.10.2.min.js"></script>
+    <script type="text/javascript" src="vendor/vue.min.js"></script>
+    <script type="text/javascript" src="vendor/ztree/js/jquery.ztree.all-3.5.min.js"></script>
+    <script type="text/javascript" src="vendor/ztree/js/jquery.ztree.exhide-3.5.min.js"></script>
+    <!-- import iView -->
+    <script src="vendor/iview/iview.min.js"></script>
 
-	</head>
+</head>
 
-	<body>
-	<nav class="ui-sys-bar">
-		<div class="ui-sys-commands">
-			<span class="-nanui-minimize">&#48;</span>
-			<span class="-nanui-maximize">&#49;</span>
-			<span class="-nanui-close">&#114;</span>
-		</div>
+<body>
+    <nav class="ui-sys-bar">
+        <div class="ui-sys-commands">
+            <span class="-nanui-minimize">&#48;</span>
+            <span class="-nanui-maximize">&#49;</span>
+            <span class="-nanui-close">&#114;</span>
+        </div>
 
-	</nav>
-		<div class="header">
-			<a href="#" class="title"><i class="fa fa-cog" style="margin-right: 5px;"></i>导入导出工具 V0.1</a>
-		</div>
-		<div id='app'>
-			<Modal v-model="modal" width="960" title="导出元数据详情">
-				<i-table  size="small" :columns="columns" :data="expdata"></i-table>
-				 <div slot="footer"></div>
-			</Modal>
-			<Spin fix v-if="isloading" v-cloak>
-				<Icon type="load-c" size=18 class="demo-spin-icon-load"></Icon>
-				<div>{{loadingtext}}</div>
-			</Spin>
-			<div id="GuideWrap" class="center" v-bind:class="{ active: viewindex==0 }">
-				<div class="login-con">
-					<Card bordered="false">
-						<p slot="title">
-							<Icon type="log-in"></Icon>
-							请配置数据源
-						</p>
-						<div class="form-con">
-							<i-form model="form" label-width="120">
-								<Form-item label="数据库类型">
-									<i-select v-model="form.dbtype">
-										<i-option value="MSS">MSS</i-option>
-										<i-option value="MYSQL">MYSQL</i-option>
-                                        <i-option value="ORA">ORA</i-option>
-									</i-select>
-								</Form-item>
-								<Form-item label="服务器地址">
-									<i-input v-model="form.ip" placeholder="输入服务器的IP地址"></i-input>
-								</Form-item>
-                                <Form-item label="端口" v-if="form.dbtype=='MYSQL'">
-                                    <i-input v-model="form.port" placeholder="输入服务器的IP地址"></i-input>
-                                </Form-item>
-								<Form-item label="数据库名称">
-									<i-input v-model="form.catlog" placeholder="数据库名称"></i-input>
-								</Form-item>
-								<Form-item label="用户名">
-									<i-input v-model="form.username" placeholder="请输入用户名"></i-input>
-								</Form-item>
-								<Form-item label="密码">
-									<i-input type="password" v-model="form.password" placeholder="请输入用户密码"></i-input>
-								</Form-item>
-							</i-form>
-							<div slot="footer" style="overflow:auto;">
-								<i-button type="primary" @click='enter()' style="float: right;margin-left:10px;">下一步</i-button>
-                                <i-button type="default" @click='open()' style="float: right;margin-left:10px;">调试工具</i-button>
-							</div>
-							<p class="login-tip"> </p>
-						</div>
-					</Card>
-				</div>
-			</div>
-			<div class="center" v-bind:class="{ active: viewindex==1 }">
-				<div style="position: absolute;top:0;bottom: 40px;left: 0;right:0;overflow:auto;">
+    </nav>
+    <div class="header">
+        <a href="#" class="title"><i class="fa fa-cog" style="margin-right: 5px;"></i>导入导出工具 V0.1</a>
+    </div>
+    <div id='app'>
+        <Modal v-model="modal" width="960" title="导出元数据详情">
+            <i-table size="small" :columns="columns" :data="expdata"></i-table>
+            <div slot="footer"></div>
+        </Modal>
+        <Spin fix v-if="isloading" v-cloak>
+            <Icon type="load-c" size=18 class="demo-spin-icon-load"></Icon>
+            <div>{{loadingtext}}</div>
+        </Spin>
+        <div id="GuideWrap" class="center" v-bind:class="{ active: viewindex==0 }">
+            <div class="login-con">
+                <Card bordered="false">
+                    <p slot="title">
+                        <Icon type="log-in"></Icon>
+                        请配置数据源
+                    </p>
+                    <div class="form-con">
+                        <i-form model="form" label-width="120">
+                            <Form-item label="数据库类型">
+                                <i-select v-model="form.dbtype">
+                                    <i-option value="MSS">MSS</i-option>
+                                    <i-option value="MYSQL">MYSQL</i-option>
+                                    <i-option value="ORA">ORA</i-option>
+                                </i-select>
+                            </Form-item>
+                            <Form-item label="服务器地址">
+                                <Auto-Complete v-model="form.ip" @on-select="selectip"
+                                     :data="datastr"
+                                     :filter-method="filterMethod"
+                                     placeholder="输入服务器的IP地址" style="width:100%">
+                                </Auto-Complete>
+                            </Form-item>
+                            <!--<Form-item label="服务器地址">
+                                <i-input v-model="form.ip" placeholder="输入服务器的IP地址"></i-input>
+                            </Form-item>-->
+                            <Form-item label="端口" v-if="form.dbtype=='MYSQL'">
+                                <i-input v-model="form.port" placeholder="输入服务器的端口"></i-input>
+                            </Form-item>
+                            <Form-item label="数据库名称">
+                                <i-input v-model="form.catlog" placeholder="数据库名称"></i-input>
+                            </Form-item>
+                            <Form-item label="用户名">
+                                <i-input v-model="form.username" placeholder="请输入用户名"></i-input>
+                            </Form-item>
+                            <Form-item label="密码">
+                                <i-input type="password" v-model="form.password" placeholder="请输入用户密码"></i-input>
+                            </Form-item>
+                        </i-form>
+                        <div slot="footer" style="overflow:auto;">
+                            <i-button type="primary" @click='enter()' style="float: right;margin-left:10px;">下一步</i-button>
+                            <i-button type="default" @click='open()' style="float: right;margin-left:10px;">调试工具</i-button>
+                        </div>
+                        <p class="login-tip"> </p>
+                    </div>
+                </Card>
+            </div>
+        </div>
+        <div class="center" v-bind:class="{ active: viewindex==1 }">
+            <div style="position: absolute;top:0;bottom: 40px;left: 0;right:0;overflow:auto;">
 
-					<i-input  v-model="keyword" @on-change="search()"  icon="ios-search" size="small" placeholder="搜索关键字" clearable style="width: 200px;margin: 5px;;"></i-input>
-					<div class="zip-header-title">
-						<div class="item name"><span>名称</span></div>
-						<div class="item type"><span>创建人</span></div>
-						<div class="item size"><span>类型</span></div>
-						<div class="item mtime"><span>修改时间</span></div>
-						<div class="clear"></div>
-					</div>
-					<ul id="treeView" class="ztree"></ul>
-				</div>
+                <i-input v-model="keyword" @on-change="search()" icon="ios-search" size="small" placeholder="搜索关键字" clearable style="width: 200px;margin: 5px;;"></i-input>
+                <div class="zip-header-title">
+                    <div class="item name"><span>名称</span></div>
+                    <div class="item type"><span>创建人</span></div>
+                    <div class="item size"><span>类型</span></div>
+                    <div class="item mtime"><span>修改时间</span></div>
+                    <div class="clear"></div>
+                </div>
+                <ul id="treeView" class="ztree"></ul>
+            </div>
 
-				<div style="position: absolute;height:40px;bottom: 0px;left: 0;right:0;padding-left: 10px;">
-					<Checkbox v-model="form">全选</Checkbox>
-					<Checkbox v-model="form">导出目录</Checkbox>
-					<Checkbox v-model="form">平台数据</Checkbox>
-					<i-button type="defalut" @click='viewindex=0' style="margin-left:10px;">上一步</i-button>
-					<i-button type="primary" @click='stepExport()' style=" margin-left:10px;">下一步</i-button>
-				</div>
-			</div>
-			<div class="center" v-bind:class="{ active: viewindex==2 }">
+            <div style="position: absolute;height:40px;bottom: 0px;left: 0;right:0;padding-left: 10px;">
+                <Checkbox v-model="form">全选</Checkbox>
+                <Checkbox v-model="form">导出目录</Checkbox>
+                <Checkbox v-model="form">平台数据</Checkbox>
+                <i-button type="defalut" @click='viewindex=0' style="margin-left:10px;">上一步</i-button>
+                <i-button type="primary" @click='stepExport()' style=" margin-left:10px;">下一步</i-button>
+            </div>
+        </div>
+        <div class="center" v-bind:class="{ active: viewindex==2 }">
 
-				<div style="text-align:center;margin: 10px;">
-					<div><span>已选中{{explen}}条元数据<a @click="modal=true">查看详情</a></span></div>
-					<i-form model="form">
-						<Form-item label='导出日志'>
-							<i-input v-model="loginfo" readonly type="textarea" id="txtlog" :autosize="{minRows: 12,maxRows: 15}" placeholder="Enter something..."></i-input>
-						</Form-item>
-						<i-progress :percent="per" hide-info></i-progress>
+            <div style="text-align:center;margin: 10px;">
+                <div><span>已选中{{explen}}条元数据<a @click="modal=true">查看详情</a></span></div>
+                <i-form model="form">
+                    <Form-item label='导出日志'>
+                        <i-input v-model="loginfo" readonly type="textarea" id="txtlog" autosize="{minRows: 12,maxRows: 15}" placeholder="Enter something..."></i-input>
+                    </Form-item>
+                    <i-progress percent="per" hide-info></i-progress>
 
-						<i-button type="primary" @click='beginExport()' style="float: right;margin-left:10px;margin-top: 10px;">开始</i-button>
+                    <i-button type="primary" @click='beginExport()' style="float: right;margin-left:10px;margin-top: 10px;">开始</i-button>
 
-						<i-button type="defalut" @click='viewindex=1' style="float: right;margin-left:10px;margin-top: 10px;">上一步</i-button>
-						<i-form>
-				</div>
-			</div>
+                    <i-button type="defalut" @click='viewindex=1' style="float: right;margin-left:10px;margin-top: 10px;">上一步</i-button>
+                    <i-form>
+            </div>
+        </div>
 
-		</div>
-	</body>
-	<script type="text/javascript" src="js/app.js"></script>
+    </div>
+</body>
+<script type="text/javascript" src="js/app.js"></script>
 
 </html>

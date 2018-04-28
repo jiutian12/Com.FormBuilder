@@ -184,6 +184,8 @@ var app = new Vue({
 				sortable: true
 			}
 		],
+        hisdb:[],
+        datastr:[],
 		modal: false,
 		explen: 0,
 		expdata: [],
@@ -194,11 +196,11 @@ var app = new Vue({
 		viewindex: 0,
         per:0,
 		form: {
-			dbtype: "MSS",
-			ip: "LIWL01\\SQLEXPRESS",
-			catlog: "FormBulider",
-			username: "sa",
-			password: "123456a?",
+			dbtype: "",
+			ip: "",
+			catlog: "",
+			username: "",
+			password: "",
             port:""
 		}
 	},
@@ -206,6 +208,12 @@ var app = new Vue({
 
 	},
 	methods: {
+        sethis:function(data){
+            this.hisdb=data;
+            for(var item in data){
+                this.datastr.push(data[item].ip);
+            }
+        },
         progress:function(num){
             this.per=num;
         },
@@ -264,6 +272,25 @@ var app = new Vue({
 		handleSubmit: function(index) {
  
 
-		}
+		},
+        selectip:function(value){
+            alert(value);
+            var row=this.hisdb.find(function(i){return i.ip==value});
+            if(row){
+                this.form.catlog=row.catlog;
+                this.form.ip=row.ip;
+                this.form.password=row.password;
+                this.form.port=row.port;
+                this.form.username=row.username
+                this.form.dbtype=row.dbtype;
+            }
+        },
+        filterMethod (value, option) {
+                return option.toUpperCase().indexOf(value.toUpperCase()) !== -1;
+        }
 	}
-})
+});
+
+var data=eval(hostBridge.load());
+app.sethis(data);
+alert(data.length);
