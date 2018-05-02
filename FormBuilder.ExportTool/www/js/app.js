@@ -90,7 +90,7 @@ var treeManager = {
 
 					var info = '<span class="time"> '+treeNode.time+'</span>';
 					info += '<span class="size">'+treeNode.createuser+'</span>';
-					info += '<span class="type">'+getMetaName(treeNode.mtype)+'</span>';
+					info += '<span class="type">'+treeNode.mname+'</span>';
                     info += '<span class="id" title="'+treeNode.id+'">'+treeNode.id+'</span>';
 					//info += '<span class="menu-item-parent icon-ellipsis-vertical"></span>';
 					$("#" + treeNode.tId + "_span").after(info);
@@ -181,7 +181,17 @@ var app = new Vue({
 			},
 			{
 				title: '类型',
-				key: 'type',
+				key: 'mname',
+				sortable: true
+			},
+			{
+				title: '创建人',
+				key: 'createuser',
+				sortable: true
+			},
+			{
+				title: '最后修改时间',
+				key: 'time',
 				sortable: true
 			}
 		],

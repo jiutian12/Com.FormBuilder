@@ -36,6 +36,9 @@ namespace FormBuilder.ExportTool
 
         public string mtype { get; set; }
 
+        public string mname { get; set; }
+
+
         public string createuser { get; set; }
 
         public string time { get; set; }
@@ -248,12 +251,14 @@ namespace FormBuilder.ExportTool
             try
             {
 
-                var sql = "select id as id,name as name,parentid as pid,type as mtype,createuser as createuser ,lastmodifytime as time from fbmetadata where 1=1 ";
+                var sql = @"select a.id as id,a.name as name,b.name as mname,parentid as pid,type as mtype,createuser as createuser ,lastmodifytime as time from fbmetadata  a
+                left join fbmetatype b on b.id = a.type
+                where 1 = 1  ";
 
 
                 if (!showfolder)
                 {
-                    sql += " and type<>'9' ";
+                    sql += " and a.type<>'9' ";
                 }
                 string sort = "";
                 switch (sorttype)
