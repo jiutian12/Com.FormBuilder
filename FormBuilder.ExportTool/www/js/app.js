@@ -91,6 +91,7 @@ var treeManager = {
 					var info = '<span class="time"> '+treeNode.time+'</span>';
 					info += '<span class="size">'+treeNode.createuser+'</span>';
 					info += '<span class="type">'+getMetaName(treeNode.mtype)+'</span>';
+                    info += '<span class="id" title="'+treeNode.id+'">'+treeNode.id+'</span>';
 					//info += '<span class="menu-item-parent icon-ellipsis-vertical"></span>';
 					$("#" + treeNode.tId + "_span").after(info);
 
@@ -153,7 +154,7 @@ var treeManager = {
 		treeObj.showNodes(hiddenNodes);
 		//查找不符合条件的叶子节点
 		function filterFunc(node) {
-			if(node.isParent || node.name.indexOf(keyword) != -1) return false;
+			if(node.isParent || node.name.indexOf(keyword) != -1|| node.id.indexOf(keyword) != -1) return false;
 			return true;
 		};
 		//获取不符合条件的叶子结点

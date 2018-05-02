@@ -315,10 +315,10 @@ body .frame-main .frame-left .ztree li a.curDropTreeNode .button.switch:after {
 }
 
 
-/*ztree扩展列样式*/
+/*ztreeæ‰©å±•åˆ—æ ·å¼*/
 
 .ztree li a .name {
-	width: 45%;
+	width: 30%;
 	overflow: hidden;
 	position: absolute;
 	word-break: break-all;
@@ -326,11 +326,22 @@ body .frame-main .frame-left .ztree li a.curDropTreeNode .button.switch:after {
 }
 
 .ztree li a .time {
-	width: 27%;
+	width: 15%;
 	opacity: 0.8;
 	font-size: 12px;
 	position: absolute;
-	left: 72%;
+	left: 61%;
+}
+
+.ztree li a .id {
+	width: 24%;
+	opacity: 0.8;
+	font-size: 12px;
+	position: absolute;
+	left: 76%;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	overflow: hidden;
 }
 
 .ztree li a .type {
@@ -338,14 +349,14 @@ body .frame-main .frame-left .ztree li a.curDropTreeNode .button.switch:after {
 	opacity: 0.8;
 	font-size: 12px;
 	position: absolute;
-	left: 62%;
+	left: 51%;
 }
 .ztree li a .size {
 	width: 10%;
 	opacity: 0.8;
 	font-size: 12px;
 	position: absolute;
-	left: 52%;
+	left: 41%;
 }
 
 .ztree li a .menu-item-parent {
@@ -384,7 +395,7 @@ body .frame-main .frame-left .ztree li a.curDropTreeNode .button.switch:after {
 }
 
 .zip-header-title .name {
-	width: 50%;
+	width: 40%;
 }
 
 .zip-header-title .item {
@@ -408,9 +419,13 @@ body .frame-main .frame-left .ztree li a.curDropTreeNode .button.switch:after {
 }
 
 .zip-header-title .mtime {
-	width: 30%;
+	width: 15%;
 }
-/*选中行样式*/
+
+.zip-header-title .id {
+	width: 25%;
+}
+ 
 /*.ztree li a.curSelectedNode,
 .ztree li a.odd.curSelectedNode {
 	background: #2196F3 !important;

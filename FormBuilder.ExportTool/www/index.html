@@ -108,15 +108,16 @@
                     <div class="item type"><span>创建人</span></div>
                     <div class="item size"><span>类型</span></div>
                     <div class="item mtime"><span>修改时间</span></div>
+                    <div class="item id"><span>标识</span></div>
                     <div class="clear"></div>
                 </div>
                 <ul id="treeView" class="ztree"></ul>
             </div>
 
             <div style="position: absolute;height:40px;bottom: 0px;left: 0;right:0;padding-left: 10px;">
-                <Checkbox v-model="form">全选</Checkbox>
+                <!--<Checkbox v-model="form">全选</Checkbox>
                 <Checkbox v-model="form">导出目录</Checkbox>
-                <Checkbox v-model="form">平台数据</Checkbox>
+                <Checkbox v-model="form">平台数据</Checkbox>-->
                 <i-button type="defalut" @click='viewindex=0' style="margin-left:10px;">上一步</i-button>
                 <i-button type="primary" @click='stepExport()' style=" margin-left:10px;">下一步</i-button>
             </div>
