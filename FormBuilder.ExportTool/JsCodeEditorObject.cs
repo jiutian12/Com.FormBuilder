@@ -61,6 +61,8 @@ namespace FormBuilder.ExportTool
             AddFunction("begin").Execute += beginExport;
             AddFunction("open").Execute += open;
             AddFunction("load").Execute += loadconfig;
+            AddFunction("refresh").Execute += refresh;
+
 
         }
 
@@ -136,6 +138,40 @@ namespace FormBuilder.ExportTool
         }
 
 
+        private void refresh(object sender, Chromium.Remote.Event.CfrV8HandlerExecuteEventArgs e)
+        {
+            try
+            {
+                if (e.Arguments.Length > 0)
+                {
+
+
+                    var sorttype = "";
+                    var showfolder = true;
+
+                    showfolder = e.Arguments[0].BoolValue;
+                    sorttype = e.Arguments[1].StringValue;
+                    Task.Run(() =>
+                    {
+                        loadMetaData(showfolder, sorttype);
+                    });
+                    //新建一个Task
+                    //Task.Run()
+                    // Task t1 = new Task(action);
+                    //t1.Start();
+                }
+            }
+            catch (Exception ex)
+            {
+                ExecScript("JSBridge.handleError('" + ex.Message + "')");
+
+            }
+            //parentForm.ExecuteJavascript("JSBridge.load([]);");
+
+        }
+
+
+
         #region 初始化数据库
         private void initDB(object sender, Chromium.Remote.Event.CfrV8HandlerExecuteEventArgs e)
         {
@@ -150,17 +186,28 @@ namespace FormBuilder.ExportTool
                     //var sql = "select id as id,name as name,parentid as pid,type as mtype,createuser as createuser ,lastmodifytime as time from fbmetadata";
 
                     //List<meata> list = db.Fetch<meata>(sql);
+                    var sorttype = "";
+                    var showfolder = true;
 
-
+                    showfolder = e.Arguments[1].BoolValue;
+                    sorttype = e.Arguments[2].StringValue;
 
                     //parentForm.ExecuteJavascript("JSBridge.load(" + Newtonsoft.Json.JsonConvert.SerializeObject(list) + ");");
 
+                    //Action action =
 
-                    Action action = new Action(loadMetaData);
+                    //    new Action(loadMetaData);
+                    //Action<bool, string> startLoad = null;
 
+                    //startLoad = loadMetaData;
+                    Task.Run(() =>
+                    {
+                        loadMetaData(showfolder, sorttype);
+                    });
                     //新建一个Task
-                    Task t1 = new Task(action);
-                    t1.Start();
+                    //Task.Run()
+                    // Task t1 = new Task(action);
+                    //t1.Start();
                 }
             }
             catch (Exception ex)
@@ -194,15 +241,39 @@ namespace FormBuilder.ExportTool
 
             db = new Database(connectionStr, dbType);
         }
-        public void loadMetaData()
+        public void loadMetaData(bool showfolder, string sorttype)
         {
             MyDelegate md = new MyDelegate(ExecScript);
             MyDelegate exec = new MyDelegate(ExecScript);
             try
             {
 
-                var sql = "select id as id,name as name,parentid as pid,type as mtype,createuser as createuser ,lastmodifytime as time from fbmetadata";
+                var sql = "select id as id,name as name,parentid as pid,type as mtype,createuser as createuser ,lastmodifytime as time from fbmetadata where 1=1 ";
 
+
+                if (!showfolder)
+                {
+                    sql += " and type<>'9' ";
+                }
+                string sort = "";
+                switch (sorttype)
+                {
+                    case "1":
+                        sort = "order by lastmodifytime desc";
+                        break;
+                    case "2":
+                        sort = "order by lastmodifytime asc";
+                        break;
+                    case "3":
+                        sort = "order by createuser desc";
+                        break;
+                    case "4":
+                        sort = "order by createuser asc";
+                        break;
+                    default:
+                        break;
+                }
+                sql += sort;
                 List<meata> list = db.Fetch<meata>(sql);
 
                 parentForm.BeginInvoke(md, "JSBridge.load(" + Newtonsoft.Json.JsonConvert.SerializeObject(list) + ");");

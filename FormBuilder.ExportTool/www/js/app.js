@@ -186,7 +186,9 @@ var app = new Vue({
 		],
         hisdb:[],
         datastr:[],
+        showfolder:true,
 		modal: false,
+        st:"",
 		explen: 0,
 		expdata: [],
 		isloading: false,
@@ -230,7 +232,7 @@ var app = new Vue({
 		},
 		enter: function() {
 			this.load(true, "初始化数据库信息")
-			hostBridge.initDB(JSON.stringify(this.form)); // 传递数据连接信息
+			hostBridge.initDB(JSON.stringify(this.form),this.showfolder,this.st); // 传递数据连接信息
 			// 成功后回调 
 		},
         error:function(desc){
@@ -238,6 +240,28 @@ var app = new Vue({
                 title: '系统提示',
                 desc: desc
             });
+        },
+        sortchange:function(name){
+            if(name=="1"){
+                if(this.st==""||this.st=="2"){
+                    this.st="1";
+                }else{
+                     this.st="2";
+                }
+            }else{
+                if(this.st==""||this.st=="4"){
+                    this.st="3";
+                }else{
+                     this.st="4";
+                }
+            }
+            this.refreshList();
+            //alert(name);
+        },
+        refreshList:function(){
+
+			this.load(true, "加载中...")
+            hostBridge.refresh(this.showfolder,this.st); // 传递数据连接信息
         },
         scuess:function(desc){
             this.$Notice.success({

@@ -90,7 +90,19 @@
         <div class="center" v-bind:class="{ active: viewindex==1 }">
             <div style="position: absolute;top:0;bottom: 40px;left: 0;right:0;overflow:auto;">
 
-                <i-input v-model="keyword" @on-change="search()" icon="ios-search" size="small" placeholder="搜索关键字" clearable style="width: 200px;margin: 5px;;"></i-input>
+                <i-input v-model="keyword" @on-change="search()" icon="ios-search" size="small" placeholder="搜索关键字" clearable style="width: 200px;margin: 5px;"></i-input>
+                <Checkbox v-model="showfolder" @on-change="refreshList">显示目录</Checkbox>
+
+                <Dropdown trigger="click"   @on-click="sortchange">
+                    <a href="javascript:void(0)">
+                        排序
+                        <Icon type="arrow-down-b"></Icon>
+                    </a>
+                    <Dropdown-menu slot="list">
+                        <Dropdown-item name='1'>时间<span style="margin-left:5px;"><Icon type="arrow-down-c" v-if="st=='1'"></Icon><Icon type="arrow-up-c" v-if="st=='2'"></Icon></span></Dropdown-item>
+                        <Dropdown-item name="2">操作人<span style="margin-left:5px;"><Icon type="arrow-down-c" v-if="st=='3'"></Icon><Icon type="arrow-up-c" v-if="st=='4'"></Icon></span></Dropdown-item>
+                    </Dropdown-menu>
+                </Dropdown>
                 <div class="zip-header-title">
                     <div class="item name"><span>名称</span></div>
                     <div class="item type"><span>创建人</span></div>
