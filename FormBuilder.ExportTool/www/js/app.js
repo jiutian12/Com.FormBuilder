@@ -274,7 +274,7 @@ var app = new Vue({
 
 		},
         selectip:function(value){
-            alert(value);
+    
             var row=this.hisdb.find(function(i){return i.ip==value});
             if(row){
                 this.form.catlog=row.catlog;
@@ -292,5 +292,4 @@ var app = new Vue({
 });
 
 var data=eval(hostBridge.load());
-app.sethis(data);
-alert(data.length);
+app.sethis(data); 
