@@ -22,6 +22,7 @@ namespace FormBuilder.ExportTool
     public class TableInfo
     {
         public string key { get; set; }
+        public string pk { get; set; }
         public string tablename { get; set; }
 
         public bool ismain { get; set; } = false;
@@ -52,6 +53,7 @@ namespace FormBuilder.ExportTool
                     TableInfo tb = new TableInfo();
                     tb.key = table.Attributes["key"].InnerText;
                     tb.tablename = table.Attributes["tablename"].InnerText;
+                    tb.pk = table.Attributes["pk"].InnerText;
                     tb.desc = table.Attributes["desc"].InnerText;
                     tb.ismain = table.Attributes["ismain"].InnerText == "1" ? true : false;
                     pkg.list.Add(tb);
@@ -116,6 +118,7 @@ namespace FormBuilder.ExportTool
             }
             cols = cols.Substring(1);
 
+            var count = 0;
             foreach (var row in list)
             {
                 var valuestr = "";
@@ -124,10 +127,15 @@ namespace FormBuilder.ExportTool
                     valuestr += ",'" + key.Value + "'";
                 }
                 valuestr = valuestr.Substring(1);
-                sb.Append(delTmpl);
-                sb.Append("\r\n");
+                if (count == 0)
+                {   
+                    //第一行才生成删除sql
+                    sb.Append(delTmpl);
+                    sb.Append("\r\n");
+                }
                 sb.AppendFormat(tmpl, tb.tablename, cols, valuestr);
                 sb.Append("\r\n");
+                count++;
             }
             return sb.ToString();
         }
