@@ -49,6 +49,7 @@ namespace FormBuilder.LBSessionProvider
         {
             try
             {
+                // 根据 url querysstring build一下
                 ISessionKey user = new ISessionKey();
                 user = getLBFSession();
                 return user;

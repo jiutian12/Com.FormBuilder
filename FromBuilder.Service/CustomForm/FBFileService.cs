@@ -36,6 +36,7 @@ namespace FormBuilder.Service
             throw new NotImplementedException();
         }
 
+        // 获取文件列表
         public List<JFBFileSave> getFileList(string dataID, string frmID, string field)
         {
             List<JFBFileSave> list = Db.Fetch<JFBFileSave>(new Sql(" select  id,filename name ,fileext ext,'' src,createuser,createtime from FBFileSave  where dataid=@0 and frmID=@1 ", dataID, frmID));
@@ -44,11 +45,25 @@ namespace FormBuilder.Service
 
     
 
+        /// <summary>
+        /// 保存文件
+        /// </summary>
+        /// <param name="model"></param>
+
         public void saveFile(FBFileSave model)
         {
             base.Db.Save<FBFileSave>(model);
         }
 
+        /// <summary>
+        /// 上传文件
+        /// </summary>
+        /// <param name="frmID"></param>
+        /// <param name="dataID"></param>
+        /// <param name="fileid"></param>
+        /// <param name="key"></param>
+        /// <param name="fileName"></param>
+        /// <param name="file"></param>
         public void upload(string frmID, string dataID, string fileid, string key, string fileName, byte[] file)
         {
             throw new NotImplementedException();
