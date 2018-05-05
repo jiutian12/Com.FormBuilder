@@ -574,3 +574,19 @@ CREATE TABLE If Not Exists FBCMPPara
 	CONSTRAINT PK_FBCMPPara PRIMARY KEY (ID)
 	)
 GO
+
+
+/*系统参数设置表*/
+Create Table If Not Exists FBSettings
+	(
+	ID				VARCHAR (50) NOT NULL,
+	Code			VARCHAR (100),
+	Name			VARCHAR (100),
+	DataType		VARCHAR (20),
+	DataValue		VARCHAR (50),
+	Note			VARCHAR (100),
+	IsClient		CHAR (1),
+	IsSys			CHAR (1),
+	CONSTRAINT PK_FBSettings PRIMARY KEY (ID)
+	)
+GO
