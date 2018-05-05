@@ -103,7 +103,9 @@ namespace FormBuilder.ExportTool
         public static string generateSql(TableInfo tb, List<Dictionary<string, object>> list, string dataid)
         {
             if (list.Count == 0) return string.Empty;
+
             StringBuilder sb = new StringBuilder();
+            sb.Append("/*" + tb.desc + "*/");
             var delTmpl = string.Format("delete from {0} where {1}='{2}';", tb.tablename, tb.key, dataid);
             var tmpl = @"insert into {0}({1}) values({2});";
 
@@ -128,7 +130,7 @@ namespace FormBuilder.ExportTool
                 }
                 valuestr = valuestr.Substring(1);
                 if (count == 0)
-                {   
+                {
                     //第一行才生成删除sql
                     sb.Append(delTmpl);
                     sb.Append("\r\n");
@@ -137,6 +139,7 @@ namespace FormBuilder.ExportTool
                 sb.Append("\r\n");
                 count++;
             }
+            sb.Append("GO\r\n");
             return sb.ToString();
         }
 

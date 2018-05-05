@@ -77,6 +77,13 @@
                             <Form-item label="密码">
                                 <i-input type="password" v-model="form.password" placeholder="请输入用户密码"></i-input>
                             </Form-item>
+                            <Form-item label="操作方式">
+                                <Radio-Group v-model="tooltype" type="button">
+                                    <Radio label="导出"></Radio>
+                                    <Radio label="导入"></Radio>
+                                </Radio-Group>
+                            </Form-item>
+                            
                         </i-form>
                         <div slot="footer" style="overflow:auto;">
                             <i-button type="primary" @click='enter()' style="float: right;margin-left:10px;">下一步</i-button>
@@ -135,6 +142,29 @@
                     <i-button type="primary" @click='beginExport()' style="float: right;margin-left:10px;margin-top: 10px;">开始</i-button>
 
                     <i-button type="defalut" @click='viewindex=1' style="float: right;margin-left:10px;margin-top: 10px;">上一步</i-button>
+                    <i-form>
+            </div>
+        </div>
+
+
+        <div class="center" v-bind:class="{ active: viewindex==3 }">
+
+            <div style="text-align:center;margin: 10px;">
+                <div style="text-align:left;"> 
+                    <span>{{filepath}}</span>
+                    <i-button type="defalut" @click='chooseFile()' style="margin-left:10px;">选择导入文件</i-button>
+                </div>
+                <i-form model="form">
+                    
+                   
+                    <Form-item label='日志'>
+                        <i-input v-model="loginfo" readonly type="textarea"  :autosize="{minRows: 12,maxRows: 15}" placeholder="Enter something..."></i-input>
+                    </Form-item>
+                    <i-progress percent="per" hide-info></i-progress>
+
+                    <i-button type="primary" @click='beginImport()' style="float: right;margin-left:10px;margin-top: 10px;">开始</i-button>
+
+                    <i-button type="defalut" @click='viewindex=0' style="float: right;margin-left:10px;margin-top: 10px;">上一步</i-button>
                     <i-form>
             </div>
         </div>

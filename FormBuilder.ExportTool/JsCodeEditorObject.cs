@@ -50,6 +50,7 @@ namespace FormBuilder.ExportTool
     class JsCodeEditorObject : JSObject
     {
 
+        private string filepath = string.Empty;
         Main parentForm;
 
 
@@ -61,12 +62,89 @@ namespace FormBuilder.ExportTool
 
             AddFunction("initDB").Execute += initDB;
 
+            AddFunction("initDBOnly").Execute += initDBOnly;
+
+
             AddFunction("begin").Execute += beginExport;
             AddFunction("open").Execute += open;
             AddFunction("load").Execute += loadconfig;
             AddFunction("refresh").Execute += refresh;
 
+            AddFunction("chooseFile").Execute += chooseFile;
+            AddFunction("beginImport").Execute += beginImport;
 
+
+
+
+        }
+
+
+        public void beginImport(object sender, Chromium.Remote.Event.CfrV8HandlerExecuteEventArgs e)
+        {
+            
+            Task.Factory.StartNew(execImport);
+        }
+
+        public void execImport()
+        {
+
+            MyDelegate inv = new MyDelegate(AppendLog);
+            MyDelegate exec = new MyDelegate(ExecScript);
+            StreamReader sr = new StreamReader(filepath);
+            var sql = "";
+            try
+            {
+                while (sr.Peek() > -1)
+                {
+                    string str = sr.ReadLine();
+                    //if (str.IndexOf("/*") == 0)
+                    //{
+                    //    parentForm.BeginInvoke(inv, "开始导出:模块");
+                    //}
+                    //else
+                    //{
+                    //    parentForm.BeginInvoke(inv, "开始导出:sql" + str);
+                    //}
+                    if (str.Trim().ToUpper() == "GO")
+                    {
+
+                        db.Execute(new Sql("" + sql + ""));
+                        sql = "";
+                        //parentForm.BeginInvoke(inv, "成功一条");
+                    }
+                    else if (str.IndexOf("/*") == 0)
+                    {
+                        parentForm.BeginInvoke(inv, "开始导出:模块" + str);
+                    }
+                    else
+                    {
+                        sql += str + "\n";
+                    }
+
+                    //parentForm.BeginInvoke(inv,  str);
+                }
+                parentForm.BeginInvoke(inv, "导出成功");
+            }
+            catch (Exception ex)
+            {
+                ExecScript("JSBridge.handleError('" + ex.Message + "')");
+            }
+        }
+
+        public void chooseFile(object sender, Chromium.Remote.Event.CfrV8HandlerExecuteEventArgs e)
+        {
+            OpenFileDialog fileDialog = new OpenFileDialog();
+            fileDialog.Multiselect = true;
+            fileDialog.Title = "请选择文件";
+            fileDialog.Filter = "所有文件(*sql*)|*.sql*"; //设置要选择的文件的类型
+            if (fileDialog.ShowDialog() == DialogResult.OK)
+            {
+                string file = fileDialog.FileName;//返回文件的完整路径        
+                MessageBox.Show(file);
+                filepath = file;
+
+                ExecScript("JSBridge.setFilePath('" + Path.GetFileName(file) + "')");
+            }
         }
 
         /// <summary>
@@ -222,6 +300,30 @@ namespace FormBuilder.ExportTool
 
         }
 
+        private void initDBOnly(object sender, Chromium.Remote.Event.CfrV8HandlerExecuteEventArgs e)
+        {
+            try
+            {
+                if (e.Arguments.Length > 0)
+                {
+                    var str = e.Arguments[0].StringValue;
+                    var model = Newtonsoft.Json.JsonConvert.DeserializeObject<dbstr>(str);
+                    initDataBase(model);
+                    saveconfig(model);
+                    //var sql = "select id as id,name as name,parentid as pid,type as mtype,createuser as createuser ,lastmodifytime as time from fbmetadata";
+                    ExecScript("JSBridge.gotoImport()");
+
+                }
+            }
+            catch (Exception ex)
+            {
+                ExecScript("JSBridge.handleError('" + ex.Message + "')");
+
+            }
+            //parentForm.ExecuteJavascript("JSBridge.load([]);");
+
+        }
+
 
         private void initDataBase(dbstr model)
         {
@@ -351,6 +453,8 @@ namespace FormBuilder.ExportTool
             }
 
         }
+
+
 
         public void SaveFile(string str)
         {

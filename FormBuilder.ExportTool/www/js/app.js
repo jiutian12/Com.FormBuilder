@@ -4,12 +4,17 @@ window.JSBridge = {
 		app.step(1);
 		treeManager.init(data);
 	},
+    gotoImport:function(){
+        app.step(3);
+        app.load(false);
+    },
 	handleError: function(mes) {
 		app.load(false);
 		app.error(mes);
-
-
 	},
+    setFilePath:function(path){
+        app.setFilePath(path);
+    },
     progress:function(per){
         app.progress(per);
     },
@@ -200,6 +205,8 @@ var app = new Vue({
         showfolder:true,
 		modal: false,
         st:"",
+        filepath:"未选择文件",
+        tooltype:"导出",
 		explen: 0,
 		expdata: [],
 		isloading: false,
@@ -242,10 +249,25 @@ var app = new Vue({
 			treeManager.autoMatch(this.keyword);
 		},
 		enter: function() {
-			this.load(true, "初始化数据库信息")
-			hostBridge.initDB(JSON.stringify(this.form),this.showfolder,this.st); // 传递数据连接信息
+			this.load(true, "初始化数据库信息");
+           
+            if(this.tooltype=="导入"){
+                hostBridge.initDBOnly(JSON.stringify(this.form),this.showfolder,this.st); // 传递数据连接信息
+            }else{
+                hostBridge.initDB(JSON.stringify(this.form),this.showfolder,this.st); // 传递数据连接信息
+            }
+			
+
+         
 			// 成功后回调 
 		},
+
+        beginImport:function() {
+			hostBridge.beginImport(); // 传递数据连接信息
+		},
+        chooseFile:function(){
+            hostBridge.chooseFile();
+        },
         error:function(desc){
             this.$Notice.warning({
                 title: '系统提示',
@@ -307,6 +329,9 @@ var app = new Vue({
 		handleSubmit: function(index) {
  
 
+		},
+        setFilePath: function(path) {
+            this.filepath=path;
 		},
         selectip:function(value){
     
