@@ -106,6 +106,7 @@ namespace FormBuilder.ExportTool
 
             StringBuilder sb = new StringBuilder();
             sb.Append("/*" + tb.desc + "*/");
+            sb.Append("\r\n");
             var delTmpl = string.Format("delete from {0} where {1}='{2}';", tb.tablename, tb.key, dataid);
             var tmpl = @"insert into {0}({1}) values({2});";
 

@@ -81,7 +81,7 @@ namespace FormBuilder.ExportTool
 
         public void beginImport(object sender, Chromium.Remote.Event.CfrV8HandlerExecuteEventArgs e)
         {
-            
+
             Task.Factory.StartNew(execImport);
         }
 
@@ -108,13 +108,13 @@ namespace FormBuilder.ExportTool
                     if (str.Trim().ToUpper() == "GO")
                     {
 
-                        db.Execute(new Sql("" + sql + ""));
+                        db.Execute(sql, System.Data.CommandType.Text);
                         sql = "";
                         //parentForm.BeginInvoke(inv, "成功一条");
                     }
                     else if (str.IndexOf("/*") == 0)
                     {
-                        parentForm.BeginInvoke(inv, "开始导出:模块" + str);
+                        parentForm.BeginInvoke(inv, "开始导入:模块" + str);
                     }
                     else
                     {
@@ -123,11 +123,12 @@ namespace FormBuilder.ExportTool
 
                     //parentForm.BeginInvoke(inv,  str);
                 }
-                parentForm.BeginInvoke(inv, "导出成功");
+                ExecScript("JSBridge.handleError('导入成功')");
+
             }
             catch (Exception ex)
             {
-                ExecScript("JSBridge.handleError('" + ex.Message + "')");
+                ExecScript("JSBridge.handleError('导出异常请去客户端查看日志')");
             }
         }
 

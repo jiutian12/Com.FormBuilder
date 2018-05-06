@@ -50,8 +50,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\refdll\Newtonsoft.Json.dll</HintPath>
     </Reference>
-    <Reference Include="NPoco">
-      <HintPath>..\..\refdll\NPoco.3.3.4\lib\net45\NPoco.dll</HintPath>
+    <Reference Include="NPoco, Version=3.3.4.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\refdll\NPoco.3.8.0\net45\NPoco.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
