@@ -31,6 +31,12 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Com.BF.Commonality.Api">
+      <HintPath>..\..\reldllFramework\Com.BF.Commonality.Api.dll</HintPath>
+    </Reference>
+    <Reference Include="Com.BF.Commonality.Services">
+      <HintPath>..\..\reldllFramework\Com.BF.Commonality.Services.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -41,12 +47,21 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="FileService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="readme.txt" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\FromBuilder.Model\FormBuilder.Model.csproj">
+      <Project>{a1b7c964-a987-4e8e-8f58-68f067c0f097}</Project>
+      <Name>FormBuilder.Model</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\FromBuilder.Service\FormBuilder.Service.csproj">
+      <Project>{98c6350b-e664-41d0-b7a0-312e5941a141}</Project>
+      <Name>FormBuilder.Service</Name>
+    </ProjectReference>
     <ProjectReference Include="..\FromBuilder.Utilities\FormBuilder.Utilities.csproj">
       <Project>{b310b0a3-6fdb-4393-a326-6c88ac8152af}</Project>
       <Name>FormBuilder.Utilities</Name>

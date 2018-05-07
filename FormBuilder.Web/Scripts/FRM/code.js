@@ -214,14 +214,16 @@ CodeGenerator.prototype = {
         if (type && type == "1") {
             res = "lee-table-form-border"; //有边框
         }
-        if (type && type == "2") {
+        else if (type && type == "2") {
             res = " lee-table-form-border table-query"; // 无边框
         }
-        if (type && type == "3") {
+        else if (type && type == "3") {
             res = " lee-table-form-border table-block";//label换行
         }
-        if (type && type == "4") {
+        else if (type && type == "4") {
             res = " lee-table-form-border table-query table-single";//控件独立占一行
+        } else {
+            res = "lee-table-form table-border"; //有边框
         }
         return res;
     },

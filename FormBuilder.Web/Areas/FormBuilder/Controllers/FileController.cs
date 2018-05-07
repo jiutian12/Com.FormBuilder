@@ -8,6 +8,7 @@ using FormBuilder.Model;
 using FormBuilder.Service;
 using FormBuilder.Utilities;
 using Newtonsoft.Json;
+using System.IO;
 
 namespace FormBuilder.Web.Areas.FormBuilder.Controllers
 {
@@ -28,8 +29,21 @@ namespace FormBuilder.Web.Areas.FormBuilder.Controllers
         #endregion
 
 
+        public byte[] StreamToBytes(Stream stream)
+        {
+            byte[] bytes = new byte[stream.Length];
+            stream.Read(bytes, 0, bytes.Length);
+            stream.Seek(0, SeekOrigin.Begin);
+            return bytes;
+        }
 
-
+        /// <summary>
+        /// 上传附件
+        /// </summary>
+        /// <param name="dataID"></param>
+        /// <param name="frmID"></param>
+        /// <param name="field"></param>
+        /// <returns></returns>
         [HttpPost]
         public JsonResult Upload(string dataID, string frmID, string field)
         {
@@ -43,7 +57,7 @@ namespace FormBuilder.Web.Areas.FormBuilder.Controllers
                     model.DataID = dataID;
                     model.FrmID = frmID;
                     model.FileName = file.FileName;
-                    _service.saveFile(model);
+                    _service.saveFile(model, StreamToBytes(file.InputStream));
 
                 }
                 else
@@ -61,6 +75,13 @@ namespace FormBuilder.Web.Areas.FormBuilder.Controllers
         }
 
 
+        /// <summary>
+        /// 获取附件列表
+        /// </summary>
+        /// <param name="dataID"></param>
+        /// <param name="frmID"></param>
+        /// <param name="field"></param>
+        /// <returns></returns>
         [HttpPost]
         public JsonResult GetFileList(string dataID, string frmID, string field)
         {
@@ -76,6 +97,11 @@ namespace FormBuilder.Web.Areas.FormBuilder.Controllers
             }
         }
 
+        /// <summary>
+        /// 删除附件
+        /// </summary>
+        /// <param name="fileID"></param>
+        /// <returns></returns>
 
         [HttpPost]
         public JsonResult DeleteFile(string fileID)
@@ -94,6 +120,32 @@ namespace FormBuilder.Web.Areas.FormBuilder.Controllers
                     mes = "删除附件失败：" + ex.Message
                 });
             }
+        }
+
+        /// <summary>
+        /// 下载附件
+        /// </summary>
+        /// <param name="fileid"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public ActionResult DownFile(string fileid)
+        {
+            Stream fs = this._service.downLoad(fileid);
+            var fileName = this._service.getFileInfo(fileid).name;//获取文件名
+
+            byte[] bytes = new byte[(int)fs.Length];
+            fs.Read(bytes, 0, bytes.Length);
+            fs.Close();
+            Response.Charset = "UTF-8";
+            Response.ContentEncoding = System.Text.Encoding.GetEncoding("UTF-8");
+            Response.ContentType = "application/octet-stream";
+
+            Response.AddHeader("Content-Disposition", "attachment; filename=" + Server.UrlEncode(fileName));
+            Response.BinaryWrite(bytes);
+            Response.Flush();
+            Response.End();
+            return new EmptyResult();
+
         }
     }
 }

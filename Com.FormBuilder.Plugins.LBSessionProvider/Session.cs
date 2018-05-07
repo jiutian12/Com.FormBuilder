@@ -71,6 +71,10 @@ namespace FormBuilder.LBSessionProvider
 
             try
             {
+                // 初始化构造菜单token
+                Com.CF.WebFramework.Services.Impl.FrameworkExtService svr = new Com.CF.WebFramework.Services.Impl.FrameworkExtService();
+                svr.InitOpenFunc();
+                //
                 var session = Current();
                 if (session == null || string.IsNullOrEmpty(session.UserID))
                     return true;

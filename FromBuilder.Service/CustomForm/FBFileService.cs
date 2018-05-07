@@ -36,6 +36,11 @@ namespace FormBuilder.Service
             throw new NotImplementedException();
         }
 
+        public JFBFileSave getFileInfo(string fileid)
+        {
+            throw new NotImplementedException();
+        }
+
         // 获取文件列表
         public List<JFBFileSave> getFileList(string dataID, string frmID, string field)
         {
@@ -53,6 +58,11 @@ namespace FormBuilder.Service
         public void saveFile(FBFileSave model)
         {
             base.Db.Save<FBFileSave>(model);
+        }
+
+        public void saveFile(FBFileSave model, byte[] data)
+        {
+            throw new NotImplementedException();
         }
 
         /// <summary>

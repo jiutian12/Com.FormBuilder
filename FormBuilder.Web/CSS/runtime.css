@@ -1028,6 +1028,16 @@
     white-space: nowrap;
     overflow: hidden;
 }
+
+.table-border .table-label {
+    font-weight:800;
+    color: rgba(0,0,0,.75) !important;
+}
+
+.table-border .lee-input:read-only, .table-border .lee-input:disabled {
+    background: #FFF;
+}
+
 .table-query .table-editor {
     margin-left: 90px !important;
 }
