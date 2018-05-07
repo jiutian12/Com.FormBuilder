@@ -339,6 +339,7 @@ fBulider.page.ToolBarController.leeExtend(fBulider.page.UIController, {
                 fBulider.core.dataService.requestApi("/Form/removeToolBar", { ID: id }, "正在删除....").done(function (data) {
                     if (data.res) {
                         leeUI.Success(data.mes);
+                        self.LastSelected = "";
                         self.load();
                     }
                 }).fail(function (data) {
