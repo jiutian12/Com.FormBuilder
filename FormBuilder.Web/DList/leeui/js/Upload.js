@@ -7,9 +7,9 @@
         isPic: false,// 是否图片模式
         isPreview: false,//图片是否集成预览
         isCard: false,//列表展示还是卡片展示
-        url: _global.sitePath + "/File/upload?dataID=01&frmID=002131&field=01",//远程上传地址
+        url: _global.sitePath + "/File/upload",//远程上传地址
         ext: "",//文件扩展名
-        downloadUrl: _global.sitePath + "/File/download?dataID=",
+        downloadUrl: _global.sitePath + "/File/DownFile?fileid=",
         buttonText: "上传附件",
         isAvatar: false,
         data: []
@@ -72,6 +72,8 @@
             } else {
                 g.list.show();
             }
+
+           
             var BASE_URL = _global.sitePath + "/DList/webupload";
             var uploader = WebUploader.create({
                 auto: true,
