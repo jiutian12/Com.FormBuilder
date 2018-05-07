@@ -1031,3 +1031,17 @@
 .table-query .table-editor {
     margin-left: 90px !important;
 }
+
+.lee-text-date .lee-right {
+        background: none;
+    border-left: 0;
+}
+
+.lee-text-date .lee-right .popup{
+    background-image:url(images/datepicker_icon.png);
+    background-repeat:no-repeat;
+    background-position:center;
+}
+.lee-text-date .lee-right .popup:before {
+    content:"";
+}

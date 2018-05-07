@@ -4,9 +4,11 @@
     };
     $.leeUIDefaults.Date = {
         format: "yyyy-MM-dd",
-        vFormat:"yyyy-MM-dd",//值掩码
+        vFormat: "yyyy-MM-dd",//值掩码
         showTime: false,
         startDate: "",
+        range: false,
+        showType: "",//year month time datetime
         cancelable: true
     };
     $.leeUI.controls.Date = function (element, options) {
@@ -76,16 +78,21 @@
             }).change(function () {
                 g.trigger('change');
             });
+
+            laydate.render({
+                elem: g.inputText,
+                range: p.range
+            });
             g.set(p);
         },
         showDate: function () {
             var g = this,
                p = this.options;
 
-            WdatePicker({
-                el: g.textFieldID,
-                dateFmt: p.format
-            });
+            //WdatePicker({
+            //    el: g.textFieldID,
+            //    dateFmt: p.format
+            //});
         },
         _toggle: function () {
 

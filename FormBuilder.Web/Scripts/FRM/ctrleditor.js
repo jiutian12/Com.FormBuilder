@@ -482,7 +482,11 @@ var EditorFactory = (function () {
             this.propsarr = [
 				"#ed_date_format",
 				"#ed_date_valueformat",
-				"#ed_date_showtime"
+				"#ed_date_showtime",
+                "#ed_date_showtype",
+                "#ed_date_isrange",
+                "#ed_date_min",
+                "#ed_date_max"
             ];
             $(this.propsarr.join(",")).change(function () {
                 self.onPropChanged();
@@ -505,11 +509,18 @@ var EditorFactory = (function () {
             }
 
             $("#ed_date_showtime").prop("checked", editor.showtime);
+            $("#ed_date_isrange").prop("checked", editor.isrange);
         },
         onPropChanged: function () {
             this.editor.format = $("#ed_date_format").val();
             this.editor.valueformat = $("#ed_date_valueformat").val();
+
+            this.editor.showtype = $("#ed_date_showtype").val();
+            this.editor.min = $("#ed_date_min").val();
+            this.editor.max = $("#ed_date_max").val();
+
             this.editor.showtime = $("#ed_date_showtime").prop("checked");
+            this.editor.isrange = $("#ed_date_isrange").prop("checked");
         },
         getCompleteName: function (key) {
             return "ed_date_" + key;

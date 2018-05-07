@@ -945,14 +945,40 @@
                         </div>
                         <table class="propgrid">
                             <tr>
-                                <td class="title">format</td>
+                                <td class="title">掩码</td>
                                 <td><input id='ed_date_format' class="input" type="text" /></td>
                             </tr>
+
                             <tr>
+                                <td class="title">显示类型</td>
+                                <td>
+
+                                    <select class="input" id='ed_date_showtype'>
+                                        <option value="date">日期</option>
+                                        <option value="year">年度</option>
+                                        <option value="month">月度</option>
+                                        <option value="time">时间</option>
+                                        <option value="datetime">日期时间</option>
+                                    </select>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="title">是否区间</td>
+                                <td><input id="ed_date_isrange" type="checkbox"></td>
+                            </tr>
+                            <tr>
+                                <td class="title">开始日期</td>
+                                <td><input id='ed_date_min' class="input" type="text" /></td>
+                            </tr>
+                            <tr>
+                                <td class="title">结束日期</td>
+                                <td><input id='ed_date_max' class="input" type="text" /></td>
+                            </tr>
+                            <tr style="display:none;">
                                 <td class="title">valueformat</td>
                                 <td><input id='ed_date_valueformat' class="input" type="text" /></td>
                             </tr>
-                            <tr>
+                            <tr style="display:none;">
                                 <td class="title">showtime</td>
                                 <td><input id="ed_date_showtime" type="checkbox"></td>
                             </tr>
@@ -1026,7 +1052,7 @@
                                 <td class="title">绑定字段</td>
                                 <td><input id='ed_help_bindfield' class="input" type="text" /></td>
                             </tr>
-                           
+
                             <tr>
                                 <td class="title">编号字段</td>
                                 <td><input id='ed_help_codefield' class="input" type="text" /></td>
@@ -1199,6 +1225,8 @@
                                     <option value="2">左匹配</option>
                                     <option value="3">右匹配</option>
                                     <option value="4">IN</option>
+                                    <option value="9">between and</option>
+                                     
                                 </select>
                             </td>
                         </tr>

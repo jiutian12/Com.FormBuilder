@@ -3060,7 +3060,16 @@ window.Page.UI = (function (ui, service, model, win, $) {
 
                                         expressList.push(ctrl.filterfield, self.dealExp({ value: value }, ctrl.filterexp), " in ", " and ", true);
 
-                                    } else {
+                                    }
+                                    else if (ctrl.filtertype == "9") {
+                                        var rangvalue = value.split(" - ");
+                                        if (rangvalue.length == 2) {
+                                            expressList.push(ctrl.filterfield, rangvalue[0], " >= ", " and ");
+                                            expressList.push(ctrl.filterfield, rangvalue[1], " <= ", " and ");
+                                        }
+                                        
+                                    }
+                                    else {
                                         expressList.push(ctrl.filterfield, value, self.getCmpType(ctrl.filtertype || ""), " and ");
                                     }
                                 }
@@ -3673,6 +3682,10 @@ window.Page.UI = (function (ui, service, model, win, $) {
             opts.format = editor.format;
             opts.valueformat = editor.valueformat;
             opts.showTime = editor.showtime;
+            opts.showType = editor.showtype;
+            opts.range = editor.isrange;
+            opts.max = editor.max;
+            opts.min = editor.min;
 
             return opts;
         },

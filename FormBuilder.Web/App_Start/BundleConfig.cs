@@ -47,8 +47,11 @@ namespace FormBuilder.Web.App_Start
 
             //业务组件根据需要引入
 
+            //bundles.Add(new ScriptBundle("~/Bundle/Scripts/WDate")
+            //.Include("~/DList/DatePicker/WdatePicker.js"));
+            // 替换为laydate
             bundles.Add(new ScriptBundle("~/Bundle/Scripts/WDate")
-            .Include("~/DList/DatePicker/WdatePicker.js"));
+          .Include("~/DList/laydate/laydate.js"));
 
             //状态机
             bundles.Add(new ScriptBundle("~/Bundle/Scripts/StateMachine")

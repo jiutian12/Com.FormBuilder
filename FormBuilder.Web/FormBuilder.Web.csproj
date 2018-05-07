@@ -1085,6 +1085,8 @@
     <Content Include="DList\layer\skin\default\loading-0.gif" />
     <Content Include="DList\layer\skin\default\loading-1.gif" />
     <Content Include="DList\layer\skin\default\loading-2.gif" />
+    <Content Include="DList\leeui.js" />
+    <Content Include="DList\leeui.min.js" />
     <Content Include="DList\leeui\css\bulid.css" />
     <Content Include="DList\leeui\css\bulid2.css" />
     <Content Include="DList\leeui\css\bulid1.css" />
