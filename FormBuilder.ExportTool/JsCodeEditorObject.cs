@@ -141,7 +141,7 @@ namespace FormBuilder.ExportTool
             if (fileDialog.ShowDialog() == DialogResult.OK)
             {
                 string file = fileDialog.FileName;//返回文件的完整路径        
-                MessageBox.Show(file);
+                //MessageBox.Show(file);
                 filepath = file;
 
                 ExecScript("JSBridge.setFilePath('" + Path.GetFileName(file) + "')");

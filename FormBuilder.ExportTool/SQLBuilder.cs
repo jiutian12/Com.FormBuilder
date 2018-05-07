@@ -127,7 +127,15 @@ namespace FormBuilder.ExportTool
                 var valuestr = "";
                 foreach (var key in row)
                 {
-                    valuestr += ",'" + key.Value + "'";
+
+                    if (key.Value != null)
+                    {
+                        valuestr += ",'" + key.Value.ToString().Replace("'", "''") + "'";
+                    }
+                    else
+                    {
+                        valuestr += ",''";
+                    }
                 }
                 valuestr = valuestr.Substring(1);
                 if (count == 0)

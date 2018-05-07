@@ -128,6 +128,7 @@
     <EmbeddedResource Include="www\vendor\vue.min.js" />
     <EmbeddedResource Include="www\vendor\ztree\css\demo.css" />
     <None Include="table.config" />
+    <Content Include="FormBuilder.ExportTool.exe" />
     <Content Include="www\vendor\ztree\css\images\folder_win10.png" />
     <Content Include="www\vendor\ztree\css\images\folder_win10_small.png" />
     <Content Include="www\vendor\ztree\css\images\loading_tree.gif" />
