@@ -2185,6 +2185,7 @@ window.Page.UI = (function (ui, service, model, win, $) {
                 height: ctrl.height ? ctrl.height : "100%",
                 checkbox: ctrl.checkbox ? true : false,
                 rownumbers: ctrl.rownumber ? true : false,
+                alternatingRow: ctrl.alt,
                 rowHeight: 30,
                 onAfterShowData: this.onAfterShowData,
                 onSelectRow: this.onSelectRow,
@@ -2215,7 +2216,7 @@ window.Page.UI = (function (ui, service, model, win, $) {
                 opts.parms = this.bulidParams(ctrl);
                 opts.dataAction = 'server';
 
-                opts.pageSize = ctrl.pagesize;
+                opts.pageSize = ctrl.pagesize ? ctrl.pagesize : "50";
                 //opts.scrollToPage = true;
                 //opts.scroll = true;
                 //opts.pageSize = 5;
@@ -3708,6 +3709,10 @@ window.Page.UI = (function (ui, service, model, win, $) {
             opts.helpID = editor.helpdict; //帮助ID
             opts.codeField = editor.codefield;//编号字段
             opts.valueField = opts.textField = editor.bindfield;//值字段 显示字段
+
+            if (editor.textfield) {
+                opts.textField = editor.textfield;
+            }
             opts.dgHeight = editor.dialogheight ? editor.dialogheight : undefined;
 
             opts.dgWidth = editor.dialogwidth ? editor.dialogwidth : undefined;

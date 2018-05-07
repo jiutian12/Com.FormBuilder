@@ -4,6 +4,7 @@
     };
     $.leeUIDefaults.Date = {
         format: "yyyy-MM-dd",
+        vFormat:"yyyy-MM-dd",//值掩码
         showTime: false,
         startDate: "",
         cancelable: true

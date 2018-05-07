@@ -1014,6 +1014,20 @@
 }
 
 
+.lee-table-form-border.table-single  .table-item{
+    float:none;
+
+}
 .table-group {
     margin:5px 10px;
+}
+
+.table-query .table-label {
+    width: 90px !important;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+}
+.table-query .table-editor {
+    margin-left: 90px !important;
 }

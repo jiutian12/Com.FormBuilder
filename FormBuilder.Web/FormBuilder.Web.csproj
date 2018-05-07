@@ -1073,6 +1073,9 @@
     <Content Include="DList\jquery-ui\jquery-ui.theme.css" />
     <Content Include="DList\jquery-ui\jquery-ui.theme.min.css" />
     <Content Include="DList\jquery-ui\LICENSE.txt" />
+    <Content Include="DList\laydate\laydate.js" />
+    <Content Include="DList\laydate\theme\default\font\iconfont.svg" />
+    <Content Include="DList\laydate\theme\default\laydate.css" />
     <Content Include="DList\layer\layer.js" />
     <Content Include="DList\layer\mobile\layer.js" />
     <Content Include="DList\layer\mobile\need\layer.css" />
@@ -1421,6 +1424,9 @@
     <Content Include="Areas\FormBuilder\Views\Form\ChartInfo.cshtml" />
     <Content Include="Areas\FormBuilder\Views\CMP\List.cshtml" />
     <Content Include="Areas\FormBuilder\Views\CMP\Edit.cshtml" />
+    <Content Include="DList\laydate\theme\default\font\iconfont.eot" />
+    <Content Include="DList\laydate\theme\default\font\iconfont.ttf" />
+    <Content Include="DList\laydate\theme\default\font\iconfont.woff" />
     <None Include="Properties\PublishProfiles\1.pubxml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>

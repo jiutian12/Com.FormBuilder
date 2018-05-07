@@ -482,7 +482,7 @@ GridManager.prototype = {
         var self = this;
         var ctlrArr = [
             "#grid_label,#grid_colspan,#grid_readonly,#grid_onAfterShowData",
-            "#grid_border,#grid_rownumber,#grid_checkbox,#grid_pager,#grid_margin,#grid_async",
+            "#grid_border,#grid_rownumber,#grid_checkbox,#grid_pager,#grid_margin,#grid_async,#grid_alt",
             "#grid_tree,#grid_treefield,#grid_height,#grid_qrycmptype,#grid_isqry,#grid_qryexp",
             "#grid_height,#grid_top,#grid_left,#grid_width,#grid_pagesize"
         ]; $(ctlrArr.join(",")).change(function () {
@@ -494,6 +494,8 @@ GridManager.prototype = {
 
         $("#grid_readonly").leeCheckBox({ labelText: "只读" });
 
+        
+        $("#grid_alt").leeCheckBox({ labelText: "隔行换色" });
         $("#grid_border").leeCheckBox({ labelText: "显示边框" });
         $("#grid_rownumber").leeCheckBox({ labelText: "行号" });
         $("#grid_pager").leeCheckBox({ labelText: "分页" });
@@ -596,7 +598,9 @@ GridManager.prototype = {
         $("#grid_margin").val(obj.margin);
         $("#grid_colspan").val(obj.colspan);
         $("#grid_treefield").val(obj.treefield);
+       
 
+        
         $("#grid_height").val(obj.height);
 
         $("#grid_width").val(obj.width);
@@ -610,6 +614,10 @@ GridManager.prototype = {
 
         $("#grid_border").prop("checked", obj.border);
         $("#grid_border").leeCheckBox().setValue(obj.border);
+
+       
+        $("#grid_alt").prop("checked", obj.alt);
+        $("#grid_alt").leeCheckBox().setValue(obj.alt);
 
         $("#grid_rownumber").prop("checked", obj.rownumber);
         $("#grid_rownumber").leeCheckBox().setValue(obj.rownumber);
@@ -833,6 +841,8 @@ GridManager.prototype = {
         this.obj.readonly = $("#grid_readonly").leeUI().getValue();
         //this.obj.border = $("#grid_border").prop("checked");
         this.obj.border = $("#grid_border").leeUI().getValue();
+        this.obj.alt = $("#grid_alt").leeUI().getValue();
+
 
         //this.obj.rownumber = $("#grid_rownumber").prop("checked");
         this.obj.rownumber = $("#grid_rownumber").leeUI().getValue();

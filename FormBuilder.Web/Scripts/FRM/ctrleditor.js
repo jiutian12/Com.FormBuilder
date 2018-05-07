@@ -92,13 +92,13 @@ var EditorFactory = (function () {
                     self.refreshOptions(row["ID"] || "");     //帮助值改变后 刷新绑定数据
                     self.editor.bindfield = "";
                     self.editor.fieldmap = "";
-                    $("#ed_help_bindfield,#ed_help_codefield").leeUI().setValue("");
+                    $("#ed_help_bindfield,#ed_help_codefield,#ed_help_textfield").leeUI().setValue("");
                     //$("#ed_help_filter").leeUI().setValue("");
                     //self.editor.filter = "";
 
                 }
             });
-            $("#ed_help_bindfield,#ed_help_codefield").leeDropDown({
+            $("#ed_help_bindfield,#ed_help_codefield,#ed_help_textfield").leeDropDown({
                 data: [],
                 onselected: function () {
                     self.onPropChanged();
@@ -197,6 +197,8 @@ var EditorFactory = (function () {
             $("#ed_help_helpdict").leeUI().setText(editor.helpdicttext);
             $("#ed_help_bindfield").leeUI().setValue(editor.bindfield);
             $("#ed_help_codefield").leeUI().setValue(editor.codefield);
+            $("#ed_help_textfield").leeUI().setValue(editor.textfield);
+            
             $("#ed_help_filter").leeUI().setValue(editor.filter, editor.filter);
 
             $("#ed_help_dialogheight").val(editor.dialogheight);
@@ -220,6 +222,9 @@ var EditorFactory = (function () {
             this.editor.helpdict = $("#ed_help_helpdict").leeUI().getValue();
             this.editor.bindfield = $("#ed_help_bindfield").leeUI().getValue();
             this.editor.codefield = $("#ed_help_codefield").leeUI().getValue();
+            this.editor.textfield = $("#ed_help_textfield").leeUI().getValue();
+
+            
             this.editor.filter = $("#ed_help_filter").leeUI().getValue();
 
 
@@ -240,6 +245,9 @@ var EditorFactory = (function () {
 
                     $("#ed_help_bindfield").leeUI().setData(data);
                     $("#ed_help_codefield").leeUI().setData(data);
+                    $("#ed_help_textfield").leeUI().setData(data);
+
+                    
                 }
             });
         },

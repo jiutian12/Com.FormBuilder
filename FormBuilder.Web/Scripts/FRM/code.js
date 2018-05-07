@@ -212,13 +212,16 @@ CodeGenerator.prototype = {
         // 获取column类信息
         var res = "lee-table-form";
         if (type && type == "1") {
-            res = "lee-table-form-border";
+            res = "lee-table-form-border"; //有边框
         }
         if (type && type == "2") {
-            res = " lee-table-form-border table-query";
+            res = " lee-table-form-border table-query"; // 无边框
         }
         if (type && type == "3") {
-            res = " lee-table-form-border table-block";
+            res = " lee-table-form-border table-block";//label换行
+        }
+        if (type && type == "4") {
+            res = " lee-table-form-border table-query table-single";//控件独立占一行
         }
         return res;
     },

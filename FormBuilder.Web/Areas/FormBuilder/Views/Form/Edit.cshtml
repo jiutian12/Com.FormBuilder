@@ -570,10 +570,11 @@
                             <td class="title"><span title='panel内部样式'>风格</span></td>
                             <td>
                                 <select class="input" id="col_formstyle">
-                                    <option value="0">默认</option>
-                                    <option value="1">边框</option>
                                     <option value="2">无边框</option>
-                                    <option value="3">换行</option>
+                                    <option value="1">边框</option>
+                                    <option value="0">默认</option>
+                                    <option value="3">标题独行</option>
+                                    <option value="4">控件换行</option>
                                 </select>
                             </td>
                         </tr>
@@ -1025,9 +1026,14 @@
                                 <td class="title">绑定字段</td>
                                 <td><input id='ed_help_bindfield' class="input" type="text" /></td>
                             </tr>
+                           
                             <tr>
                                 <td class="title">编号字段</td>
                                 <td><input id='ed_help_codefield' class="input" type="text" /></td>
+                            </tr>
+                            <tr>
+                                <td class="title">显示字段</td>
+                                <td><input id='ed_help_textfield' class="input" type="text" /></td>
                             </tr>
                             <tr>
                                 <td class="title">字段映射</td>
@@ -1341,6 +1347,7 @@
 
                                 <input id='grid_checkbox' type="checkbox" />
                                 <input id='grid_border' type="checkbox" />
+                                <input id='grid_alt' type="checkbox" />
                             </td>
                         </tr>
                         <tr>
