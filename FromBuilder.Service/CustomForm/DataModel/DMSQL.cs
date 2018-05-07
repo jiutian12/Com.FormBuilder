@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using FormBuilder.Utilities;
 
 namespace FormBuilder.Service
 {
@@ -75,9 +76,21 @@ namespace FormBuilder.Service
         }
 
 
+
+        public string dealSqlSession(string sql)
+        {
+            var session = SessionProvider.Provider.Current();
+            sql = sql.Replace("{Session.UserID}", session.UserID);
+            sql = sql.Replace("{Session.UserCode}", session.UserCode);
+            sql = sql.Replace("{Session.UserName}", session.UserName);
+            sql = sql.Replace("{Session.CurDate}", session.CurDate);
+            //应用服务器时间
+            //其他信息
+            return sql;
+        }
         private Sql dealSQL(string sql, DataTable dt)
         {
-
+            sql = dealSqlSession(sql);
             if (sql.IndexOf("@") != -1)
             {
                 ArrayList arr = new ArrayList();
@@ -93,6 +106,11 @@ namespace FormBuilder.Service
                     //sql = sql.Replace("@" + columnname, string.Format(prop.SqlToken, columnname));
 
                 }
+                //{Session.UserID}
+                //{Session.UserCode} 用户账号
+                //{Session.UserName}
+                //{Session.LoginDate}
+                // 处理session 信息
                 return new Sql(sql, arr);
             }
             else if (!string.IsNullOrEmpty(sql))
