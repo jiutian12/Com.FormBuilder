@@ -65,6 +65,7 @@
     <Compile Include="DataSource\FBDataSource.cs" />
     <Compile Include="DataObject\FBDataObject.cs" />
     <Compile Include="DataObject\FBDataObjectCols.cs" />
+    <Compile Include="FBSettings.cs" />
     <Compile Include="FBDBSetting.cs" />
     <Compile Include="FBUserInfo.cs" />
     <Compile Include="FBLog.cs" />
