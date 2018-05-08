@@ -8,6 +8,7 @@ using FormBuilder.Model;
 using System.IO;
 using Com.BF.Commonality.Api;
 using Com.BF.Commonality.Services;
+using Com.CF.FrameworkCore.Context;
 
 namespace FormBuilder.LBFileProvider
 {
@@ -49,7 +50,8 @@ namespace FormBuilder.LBFileProvider
         public List<JFBFileSave> getFileList(string dataID, string frmID, string field)
         {
             List<JFBFileSave> list = new List<JFBFileSave>();
-            var reslist = svr.GetAttInfoByMainIdAndType(dataID, field);
+            var reslist = svr.GetAttInfoByMainId(dataID);// svr.GetAttInfoByMainIdAndType(dataID, field);
+
             foreach (var item in reslist)
             {
                 list.Add(new JFBFileSave
@@ -83,6 +85,9 @@ namespace FormBuilder.LBFileProvider
             entity.MainId = model.DataID;
             entity.MainType = "";
             entity.Extension = model.FileExt;
+            entity.Creator = LBFContext.Current.Session.UserName;
+
+            entity.FileTypeCode = "LBMAttFiles";
             //entity.FileString
             svr.SaveFile(entity, data);
         }

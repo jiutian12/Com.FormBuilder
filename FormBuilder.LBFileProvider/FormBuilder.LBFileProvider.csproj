@@ -37,6 +37,18 @@
     <Reference Include="Com.BF.Commonality.Services">
       <HintPath>..\..\reldllFramework\Com.BF.Commonality.Services.dll</HintPath>
     </Reference>
+    <Reference Include="Com.CF.FrameworkCore.Api, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\reldllFramework\Com.CF.FrameworkCore.Api.dll</HintPath>
+    </Reference>
+    <Reference Include="Com.CF.FrameworkCore.Common, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\reldllFramework\Com.CF.FrameworkCore.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="Com.CF.FrameworkCore.Service, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\reldllFramework\Com.CF.FrameworkCore.Service.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
