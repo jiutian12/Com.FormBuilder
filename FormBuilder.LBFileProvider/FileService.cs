@@ -32,6 +32,11 @@ namespace FormBuilder.LBFileProvider
 
         }
 
+        public byte[] downLoadFile(string fileid)
+        {
+            return svr.GetDownloadFile(fileid);
+        }
+
         public JFBFileSave getFileInfo(string fileid)
         {
             FileAttachment model = svr.GetAttInfoById(fileid);

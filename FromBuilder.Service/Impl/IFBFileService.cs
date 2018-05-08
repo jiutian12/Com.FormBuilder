@@ -15,6 +15,8 @@ namespace FormBuilder.Service
 
 
         Stream downLoad(string fileid);
+
+        byte[] downLoadFile(string fileid);
         void upload(string frmID, string dataID, string fileid, string key, string fileName, byte[] file);
 
 

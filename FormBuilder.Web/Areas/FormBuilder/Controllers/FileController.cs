@@ -130,12 +130,13 @@ namespace FormBuilder.Web.Areas.FormBuilder.Controllers
         [HttpGet]
         public ActionResult DownFile(string fileid)
         {
-            Stream fs = this._service.downLoad(fileid);
+
+            byte[] bytes = this._service.downLoadFile(fileid);//new FileStream(Server.MapPath("~/1.png"), FileMode.Open);//
             var fileName = this._service.getFileInfo(fileid).name;//获取文件名
 
-            byte[] bytes = new byte[(int)fs.Length];
-            fs.Read(bytes, 0, bytes.Length);
-            fs.Close();
+            //byte[] bytes = new byte[(int)fs.Length];
+            //fs.Read(bytes, 0, bytes.Length);
+            //fs.Close();
             Response.Charset = "UTF-8";
             Response.ContentEncoding = System.Text.Encoding.GetEncoding("UTF-8");
             Response.ContentType = "application/octet-stream";

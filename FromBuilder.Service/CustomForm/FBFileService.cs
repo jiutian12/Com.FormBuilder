@@ -36,6 +36,11 @@ namespace FormBuilder.Service
             throw new NotImplementedException();
         }
 
+        public byte[] downLoadFile(string fileid)
+        {
+            throw new NotImplementedException();
+        }
+
         public JFBFileSave getFileInfo(string fileid)
         {
             throw new NotImplementedException();
