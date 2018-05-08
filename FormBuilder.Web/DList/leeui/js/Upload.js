@@ -223,7 +223,8 @@
 
         },
         _canPreview: function (ext) {
-
+            ext = ext.toLowerCase();
+            if (ext) ext = ext.substr(1);
             if (ext == "jpg" || ext == "png" || ext == "jgeg" || ext == "gif") {
                 return { res: true }
             }

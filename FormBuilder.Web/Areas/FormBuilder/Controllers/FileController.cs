@@ -127,7 +127,7 @@ namespace FormBuilder.Web.Areas.FormBuilder.Controllers
         /// </summary>
         /// <param name="fileid"></param>
         /// <returns></returns>
-        [HttpPost]
+        [HttpGet]
         public ActionResult DownFile(string fileid)
         {
             Stream fs = this._service.downLoad(fileid);
