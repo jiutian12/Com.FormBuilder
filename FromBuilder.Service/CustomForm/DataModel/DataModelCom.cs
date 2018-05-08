@@ -1025,6 +1025,10 @@ namespace FormBuilder.Service
             //删除记录
             foreach (var item in deleteArr)
             {
+                 
+                //FileOpService extSvr = new FileOpService();
+                ////
+                //extSvr.svr.deleteFile(item);
                 Db.Execute(new Sql("delete from FBFileSave where id=@0", item));
             }
         }
