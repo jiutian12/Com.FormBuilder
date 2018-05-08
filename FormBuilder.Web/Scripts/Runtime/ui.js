@@ -1458,6 +1458,7 @@ window.Page.UI = (function (ui, service, model, win, $) {
                     //console.log(data);
                     model.setModel(data.data);
                     self.bindCtrl();
+                    ui.event.trigger("", "onload", [data.data]);
                 } else {
                     $.leeUI.Warn(data.mes);
                 }
@@ -2973,6 +2974,9 @@ window.Page.UI = (function (ui, service, model, win, $) {
                 $("#" + viewid).trigger(eventname, args);
             else
                 $("body").trigger(eventname, args);
+        },
+        bind: function (eventname, func) {
+            $("body").bind(eventname, func);
         }
     }
 
@@ -3067,7 +3071,7 @@ window.Page.UI = (function (ui, service, model, win, $) {
                                             expressList.push(ctrl.filterfield, rangvalue[0], " >= ", " and ");
                                             expressList.push(ctrl.filterfield, rangvalue[1], " <= ", " and ");
                                         }
-                                        
+
                                     }
                                     else {
                                         expressList.push(ctrl.filterfield, value, self.getCmpType(ctrl.filtertype || ""), " and ");
