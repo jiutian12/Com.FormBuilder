@@ -37,6 +37,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "07 SQL", "07 SQL", "{4ACADD
 	ProjectSection(SolutionItems) = preProject
 		sql_data_ini.sql = sql_data_ini.sql
 		sql_table_create.sql = sql_table_create.sql
+		sql_test.sql = sql_test.sql
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FormBuilder.Test", "FormBuilder.Test\FormBuilder.Test.csproj", "{74C89FD3-2972-4015-93F9-F3162EFE1463}"

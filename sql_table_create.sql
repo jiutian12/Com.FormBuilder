@@ -15,6 +15,8 @@ Create Table If Not Exists FBDBSetting
 	CreateTime     VARCHAR (20),
 	LastModifyUser VARCHAR (50),
 	LastModifyTime VARCHAR (20),
+	Catalog        VARCHAR (100),
+	PortInfo       VARCHAR (20)
 	CONSTRAINT PK_FBDBSETTING PRIMARY KEY (ID)
 	)
 GO
@@ -125,6 +127,7 @@ Create Table If Not Exists FBDataModelObjects
 	Label     VARCHAR (50),
 	Condition text,
 	isSave    CHAR (1),
+	ChangeFileds VARCHAR(2000),
 	CONSTRAINT PK_FBDATAMODELOBJECTS PRIMARY KEY (ID)
 	)
 GO
@@ -472,66 +475,7 @@ GO
 
 
 
-/*测试表单表结构*/
 
-Create Table If Not Exists PurCat
-	(
-	ID       VARCHAR (50) NOT NULL,
-	CODE     VARCHAR (50),
-	NAME     VARCHAR (50),
-	`LEVEL`  VARCHAR (50),
-	PATH     VARCHAR (50),
-	PARENTID VARCHAR (50),
-	ISDETAIL VARCHAR (20),
-	CONSTRAINT PK_PurCat PRIMARY KEY (ID)
-	)
-GO
-
-
-Create Table If Not Exists PurExpert
-	(
-	ExpertID   VARCHAR (50) NOT NULL,
-	ExpertName VARCHAR (100),
-	Resume     VARCHAR (4000),
-	IDCard     VARCHAR (20),
-	Birth      VARCHAR (20),
-	Nation     VARCHAR (20),
-	CONSTRAINT PK_PurExpert PRIMARY KEY (ExpertID)
-	)
-GO
-
-Create Table If Not Exists PurExpertExp
-	(
-	ID          VARCHAR (50) NOT NULL,
-	ExpertID    VARCHAR (50),
-	BeginTime   VARCHAR (50),
-	EndTime     VARCHAR (50),
-	Description VARCHAR (50),
-	UserCer     VARCHAR (50),
-	CONSTRAINT PK_PurExpertExp PRIMARY KEY (ID)
-	)
-GO
-
-Create Table If Not Exists PurExpertSort
-	(
-	ID       VARCHAR (50) NOT NULL,
-	SortID   VARCHAR (50),
-	ExpertID VARCHAR (50),
-	CONSTRAINT PK_PurExpertSort PRIMARY KEY (ID)
-	)
-GO
-
-
-Create Table If Not Exists ExpertSort
-	(
-	ID   VARCHAR (50) NOT NULL,
-	Code VARCHAR (50),
-	Name VARCHAR (50),
-	Note VARCHAR (500),
-	ORD  VARCHAR (20),
-	CONSTRAINT PK_ExpertSort PRIMARY KEY  (ID)
-	)
-GO
 
 
 
@@ -558,6 +502,7 @@ CREATE TABLE If Not Exists FBCMPMethod
 	CMPID      VARCHAR (50),
 	MethodName VARCHAR (40),
 	ReturnType CHAR (1),
+	Note       VARCHAR (200),
 	CONSTRAINT PK_FBCMPMethod PRIMARY KEY (ID)
 	)
 GO
@@ -590,3 +535,6 @@ Create Table If Not Exists FBSettings
 	CONSTRAINT PK_FBSettings PRIMARY KEY (ID)
 	)
 GO
+
+
+
