@@ -49,6 +49,10 @@ namespace FormBuilder.Service
             {
                 level = "1";
             }
+            if (string.IsNullOrEmpty(path))
+            {
+                path = "";
+            }
             var format = tree.format == "" ? "44444444444444444444" : tree.format;
             var formatIndexLen = 4;
             var alllen = 0;
