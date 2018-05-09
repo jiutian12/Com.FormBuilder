@@ -27,7 +27,8 @@
         render: null, //显示函数   
         split: ',', //多选分隔符
         condition: null, // 条件字段,比如 {fields:[{ name : 'Title' ,op : 'like', vt : 'string',type:'text' }]}
-        onBeforeOpen: null
+        onBeforeOpen: null,
+        textmode: false
     };
     $.leeUI.controls.Lookup = function (element, options) {
         $.leeUI.controls.Popup.base.constructor.call(this, element, options);
@@ -163,9 +164,15 @@
                         var arr = data.data;
 
                         if (arr.length > 1 || arr.length == 0) {
-                            g.setKeyword(value);
-                            g.openLookup();
 
+                            if (p.textmode && arr.length == 0) {
+                                var obj = {};
+                                obj[p.textField] = obj[p.valueField] = value;
+                                g.confirmSelect([obj]);
+                            } else {
+                                g.setKeyword(value);
+                                g.openLookup();
+                            }
                         }
                         else {
                             g.confirmSelect(arr);// 触发选中事件 

@@ -148,6 +148,7 @@ var EditorFactory = (function () {
                 "#ed_help_childonly",
                 "#ed_help_nameswitch",
                 "#ed_help_ismul",
+                "#ed_help_textmode",
                 "#ed_help_ismulgrid",
                 "#ed_help_async"
             ];
@@ -208,8 +209,9 @@ var EditorFactory = (function () {
             $("#ed_help_ismul").prop("checked", editor.ismul);
             $("#ed_help_childonly").prop("checked", editor.childonly);
 
-
+            
             $("#ed_help_ismulgrid").prop("checked", editor.ismulgrid);
+            $("#ed_help_textmode").prop("checked", editor.textmode);
 
             $("#ed_help_async").prop("checked", editor.async);
 
@@ -237,7 +239,9 @@ var EditorFactory = (function () {
             this.editor.ismulgrid = $("#ed_help_ismulgrid").prop("checked");
             this.editor.async = $("#ed_help_async").prop("checked");
             this.editor.childonly = $("#ed_help_childonly").prop("checked");
+            this.editor.textmode = $("#ed_help_textmode").prop("checked");
 
+            
         },
         refreshOptions: function (helpid) {
             this.getDataModelFields(helpid, function (data) {

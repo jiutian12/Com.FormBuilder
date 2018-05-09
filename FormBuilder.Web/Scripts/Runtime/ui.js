@@ -1668,7 +1668,7 @@ window.Page.UI = (function (ui, service, model, win, $) {
                     frmID: ui.getFrmID(),
                     dataID: ui.instance.getDataID(),
                     field: "",
-                    typecode: ctrl.options.typecode
+                    typecode: ctrl.editor_file.typecode
                 });
             }
             //updateParams
@@ -3756,6 +3756,8 @@ window.Page.UI = (function (ui, service, model, win, $) {
             opts.isMul = editor.ismul;
             opts.isMulGrid = editor.ismulgrid;
             opts.isChildOnly = editor.childonly;
+            opts.textmode = editor.textmode;
+            
 
             // 注入服务请求
             opts.service = service;
@@ -3811,7 +3813,7 @@ window.Page.UI = (function (ui, service, model, win, $) {
                     for (var i = 0; i < mapFields.length; i++) {
                         var HField = mapFields[i]["HField"];
                         var FField = mapFields[i]["FField"];
-                        vsobj[FField] = data[HField];
+                        vsobj[FField] = data[HField] ? data[HField] : ""; 
                     }
                     return vsobj;
                 }

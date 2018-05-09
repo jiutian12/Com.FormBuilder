@@ -9851,7 +9851,8 @@ function ($) {
         render: null, //显示函数   
         split: ',', //多选分隔符
         condition: null, // 条件字段,比如 {fields:[{ name : 'Title' ,op : 'like', vt : 'string',type:'text' }]}
-        onBeforeOpen: null
+        onBeforeOpen: null,
+        textmode: false
     };
     $.leeUI.controls.Lookup = function (element, options) {
         $.leeUI.controls.Popup.base.constructor.call(this, element, options);
@@ -9987,9 +9988,15 @@ function ($) {
                         var arr = data.data;
 
                         if (arr.length > 1 || arr.length == 0) {
-                            g.setKeyword(value);
-                            g.openLookup();
 
+                            if (p.textmode && arr.length == 0) {
+                                var obj = {};
+                                obj[p.textField] = obj[p.valueField] = value;
+                                g.confirmSelect([obj]);
+                            } else {
+                                g.setKeyword(value);
+                                g.openLookup();
+                            }
                         }
                         else {
                             g.confirmSelect(arr);// 触发选中事件 
@@ -10031,11 +10038,14 @@ function ($) {
 
             // 如果parent有dialog对象则用parentdialog
 
-            var dgContext = parent.document.getElementById('lookupwindow').contentWindow;
+            var dgContext = this.getContext().document.getElementById('lookupwindow').contentWindow;
             return dgContext.lookupHelper;
         },
         getContext: function () {
-
+            if (window.parent && window.parent.$ && window.parent.$.leeDialog) {
+                return window.parent;
+            }
+            return window;
         },
         setKeyword: function (value) {
             this.keyword = value;
@@ -10056,7 +10066,7 @@ function ($) {
             var g = this, p = this.options;
             // 如果parent页面有dialog对象 则采用parent
 
-            var $openDg = parent.$.leeDialog.open({
+            var $openDg = this.getContext().$.leeDialog.open({
                 title: p.title,
                 name: 'lookupwindow',
                 isHidden: false,
@@ -11364,9 +11374,9 @@ function ($) {
         isPic: false,// 是否图片模式
         isPreview: false,//图片是否集成预览
         isCard: false,//列表展示还是卡片展示
-        url: _global.sitePath + "/File/upload?dataID=01&frmID=002131&field=01",//远程上传地址
+        url: _global.sitePath + "/File/upload",//远程上传地址
         ext: "",//文件扩展名
-        downloadUrl: _global.sitePath + "/File/download?dataID=",
+        downloadUrl: _global.sitePath + "/File/DownFile?fileid=",
         buttonText: "上传附件",
         isAvatar: false,
         data: []
@@ -11429,6 +11439,8 @@ function ($) {
             } else {
                 g.list.show();
             }
+
+
             var BASE_URL = _global.sitePath + "/DList/webupload";
             var uploader = WebUploader.create({
                 auto: true,
@@ -11578,7 +11590,8 @@ function ($) {
 
         },
         _canPreview: function (ext) {
-
+            ext = ext.toLowerCase();
+            if (ext) ext = ext.substr(1);
             if (ext == "jpg" || ext == "png" || ext == "jgeg" || ext == "gif") {
                 return { res: true }
             }
@@ -11624,8 +11637,7 @@ function ($) {
             } else {
                 g.emptyWrap.hide();
             }
-
-            if (p.data.length == 1 && p.isAvatar) {
+            if (p.data.length == 1 && !p.isMul) {
                 g.picker.hide();
             } else {
                 g.picker.show();
@@ -11684,9 +11696,10 @@ function ($) {
             g._clearWrap();
             for (var item in value) {
                 // 格式化URL
-                var res = g._canPreview(value.ext);
+                var row = value[item];
+                var res = g._canPreview(row.ext);
                 if (res.res) {
-                    value[item].src = p.downloadUrl + value.id;
+                    value[item].src = p.downloadUrl + row.id;
                 } else {
                     value[item].src = res.src;
                 }
