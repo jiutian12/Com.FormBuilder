@@ -57,11 +57,13 @@ namespace FormBuilder.Utilities
         /// 登录IP
         /// </summary>
         public string IPAddress { get; set; }
-
-
         public string Token { get; set; }
 
 
+        public string TokenID { get; set; }
+
+
+        public string MainDatabaseCode { get; set; }
 
         //其他信息后续扩展
 

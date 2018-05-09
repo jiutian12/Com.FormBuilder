@@ -82,8 +82,9 @@
         margin-top: 10px;
     }
 
-    #editor1, #editor2 {
+    #editor1, #editor2, #editorfunc {
         height: 150px;
+        margin: 0;
     }
 
     #editor {
@@ -174,14 +175,16 @@
     <div class="render_format">
         <div>
             <ul class="options">
-                <li class="active" data-toogle="number">数字</li>
+                <li class="active" data-toogle="none">无</li>
+                <li data-toogle="number">数字</li>
                 <li data-toogle="date">日期</li>
                 <li data-toogle="enum">枚举</li>
-                <li data-toogle="none">无</li>
+                <li data-toogle="func">代码</li>
+               
             </ul>
 
             <div class="options_content">
-                <div class="contentinfo number active">
+                <div class="contentinfo number ">
                     <h1 class=" title">数字</h1>
                     <table class="table">
                         <tr>
@@ -215,8 +218,20 @@
 
                     </div>
                 </div>
+                <div class="contentinfo func">
+                    <h1 class=" title">自定义代码</h1>
 
-                <div class="contentinfo none">
+                    <div class="grid" style="width:500px;border:1px solid #DDD;min-height:20px;">
+                        <div class="item1" style="">
+                            <pre id="editorfunc">function(rowdata, rowindex, value, column){}
+                                </pre>
+                        </div>
+
+                    </div>
+                </div>
+
+
+                <div class="contentinfo none active">
 
                 </div>
                 <div class="link" style="margin:15px;">

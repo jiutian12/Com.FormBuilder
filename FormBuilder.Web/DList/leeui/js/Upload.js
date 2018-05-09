@@ -73,7 +73,7 @@
                 g.list.show();
             }
 
-           
+
             var BASE_URL = _global.sitePath + "/DList/webupload";
             var uploader = WebUploader.create({
                 auto: true,
@@ -271,7 +271,7 @@
                 g.emptyWrap.hide();
             }
 
-            if (p.data.length == 1 && p.isAvatar) {
+            if (p.data.length == 1 && !p.isMul) {
                 g.picker.hide();
             } else {
                 g.picker.show();
@@ -330,9 +330,10 @@
             g._clearWrap();
             for (var item in value) {
                 // 格式化URL
-                var res = g._canPreview(value.ext);
+                var row = value[item];
+                var res = g._canPreview(row.ext);
                 if (res.res) {
-                    value[item].src = p.downloadUrl + value.id;
+                    value[item].src = p.downloadUrl + row.id;
                 } else {
                     value[item].src = res.src;
                 }

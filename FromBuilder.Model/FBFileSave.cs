@@ -27,6 +27,8 @@ namespace FormBuilder.Model
         public string DataID { get; set; }
         public string Note { get; set; }
 
+        public string TypeCode { get; set; }
+
     }
 
     public class JFBFileSave

@@ -84,6 +84,9 @@
             this.editor1.session.setMode("ace/mode/javascript");
             this.editor2 = ace.edit("editor2");
             this.editor2.session.setMode("ace/mode/javascript");
+            this.editor3 = ace.edit("editorfunc");
+            this.editor3.session.setMode("ace/mode/javascript");
+
 
 
 
@@ -151,6 +154,7 @@
                 this.toogleLink(this.data.custom.islink);
                 this.editor1.setValue(custom.linkclick);
                 this.editor2.setValue(custom.linkhover);
+                this.editor3.setValue(custom.func);
             }
             if (this.data.render)
                 this.editor.setValue(this.data.render);
@@ -178,10 +182,11 @@
                 } else if (custom == "enum") {
                     this.data.custom.enum = this.getEnum();
                 }
+                else if (custom == "func") {
+                    this.data.custom.func = this.editor3.getValue();
 
+                }
                 this.data.custom.islink = $("#chk_islink").leeUI().getValue();
-
-
                 this.data.custom.linkclick = this.editor1.getValue();
                 this.data.custom.linkhover = this.editor2.getValue();
 

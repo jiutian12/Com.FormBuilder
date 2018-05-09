@@ -1014,12 +1014,12 @@
 }
 
 
-.lee-table-form-border.table-single  .table-item{
-    float:none;
-
+.lee-table-form-border.table-single .table-item {
+    float: none;
 }
+
 .table-group {
-    margin:5px 10px;
+    margin: 5px 10px;
 }
 
 .table-query .table-label {
@@ -1030,7 +1030,7 @@
 }
 
 .table-border .table-label {
-    font-weight:800;
+    font-weight: 800;
     color: rgba(0,0,0,.75) !important;
 }
 
@@ -1043,15 +1043,27 @@
 }
 
 .lee-text-date .lee-right {
-        background: none;
+    background: none;
     border-left: 0;
 }
 
-.lee-text-date .lee-right .popup{
-    background-image:url(images/datepicker_icon.png);
-    background-repeat:no-repeat;
-    background-position:center;
+.lee-text-date .lee-right .popup {
+    background-image: url(images/datepicker_icon.png);
+    background-repeat: no-repeat;
+    background-position: center;
 }
+
 .lee-text-date .lee-right .popup:before {
-    content:"";
+    content: "";
+}
+
+.webuploader-pick {
+    width: 80px;
+    height:34px;
+}
+.lee-table-form.table-border .table-editor .lee-upload {
+    margin:5px;
+}
+.lee-table-form.table-border .table-editor {
+min-height:32px;
 }

@@ -207,11 +207,14 @@
 
             // 如果parent有dialog对象则用parentdialog
 
-            var dgContext = parent.document.getElementById('lookupwindow').contentWindow;
+            var dgContext = this.getContext().document.getElementById('lookupwindow').contentWindow;
             return dgContext.lookupHelper;
         },
         getContext: function () {
-
+            if (window.parent && window.parent.$ && window.parent.$.leeDialog) {
+                return window.parent;
+            }
+            return window;
         },
         setKeyword: function (value) {
             this.keyword = value;
@@ -232,7 +235,7 @@
             var g = this, p = this.options;
             // 如果parent页面有dialog对象 则采用parent
 
-            var $openDg = parent.$.leeDialog.open({
+            var $openDg = this.getContext().$.leeDialog.open({
                 title: p.title,
                 name: 'lookupwindow',
                 isHidden: false,

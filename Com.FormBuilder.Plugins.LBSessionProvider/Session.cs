@@ -40,8 +40,10 @@ namespace FormBuilder.LBSessionProvider
             var session = new ISessionKey();
             session.UserID = LBFContext.Current.Session.UserId;
             session.UserCode = LBFContext.Current.Session.UserCode;
-            session.UserName = LBFContext.Current.Session.UserCode;
+            session.UserName = LBFContext.Current.Session.UserName;
             session.IPAddress = "";
+            session.TokenID = LBFContext.Current.TokenId;
+            session.MainDatabaseCode = LBFContext.Current.MainDatabaseCode;
             return session;
 
         }

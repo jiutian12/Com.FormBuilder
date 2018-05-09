@@ -117,11 +117,14 @@
     model.getTreeDataRow = function (obj, rowdata, isSame) {
         var treeInfo = model.getTreeInfo(model.mainTable.id);
         if (!rowdata) {
-            obj[treeInfo.level] = treeInfo.rootlevel;
-            obj[treeInfo.parentid] = treeInfo.rootvalue;
+            obj[treeInfo.level] = treeInfo.rootlevel ? treeInfo.rootlevel : "1";
+            obj[treeInfo.parentid] = treeInfo.rootvalue ? treeInfo.rootvalue : "-1";
+            obj[treeInfo.isdetail] = "1";
+            obj[treeInfo.ischild] = "1";
+            obj[treeInfo.grade] = "0001";
         }
         curentTreeObj = {};
-        if (treeInfo.grade && treeInfo.level) {
+        if (treeInfo.grade && treeInfo.level && rowdata) {
             // 分级码
             curentTreeObj.grade = rowdata[treeInfo.grade];
             curentTreeObj.level = rowdata[treeInfo.level];
@@ -135,7 +138,7 @@
         }
 
 
-        if (treeInfo.parentid && treeInfo.id) {
+        if (treeInfo.parentid && treeInfo.id && rowdata) {
 
             if (isSame) {
                 obj[treeInfo.parentid] = rowdata[treeInfo.parentid];
@@ -147,7 +150,9 @@
             curentTreeObj.parentid = rowdata[treeInfo.parentid];
 
         }
-        curentTreeObj.dataid = rowdata[model.pkCol];
+        if (rowdata) {
+            curentTreeObj.dataid = rowdata[model.pkCol];
+        }
         return obj;
     }
     model.getDefaultGridRow = function (bindtable, dataid) {
@@ -287,7 +292,7 @@
     model.getModel = function () {
         return defaultInstance;
     }
-    
+
     model.setMainModelObject = function (key, value) {
 
         var index = this.getModelObjectIndex(model.mainTableName);

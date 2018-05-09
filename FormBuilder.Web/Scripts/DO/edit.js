@@ -23,6 +23,10 @@ fBulider.page.BaseCardController.leeExtend(fBulider.page.UIController, {
             });
             self.gridMgr[val.id] = grid;
         });
+
+        $("#txtCode").change(function () {
+            $("#txtTableName").val($("#txtCode").val());
+        });
     },
     addRow: function () {
         this.gridMgr["grid"].addRow(this.getChildSchema());

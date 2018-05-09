@@ -636,7 +636,8 @@ var EditorFactory = (function () {
                 "#ed_file_iscard",
                 "#ed_file_ispreview",
                 "#ed_file_ext",
-                "#ed_file_buttontext"
+                "#ed_file_buttontext",
+                "#ed_file_typecode"
             ];
             $(this.propsarr.join(",")).change(function () {
                 self.onPropChanged();
@@ -652,6 +653,9 @@ var EditorFactory = (function () {
             $("#ed_file_ispreview").prop("checked", editor.ispreview);
             $("#ed_file_ext").val(editor.ext);
             $("#ed_file_buttontext").val(editor.buttontext);
+            $("#ed_file_typecode").val(editor.typecode);
+
+            
         },
         onPropChanged: function () {
 
@@ -660,6 +664,9 @@ var EditorFactory = (function () {
             this.editor.ispreview = $("#ed_file_ispreview").prop("checked");
             this.editor.ext = $("#ed_file_ext").val();
             this.editor.buttontext = $("#ed_file_buttontext").val();
+            this.editor.typecode = $("#ed_file_typecode").val();
+
+            
         },
         getCompleteName: function (key) {
             return "ed_file_" + key;

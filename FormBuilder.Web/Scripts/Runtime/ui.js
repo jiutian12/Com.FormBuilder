@@ -510,7 +510,13 @@ window.Page.UI = (function (ui, service, model, win, $) {
             width = width || "800";
             title = title || "详情";
             var self = this;
-            window.top.$.leeDialog.open({
+            var context = window;
+
+            if (window.top.$ && window.top.$.leeDialog) {
+                context = window.top;
+            }
+
+            context.$.leeDialog.open({
                 title: title,
                 name: 'frmView' + dataID,
                 isHidden: false,
@@ -1661,7 +1667,8 @@ window.Page.UI = (function (ui, service, model, win, $) {
                 $ele.updateParams({
                     frmID: ui.getFrmID(),
                     dataID: ui.instance.getDataID(),
-                    field: ""
+                    field: "",
+                    typecode: ctrl.options.typecode
                 });
             }
             //updateParams
@@ -2325,6 +2332,10 @@ window.Page.UI = (function (ui, service, model, win, $) {
                     if (obj.format.type == "0") {
                         columninfo.render = self.bulidColumnRender(obj.format.custom, obj.bindfield);
                     } else if (obj.format.type == "1") {
+
+                        if (format.islink) {
+
+                        }
                         columninfo.render = new Function("rowdata", "rowindex", "value", "column", "return (" + obj.format.render + ")(rowdata, rowindex, value, column)");
 
                     }
@@ -2339,6 +2350,8 @@ window.Page.UI = (function (ui, service, model, win, $) {
             return arr;
         },
         bulidColumnRender: function (format, columnname) {
+            var userfunc = new Function("rowdata", "rowindex", "value", "column", "return (" + format.func + ")(rowdata, rowindex, value, column)");
+
             var func = function (rowdata, rowindex, value, column) {
                 if (format.type == "number") {
                     if (!isNaN(value)) {
@@ -2366,6 +2379,9 @@ window.Page.UI = (function (ui, service, model, win, $) {
                             }
                         }
                     }
+                }
+                else if (format.type == "func") {
+                    value = userfunc(rowdata, rowindex, value, column);
                 }
                 if (format.islink) {
                     value = "<a href='javascript:void(0);' class='" + column.name + "'>" + value + "</a>";
@@ -3894,7 +3910,7 @@ window.Page.UI = (function (ui, service, model, win, $) {
             opts.ext = editor.ext;//扩展名
             opts.isPreview = editor.ispreview;
             opts.buttonText = editor.buttontext;
-
+            opts.typecode = editor.typecode;
             opts.url = _global.sitePath + "/File/upload";
             return opts;
         },

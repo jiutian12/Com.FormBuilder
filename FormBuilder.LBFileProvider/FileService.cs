@@ -91,8 +91,13 @@ namespace FormBuilder.LBFileProvider
             entity.MainType = "";
             entity.Extension = model.FileExt;
             entity.Creator = LBFContext.Current.Session.UserName;
+            if (string.IsNullOrEmpty(model.TypeCode))
 
-            entity.FileTypeCode = "LBMAttFiles";
+                entity.FileTypeCode = "LBMAttFiles";
+
+            else
+                entity.FileTypeCode = model.TypeCode;
+
             //entity.FileString
             svr.SaveFile(entity, data);
         }
