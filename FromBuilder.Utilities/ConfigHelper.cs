@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -41,6 +42,27 @@ namespace FormBuilder.Utilities
             {
                 return "";
             }
+        }
+
+        public static Hashtable getAppSettingsWeb()
+        {
+            XmlDocument xmlIAUConfig = new XmlDocument();
+            Hashtable ht = new Hashtable();
+            xmlIAUConfig.Load(HttpContext.Current.Server.MapPath("~/config/FormBuilder.config"));
+            string[] keys = { "DataIPIntranet", "DataIP", "FileIpIntranet", "FileIp" };
+            foreach (var key in keys)
+            {
+                String path = @"//configuration/AppSettings/add[@key='" + key + "']";
+                XmlNodeList xmlAdds = xmlIAUConfig.SelectNodes(path);
+                if (xmlAdds.Count == 1)
+                {
+                    XmlElement xmlAdd = (XmlElement)xmlAdds[0];
+                    ht.Add(key, xmlAdd.GetAttribute("value"));
+
+                }
+
+            }
+            return ht;
         }
     }
 }

@@ -97,8 +97,12 @@
     @*UI控制器*@
     <script src="~/Scripts/Runtime/ui.js"></script>
     @Html.Raw("<script> Page.Context.set(" + Newtonsoft.Json.JsonConvert.SerializeObject(SessionProvider.Provider.Current()) + ")</script>")
+    @Html.Raw("<script> Page.Config.set(" + Newtonsoft.Json.JsonConvert.SerializeObject(ConfigHelper.getAppSettingsWeb()) + ")</script>")
 
-    @Html.Raw(SessionProvider.Provider.Current().UserCode)
+
+
+
+
 
 
 

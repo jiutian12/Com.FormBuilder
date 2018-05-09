@@ -100,6 +100,31 @@
 /* nameSpace:Page.Config */
 
 (function (win, $) {
+    var _debugConfig = {
+    }
+    var ConfigManger = function () {
+    }
+    ConfigManger.prototype = {
+        init: function () {
 
-    win.Page.Config = {};
+        },
+        set: function (data) {
+            _debugConfig = data;
+        },
+        get: function (key) {
+            //获取session信息
+            return _debugConfig[key];
+        },
+        heartBreak: function () {
+            // 心跳每隔几分钟刷新一次当前状态
+        },
+        isLost: function () {
+            // 会话是否消失
+        }
+    };
+    var config = new ConfigManger();
+    config.init();
+
+
+    win.Page.Config = config;
 })(window, $);
