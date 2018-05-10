@@ -7,6 +7,7 @@ using FormBuilder.Utilities;
 using System.Web;
 using Newtonsoft.Json;
 using Com.CF.FrameworkCore.Context;
+using Com.CF.SysManage.Services.ForegroundImpl;
 
 namespace FormBuilder.LBSessionProvider
 {
@@ -37,10 +38,12 @@ namespace FormBuilder.LBSessionProvider
 
         public ISessionKey getLBFSession()
         {
+            UserService svr = new UserService();
+
             var session = new ISessionKey();
             session.UserID = LBFContext.Current.Session.UserId;
             session.UserCode = LBFContext.Current.Session.UserCode;
-            session.UserName = LBFContext.Current.Session.UserName;
+            session.UserName = svr.GetUserNameById(session.UserID);
             session.IPAddress = "";
             session.TokenID = LBFContext.Current.TokenId;
             session.MainDatabaseCode = LBFContext.Current.MainDatabaseCode;
