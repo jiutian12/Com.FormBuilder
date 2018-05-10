@@ -65,11 +65,11 @@
     <Compile Include="DataSource\FBDataSource.cs" />
     <Compile Include="DataObject\FBDataObject.cs" />
     <Compile Include="DataObject\FBDataObjectCols.cs" />
-    <Compile Include="FBSettings.cs" />
-    <Compile Include="FBDBSetting.cs" />
+    <Compile Include="Common\FBSettings.cs" />
+    <Compile Include="Common\FBDBSetting.cs" />
     <Compile Include="FBUserInfo.cs" />
-    <Compile Include="FBLog.cs" />
-    <Compile Include="FBFileSave.cs" />
+    <Compile Include="Common\FBLog.cs" />
+    <Compile Include="Common\FBFileSave.cs" />
     <Compile Include="Meta\FBMetaModel.cs" />
     <Compile Include="Meta\FBMetaFolder.cs" />
     <Compile Include="Meta\FBMetaDependence.cs" />
