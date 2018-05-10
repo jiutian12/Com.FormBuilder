@@ -1456,6 +1456,8 @@
     <Content Include="DList\laydate\theme\default\font\iconfont.eot" />
     <Content Include="DList\laydate\theme\default\font\iconfont.ttf" />
     <Content Include="DList\laydate\theme\default\font\iconfont.woff" />
+    <Content Include="Areas\Admin\Views\web.config" />
+    <Content Include="Areas\Admin\Views\Shared\BaseListContainer.cshtml" />
     <None Include="Properties\PublishProfiles\1.pubxml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -1470,6 +1472,7 @@
     <Compile Include="App_Start\CustomErrorAttitude.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
     <Compile Include="Areas\FormBuilder\Controllers\CommonController.cs" />
     <Compile Include="Areas\FormBuilder\Controllers\DataModelController.cs" />
     <Compile Include="Areas\FormBuilder\Controllers\DataModelSQLController.cs" />
@@ -1505,6 +1508,11 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Areas\Admin\Controllers\" />
+    <Folder Include="Areas\Admin\Models\" />
+    <Folder Include="Areas\Admin\Views\Auth\" />
+    <Folder Include="Areas\Admin\Views\OrgInfo\" />
+    <Folder Include="Areas\Admin\Views\User\" />
     <Folder Include="Areas\FormBuilder\Models\" />
     <Folder Include="Areas\FormBuilder\Views\File\" />
     <Folder Include="CSS\jquery\" />
