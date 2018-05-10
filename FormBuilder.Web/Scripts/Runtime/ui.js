@@ -906,8 +906,8 @@ window.Page.UI = (function (ui, service, model, win, $) {
             var self = this;
             this.getCtrl();
             var data = model.getSaveData();
-
             data["FBFileSave"] = ui.fileManager.getAllData();//绑定附件数据
+            if (ui.event.triggerHandler("", "beforeSave", data) === false) return;
             var tmpid = model.getMainDataID();
             var treeCurrent = model.getCurrentTreeObj();
             this.saveExpandStatus();
@@ -918,6 +918,7 @@ window.Page.UI = (function (ui, service, model, win, $) {
                 this.status,
                 JSON.stringify(treeCurrent)
             ).done(function (data) {
+                if (ui.event.triggerHandler("", "afterSave", data) === false) return;
                 self.lastID = tmpid;
                 self.reload();
                 if (data.res) {
@@ -1173,15 +1174,9 @@ window.Page.UI = (function (ui, service, model, win, $) {
                                     $("#" + this.id).leeUI().selectNode(data[0][model.pkCol]);
                                 }
                             }
-
                         });
-
                     }
-
-
-
                 });
-
             }
         }
     });
@@ -1237,8 +1232,10 @@ window.Page.UI = (function (ui, service, model, win, $) {
             var data = model.getSaveData();//获取保存数据
             data["FBFileSave"] = ui.fileManager.getAllData();//绑定附件数据
             //模型id 数据
+            if (ui.event.triggerHandler("", "beforeSave", data) === false) return;
             service.saveModelList(modelID, JSON.stringify(data), JSON.stringify(this.deleteData)).done(function (data) {
                 //self.reload();
+                if (ui.event.triggerHandler("", "afterSave", data) === false) return;
                 if (data.res) {
                     leeUI.Success(data.mes);
                     self.loadData();
@@ -1484,7 +1481,7 @@ window.Page.UI = (function (ui, service, model, win, $) {
             data["FBFileSave"] = ui.fileManager.getAllData();//绑定附件数据
             //获取到树形
             var treeCurrent = model.getCurrentTreeObj();
-
+            if (ui.event.triggerHandler("", "beforeSave", data) === false) return;
             //模型id 数据
             service.saveModelALL(
                 modelID,
@@ -1494,6 +1491,7 @@ window.Page.UI = (function (ui, service, model, win, $) {
                 JSON.stringify(treeCurrent)
             ).done(function (data) {
                 //self.reload();
+                if (ui.event.triggerHandler("", "afterSave", data) === false) return;
                 if (data.res) {
                     leeUI.Success(data.mes);
                     self.loadData(true);
@@ -2332,10 +2330,6 @@ window.Page.UI = (function (ui, service, model, win, $) {
                     if (obj.format.type == "0") {
                         columninfo.render = self.bulidColumnRender(obj.format.custom, obj.bindfield);
                     } else if (obj.format.type == "1") {
-
-                        if (format.islink) {
-
-                        }
                         columninfo.render = new Function("rowdata", "rowindex", "value", "column", "return (" + obj.format.render + ")(rowdata, rowindex, value, column)");
 
                     }
@@ -2350,7 +2344,9 @@ window.Page.UI = (function (ui, service, model, win, $) {
             return arr;
         },
         bulidColumnRender: function (format, columnname) {
-            var userfunc = new Function("rowdata", "rowindex", "value", "column", "return (" + format.func + ")(rowdata, rowindex, value, column)");
+            var userfunc = null;
+            if (format.func)
+                userfunc = new Function("rowdata", "rowindex", "value", "column", "return (" + format.func + ")(rowdata, rowindex, value, column)");
 
             var func = function (rowdata, rowindex, value, column) {
                 if (format.type == "number") {
@@ -2990,6 +2986,12 @@ window.Page.UI = (function (ui, service, model, win, $) {
                 $("#" + viewid).trigger(eventname, args);
             else
                 $("body").trigger(eventname, args);
+        },
+        triggerHandler: function (viewid, eventname, args) {
+            if (viewid)
+                return $("#" + viewid).triggerHandler(eventname, args);
+            else
+                return $("body").triggerHandler(eventname, args);
         },
         bind: function (eventname, func) {
             $("body").bind(eventname, func);
@@ -3757,7 +3759,7 @@ window.Page.UI = (function (ui, service, model, win, $) {
             opts.isMulGrid = editor.ismulgrid;
             opts.isChildOnly = editor.childonly;
             opts.textmode = editor.textmode;
-            
+
 
             // 注入服务请求
             opts.service = service;
@@ -3813,7 +3815,7 @@ window.Page.UI = (function (ui, service, model, win, $) {
                     for (var i = 0; i < mapFields.length; i++) {
                         var HField = mapFields[i]["HField"];
                         var FField = mapFields[i]["FField"];
-                        vsobj[FField] = data[HField] ? data[HField] : ""; 
+                        vsobj[FField] = data[HField] ? data[HField] : "";
                     }
                     return vsobj;
                 }
@@ -3865,8 +3867,9 @@ window.Page.UI = (function (ui, service, model, win, $) {
                     for (var i = 0; i < mapFields.length; i++) {
                         var HField = mapFields[i]["HField"];
                         var FField = mapFields[i]["FField"];
-                        model.setMainModelObject(FField, data[0][HField]);//设置模型的值
-                        ui.instance.bindMainData(FField, data[0][HField]);
+                        var value = data[0][HField] ? data[0][HField] : "";
+                        model.setMainModelObject(FField, value);//设置模型的值
+                        ui.instance.bindMainData(FField, value);
                     }
                     // 多选这里是数组？ 如何处理呢？
                     // 多选最好用下拉框多选 帮助这里可能有问题 无法join出来
