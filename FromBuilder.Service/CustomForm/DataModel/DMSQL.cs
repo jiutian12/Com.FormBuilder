@@ -26,7 +26,7 @@ namespace FormBuilder.Service
         public DMSQL(string modelID, Database db, Database ywdb)
         {
             this.db = db;
-            this.ywdb = db;
+            this.ywdb = ywdb;
             sqlList = getModelSQLlist(modelID);
         }
         public List<FBModelSQL> getModelSQLlist(string modelID)
