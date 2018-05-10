@@ -111,7 +111,9 @@ namespace FormBuilder.Service
                 //{Session.UserName}
                 //{Session.LoginDate}
                 // 处理session 信息
-                return new Sql(sql, arr);
+
+                object[] para = arr.ToArray();
+                return new Sql(sql, para);
             }
             else if (!string.IsNullOrEmpty(sql))
             {
