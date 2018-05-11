@@ -128,7 +128,9 @@ namespace FormBuilder.ExportTool
             }
             catch (Exception ex)
             {
-                ExecScript("JSBridge.handleError('导出异常请去客户端查看日志')");
+
+                System.IO.File.WriteAllText("errorlog.txt", DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + ":执行sql:" + sql + "异常详情" + ex.Message);
+                ExecScript("JSBridge.handleError('导出异常请去客户端查看日志 位置：errolog.txt')");
             }
         }
 

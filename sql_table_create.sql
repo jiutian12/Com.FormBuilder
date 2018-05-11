@@ -16,10 +16,10 @@ Create Table If Not Exists FBDBSetting
 	LastModifyUser VARCHAR (50),
 	LastModifyTime VARCHAR (20),
 	Catalog        VARCHAR (100),
-	PortInfo       VARCHAR (20)
+	PortInfo       VARCHAR (20),
 	CONSTRAINT PK_FBDBSETTING PRIMARY KEY (ID)
 	)
-GO
+;
 
 
 
@@ -38,7 +38,7 @@ Create Table If Not Exists FBDataObject
 	LastModifyTime VARCHAR (20),
 	CONSTRAINT PK_FBDATAOBJECT PRIMARY KEY (ID)
 	)
-GO
+;
 /*数据对象列信息*/
 Create Table If Not Exists FBDataObjectCols
 	(
@@ -58,7 +58,7 @@ Create Table If Not Exists FBDataObjectCols
 	ord          VARCHAR (50),
 	CONSTRAINT PK_FBDATAOBJECTCOLS PRIMARY KEY (ID)
 	)
-GO
+;
 /*================数据对象End=================*/
 
 
@@ -79,7 +79,7 @@ Create Table If Not Exists FBDataModel
 	DetailSaveMode CHAR (1),
 	CONSTRAINT PK_FBDATAMODEL PRIMARY KEY (ID)
 	)
-GO
+;
 
 /*数据模型列信息*/
 Create Table If Not Exists FBDataModelCols
@@ -106,7 +106,7 @@ Create Table If Not Exists FBDataModelCols
 	Ord            VARCHAR (20),
 	CONSTRAINT PK_FBDATAMODELCOLS PRIMARY KEY (ID)
 	)
-GO
+;
 
  
 /*数据模型表关联管理*/
@@ -125,12 +125,13 @@ Create Table If Not Exists FBDataModelObjects
 	PKCOLName VARCHAR (50),
 	Tree      text,
 	Label     VARCHAR (50),
-	Condition text,
+	`Condition` text,
 	isSave    CHAR (1),
-	ChangeFileds VARCHAR(2000),
+	isTimeStamp CHAR (1),
+	ChangeFields VARCHAR(2000),
 	CONSTRAINT PK_FBDATAMODELOBJECTS PRIMARY KEY (ID)
 	)
-GO
+;
 
 
 /*数据模型字段关联*/
@@ -150,7 +151,7 @@ Create Table If Not Exists FBDataModelRealtions
 	ModelObjectColCode VARCHAR (50),
 	CONSTRAINT PK_FBDATAMODELREALTIONS PRIMARY KEY (ID)
 	)
-GO
+;
 
 
 /*模型删除检查表*/
@@ -166,11 +167,10 @@ Create Table If Not Exists FBModelDeleteCheck(
 	IsUsed       CHAR (1),
 	CONSTRAINT PK_FBDeleteCheck PRIMARY KEY (ID)
 	)
-GO
+;
 
 /*模型保存检查表*/
 Create Table If Not Exists FBModelModifyCheck(
-	(
 	ID        VARCHAR (50) NOT NULL,
 	ObjectID  VARCHAR (50),
 	TableName VARCHAR (50),
@@ -180,7 +180,7 @@ Create Table If Not Exists FBModelModifyCheck(
 	ModelID   VARCHAR (50),
 	CONSTRAINT PK_FBModelModifyCheck PRIMARY KEY (ID)
 	)
-GO
+;
 
 
 /*模型动作扩展SQL*/
@@ -193,7 +193,7 @@ Create Table If Not Exists FBModelSQL(
 	IsUsed    CHAR (1),
 	CONSTRAINT PK_FBModelSQL PRIMARY KEY (ID)
 )
-GO
+;
 
 /*================数据模型End=================*/
 
@@ -217,7 +217,7 @@ Create Table If Not Exists FBDataSource
 	LastModifyUser VARCHAR (50),
 	CONSTRAINT PK_FBDATASOURCE PRIMARY KEY (ID)
 	)
-GO
+;
 
 /*数据字段信息*/
 Create Table If Not Exists FBDataSourceCols
@@ -229,7 +229,7 @@ Create Table If Not Exists FBDataSourceCols
 	DataType CHAR (1),
 	CONSTRAINT PK_FBDATASOURCECOLS PRIMARY KEY (ID)
 	)
-GO
+;
 
 /*================SQL业务End=================*/
 
@@ -247,7 +247,7 @@ Create Table If Not Exists FBFileSave(
 	DataID     VARCHAR (50),
 	Note       VARCHAR (200)
 )
-GO
+;
 
 /*表单定义主表*/
 Create Table If Not Exists FBForm
@@ -278,7 +278,7 @@ Create Table If Not Exists FBForm
 	ExpressInfo    text,
 	CONSTRAINT PK_FBFORM PRIMARY KEY (ID)
 	)
-GO
+;
 
 
 /*表单引入sql业务*/
@@ -291,7 +291,7 @@ Create Table If Not Exists FBFormDS
 	SingleLoad CHAR (1),
 	CONSTRAINT PK_FBFORMDS PRIMARY KEY (ID)
 	)
-GO
+;
 
 /*表单工具栏*/
 Create Table If Not Exists FBFormToolBar
@@ -309,7 +309,7 @@ Create Table If Not Exists FBFormToolBar
 	IsSys       CHAR (1),
 	BizObject   VARCHAR (50),
 	`Text`      VARCHAR (50),
-	IsFixed     CHAR (1) DEFAULT ('0'),
+	IsFixed     CHAR (1),
 	PropName    VARCHAR (50),
 	BarID       VARCHAR (50),
 	Align       CHAR (1),
@@ -317,7 +317,7 @@ Create Table If Not Exists FBFormToolBar
 	BtnStyle    CHAR (1),
 	CONSTRAINT PK_FBFORMTOOLBAR PRIMARY KEY (ID)
 	)
-GO
+;
 
 
 /*表单绑定依赖字段信息*/
@@ -333,7 +333,7 @@ Create Table If Not Exists FBFormRef(
 	RefID    VARCHAR (50),
 	CONSTRAINT PK_FBFormRef PRIMARY KEY (ID)
 	)
-GO
+;
 
 /*表单引入自定义样式和脚本*/
 Create Table If Not Exists FBFormLink(
@@ -347,7 +347,7 @@ Create Table If Not Exists FBFormLink(
 	Ord      VARCHAR (20),
 	CONSTRAINT PK_FBFormLink PRIMARY KEY (ID)
 	)
-GO
+;
 
 
 /*元数据资源表*/
@@ -368,7 +368,7 @@ Create Table If Not Exists FBMetaData
 	ModuleID       VARCHAR (50),
 	CONSTRAINT PK_FBMETADATA PRIMARY KEY (ID)
 	)
-GO
+;
 
 
 /*元数据模块*/
@@ -381,7 +381,7 @@ Create Table If Not Exists FBMetaModule(
 	ParentID VARCHAR (50),
 	CONSTRAINT PK_FBMetaModule PRIMARY KEY (ID)
 	)
-GO
+;
 
 /*元数据依赖表*/
 Create Table If Not Exists FBMetaDependence
@@ -391,7 +391,7 @@ Create Table If Not Exists FBMetaDependence
 	TargetID   VARCHAR (50),
 	TargetType CHAR (1)
 	)
-GO
+;
 
 /*元数据类型字典*/
 Create Table If Not Exists FBMetaType
@@ -400,7 +400,7 @@ Create Table If Not Exists FBMetaType
 	Code VARCHAR (50),
 	Name VARCHAR (50)
 	)
-GO
+;
 
 /*智能帮助主表*/
 Create Table If Not Exists FBSmartHelp
@@ -421,7 +421,7 @@ Create Table If Not Exists FBSmartHelp
 	StartLevel     VARCHAR (20),
 	CONSTRAINT PK_FBSMARTHELP PRIMARY KEY (ID)
 	)
-GO
+;
 /*帮助列信息*/
 Create Table If Not Exists FBSmartHelpCols
 	(
@@ -441,7 +441,7 @@ Create Table If Not Exists FBSmartHelpCols
 	Visible  CHAR (1),
 	CONSTRAINT PK_FBSMARTHELPCOLS PRIMARY KEY (ID)
 	)
-GO
+;
 
 
 /*平台用户表*/
@@ -457,7 +457,7 @@ Create Table If Not Exists FBUserInfo(
 	Avavtar  VARCHAR (100),
 	CONSTRAINT PK_FBUserInfo PRIMARY KEY (UID)
 	)
-GO
+;
 
 
 /*平台日志表*/
@@ -469,7 +469,7 @@ Create Table If Not Exists FBLog(
 	OpTime   VARCHAR (50),
 	CONSTRAINT PK_FBLog PRIMARY KEY (ID)
 	)
-GO
+;
 
 
 
@@ -494,7 +494,7 @@ CREATE TABLE If Not Exists FBComponent
 	LastModifyTime VARCHAR (50),
 	CONSTRAINT PK_FBComponent PRIMARY KEY (ID)
 	)
-GO
+;
 
 CREATE TABLE If Not Exists FBCMPMethod
 	(
@@ -505,7 +505,7 @@ CREATE TABLE If Not Exists FBCMPMethod
 	Note       VARCHAR (200),
 	CONSTRAINT PK_FBCMPMethod PRIMARY KEY (ID)
 	)
-GO
+;
 
 CREATE TABLE If Not Exists FBCMPPara
 	(
@@ -518,7 +518,7 @@ CREATE TABLE If Not Exists FBCMPPara
 	Note      VARCHAR (200),
 	CONSTRAINT PK_FBCMPPara PRIMARY KEY (ID)
 	)
-GO
+;
 
 
 /*系统参数设置表*/
@@ -534,7 +534,7 @@ Create Table If Not Exists FBSettings
 	IsSys			CHAR (1),
 	CONSTRAINT PK_FBSettings PRIMARY KEY (ID)
 	)
-GO
+;
 
 
 

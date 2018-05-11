@@ -69,6 +69,7 @@ namespace FormBuilder.ExportTool
         {
             try
             {
+                if (string.IsNullOrEmpty(metatype)) metatype = "9";
                 StringBuilder sb = new StringBuilder();
                 var model = pkglist.FirstOrDefault(n => n.metaType == metatype);
                 if (model != null)
@@ -117,7 +118,7 @@ namespace FormBuilder.ExportTool
             var dict = list[0];
             foreach (var key in dict)
             {
-                cols += "," + key.Key;
+                cols += ",`" + key.Key + "`";
             }
             cols = cols.Substring(1);
 
