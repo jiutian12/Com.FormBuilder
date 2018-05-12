@@ -1458,6 +1458,7 @@
     <Content Include="DList\laydate\theme\default\font\iconfont.woff" />
     <Content Include="Areas\Admin\Views\web.config" />
     <Content Include="Areas\Admin\Views\Shared\BaseListContainer.cshtml" />
+    <Content Include="Areas\Admin\Views\Menu\Dict.cshtml" />
     <None Include="Properties\PublishProfiles\1.pubxml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -1473,6 +1474,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
+    <Compile Include="Areas\Admin\Controllers\MenuController.cs" />
     <Compile Include="Areas\FormBuilder\Controllers\CommonFBController.cs" />
     <Compile Include="Areas\FormBuilder\Controllers\DataModelController.cs" />
     <Compile Include="Areas\FormBuilder\Controllers\DataModelSQLController.cs" />
@@ -1508,7 +1510,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Areas\Admin\Controllers\" />
     <Folder Include="Areas\Admin\Models\" />
     <Folder Include="Areas\Admin\Views\Auth\" />
     <Folder Include="Areas\Admin\Views\OrgInfo\" />
