@@ -1321,12 +1321,6 @@
     <Content Include="Tmpl\object.list.html" />
     <Content Include="Tmpl\pager.html" />
     <Content Include="Tmpl\test.html" />
-    <Content Include="Views\Form\HtmlPage1.html" />
-    <Content Include="Views\Web.config">
-      <SubType>Designer</SubType>
-    </Content>
-    <Content Include="Views\_ViewStart.cshtml" />
-    <Content Include="Views\Shared\_Layout.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Global.asax" />
@@ -1350,21 +1344,11 @@
     <Content Include="DList\uploadify\.htaccess" />
     <Content Include="DList\uploadify\check-exists.php" />
     <Content Include="DList\uploadify\uploadify.php" />
-    <Content Include="Views\DataModel\Design.cshtml" />
-    <Content Include="Views\DataObject\Design.cshtml" />
-    <Content Include="Views\Component\Design.cshtml" />
-    <Content Include="Views\Form\Design.cshtml" />
-    <Content Include="Views\Form\List.cshtml" />
-    <Content Include="Views\HomePage\Index.cshtml" />
-    <Content Include="Views\FBMeta\List.cshtml" />
     <Content Include="DList\jquery-ui\package.json" />
     <Content Include="CSS\iconfont\iconfont.eot" />
     <Content Include="CSS\iconfont\iconfont.ttf" />
     <Content Include="CSS\iconfont\iconfont.woff" />
-    <Content Include="Views\Layout\MainContainer.cshtml" />
-    <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Tmpl\model.addvcol.html" />
-    <Content Include="Views\Settings\DBConnection.cshtml" />
     <Content Include="DList\leeui\font\fontawesome-webfont.eot" />
     <Content Include="DList\leeui\font\fontawesome-webfont.ttf" />
     <Content Include="DList\leeui\font\fontawesome-webfont.woff" />
@@ -1373,35 +1357,10 @@
     <Content Include="DList\leeui\font\ionicons.eot" />
     <Content Include="DList\leeui\font\ionicons.ttf" />
     <Content Include="DList\leeui\font\ionicons.woff" />
-    <Content Include="Views\Layout\BaseListContainer.cshtml" />
-    <Content Include="Views\DataModel\Edit.cshtml" />
-    <Content Include="Views\DataModel\List.cshtml" />
-    <Content Include="Views\DataObject\List.cshtml" />
-    <Content Include="Views\DataObject\Edit.cshtml" />
-    <Content Include="Views\HomePage\Main.cshtml" />
-    <Content Include="Views\SmartHelp\List.cshtml" />
-    <Content Include="Views\SmartHelp\Edit.cshtml" />
-    <Content Include="Views\Form\Edit.cshtml" />
-    <Content Include="Views\Layout\FormDesignContainer.cshtml" />
     <Content Include="Config\log4net.config">
       <SubType>Designer</SubType>
     </Content>
-    <Content Include="Views\Form\ToolBar.cshtml" />
-    <Content Include="Views\Demo\Dict.cshtml" />
-    <Content Include="Views\Runtime\Dict.cshtml" />
-    <Content Include="Views\DataSource\List.cshtml" />
-    <Content Include="Views\DataSource\Edit.cshtml" />
-    <Content Include="Views\Form\DSInfo.cshtml" />
-    <Content Include="Views\CommonFB\Icons.cshtml" />
-    <Content Include="Views\CommonFB\Expression.cshtml" />
-    <Content Include="Views\Runtime\List.cshtml" />
-    <Content Include="Views\Runtime\TreeLookup.cshtml" />
-    <Content Include="Views\Runtime\ListLookup.cshtml" />
-    <Content Include="Views\Runtime\Card.cshtml" />
     <Content Include="DList\webupload\README.md" />
-    <Content Include="Views\CommonFB\Dependence.cshtml" />
-    <Content Include="Views\CommonFB\MetaExplorer.cshtml" />
-    <Content Include="Views\Form\FormCode.cshtml" />
     <Content Include="Config\FormBuilder.config" />
     <Content Include="Areas\FormBuilder\Views\web.config" />
     <Content Include="Areas\FormBuilder\Views\CommonFB\Dependence.cshtml" />
@@ -1458,7 +1417,7 @@
     <Content Include="DList\laydate\theme\default\font\iconfont.woff" />
     <Content Include="Areas\Admin\Views\web.config" />
     <Content Include="Areas\Admin\Views\Shared\BaseListContainer.cshtml" />
-    <Content Include="Areas\Admin\Views\Menu\Dict.cshtml" />
+    <Content Include="Areas\Admin\Views\MenuInfo\Dict.cshtml" />
     <None Include="Properties\PublishProfiles\1.pubxml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -1491,18 +1450,6 @@
     <Compile Include="Areas\FormBuilder\Controllers\SettingsController.cs" />
     <Compile Include="Areas\FormBuilder\Controllers\SmartHelpController.cs" />
     <Compile Include="Areas\FormBuilder\FBuilderAreaRegistration.cs" />
-    <Compile Include="Controllers\CommonFBController.cs" />
-    <Compile Include="Controllers\DataModelController.cs" />
-    <Compile Include="Controllers\DataObjectController.cs" />
-    <Compile Include="Controllers\DataSourceController.cs" />
-    <Compile Include="Controllers\DemoController.cs" />
-    <Compile Include="Controllers\FBMetaController.cs" />
-    <Compile Include="Controllers\FileController.cs" />
-    <Compile Include="Controllers\FormController.cs" />
-    <Compile Include="Controllers\HomePageController.cs" />
-    <Compile Include="Controllers\RuntimeController.cs" />
-    <Compile Include="Controllers\SettingsController.cs" />
-    <Compile Include="Controllers\SmartHelpController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -1517,7 +1464,6 @@
     <Folder Include="Areas\FormBuilder\Models\" />
     <Folder Include="Areas\FormBuilder\Views\File\" />
     <Folder Include="CSS\jquery\" />
-    <Folder Include="Views\File\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Com.FormBuilder.Plugins.LBSessionProvider\FormBuilder.LBSessionProvider.csproj">

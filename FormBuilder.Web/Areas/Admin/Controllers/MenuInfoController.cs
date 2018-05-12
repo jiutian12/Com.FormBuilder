@@ -13,5 +13,11 @@ namespace FormBuilder.Web.Areas.Admin.Controllers
         {
             return View();
         }
+        public ActionResult Dict()
+        {
+            return View();
+        }
+
+        
     }
 }
