@@ -121,7 +121,7 @@
 @Html.Raw("<script>var toolbarConfig=" + Model.ToolBarConfig + "</script>")
 @Html.Raw("<script>var modelSchema=" + Model.SchemaInfo + "</script>")
 @Html.Raw("<script>var modelID=\"" + Model.ModelID + "\"</script>")
-@Html.Raw("<script>var defaultValue=" + Model.DefaultInfo + ";</script>")
+@Html.Raw("<script>var defaultValue=" + ((Model.DefaultInfo == null || Model.DefaultInfo == "") ? "{}" : Model.DefaultInfo) + ";</script>")
 @Html.Raw("<script>var dsSchema=" + (Model.dsSchema == null ? "{}" : Model.dsSchema) + ";</script>")
 @Html.Raw("<script>var expressInfo=" + (Model.ExpressInfo == null ? "{}" : Model.ExpressInfo) + ";</script>")
 

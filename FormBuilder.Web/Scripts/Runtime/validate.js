@@ -25,7 +25,7 @@ $.validator.config({
                 Label: arr[3]
             });
             return $.ajax({
-                url: _global.sitePath + '/Common/remoteCheck',
+                url: _global.sitePath + '/CommonFB/remoteCheck',
                 type: 'post',
                 data: { model: data },
                 dataType: 'json'
@@ -104,7 +104,7 @@ var Rules = {
             Label: arr[3]
         });
         return $.ajax({
-            url: _global.sitePath + '/Common/remoteCheck',
+            url: _global.sitePath + '/CommonFB/remoteCheck',
             type: 'post',
             data: { model: data },
             dataType: 'json'

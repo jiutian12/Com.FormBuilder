@@ -11,7 +11,7 @@ $.leeUIDefaults.Grid = {
 	hideLoadButton: false, //是否隐藏刷新按钮
 	pagerRender: null, //分页栏自定义渲染函数
 	page: 1, //默认当前页 
-	pageSize: 10, //每页默认的结果数
+	pageSize: 100, //每页默认的结果数
 	pageSizeOptions: [10, 20, 30, 40, 50], //可选择设定的每页结果数
 	parms: [], //提交到服务器的参数 
 	columns: [], //列配置信息

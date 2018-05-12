@@ -6,12 +6,13 @@ using System.Web.Mvc;
 using FormBuilder.Service;
 using FormBuilder.Utilities;
 using FormBuilder.Model;
+using FormBuilder.Web.App_Start;
 
-namespace FormBuilder.Web.Controllers
+namespace FormBuilder.Web.Areas.FormBuilder.Controllers
 {
-    public class CommonController : Controller
+    public class CommonFBController : Controller
     {
-        #region ctr
+        #region ctr  
 
         IFBCommonService _service;
         IFBDataModelService _serviceDM;
@@ -19,14 +20,16 @@ namespace FormBuilder.Web.Controllers
         IFBDataSourceService _serviceDS;
         IFBFormService _serviceFrm;
         IFBSmartHelpService _serviceHP;
+        IFBCMPService _serviceCMP;
 
-        public CommonController(
+        public CommonFBController(
             IFBCommonService service,
             IFBDataModelService serviceDM,
             IFBDataObjectService serviceDO,
             IFBDataSourceService serviceDS,
             IFBFormService serviceFrm,
-            IFBSmartHelpService serviceHP)
+            IFBSmartHelpService serviceHP,
+             IFBCMPService serviceCMP)
         {
             this._service = service;
             this._serviceDM = serviceDM;
@@ -34,6 +37,7 @@ namespace FormBuilder.Web.Controllers
             this._serviceDO = serviceDO;
             this._serviceFrm = serviceFrm;
             this._serviceHP = serviceHP;
+            this._serviceCMP = serviceCMP;
         }
         #endregion
         // GET: Common
@@ -41,6 +45,7 @@ namespace FormBuilder.Web.Controllers
         {
             return View();
         }
+
 
         public ActionResult Icons()
         {
@@ -58,6 +63,8 @@ namespace FormBuilder.Web.Controllers
             //表达式编辑器页面
             return View();
         }
+
+        [Authentication]
         public ActionResult MetaExplorer()
         {
 
@@ -77,7 +84,7 @@ namespace FormBuilder.Web.Controllers
                 var modelID = HttpContext.Request.Headers.Get("modelID");
 
                 var data = Newtonsoft.Json.JsonConvert.DeserializeObject<CheckExits>(model);
-                if (string.IsNullOrEmpty(model))
+                if (!string.IsNullOrEmpty(modelID))
                 {
                     res = this._service.remoteCheck(data, "", modelID);
                 }
@@ -94,6 +101,7 @@ namespace FormBuilder.Web.Controllers
                 {
                     return Json(new { });
                 }
+
             }
             catch (Exception ex)
             {
@@ -104,6 +112,7 @@ namespace FormBuilder.Web.Controllers
 
 
         [HttpPost]
+
         public JsonResult getFolderList(string parentID, bool isSys, bool isFolder, string keyword, bool isMy = false)
         {
             try
@@ -220,6 +229,9 @@ namespace FormBuilder.Web.Controllers
                     case "5":
                         this._serviceDS.deleteData(id);
                         break;
+                    case "6":
+                        this._serviceCMP.deleteData(id);
+                        break;
                     case "9":
                         this._service.deleteMeta(id);
                         // 删除文件夹是否要删除下级节点？ 不删除放到回收站？
@@ -288,6 +300,7 @@ namespace FormBuilder.Web.Controllers
                             model.ID = Guid.NewGuid().ToString();
                             model.Code = entity.Code;
                             model.Name = entity.Name;
+
                             model.ModelID = entity.ModelID;
                             model.parentID = entity.ParentID;
                             model.Type = entity.FormType;
@@ -304,12 +317,22 @@ namespace FormBuilder.Web.Controllers
                             this._serviceDS.addData(model);
                         }
                         break;
+                    case "6":
+                        {
+                            FBComponent model = new FBComponent();
+                            model.ID = Guid.NewGuid().ToString();
+                            model.Code = entity.Code;
+                            model.Name = entity.Name;
+                            model.parentID = entity.ParentID;
+                            this._serviceCMP.addData(model);
+                        }
+                        break;
                     default:
                         break;
                 }
 
 
-                return Json(new { res = true, mes = "删除成功！" });
+                return Json(new { res = true, mes = "添加成功！" });
             }
             catch (Exception ex)
             {
@@ -318,5 +341,24 @@ namespace FormBuilder.Web.Controllers
 
         }
 
+
+
+
+
+        [HttpPost]
+        public JsonResult GetLogList(string pagesize, string page, string keyword, string filter, string order, string sortname, string sortorder)
+        {
+            try
+            {
+                long total = 0;
+                long totalpage = 0;
+                var list = this._service.GetLogList(keyword, filter, order, int.Parse(page), int.Parse(pagesize), out totalpage, out total);
+                return Json(list);
+            }
+            catch (Exception ex)
+            {
+                return Json(new { error = true, mes = "失败" + ex.Message });
+            }
+        }
     }
 }

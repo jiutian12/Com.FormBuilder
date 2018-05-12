@@ -1159,7 +1159,7 @@ var leeManger = {
 
     },
     viewDepend: function () {
-        fBulider.core.window.openDialog("", "查看表单依赖", _global.sitePath + "/Common/Dependence?dataid=" + leeManger.getFrmID());
+        fBulider.core.window.openDialog("", "查看表单依赖", _global.sitePath + "/CommonFB/Dependence?dataid=" + leeManger.getFrmID());
     },
     viewUserScript: function () {
 

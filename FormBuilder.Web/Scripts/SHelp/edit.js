@@ -307,7 +307,7 @@ $.validator.config({
                 KeyField: "ID"
             });
             return $.ajax({
-                url: _global.sitePath + '/Common/remoteCheck',
+                url: _global.sitePath + '/CommonFB/remoteCheck',
                 type: 'post',
                 data: { model: data },
                 dataType: 'json'

@@ -32,7 +32,7 @@ fBulider.page.ToolBarController.leeExtend(fBulider.page.UIController, {
             width: "900",
             slide: false,
             height: "380",
-            url: _global.sitePath + "/Common/icons",
+            url: _global.sitePath + "/CommonFB/icons",
             buttons: [{
                 text: '确定',
                 cls: 'lee-btn-primary lee-dialog-btn-ok',

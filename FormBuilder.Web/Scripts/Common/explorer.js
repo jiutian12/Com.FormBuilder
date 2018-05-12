@@ -122,7 +122,7 @@ MeataExplorer.prototype = {
     },
     confirmModify: function (dialog, id) {
         var self = this;
-        fBulider.core.dataService.requestApi("/Common/renameFolder", {
+        fBulider.core.dataService.requestApi("/CommonFB/renameFolder", {
             name: $("#txtFolderName").val(),
             id: id
         }, "正在添加....").done(function (data) {
@@ -138,7 +138,7 @@ MeataExplorer.prototype = {
     confirmAdd: function (dialog) {
         var self = this;
 
-        fBulider.core.dataService.requestApi("/Common/addFolder", {
+        fBulider.core.dataService.requestApi("/CommonFB/addFolder", {
             name: $("#txtFolderName").val(),
             parentID: self.parentID
         }, "正在添加....").done(function (data) {
@@ -252,7 +252,7 @@ MeataExplorer.prototype = {
     },
     confirmAddMeta: function (dialog, model, type) {
         var self = this;
-        fBulider.core.dataService.requestApi("/Common/createMetaData", {
+        fBulider.core.dataService.requestApi("/CommonFB/createMetaData", {
             data: JSON.stringify(model),
             type: type
         }, "正在添加....").done(function (data) {
@@ -268,7 +268,7 @@ MeataExplorer.prototype = {
     confirmDelete: function (id, type) {
         var self = this;
 
-        fBulider.core.dataService.requestApi("/Common/detleteMeta", {
+        fBulider.core.dataService.requestApi("/CommonFB/detleteMeta", {
             type: type,
             id: id
         }, "正在删除....").done(function (data) {
@@ -462,7 +462,7 @@ MeataExplorer.prototype = {
         this.listview.leeUI().reload();//刷新listView
     },
     getApiURL: function () {
-        return _global.sitePath + "/Common/getFolderList";
+        return _global.sitePath + "/CommonFB/getFolderList";
     },
     getCss: function (type) {
         this.hasCss = this.hasCss || {
@@ -541,7 +541,7 @@ MeataExplorer.prototype = {
     getFolderTree: function () {
 
         var self = this;
-        fBulider.core.dataService.requestApi("/Common/getFolderList", {
+        fBulider.core.dataService.requestApi("/CommonFB/getFolderList", {
             parentID: "",
             isSys: false,
             isFolder: true
@@ -603,7 +603,7 @@ MeataExplorer.prototype = {
         $.each(this.chooseData, function (i, obj) {
             arr.push(obj.fielid)
         });
-        fBulider.core.dataService.requestApi("/Common/moveFolder", {
+        fBulider.core.dataService.requestApi("/CommonFB/moveFolder", {
             data: JSON.stringify(arr),
             id: id
         }, "正在添加....").done(function (data) {
@@ -748,7 +748,7 @@ SlideMenu.prototype = {
     getLog: function () {
 
         var self = this;
-        fBulider.core.dataService.requestApi("/Common/getLogList", {
+        fBulider.core.dataService.requestApi("/CommonFB/getLogList", {
             page: this.page,
             pagesize: 20
         }, "正在加载....").done(function (data) {

@@ -90,7 +90,7 @@ namespace FormBuilder.ExportTool
 
             MyDelegate inv = new MyDelegate(AppendLog);
             MyDelegate exec = new MyDelegate(ExecScript);
-            StreamReader sr = new StreamReader(filepath);
+            StreamReader sr = new StreamReader(filepath, Encoding.UTF8);
             var sql = "";
             try
             {
@@ -345,6 +345,7 @@ namespace FormBuilder.ExportTool
             else if (model.dbtype.ToUpper() == "MYSQL")
             {
                 connectionStr += "port=" + model.port + ";";
+                connectionStr += "charset=utf8;";
             }
 
             db = new Database(connectionStr, dbType);

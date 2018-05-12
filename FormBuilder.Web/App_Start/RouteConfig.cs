@@ -7,12 +7,12 @@ namespace FormBuilder.Web.App_Start
     {
         public static void Configure(RouteCollection routes)
         {
-            routes.MapRoute(
-                name: "Default",
-                url: "{controller}/{action}/{id}",
-                defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional },
-                namespaces: new string[] { "FormBuilder.Web.Controllers" }
-            );
+            //routes.MapRoute(
+            //    name: "Default",
+            //    url: "{controller}/{action}/{id}",
+            //    defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional },
+            //    namespaces: new string[] { "FormBuilder.Web.Controllers" }
+            //);
 
             //routes.MapRoute(
             //    name: "FormBuilder",

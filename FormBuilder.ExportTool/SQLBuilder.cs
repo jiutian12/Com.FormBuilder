@@ -131,7 +131,7 @@ namespace FormBuilder.ExportTool
 
                     if (key.Value != null)
                     {
-                        valuestr += ",'" + key.Value.ToString().Replace("'", "''") + "'";
+                        valuestr += ",'" + key.Value.ToString().Replace("'", "''").Replace("/", "\\/").Replace("#", "\\#") + "'";
                     }
                     else
                     {

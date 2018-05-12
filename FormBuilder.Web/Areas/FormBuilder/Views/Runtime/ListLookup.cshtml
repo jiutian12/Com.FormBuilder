@@ -216,6 +216,7 @@
                     fixedCellHeight: true,//固定行高
                     alternatingRow: false,
                     usePager: true,
+                    pageSize: 200,
                     height: "100%",
                     checkbox: this.options.isMul,
                     rownumbers: true,
@@ -436,11 +437,11 @@
                 {
                     if (Model.ColList[i].visible == "1")
                     {
-                        <li>
-                            <a href="#" data-value="@Model.ColList[i].code">
-                                <i class="lee-ion-checkmark"></i> @Model.ColList[i].name
-                            </a>
-                        </li>
+                    <li>
+                        <a href="#" data-value="@Model.ColList[i].code">
+                            <i class="lee-ion-checkmark"></i> @Model.ColList[i].name
+                        </a>
+                    </li>
                     }
                 }
 

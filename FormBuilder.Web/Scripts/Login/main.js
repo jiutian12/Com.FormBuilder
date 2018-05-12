@@ -19,7 +19,7 @@
 
 
 
-                window.location.href = callbackurl ? callbackurl : _global.sitePath + "/Common/MetaExplorer";
+                window.location.href = callbackurl ? callbackurl : _global.sitePath + "/CommonFB/MetaExplorer";
 
             }
         }).fail(function (data) {
