@@ -1474,7 +1474,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
-    <Compile Include="Areas\Admin\Controllers\MenuController.cs" />
+    <Compile Include="Areas\Admin\Controllers\MenuInfoController.cs" />
     <Compile Include="Areas\FormBuilder\Controllers\CommonFBController.cs" />
     <Compile Include="Areas\FormBuilder\Controllers\DataModelController.cs" />
     <Compile Include="Areas\FormBuilder\Controllers\DataModelSQLController.cs" />
