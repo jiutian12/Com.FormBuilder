@@ -50,6 +50,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Account\AccountService.cs" />
+    <Compile Include="Account\Menu\FBMenuService.cs" />
+    <Compile Include="Account\Menu\IFBMenuService.cs" />
     <Compile Include="CustomForm\DataModel\DataModelCom.cs" />
     <Compile Include="CustomForm\DataModel\DataModelEngine.cs" />
     <Compile Include="CustomForm\DataModel\DMSQL.cs" />
