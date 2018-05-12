@@ -3,6 +3,108 @@
     ViewBag.Title = "Dict";
     Layout = "~/Areas/FormBuilder/Views/Layout/BaseListContainer.cshtml";
 }
+<style>
 
-<h2>Dict</h2>
+</style>
+<div id="toolbar" class="lee-toolbar-large lee-toolbar-float" style="border: 0;"></div>
+<div id="layout">
+    <div position="left">
+        <ul class="ztree" id="treeList"></ul>
+    </div>
+    <div position="center">
+        <div style="padding: 10px;" id="FormEdit">
+            <form id="form" data-validator-option="{timely:0, theme:'yellow_top'}">
+                <div id="container"></div>
+                <table class="lee-form">
+                    <tr>
+                        <td class="label">
+                            菜单编号
+                        </td>
+                        <td class="editor">
+                            <input readonly="readonly" type="text" class='lee-input ' data-rule-password="[/^\d{6}$/, '请填写6位数字']"
+                                   data-msg-required="请填写数据模型编号"
+                                   data-rule="required" data-bind="Code" id='txtCode'>
+                        </td>
+                        <td class="label">
+                            菜单名称
+                        </td>
+                        <td class="editor">
+                            <input type="text" class='lee-input ' data-rule="required" data-bind="Name" id='txtName'>
+                        </td>
+                    </tr>
 
+                    <tr>
+                        <td class="label">
+                            调用地址
+                        </td>
+                        <td class="editor" colspan="3">
+                            <input type="text" class='lee-input ' data-bind="URL" id='txtURL'>
+                        </td>
+                         
+                    </tr>
+
+                    <tr>
+                        <td class="label">
+                            菜单图标
+                        </td>
+                        <td class="editor"  colspan="3">
+                            <input type="text" readonly="readonly" class='lee-input' data-bind="ICON" id='txtICON'>
+                        </td>
+                      
+                    </tr>
+                    <tr>
+                        <td class="label">
+                            自定义表单
+                        </td>
+                        <td class="editor" colspan="3">
+                            <input type="text" readonly="readonly" class='lee-input' data-bind="FormIDFormID" id='txtFormID'>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td class="label">
+                            类型
+                        </td>
+                        <td class="editor" colspan="3">
+                            <input type="text" readonly="readonly" class='lee-input' data-bind="FormIDFormID" id='txtFormID'>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="label">
+                            是否主表
+                        </td>
+                        <td class="editor">
+                            <span>
+                                <input type="checkbox" disabled="disabled" class="lee-toggle-switch" data-bind="isMain" id="chkIsMain">
+                                <label for="chkIsMain"></label>
+                            </span>
+                        </td>
+                    </tr>
+                </table>
+            </form>
+        </div>
+
+    </div>
+</div>
+
+
+<script>
+
+    $(function () {
+        $("#toolbar").leeToolBar({
+            items: [
+                { id: "", text: "增加同级", icon: "AppendSibling" }, 
+                { id: "", text: "增加下级", icon: "AppendChild" },
+                { line: true },
+                { id: "", text: "保存", icon: "Save" },
+                { line: true },
+                { id: "", text: "删除", icon: "Delete" }
+            ]
+        });
+        $("#layout").leeLayout({
+            leftWidth: 500
+        });
+
+
+    });
+</script>

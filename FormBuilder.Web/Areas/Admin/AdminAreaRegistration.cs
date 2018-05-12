@@ -14,11 +14,18 @@ namespace FormBuilder.Web.Areas.Admin
 
         public override void RegisterArea(AreaRegistrationContext context) 
         {
+            //context.MapRoute(
+            //    "Admin_default",
+            //    "Admin/{controller}/{action}/{id}",
+            //    new { action = "Index", id = UrlParameter.Optional }
+            //);
+
             context.MapRoute(
-                "Admin_default",
-                "Admin/{controller}/{action}/{id}",
-                new { action = "Index", id = UrlParameter.Optional }
-            );
+               "Admin_default",
+               "Admin/{controller}/{action}/{id}",
+               defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional },
+               namespaces: new string[] { "FormBuilder.Web.Areas.Admin.Controllers" }
+           );
         }
     }
 }
