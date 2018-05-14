@@ -45,6 +45,7 @@ namespace FormBuilder.LBSessionProvider
             session.UserCode = LBFContext.Current.Session.UserCode;
             session.UserName = svr.GetUserNameById(session.UserID);
             session.IPAddress = "";
+            
             session.TokenID = LBFContext.Current.TokenId;
             session.MainDatabaseCode = LBFContext.Current.MainDatabaseCode;
             return session;

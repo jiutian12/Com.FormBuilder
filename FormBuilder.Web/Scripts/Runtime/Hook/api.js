@@ -8,14 +8,98 @@ Page.Api.AddGridRow = function () {
 Page.Api.DeleteRow = function () {
 
 }
+/*params 导入参数说明
+{
+    type:"",    //fileTypeCode
+    tpl:"",     //TemplateType
+    pid:"",     //ProductId
+    query:"",   //query
+    appcode:"", //AppInstanceID
+} 
+*/
+Page.Api.openImport = function (params, height, width) {
+    var ip = Page.Config.get("DataIP");
+    if (ip.indexOf("http") != 0) ip = "http://" + ip;
+    width = width || "700";
+    height = height || "450";
+    var url = "/Commonality/DataTempl/ImportManager?fileTypeCode=" + params.type + "&TemplateType=" + params.tpl + "&ProductId=" + params.pid + "&Creator=" + Page.Context.get("UserName")
+        + "&query=" + params.query + "&AppInstanceID=" + params.appcode + "&UserId=" + Page.Context.get("UserID") + "&ProcessId=" + Page.Context.get("UserID")
 
-Page.Api.openImport = function (params, height, width, ip) {
-    var url = "/Commonality/DataTempl/ImportManager?fileTypeCode={0}&TemplateType={1}&ProductId={3}&Creator={4}&query={5}&AppInstanceID={6}&UserId={7}&ProcessId={8}"
+    $.leeDialog.open({
+        title: "导入",
+        name: 'importwindow',
+        isHidden: false,
+        showMax: true,
+        width: width,
+        slide: false,
+        height: height,
+        onclose: function () {
+        },
+        url: ip + url,
+        onLoaded: function () {
+        }
+    });
+
+
 }
-Page.Api.openExport = function (params, height, width, ip) {
-    var url = "/Commonality/DataExportManager/Index?Type=DetailsExport"
+/*params 导出参数说明
+{
+    type:"", //Type
+    code:"", //ExportCode
+    where:"" //ExportWhere
+} 
+*/
+Page.Api.openExport = function (params, height, width) {
+    var ip = Page.Config.get("DataIP");
+    if (ip.indexOf("http") != 0) ip = "http://" + ip;
+    var url = "/Commonality/DataExportManager/Index?Type=" + params.type + "&ExportCode=" + params.code + "&ExportWhere=" + params.where + "&UserId=" + Page.Context.get("UserID");
+    width = width || "600";
+    height = height || "400";
+    $.leeDialog.open({
+        title: "导出",
+        name: 'exportwindow',
+        isHidden: false,
+        showMax: true,
+        width: width,
+        slide: false,
+        height: height,
+        onclose: function () {
+        },
+        url: ip + url,
+        onLoaded: function () {
+        }
+    });
 }
 
+
+/*params 导出参数说明
+{
+    type:"", //Type
+    id:"", //ExportCode
+    name:"" //ExportWhere
+} 
+*/
+Page.Api.openFile = function (params, height, width) {
+    var ip = Page.Config.get("FileIp");
+    if (ip.indexOf("http") != 0) ip = "http://" + ip;
+    var url = "/AttachmentManager/SelectAttachments?fileTypeCode=" + params.type + "&mainId=" + params.id + "&mainName=" + params.name + "&create=" + Page.Context.get("UserID");
+    width = width || "400";
+    height = height || "300";
+    $.leeDialog.open({
+        title: "附件上传",
+        name: 'exportwindow',
+        isHidden: false,
+        showMax: true,
+        width: width,
+        slide: false,
+        height: height,
+        onclose: function () {
+        },
+        url: ip + url,
+        onLoaded: function () {
+        }
+    });
+}
 Page.Api.openIcon = function (callback) {
     var self = this;
     var dialog = $.leeDialog.open({

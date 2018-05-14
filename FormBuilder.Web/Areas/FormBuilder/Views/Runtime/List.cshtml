@@ -133,6 +133,7 @@
     <script src="~/Scripts/Runtime/service.js"></script>
 
     <script src="~/Scripts/Runtime/ui.js"></script>
+    <script src="~/Scripts/Runtime/Hook/api.js"></script>
     @Html.Raw("<script> Page.Context.set(" + Newtonsoft.Json.JsonConvert.SerializeObject(SessionProvider.Provider.Current()) + ")</script>")
     @Html.Raw("<script> Page.Config.set(" + Newtonsoft.Json.JsonConvert.SerializeObject(ConfigHelper.getAppSettingsWeb()) + ")</script>")
     <script>

@@ -879,7 +879,15 @@ $.leeUI.PopUp.TreeEditInjector.prototype = {
                 var BindValue = "";
                 if ($(item).leeUI()) {
                     $(item).leeUI().setValue(obj[BindKey]);
+                } else {
+                    var type = $(item).attr("type");
+                    if (type == "text") {
+                        $(item).val(obj[BindKey]);
+                    }
+
                 }
+
+
             }
         }
 
