@@ -51,6 +51,8 @@ namespace FormBuilder.Service
             try
             {
                 base.BeginTransaction();
+                if (string.IsNullOrEmpty(model.TableName))
+                    model.TableName = model.Code;
                 base.Save(model);
                 var list = model.ColList;
                 if (string.IsNullOrEmpty(model.ID))

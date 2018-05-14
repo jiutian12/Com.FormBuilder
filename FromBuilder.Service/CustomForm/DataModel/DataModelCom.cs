@@ -151,10 +151,10 @@ namespace FormBuilder.Service
 
 
 
-        private static Dictionary<string, object> getSingleDataRow(string modelID, string dataid, Database Db)
+        private static Dictionary<string, object> getSingleDataRow(string modelID, string dataid, Database Db, Database ywDB)
         {
-            FBDataModel modelDM = getDataModelInfo(modelID, Db);
-            Database ywDB = getModelDataSource(modelDM.DataSource);
+            //FBDataModel modelDM = getDataModelInfo(modelID, Db);
+            //Database ywDB = getModelDataSource(modelDM.DataSource);
 
 
             List<dynamic> result = new List<dynamic>();
@@ -507,6 +507,10 @@ namespace FormBuilder.Service
 
                 foreach (var item in list)
                 {
+                    Dictionary<string, object> dict;
+                    dict = getSingleDataRow(modelID, dataid, Db, ywDB);
+
+
                     //  主表删除检查
                     if (item.isMain == "1")
                     {
@@ -534,20 +538,17 @@ namespace FormBuilder.Service
                     }
 
                     ywDB.Execute(sql);
-
                     if (item.Tree != "")
                     {
-
                         DMTreeHelper treeHelper = new DMTreeHelper();
                         treeHelper.db = ywDB;
                         treeHelper.tree = Newtonsoft.Json.JsonConvert.DeserializeObject<JFBTreeStruct>(item.Tree);
-                        var data = getSingleDataRow(modelID, dataid, Db);
-                        treeHelper.updateParentMXField(item, dataid, data);
+                        if (dict != null)
+                            treeHelper.updateParentMXField(item, dataid, dict);
                         // 找到上级 找到同级 同级没有更新上级
                     }
+
                 }
-
-
                 //这里调用扩展构件 表单扩展删除后事件
                 //广播删除后事件
                 //记录日志
@@ -649,7 +650,7 @@ namespace FormBuilder.Service
                                 treeHelper.db = ywDB;
                                 treeHelper.tree = Newtonsoft.Json.JsonConvert.DeserializeObject<JFBTreeStruct>(item.Tree);
                                 if (treeHelper.isPath())  // 新增状态处理分级码
-                                    treeHelper.getMaxPath(item, treeNode.grade, treeNode.level, status == "addsame", ref ds);
+                                    treeHelper.getMaxPath(item, treeNode.grade, treeNode.level, status == "addsame", ref ds, item.Code);
 
                                 if (status == "addchild")
                                     // 更新上级是否明细字段
@@ -840,7 +841,7 @@ namespace FormBuilder.Service
                             treeHelper.db = ywDB;
                             treeHelper.tree = Newtonsoft.Json.JsonConvert.DeserializeObject<JFBTreeStruct>(item.Tree);
                             if (treeHelper.isPath())  // 新增状态处理分级码
-                                treeHelper.getMaxPath(item, treeNode.grade, treeNode.level, status == "addsame", ref ds);
+                                treeHelper.getMaxPath(item, treeNode.grade, treeNode.level, status == "addsame", ref ds, mainCode);
 
                             if (status == "addchild")
                                 // 更新上级是否明细字段
@@ -1025,7 +1026,7 @@ namespace FormBuilder.Service
             //删除记录
             foreach (var item in deleteArr)
             {
-                 
+
                 //FileOpService extSvr = new FileOpService();
                 ////
                 //extSvr.svr.deleteFile(item);

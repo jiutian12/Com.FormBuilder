@@ -8,8 +8,10 @@
         showTime: false,
         startDate: "",
         range: false,
-        showType: "",//year month time datetime
-        cancelable: true
+        showType: "date",//year month time datetime
+        cancelable: true,
+        max: "",
+        min: ""
     };
     $.leeUI.controls.Date = function (element, options) {
         $.leeUI.controls.Date.base.constructor.call(this, element, options);
@@ -60,8 +62,8 @@
             }).click(function () {
                 if (p.disabled) return;
                 if (g.trigger('beforeOpen', g) == false) return false;
-                g.showDate();
-                //  g.inputText.trigger("click");
+                //g.showDate();
+                //g.inputText.focus();
             });
 
             //文本框增加事件绑定
@@ -76,13 +78,22 @@
                 if (p.disabled) return;
                 g.wrapper.addClass("lee-text-focus");
             }).change(function () {
+
                 g.trigger('change');
             });
 
-            laydate.render({
-                elem: g.inputText,
-                range: p.range
-            });
+            var opts = {
+                elem: "#" + g.textFieldID,
+                range: p.range,
+                format: p.format,
+                type: p.showType,
+                done: function (value, date, enddate) { //监听日期被切换
+                    g.inputText.trigger('change');
+                }
+            };
+            if (p.min) opts.min = p.min;
+            if (p.max) opts.max = p.max;
+            laydate.render(opts);
             g.set(p);
         },
         showDate: function () {
@@ -124,6 +135,8 @@
             }
             g.unselect.click(function () {
                 g._setValue("");
+                g.inputText.trigger('change');
+
             });
         },
         _setValue: function (value) {

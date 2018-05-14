@@ -169,6 +169,7 @@ window.Page.UI = (function (ui, service, model, win, $) {
                     else {
                         $ele.leeUI().setValue(value);
                     }
+
                 } else {
                     var type = $ele.attr("type");
                     if (type == "text" || $ele.is("textarea")) {
@@ -178,6 +179,7 @@ window.Page.UI = (function (ui, service, model, win, $) {
                         $ele.prop("checked", value == "1");
                     }
                 }
+                $ele.isValid();
 
             });
         },
@@ -1010,7 +1012,8 @@ window.Page.UI = (function (ui, service, model, win, $) {
         },
         bindCtrl: function () {
             var data = model.getModel();
-            var mainModel = data[0].data[0];
+            var index = model.getMainIndex();
+            var mainModel = data[index].data[0];
             this.bindfields = this.bindfields || $("[data-bindfield]");
 
             for (var i = 0; i < this.bindfields.length; i++) {
@@ -3708,7 +3711,6 @@ window.Page.UI = (function (ui, service, model, win, $) {
             opts.range = editor.isrange;
             opts.max = editor.max;
             opts.min = editor.min;
-
             return opts;
         },
         enableGridMode: function () {
@@ -3719,8 +3721,11 @@ window.Page.UI = (function (ui, service, model, win, $) {
             var self = this;
             var opt = this.getOptions();
 
-
+            var self = this;
             var ctrl = this.ele.leeDate(opt);
+            this.ele.change(function () {
+                self.ele.isValid();
+            });
             return ctrl;
             //如果是数据模型 绑定远程url
         }
@@ -3791,6 +3796,7 @@ window.Page.UI = (function (ui, service, model, win, $) {
                         model.setMainModelObject(FField, "");//这里得处理一下数字or日期
                         ui.instance.bindMainData(FField, "");
                     }
+                    g.inputText.isValid();
                     // 多选这里是数组？ 如何处理呢？
                     // 多选最好用下拉框多选 帮助这里可能有问题 无法join出来
                 }
@@ -3870,7 +3876,10 @@ window.Page.UI = (function (ui, service, model, win, $) {
                         var value = data[0][HField] ? data[0][HField] : "";
                         model.setMainModelObject(FField, value);//设置模型的值
                         ui.instance.bindMainData(FField, value);
+
+
                     }
+                    g.inputText.isValid();
                     // 多选这里是数组？ 如何处理呢？
                     // 多选最好用下拉框多选 帮助这里可能有问题 无法join出来
                 }

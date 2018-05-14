@@ -63,6 +63,10 @@
     .lee-hidden {
         display: none !important;
     }
+
+    .buttoninfo {
+        margin-top: 3px;
+    }
 </style>
 @*输出页面布局信息*@
 <form id="form">
@@ -96,6 +100,9 @@
     <script src="~/Scripts/Runtime/service.js"></script>
     @*UI控制器*@
     <script src="~/Scripts/Runtime/ui.js"></script>
+
+
+    <script src="~/Scripts/Runtime/Hook/api.js"></script>
     @Html.Raw("<script> Page.Context.set(" + Newtonsoft.Json.JsonConvert.SerializeObject(SessionProvider.Provider.Current()) + ")</script>")
     @Html.Raw("<script> Page.Config.set(" + Newtonsoft.Json.JsonConvert.SerializeObject(ConfigHelper.getAppSettingsWeb()) + ")</script>")
 

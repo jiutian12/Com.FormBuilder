@@ -40,7 +40,7 @@ namespace FormBuilder.Service
         /// <param name="level"></param>
         /// <param name="isSame"></param>
         /// <returns></returns>
-        public string getMaxPath(FBDataModelObjects objectModel, string path, string level, bool isSame, ref DataSet ds)
+        public string getMaxPath(FBDataModelObjects objectModel, string path, string level, bool isSame, ref DataSet ds, string mainCode)
         {
 
 
@@ -98,7 +98,7 @@ namespace FormBuilder.Service
                 maxPath = maxPath.Substring(0, alllen)
                     + (int.Parse(maxPath.Substring(alllen, maxPath.Length - alllen)) + 1).ToString().PadLeft(formatIndexLen, '0');
             }
-            ds.Tables[0].Rows[0][tree.grade] = maxPath;
+            ds.Tables[mainCode].Rows[0][tree.grade] = maxPath;
             return maxPath;
         }
 
