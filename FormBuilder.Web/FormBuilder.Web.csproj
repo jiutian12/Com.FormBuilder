@@ -1418,6 +1418,7 @@
     <Content Include="Areas\Admin\Views\web.config" />
     <Content Include="Areas\Admin\Views\Shared\BaseListContainer.cshtml" />
     <Content Include="Areas\Admin\Views\MenuInfo\Dict.cshtml" />
+    <Content Include="Areas\FormBuilder\Views\HomePage\Home.cshtml" />
     <None Include="Properties\PublishProfiles\1.pubxml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>

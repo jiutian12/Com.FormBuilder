@@ -23,6 +23,17 @@ namespace FormBuilder.Web.Areas.FormBuilder.Controllers
             return View("~/Settings/DBConnection");
         }
 
+
+        public ActionResult Home()
+        {
+
+            //IKernel ninjectKernel = new StandardKernel();
+            //ninjectKernel.Load("Config/NInject/*.xml");
+            //FBDataObjectService s = ninjectKernel.Get<FBDataObjectService>();
+            return View();
+        }
+
+        
         public ActionResult Main()
         {
 

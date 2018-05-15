@@ -63,7 +63,7 @@ window.fBulider.framework = (function (framework, win, $) {
             });
         }
         var initNav = function (node) {
-            var g = $('<ul class="lee-navbar"></ul>');
+            var g = $('<ul class="lee-navbar lee-navbar-gray"></ul>');
             $.each(navData, function (i, header) {
                 if (header.root) {
                     var icon = header.icon ? "<i class='lee-ion-" + header.icon + "'></i>" : "";
@@ -95,7 +95,7 @@ window.fBulider.framework = (function (framework, win, $) {
                 }
 
             });
-            $(".left-nav").empty();
+           // $(".left-nav").empty();
             g.appendTo($(".left-nav"));
 
         }
