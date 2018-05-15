@@ -37,6 +37,26 @@ window.Utils = (function (utils, win, $) {
         },
         serialize: function () {
             return this.condtions;
+        },
+        getSql: function () {
+            var arr = [];
+            $.each(this.condtions, function (i, row) {
+                var value = row.ExpressValue;
+                if (!row.IsExpress) {
+                    if (row.oper == "like") {
+                        value = "'%" + value + "'";
+                    } else if (row.oper == "leftlike") {
+                        value = "'%" + value + "%'";
+                    } else if (row.oper == "rightlike") {
+                        value = "'%" + value + "'";
+                    } else {
+                        value = "'" + value + "'";
+                    }
+                }
+                arr.push(row.LeftBrace + row.Logic + " " + row.ParamName + " " + row.Operate + " " + value + " " + row.RightBrace);
+            });
+            return arr.join(" ");
+
         }
     };
 

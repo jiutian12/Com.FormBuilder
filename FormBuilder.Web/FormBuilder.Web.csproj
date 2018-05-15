@@ -1307,6 +1307,7 @@
     <Content Include="Scripts\Runtime\service.js" />
     <Content Include="Scripts\Runtime\ui.js" />
     <Content Include="Scripts\Runtime\utils.js" />
+    <Content Include="Scripts\Runtime\Util\encrypt.js" />
     <Content Include="Scripts\Runtime\validate.js" />
     <Content Include="Scripts\SHelp\edit.js" />
     <Content Include="Scripts\SHelp\list.js" />

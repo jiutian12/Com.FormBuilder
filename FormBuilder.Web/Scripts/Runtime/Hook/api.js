@@ -48,10 +48,25 @@ Page.Api.openImport = function (params, height, width) {
     code:"", //ExportCode
     where:"" //ExportWhere
 } 
+
+beforecheck
 */
-Page.Api.openExport = function (params, height, width) {
+Page.Api.openExport = function (params, beforecheck) {
+    if (param.where)
+        param.where = Page.UI.params.getFilterDataSource(Page.UI.gridController.mainSourceID).getSql();
+
+    var key = lb.crypto.randomKey();
+    var sqlwhere = lb.crypto.strEncrypt(params.where, key);
+
+    if (beforecheck) {
+        if (!beforecheck(data, Page.Context.get("UserID"), key)) {
+            return false;
+        }
+    }
+
     var ip = Page.Config.get("DataIP");
     if (ip.indexOf("http") != 0) ip = "http://" + ip;
+    var actionUrl = ip + "/Commonality/DataExportManager/Index?Type=" + params.type;
     var url = "/Commonality/DataExportManager/Index?Type=" + params.type + "&ExportCode=" + params.code + "&ExportWhere=" + params.where + "&UserId=" + Page.Context.get("UserID");
     width = width || "600";
     height = height || "400";
@@ -65,8 +80,9 @@ Page.Api.openExport = function (params, height, width) {
         height: height,
         onclose: function () {
         },
-        url: ip + url,
+        url: actionUrl,
         onLoaded: function () {
+
         }
     });
 }
