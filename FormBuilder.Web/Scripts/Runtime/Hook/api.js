@@ -51,15 +51,15 @@ Page.Api.openImport = function (params, height, width) {
 
 beforecheck
 */
-Page.Api.openExport = function (params, beforecheck) {
-    if (param.where)
-        param.where = Page.UI.params.getFilterDataSource(Page.UI.gridController.mainSourceID).getSql();
+Page.Api.openExport = function (params, beforecheck, width, height) {
+    if (!params.where)
+        params.where = Page.UI.params.getFilterDataSource(Page.UI.gridController.mainSourceID).getSql();
 
     var key = lb.crypto.randomKey();
     var sqlwhere = lb.crypto.strEncrypt(params.where, key);
 
     if (beforecheck) {
-        if (!beforecheck(data, Page.Context.get("UserID"), key)) {
+        if (!beforecheck(sqlwhere, Page.Context.get("UserID"), key, params.where)) {
             return false;
         }
     }
@@ -67,8 +67,8 @@ Page.Api.openExport = function (params, beforecheck) {
     var ip = Page.Config.get("DataIP");
     if (ip.indexOf("http") != 0) ip = "http://" + ip;
     var actionUrl = ip + "/Commonality/DataExportManager/Index?Type=" + params.type;
-    var url = "/Commonality/DataExportManager/Index?Type=" + params.type + "&ExportCode=" + params.code + "&ExportWhere=" + params.where + "&UserId=" + Page.Context.get("UserID");
-    width = width || "600";
+    // var url = "/Commonality/DataExportManager/Index?Type=" + params.type + "&ExportCode=" + params.code + "&ExportWhere=" + params.where + "&UserId=" + Page.Context.get("UserID");
+    width = width || "580";
     height = height || "400";
     $.leeDialog.open({
         title: "导出",

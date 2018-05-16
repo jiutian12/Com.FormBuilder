@@ -43,11 +43,11 @@ window.Utils = (function (utils, win, $) {
             $.each(this.condtions, function (i, row) {
                 var value = row.ExpressValue;
                 if (!row.IsExpress) {
-                    if (row.oper == "like") {
+                    if (row.Operate == "like") {
                         value = "'%" + value + "'";
-                    } else if (row.oper == "leftlike") {
+                    } else if (row.Operate == "leftlike") {
                         value = "'%" + value + "%'";
-                    } else if (row.oper == "rightlike") {
+                    } else if (row.Operate == "rightlike") {
                         value = "'%" + value + "'";
                     } else {
                         value = "'" + value + "'";
@@ -78,7 +78,7 @@ window.Utils = (function (utils, win, $) {
         }
     };
     return utils;
-})(window.Utils, window, $)
+})(window.Utils, window, $);
 
 
 
