@@ -169,6 +169,7 @@
                                 var obj = {};
                                 obj[p.textField] = obj[p.valueField] = value;
                                 g.confirmSelect([obj]);
+                                g.query = false;
                             } else {
                                 g.setKeyword(value);
                                 g.openLookup();

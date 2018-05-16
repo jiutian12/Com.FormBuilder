@@ -250,12 +250,24 @@
                                         <input type="text" class='lee-input' data-bind="Filter" id='txtFilter'>
                                     </td>
                                     <td class="label">
-                                        分级信息
+                                        默认排序
                                     </td>
                                     <td class="editor">
+                                        <input type="text" class='lee-input' data-bind="Sort" id='txtSort'>
+                                    </td>
+                                    
+                                </tr>
+                                <tr>
+                                    <td class="label">
+                                        分级信息
+                                    </td>
+                                    <td class="editor" colspan="3">
                                         <input type="text" class='lee-input' data-bind="Tree" id='txtTree'>
                                     </td>
                                 </tr>
+
+
+                                
                                 <tr>
                                     <td class="label">
                                         启用时间戳
@@ -605,6 +617,23 @@
 
         $("#txtFilter").leePopup({ onButtonClick: $.leeUI.PopUp.Lookup($injector2) });
 
+
+
+        var $injector9 = new $.leeUI.PopUp.SortInjector({
+            width: 800, height: 250, getValue: function () {
+                return $("#txtSort").leeUI().getValue();
+            }, getFields: function () {
+                var data = CardManager.grid.getData();
+
+                var arr = [];
+                $.each(data, function (i, obj) {
+                    arr.push({ id: obj.Code, text: obj.Name });
+                });
+                return arr;
+            }
+        });
+
+        $("#txtSort").leePopup({ onButtonClick: $.leeUI.PopUp.Lookup($injector9) });
 
 
 

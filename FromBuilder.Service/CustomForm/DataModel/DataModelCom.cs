@@ -188,6 +188,10 @@ namespace FormBuilder.Service
 
             StringBuilder sb = new StringBuilder();
 
+            List<Condition> filters = new List<Condition>();
+
+            List<SortCondition> orders = new List<SortCondition>();
+
 
             // 过滤条件
             if (!string.IsNullOrEmpty(filter) && filter != "[]")
@@ -195,24 +199,26 @@ namespace FormBuilder.Service
 
 
                 //StringBuilder sbfilter = new StringBuilder();
-                List<Condition> filters = Newtonsoft.Json.JsonConvert.DeserializeObject<List<Condition>>(filter);
-
-                sb = getModelSelectSql(modelID, false, true, ref filters, Db);
-                sb.AppendFormat(" {0} ", ConditionParser.Serialize(filters));
+                filters = Newtonsoft.Json.JsonConvert.DeserializeObject<List<Condition>>(filter);
                 //参数改造？
             }
-            else
-            {
-                sb = getModelSelectSql(modelID, false, true, Db);
-            }
-            //排序
             if (!string.IsNullOrEmpty(order))
             {
-                List<SortCondition> orders = Newtonsoft.Json.JsonConvert.DeserializeObject<List<SortCondition>>(order);
-                if (orders.Count > 0)
-                    sb.AppendFormat(" order by {0} ", SortConditionParser.Serialize(orders));
+                orders = Newtonsoft.Json.JsonConvert.DeserializeObject<List<SortCondition>>(order);
             }
+            sb = getModelSelectSql(modelID, false, true, ref filters, ref orders, Db);
+            sb.AppendFormat(" {0} ", ConditionParser.Serialize(filters));
 
+
+            //else
+            //{
+            //    sb = getModelSelectSql(modelID, false, true, Db);
+            //}
+            //排序
+
+
+            if (orders.Count > 0)
+                sb.AppendFormat(" order by {0} ", SortConditionParser.Serialize(orders));
 
             Page<dynamic> page = ywDB.Page<dynamic>(currentPage, perPage, sb.ToString());// 业务db
 
@@ -244,31 +250,30 @@ namespace FormBuilder.Service
             StringBuilder sb = new StringBuilder();
 
 
+            List<Condition> filters = new List<Condition>();
+
+            List<SortCondition> orders = new List<SortCondition>();
+
+
             // 过滤条件
             if (!string.IsNullOrEmpty(filter) && filter != "[]")
             {
-
-
                 //StringBuilder sbfilter = new StringBuilder();
-                List<Condition> filters = Newtonsoft.Json.JsonConvert.DeserializeObject<List<Condition>>(filter);
-
-                sb = getModelSelectSql(modelID, false, true, ref filters, Db);
-                sb.AppendFormat(" {0} ", ConditionParser.Serialize(filters));
+                filters = Newtonsoft.Json.JsonConvert.DeserializeObject<List<Condition>>(filter);
                 //参数改造？
             }
-            else
-            {
-                sb = getModelSelectSql(modelID, false, true, Db);
-            }
-
-
-            //排序
             if (!string.IsNullOrEmpty(order))
             {
-                List<SortCondition> orders = Newtonsoft.Json.JsonConvert.DeserializeObject<List<SortCondition>>(order);
-                if (orders.Count > 0)
-                    sb.AppendFormat(" order by {0} ", SortConditionParser.Serialize(orders));
+                orders = Newtonsoft.Json.JsonConvert.DeserializeObject<List<SortCondition>>(order);
             }
+
+            sb = getModelSelectSql(modelID, false, true, ref filters, ref orders, Db);
+            sb.AppendFormat(" {0} ", ConditionParser.Serialize(filters));
+
+            //排序
+            if (orders.Count > 0)
+                sb.AppendFormat(" order by {0} ", SortConditionParser.Serialize(orders));
+
             result = ywDB.Fetch<dynamic>(sb.ToString());
             return result;
         }
@@ -1180,17 +1185,33 @@ namespace FormBuilder.Service
         {
             //如果是有缓存 那么则从sql缓存处理
             var list = getModelObjects(modelID, false, Db);
+
             StringBuilder sb = DataModelEngine.BuildSelectSql(list[0], list[0].Relation, false, iscard, islist);
             return sb;
 
         }
 
 
-        private static StringBuilder getModelSelectSql(string modelID, bool islist, bool iscard, ref List<Condition> filterList, Database Db)
+        private static StringBuilder getModelSelectSql(string modelID, bool islist, bool iscard, ref List<Condition> filterList, ref List<SortCondition> sortList, Database Db)
         {
             //如果是有缓存 那么则从sql缓存处理
             var list = getModelObjects(modelID, false, Db);
             // 处理关联字段 的过滤条件
+
+            var model = list[0];
+            if (!string.IsNullOrEmpty(model.Filter))
+            {
+                //合并两个条件
+                List<Condition> deffilter = Newtonsoft.Json.JsonConvert.DeserializeObject<List<Condition>>(model.Filter);
+                filterList.Concat(deffilter);
+            }
+            if (!string.IsNullOrEmpty(model.Sort) && sortList.Count == 0)
+            {
+                //合并两个条件
+                List<SortCondition> defsort = Newtonsoft.Json.JsonConvert.DeserializeObject<List<SortCondition>>(model.Sort);
+                sortList = defsort;
+            }
+
 
 
             foreach (var item in filterList)
@@ -1211,6 +1232,27 @@ namespace FormBuilder.Service
                 else
                 {
                     item.ParamName = string.Format("{0}.{1}", list[0].Label, item.ParamName);
+                }
+            }
+
+            foreach (var item in sortList)
+            {
+                var field = item.Field;
+
+                var res = list[0].ColList.Where(p => p.isRelated == "1" & p.Label.ToString().ToUpper() == field.ToUpper()).ToList();
+
+                if (res.Count > 0)
+                {
+                    var realtionID = res[0].RelationID;
+                    var table = list[0].Relation.Where(p => p.ID == realtionID).ToList();
+                    if (table.Count > 0)
+                    {
+                        item.Field = string.Format("{0}.{1}", table[0].ObjectLabel, res[0].Code);
+                    }
+                }
+                else
+                {
+                    item.Field = string.Format("{0}.{1}", list[0].Label, item.Field);
                 }
             }
 

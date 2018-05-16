@@ -147,3 +147,109 @@ fBulider.defaults.datatype = [
     { id: "4", text: "text(二进制)" },
     { id: "6", text: "bit" }
 ];
+
+
+
+
+$.leeUI.PopUp.SortInjector = function (options) {
+
+    this.options = options;
+    this.init();
+    this.getFields = this.options.getFields;
+}
+
+
+
+$.leeUI.PopUp.SortInjector.prototype = {
+    init: function () {
+    },
+    initUI: function () {
+
+
+        var g = this,
+            p = this.options;
+        var data = [];
+        var value = p.getValue();
+        if (value) {
+            data = $.parseJSON(p.getValue());
+        }
+
+        var operateData = [
+           { text: "升序", "id": "asc" },
+           { text: "降序", "id": "desc" }
+
+        ];
+
+        p.gridm = g.grid.leeGrid({
+            columns: [
+                {
+                    display: '字段', name: 'Field', align: 'left', width: 200, editor: {
+                        type: "dropdown",
+                        data: this.getFields()
+                    }, render: leeUI.gridRender.DropDownRender
+                },
+                {
+                    display: '排序方式', name: 'Order', align: 'left', width: 150, editor: {
+                        type: "dropdown",
+                        data: operateData
+                    }, render: leeUI.gridRender.DropDownRender
+                }
+            ],
+            toolbar: {
+                items: [{
+                    text: '添加', click: function () {
+                        p.gridm.addRow({ Field: "", Order: "asc" });
+                    }, iconfont: "plus"
+                }, {
+                    line: true
+                },
+					{
+					    text: '删除',
+					    click: function () {
+					        p.gridm.endEdit();
+
+					        p.gridm.deleteRow(p.gridm.getSelected());
+					    },
+					    iconfont: "minus"
+					}
+                ]
+            },
+            alternatingRow: false,
+            data: {
+                Rows: data
+            },
+            enabledEdit: true,
+            usePager: false,
+            inWindow: false,
+            height: "100%",
+            rownumbers: true,
+            rowHeight: 30
+        });
+        p.gridm._onResize();
+
+    },
+    clearSearch: function () {
+
+    },
+    getOptions: function () {
+        return this.options;
+    },
+    clear: function () {
+    },
+    getRenderDom: function () {
+        if (!this.grid) {
+            this.grid = $("<div></div>");
+        }
+        return this.grid;
+    },
+
+    onResize: function () { },
+    onConfirm: function (popup, dialog, $injector) {
+        var p = $injector.options;
+        var obj = {};
+        var data = p.gridm.getData();
+        popup.setText(JSON.stringify(data));
+        popup.setValue(JSON.stringify(data));
+        return true;
+    }
+};

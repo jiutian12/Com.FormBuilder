@@ -1023,7 +1023,7 @@
 }
 
 .table-query .table-label {
-    width: 90px !important;
+    width: 100px !important;
     text-overflow: ellipsis;
     white-space: nowrap;
     overflow: hidden;
@@ -1039,7 +1039,7 @@
 }
 
 .table-query .table-editor {
-    margin-left: 90px !important;
+    margin-left: 100px !important;
 }
 
 .lee-text-date .lee-right {
@@ -1059,11 +1059,13 @@
 
 .webuploader-pick {
     width: 80px;
-    height:34px;
+    height: 34px;
 }
+
 .lee-table-form.table-border .table-editor .lee-upload {
-    margin:5px;
+    margin: 5px;
 }
+
 .lee-table-form.table-border .table-editor {
-min-height:32px;
+    min-height: 32px;
 }
