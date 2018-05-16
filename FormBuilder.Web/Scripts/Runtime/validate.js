@@ -1,9 +1,17 @@
 ﻿
 /*界面逻辑验证控制器*/
 $.validator.config({
-    
+
     rules: {
-       
+        required: function (ele, params, field) {
+            var value = ele.value;
+            var title = field.title;
+            if (value == "") {
+                return false;
+            } else {
+                return true;
+            }
+        },
         telphone: [/^1[3-9]\d{9}$/, "请填写有效的手机号"],
         email: [/^([a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+(.[a-zA-Z0-9_-])+/, "请填写有效的邮箱"],
         website: [/^([hH][tT]{2}[pP]:\/\/|[hH][tT]{2}[pP][sS]:\/\/)(([A-Za-z0-9-~]+)\.)+([A-Za-z0-9-~\/])+$/, "请填写有效的网址"],
@@ -37,7 +45,7 @@ $.validator.config({
 
 
 $(function () {
-   
+
     //$('#form').validator({ theme: 'yellow_top' });
     //$('#form').validator("setField", {
     //    "#input_j809xsf5p8808ghjhk": {
@@ -128,8 +136,39 @@ var Rules = {
             this.rules = rules;
             $('#form').validator({ timely: 3, theme: 'yellow_bottom' });
             $('#form').validator("setField", this.rules);
-        },
 
+        },
+        setRequired: function (id, flag) {
+            if (!this.rules) return;
+            this.rules[id] = this.rules[id] || { rule: "", title: "" };
+
+
+            if (flag) {
+
+
+                var rule = this.rules[id].rule;
+                if (rule.indexOf("required") == -1) {
+                    if (rule != "") rule += ";";
+                    this.rules[id].rule += "required";
+
+                }
+                $(id).parent().addClass("lee-text-required");
+                $("#label_" + id.replace("#", "")).find("span").show();
+
+
+            } else {
+                this.rules[id].rule = this.rules[id].rule.replace("required", "").replace("required;", "").replace(";required", "");
+                $(id).parent().removeClass("lee-text-required");
+                $("#label_" + id.replace("#", "")).find("span").hide();
+            }
+            if (this.rules[id].rule == "") {
+                $('#form').validator("setField", id, null);
+            } else {
+                $('#form').validator("setField", id, this.rules[id].rule);
+            }
+
+
+        },
         getFnFromKey: function (key) {
             var fns = [];
             if (!this.rules[key]) return;

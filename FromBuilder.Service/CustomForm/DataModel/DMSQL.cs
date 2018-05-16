@@ -88,7 +88,7 @@ namespace FormBuilder.Service
             //其他信息
             return sql;
         }
-        private Sql dealSQL(string sql, DataTable dt)
+        public Sql dealSQL(string sql, DataTable dt)
         {
             sql = dealSqlSession(sql);
             if (sql.IndexOf("@") != -1)

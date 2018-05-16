@@ -579,6 +579,20 @@ namespace FormBuilder.Service
                 DMSQL sqlActionMgr = new DMSQL(modelID, Db, ywDB);
 
                 var list = getModelObjects(modelID, true, Db);
+
+                var checkList = Db.Fetch<FBModelModifyCheck>("select * from FBModelModifyCheck where ModelID=@0 and ObjectID=@1 and isused='1'", modelID, list[0].ObjectID);
+
+                foreach (var checkitem in checkList)
+                {
+                    var sql = string.Format("select count(1) from {0} where 1=1 {1}", checkitem.TableName, checkitem.Filter);
+
+                    var checksql = sqlActionMgr.dealSQL(sql, ds.Tables[0]);
+                    if (ywDB.ExecuteScalar<long>(checksql) > 0)
+                    {
+                        throw new Exception(checkitem.Tips);
+                    }
+                }
+
                 if (status == "edit")
                 {
                     sqlActionMgr.ExecBeforeSave(ds.Tables[0]);
@@ -627,6 +641,21 @@ namespace FormBuilder.Service
                 {
                     if (item.isMain == "1")
                     {
+
+                        var checkList = Db.Fetch<FBModelModifyCheck>("select * from FBModelModifyCheck where ModelID=@0 and ObjectID=@1 and isused='1'", modelID, item.ObjectID);
+
+                        foreach (var checkitem in checkList)
+                        {
+                            var sql = string.Format("select count(1) from {0} where 1=1 {1}", checkitem.TableName, checkitem.Filter);
+
+                            var checksql = sqlActionMgr.dealSQL(sql, ds.Tables[item.Code]);
+                            if (ywDB.ExecuteScalar<long>(checksql) > 0)
+                            {
+                                throw new Exception("保存失败！" + checkitem.Tips);
+                            }
+                        }
+
+
                         mainCode = item.Code;//记录主表编号
                         // 更新主表
                         if (editFlag)
@@ -847,6 +876,22 @@ namespace FormBuilder.Service
                                 // 更新上级是否明细字段
                                 treeHelper.updateMXField(item, treeNode);
                         }
+
+                        var checkList = Db.Fetch<FBModelModifyCheck>("select * from FBModelModifyCheck where ModelID=@0 and ObjectID=@1 and isused='1'", modelID, item.ObjectID);
+
+                        foreach (var checkitem in checkList)
+                        {
+                            var sql = string.Format("select count(1) from {0} where 1=1 {1}", checkitem.TableName, checkitem.Filter);
+
+                            var checksql = sqlActionMgr.dealSQL(sql, ds.Tables[item.Code]);
+                            if (ywDB.ExecuteScalar<long>(checksql) > 0)
+                            {
+                                throw new Exception("保存失败！" + checkitem.Tips);
+                            }
+                        }
+
+
+
                         if (editFlag)
                         {
                             sqlActionMgr.ExecBeforeSave(ds.Tables[item.Code]);

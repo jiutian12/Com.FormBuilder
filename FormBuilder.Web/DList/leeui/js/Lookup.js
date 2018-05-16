@@ -203,6 +203,7 @@
 				p = this.options;
             g.inputText.val("");
             g.valueField.val("");
+            g.curData = null;
             g.trigger("valuechange", {}); // 清空触发值改变事件
 
             var srcCtrl = g.textFieldID;
@@ -333,10 +334,14 @@
                 var text = data[0][p.textField];
                 g.setValue(value, text);
             }
+            g.curData = data;
             g.trigger('change');
             //
             g.trigger('confirmSelect', [g, p, data, srcCtrl]);
 
+        },
+        getCurData: function () {
+            return this.curData;
         },
         //取消选择 
         _setCancelable: function (value) {

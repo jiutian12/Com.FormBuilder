@@ -1381,6 +1381,7 @@
 
             // update this field
             if (isString(key)) {
+                delete fields[key];
                 fields[key] = obj;
             }
                 // update fields
