@@ -3814,6 +3814,9 @@ window.Page.UI = (function (ui, service, model, win, $) {
 
                 return [];
             }
+            opts.onClearValue = function (g) {
+                g.inputText.change();
+            }
 
             opts.onConfirmSelect = function (g, p, data, srcID) {
                 function getMapObj(mapFields, data) {
@@ -3879,6 +3882,9 @@ window.Page.UI = (function (ui, service, model, win, $) {
 
 
                     }
+
+                    ui.event.trigger(g.element.id, "onConfirmSelect", [data]);
+                    //g.inputText.change();
                     g.inputText.isValid();
                     // 多选这里是数组？ 如何处理呢？
                     // 多选最好用下拉框多选 帮助这里可能有问题 无法join出来
