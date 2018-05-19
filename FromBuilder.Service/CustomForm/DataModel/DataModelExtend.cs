@@ -21,7 +21,7 @@ namespace FormBuilder.Service
 
         public DataModelExtend(string ModelID, Database db,Database ywDb)
         {
-            var sql = "select * from FBModelExtend where ModelID=@0";
+            var sql = "select * from FBModelExtend where ModelID=@0 and Isused='1'";
             list = db.Fetch<FBModelExtend>(new Sql(sql, ModelID));
             LoadData();
         }
