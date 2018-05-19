@@ -707,7 +707,17 @@ window.Page.UI = (function (ui, service, model, win, $) {
                 var bindTable = $ele.attr("data-bindtable");
                 if (bindKey == "" || bindTable == "") continue;
                 if ($ele.leeUI()) {
-                    $ele.leeUI().setValue(mainModel[bindKey]);
+
+                    var type = $ele.leeUI().type;
+                    if (type.toLowerCase() == "lookup")
+                        $ele.leeUI().setValue(mainModel[bindKey], mainModel[bindKey]);
+                    else if (type.toLowerCase() == "upload") {
+                        // 附件有单独的方法处理赋值事件
+                    }
+                    else {
+                        $ele.leeUI().setValue(mainModel[bindKey]);
+                    }
+                    
                 } else {
                     var type = $ele.attr("type");
                     if (type == "text" || $ele.is("textarea")) {
@@ -1023,7 +1033,15 @@ window.Page.UI = (function (ui, service, model, win, $) {
                 var bindKey = $ele.attr("data-bindfield");
                 var bindTable = $ele.attr("data-bindtable");
                 if ($ele.leeUI()) {
-                    $ele.leeUI().setValue(mainModel[bindKey]);
+                    var type = $ele.leeUI().type;
+                    if (type.toLowerCase() == "lookup")
+                        $ele.leeUI().setValue(mainModel[bindKey], mainModel[bindKey]);
+                    else if (type.toLowerCase() == "upload") {
+                        // 附件有单独的方法处理赋值事件
+                    }
+                    else {
+                        $ele.leeUI().setValue(mainModel[bindKey]);
+                    } 
                 } else {
                     var type = $ele.attr("type");
                     if (type == "text" || $ele.is("textarea")) {

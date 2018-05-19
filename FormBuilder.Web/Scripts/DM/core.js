@@ -465,14 +465,15 @@
             });
             this.gridobjectm = this.gridobject.leeGrid({
                 columns: [
-                    { display: 'ID', name: 'ID', align: 'left', width: 130 },
-                    { display: '编号', name: 'Code', align: 'left', width: 100 },
-                    { display: '名称', name: 'AiasName', align: 'left', width: 120 },
-                    { display: '最后修改人', name: 'LastModifyUser', align: 'left', width: 120 },
-                    { display: '最后修改时间', name: 'LastModifyTime', align: 'left', width: 120 },
+                    { display: 'ID', name: 'ID', align: 'left', width: 200 },
+                    { display: '编号', name: 'Code', align: 'left', width: 140 },
+                    { display: '名称', name: 'AiasName', align: 'left', width: 160 },
+                    { display: '修改人', name: 'LastModifyUser', align: 'left', width: 80 },
+                    { display: '修改时间', name: 'LastModifyTime', align: 'left', width: 130 },
                 ],
                 alternatingRow: false,
                 usePager: true,
+                pageSize: 50,
                 parms: $.proxy(this.getParamCreate, this),
                 url: _global.sitePath + '/DataModel/GetObjects',
                 inWindow: false,
@@ -640,14 +641,14 @@
                     display: '编号',
                     name: 'Code',
                     align: 'left',
-                    width: 100
+                    width: 130
 
                 },
                     {
                         display: '名称',
                         name: 'Name',
                         align: 'left',
-                        width: 100
+                        width: 150
                     }
                 ],
                 alternatingRow: false,
@@ -656,6 +657,7 @@
                 url: _global.sitePath + '/DataModel/GetObjectColumns',
                 inWindow: false,
                 height: "100%",
+                pageSize: 50,
                 checkbox: true,
                 rownumbers: true,
                 rowHeight: 30

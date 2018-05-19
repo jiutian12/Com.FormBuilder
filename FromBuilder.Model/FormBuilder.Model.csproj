@@ -59,6 +59,7 @@
     <Compile Include="CustomForm\DataModel\FBDataModelCols.cs" />
     <Compile Include="CustomForm\DataModel\FBDataModelObjects.cs" />
     <Compile Include="CustomForm\DataModel\FBDataModelRealtions.cs" />
+    <Compile Include="CustomForm\DataModel\FBModelExtend.cs" />
     <Compile Include="CustomForm\DataModel\FBModelSQL.cs" />
     <Compile Include="CustomForm\DataModel\FBModelModifyCheck.cs" />
     <Compile Include="CustomForm\DataModel\FBModelDeleteCheck.cs" />

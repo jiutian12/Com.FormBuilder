@@ -88,11 +88,11 @@ Page.Api.openExport = function (params, beforecheck, width, height) {
 }
 
 
-/*params 导出参数说明
+/*params 上传附件参数
 {
     type:"", //Type
-    id:"", //ExportCode
-    name:"" //ExportWhere
+    id:"", //mainid
+    name:"" //mainname
 } 
 */
 Page.Api.openFile = function (params, height, width) {
