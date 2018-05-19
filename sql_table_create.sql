@@ -195,6 +195,18 @@ Create Table If Not Exists FBModelSQL(
 )
 ;
 
+/*模型事件扩展*/
+Create Table If Not Exists FBModelExtend
+	(
+	ID				VARCHAR (50) NOT NULL,
+	ModelID			VARCHAR (50),
+	Assembly        VARCHAR (100),
+	ClassName		VARCHAR (100),
+	IsUsed			CHAR (1),
+	CONSTRAINT PK_FBMODELEXTEND PRIMARY KEY (ID)
+	)
+;
+
 /*================数据模型End=================*/
 
 

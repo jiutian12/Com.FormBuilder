@@ -1420,6 +1420,7 @@
     <Content Include="Areas\Admin\Views\Shared\BaseListContainer.cshtml" />
     <Content Include="Areas\Admin\Views\MenuInfo\Dict.cshtml" />
     <Content Include="Areas\FormBuilder\Views\HomePage\Home.cshtml" />
+    <Content Include="Areas\FormBuilder\Views\DataModel\Extend.cshtml" />
     <None Include="Properties\PublishProfiles\1.pubxml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -1438,6 +1439,7 @@
     <Compile Include="Areas\Admin\Controllers\MenuInfoController.cs" />
     <Compile Include="Areas\FormBuilder\Controllers\CommonFBController.cs" />
     <Compile Include="Areas\FormBuilder\Controllers\DataModelController.cs" />
+    <Compile Include="Areas\FormBuilder\Controllers\ModelExtendController.cs" />
     <Compile Include="Areas\FormBuilder\Controllers\DataModelSQLController.cs" />
     <Compile Include="Areas\FormBuilder\Controllers\DataObjectController.cs" />
     <Compile Include="Areas\FormBuilder\Controllers\CMPController.cs" />

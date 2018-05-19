@@ -68,6 +68,7 @@
     <Compile Include="CustomForm\FBDBSettingService.cs" />
     <Compile Include="CustomForm\FBCommonService.cs" />
     <Compile Include="Account\FBAccountService.cs" />
+    <Compile Include="CustomForm\FBModelExtendService.cs" />
     <Compile Include="CustomForm\FBModelSQLService.cs" />
     <Compile Include="CustomForm\FBFileService.cs" />
     <Compile Include="Common\FBLog.cs" />

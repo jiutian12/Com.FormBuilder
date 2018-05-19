@@ -11,15 +11,15 @@ using Newtonsoft.Json;
 
 namespace FormBuilder.Web.Areas.FormBuilder.Controllers
 {
-    public class ModelExtendController : Controller
+    public class DataModelSQLController : Controller
     {
 
 
         #region ctr
 
-        IFBModelExtendService _service;
-        public static LogHelper log = LogFactory.GetLogger(typeof(ModelExtendController));
-        public ModelExtendController(IFBModelExtendService service)
+        IFBModelSQLService _service;
+        public static LogHelper log = LogFactory.GetLogger(typeof(DataModelController));
+        public DataModelSQLController(IFBModelSQLService service)
         {
 
             //log.Error("ddd");
@@ -37,21 +37,15 @@ namespace FormBuilder.Web.Areas.FormBuilder.Controllers
         }
         #endregion
 
-        #region View
-        // GET: FormBuilder/DataModelSQL
-        public ActionResult Extend()
-        {
-            return View();
-        }
-        #endregion
+
         #region Ajax Request
 
         [HttpPost]
-        public JsonResult getList(string modelID)
+        public JsonResult getList(string modelID, string keyword)
         {
             try
             {
-                var list = this._service.getList(modelID);
+                var list = this._service.getList(modelID, keyword);
 
                 return Json(new { res = true, data = list });
             }
@@ -99,7 +93,7 @@ namespace FormBuilder.Web.Areas.FormBuilder.Controllers
         {
             try
             {
-                FBModelExtend model = Newtonsoft.Json.JsonConvert.DeserializeObject<FBModelExtend>(data);
+                FBModelSQL model = Newtonsoft.Json.JsonConvert.DeserializeObject<FBModelSQL>(data);
                 if (string.IsNullOrEmpty(model.ID))
                 {
                     model.ID = Guid.NewGuid().ToString();
