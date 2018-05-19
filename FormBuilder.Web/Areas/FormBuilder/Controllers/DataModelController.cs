@@ -52,6 +52,11 @@ namespace FormBuilder.Web.Areas.FormBuilder.Controllers
         {
             return View();
         }
+
+        public ActionResult Extend()
+        {
+            return View();
+        }
         #endregion
 
 

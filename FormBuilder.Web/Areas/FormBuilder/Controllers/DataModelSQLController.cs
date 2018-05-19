@@ -39,10 +39,7 @@ namespace FormBuilder.Web.Areas.FormBuilder.Controllers
 
         #region View
         // GET: FormBuilder/DataModelSQL
-        public ActionResult Extend()
-        {
-            return View();
-        }
+      
         #endregion
         #region Ajax Request
 

@@ -1,6 +1,6 @@
 ﻿$(function () {
 
-    $("#tab").leeTab({});
+
     var mgr = new fBulider.page.ExendController();
     mgr.load();
 
@@ -13,13 +13,14 @@ fBulider.page.ExendController = function (options) {
 
 fBulider.page.ExendController.leeExtend(fBulider.page.UIController, {
     init: function () {
+
         this.initGrid();
     },
     addRow: function () {
         this.currentModel = {
             ID: Guid.NewGuid().ToString(),
             ModelID: this.getDataID(),
-            Assembly: "1",
+            Assembly: "",
             ClassName: "",
             IsUsed: "1"
         };
@@ -32,7 +33,7 @@ fBulider.page.ExendController.leeExtend(fBulider.page.UIController, {
             fixedCellHeight: true,
             alternatingRow: false,
             data: { Rows: [] },
-            height: "100%",
+            height: "98%",
             usePager: false,
             rownumbers: true,
             rowHeight: 30,
@@ -48,17 +49,6 @@ fBulider.page.ExendController.leeExtend(fBulider.page.UIController, {
         $("#btnDelete").click($.proxy(this.deleteRow, this));
         $("#btnSave").click($.proxy(this.save, this));
 
-
-
-
-        $("#txtActionType").leeDropDown({
-            data: this.getActionTypeList()
-        });
-
-
-        this.editor = ace.edit("editor");
-
-        this.editor.session.setMode("ace/mode/sql");
     },
     getColumns: function () {
         return [
@@ -66,6 +56,8 @@ fBulider.page.ExendController.leeExtend(fBulider.page.UIController, {
            { display: '方法全称', name: 'ClassName', align: 'left', width: 320 },
            { display: '是否启用', name: 'IsUsed', width: 80, render: leeUI.gridRender.ToogleRender, readonly: true }
         ];
+    },
+    save: function () {
     },
     getDataID: function () {
         return fBulider.utils.getQuery("dataid");

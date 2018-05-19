@@ -13,6 +13,7 @@
   <bind service="FormBuilder.Service.IFBAccountService, FormBuilder.Service" to="FormBuilder.Service.FBAccountService, FormBuilder.Service" />
   <bind service="FormBuilder.Service.IFBModelSQLService, FormBuilder.Service" to="FormBuilder.Service.FBModelSQLService, FormBuilder.Service" />
   <bind service="FormBuilder.Service.IFBCMPService, FormBuilder.Service" to="FormBuilder.Service.FBCMPService, FormBuilder.Service" />
+  <bind service="FormBuilder.Service.IFBModelExtendService, FormBuilder.Service" to="FormBuilder.Service.FBModelExtendService, FormBuilder.Service" />
 
 
 </module>
