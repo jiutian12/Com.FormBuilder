@@ -22,6 +22,8 @@ namespace FormBuilder.Service
         FBModelExtend getModel(string id);
         void saveData(FBModelExtend model);
 
+
+        void saveData(List<FBModelExtend> list, string ModelID);
         void deleteData(string id);
 
     }

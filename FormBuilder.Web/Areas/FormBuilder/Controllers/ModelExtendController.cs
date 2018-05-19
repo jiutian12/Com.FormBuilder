@@ -11,15 +11,15 @@ using Newtonsoft.Json;
 
 namespace FormBuilder.Web.Areas.FormBuilder.Controllers
 {
-    public class DataModelSQLController : Controller
+    public class ModelExtendController : Controller
     {
 
 
         #region ctr
 
-        IFBModelSQLService _service;
-        public static LogHelper log = LogFactory.GetLogger(typeof(DataModelController));
-        public DataModelSQLController(IFBModelSQLService service)
+        IFBModelExtendService _service;
+        public static LogHelper log = LogFactory.GetLogger(typeof(ModelExtendController));
+        public ModelExtendController(IFBModelExtendService service)
         {
 
             //log.Error("ddd");
@@ -37,15 +37,18 @@ namespace FormBuilder.Web.Areas.FormBuilder.Controllers
         }
         #endregion
 
+        #region View
+        // GET: FormBuilder/DataModelSQL
 
+        #endregion
         #region Ajax Request
 
         [HttpPost]
-        public JsonResult getList(string modelID, string keyword)
+        public JsonResult getList(string modelID)
         {
             try
             {
-                var list = this._service.getList(modelID, keyword);
+                var list = this._service.getList(modelID);
 
                 return Json(new { res = true, data = list });
             }
@@ -89,16 +92,13 @@ namespace FormBuilder.Web.Areas.FormBuilder.Controllers
         }
 
         [HttpPost]
-        public JsonResult saveData(string data, string ModelID)
+        public JsonResult saveData(string data, string modelID)
         {
             try
             {
-                FBModelSQL model = Newtonsoft.Json.JsonConvert.DeserializeObject<FBModelSQL>(data);
-                if (string.IsNullOrEmpty(model.ID))
-                {
-                    model.ID = Guid.NewGuid().ToString();
-                }
-                this._service.saveData(model);
+                List<FBModelExtend> list = Newtonsoft.Json.JsonConvert.DeserializeObject<List<FBModelExtend>>(data);
+
+                this._service.saveData(list, modelID);
                 return Json(new { res = true, mes = "保存成功！" });
             }
             catch (Exception ex)
@@ -110,4 +110,5 @@ namespace FormBuilder.Web.Areas.FormBuilder.Controllers
 
         #endregion
     }
+
 }

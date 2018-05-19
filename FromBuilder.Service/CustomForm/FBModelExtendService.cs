@@ -43,5 +43,22 @@ namespace FormBuilder.Service
 
             base.Db.Save<FBModelExtend>(model);
         }
+
+        public void saveData(List<FBModelExtend> list, string ModelID)
+        {
+            base.Db.Execute(new Sql("delete from FBModelExtend where  ModelID=@0", ModelID));
+            foreach (FBModelExtend model in list)
+            {
+                if (string.IsNullOrEmpty(model.ID))
+                {
+                    model.ID = Guid.NewGuid().ToString();
+                }
+
+                model.ModelID = ModelID;
+
+                base.Db.Save<FBModelExtend>(model);
+            }
+            
+        }
     }
 }
