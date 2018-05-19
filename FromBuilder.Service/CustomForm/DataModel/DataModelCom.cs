@@ -582,7 +582,7 @@ namespace FormBuilder.Service
             {
                 ywDB.BeginTransaction();
                 DMSQL sqlActionMgr = new DMSQL(modelID, Db, ywDB);
-
+                DataModelExtend extendMgr = new DataModelExtend(modelID, Db, ywDB);
                 var list = getModelObjects(modelID, true, Db);
 
                 var checkList = Db.Fetch<FBModelModifyCheck>("select * from FBModelModifyCheck where ModelID=@0 and ObjectID=@1 and isused='1'", modelID, list[0].ObjectID);
@@ -600,18 +600,22 @@ namespace FormBuilder.Service
 
                 if (status == "edit")
                 {
+                    extendMgr.ExecBeforeSave(modelID, ds, status, ywDB);
                     sqlActionMgr.ExecBeforeSave(ds.Tables[0]);
                     // 业务库
                     ywDB.Execute(DataModelEngine.BuildUpdateSql(list[0], ds));
                     sqlActionMgr.ExecAfterSave(ds.Tables[0]);
+                    extendMgr.ExecAfterSave(modelID, ds, status, ywDB);
                 }
                 else
                 {
+                    extendMgr.ExecBeforeSave(modelID, ds, status, ywDB);
                     sqlActionMgr.ExecBeforeInsert(ds.Tables[0]);
                     // 业务库
                     ywDB.Execute(DataModelEngine.BuildInsertSql(list[0], ds)[0]);
 
                     sqlActionMgr.ExecAfterInsert(ds.Tables[0]);
+                    extendMgr.ExecAfterSave(modelID, ds, status, ywDB);
                 }
                 ywDB.CompleteTransaction();
             }
@@ -630,6 +634,7 @@ namespace FormBuilder.Service
 
             Database ywDB = getModelDataSource(model.DataSource);
             DataModelEngine.setStrategy(getStrategy(ywDB));
+            DataModelExtend extendMgr = new DataModelExtend(modelID, Db, ywDB);
             try
             {
                 ywDB.BeginTransaction();
@@ -638,10 +643,10 @@ namespace FormBuilder.Service
                 var editFlag = status == "edit" ? true : false;
                 var list = getModelObjects(modelID, true, Db);
 
-                DMSQL sqlActionMgr = new DMSQL(modelID, Db, ywDB);
-
                 var mainCode = "";
                 var dataID = "";
+                DMSQL sqlActionMgr = new DMSQL(modelID, Db, ywDB);
+                extendMgr.ExecBeforeSave(modelID, ds, status, ywDB);
                 foreach (var item in list)
                 {
                     if (item.isMain == "1")
@@ -791,6 +796,7 @@ namespace FormBuilder.Service
                 {
                     sqlActionMgr.ExecAfterInsert(ds.Tables[mainCode]);
                 }
+                extendMgr.ExecAfterSave(modelID, ds, status, ywDB);
                 ywDB.CompleteTransaction();
                 #endregion
             }
@@ -856,10 +862,12 @@ namespace FormBuilder.Service
                 List<dynamic> result = new List<dynamic>();
 
                 var editFlag = status == "edit" ? true : false;
+                var mainCode = "";
 
                 DMSQL sqlActionMgr = new DMSQL(modelID, Db, ywDB);
+                DataModelExtend extendMgr = new DataModelExtend(modelID, Db, ywDB);
+                extendMgr.ExecBeforeSave(modelID, ds, status, ywDB);
 
-                var mainCode = "";
                 foreach (var item in list)
                 {
                     if (item.isMain == "1")
@@ -990,9 +998,6 @@ namespace FormBuilder.Service
 
                             saveTimeStampInfo(item, editFlag, false, dataID, ywDB);
                         }
-
-
-
                     }
 
                 }
@@ -1005,6 +1010,7 @@ namespace FormBuilder.Service
                 {
                     sqlActionMgr.ExecAfterInsert(ds.Tables[mainCode]);
                 }
+                extendMgr.ExecAfterSave(modelID, ds, status, ywDB);
                 ywDB.CompleteTransaction();
 
             }
@@ -1021,36 +1027,52 @@ namespace FormBuilder.Service
 
 
 
-        #region 数据模型通用保存方法列表保存  SaveList 待完善 多数据源 todo
+        #region 数据模型通用保存方法列表保存  SaveList 
         public static void saveModelList(string modelID, DataSet ds, DataTable dsDel, Database Db)
         {
             List<dynamic> result = new List<dynamic>();
-
+            FBDataModel model = getDataModelInfo(modelID, Db);
+            Database ywDB = getModelDataSource(model.DataSource);
             var list = getModelObjects(modelID, false, Db);
             var mainCode = list[0].Code;//主表编号
-                                        //界面上先删后增
-            foreach (DataRow row in dsDel.Rows)
+            DataModelExtend extendMgr = new DataModelExtend(modelID, Db, ywDB);
+
+            try
             {
-                // 删除主表信息
-                Db.Execute(DataModelEngine.BuildDeleteMainSql(list[0], row[list[0].PKCOLName].ToString()));
-            }
-            //根据模型策略是先删后增还是部分新增
+                ywDB.BeginTransaction();
+                extendMgr.ExecBeforeSave(modelID, ds, "", ywDB);
 
-            //保存or更新列表上的数据
-            foreach (DataRow row in ds.Tables[mainCode].Rows)
+                //界面上先删后增
+                foreach (DataRow row in dsDel.Rows)
+                {
+                    // 删除主表信息
+                    ywDB.Execute(DataModelEngine.BuildDeleteMainSql(list[0], row[list[0].PKCOLName].ToString()));
+                }
+                //根据模型策略是先删后增还是部分新增
+
+                //保存or更新列表上的数据
+                foreach (DataRow row in ds.Tables[mainCode].Rows)
+                {
+                    // 检查权限？
+                    ywDB.Execute(DataModelEngine.BuildDeleteMainSql(list[0], row[list[0].PKCOLName].ToString()));
+                }
+                //插入数据
+
+
+                var sqlList = DataModelEngine.BuildInsertSql(list[0], ds);
+                foreach (var sql in sqlList)
+                {
+                    ywDB.Execute(sql);
+                }
+
+                ywDB.CompleteTransaction();
+
+            }
+            catch (Exception ex)
             {
-                // 检查权限？
-                Db.Execute(DataModelEngine.BuildDeleteMainSql(list[0], row[list[0].PKCOLName].ToString()));
+                ywDB.AbortTransaction();
+                throw ex;
             }
-            //插入数据
-
-
-            var sqlList = DataModelEngine.BuildInsertSql(list[0], ds);
-            foreach (var sql in sqlList)
-            {
-                Db.Execute(sql);
-            }
-
 
         }
         #endregion
@@ -1158,12 +1180,15 @@ namespace FormBuilder.Service
         }
         #endregion
 
+
+        #region 获取数据模型信息
         private static FBDataModel getDataModelInfo(string ModelID, Database Db)
         {
             FBDataModel model = new FBDataModel();
             model = Db.SingleById<FBDataModel>(ModelID);
             return model;
         }
+        #endregion
 
         public static string getDataSource(string ModelID, Database Db)
         {

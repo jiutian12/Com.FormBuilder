@@ -78,6 +78,7 @@
     <Compile Include="Impl\IFBAccountService.cs" />
     <Compile Include="Impl\IFBCMPService.cs" />
     <Compile Include="Impl\IFBModelExtend.cs" />
+    <Compile Include="Impl\IFBModelExtendService.cs" />
     <Compile Include="Impl\IFBModelSQLService.cs" />
     <Compile Include="Impl\IFBFileService.cs" />
     <Compile Include="Impl\IFBDataSourceService.cs" />
