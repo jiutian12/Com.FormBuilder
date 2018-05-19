@@ -1257,6 +1257,7 @@
     <Content Include="Scripts\demo.js" />
     <Content Include="Scripts\DM\card.js" />
     <Content Include="Scripts\DM\core.js" />
+    <Content Include="Scripts\DM\extend.js" />
     <Content Include="Scripts\DM\list.js" />
     <Content Include="Scripts\DM\sql.js" />
     <Content Include="Scripts\DM\tree.js" />

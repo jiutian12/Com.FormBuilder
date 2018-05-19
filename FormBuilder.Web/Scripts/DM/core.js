@@ -320,6 +320,8 @@
 
 
 
+            $("#btnOpenExtend").click($.proxy(this.openExtend, this));
+
             $("#btnaddChild").click($.proxy(this.chooseChildObject, this));
             $("#btndelChild").click($.proxy(this.deleteChildObject, this));
             $("#btnAddVCol").click($.proxy(this.addVCol, this));
@@ -335,6 +337,11 @@
         openSQLExtend: function () {
             var modelid = this.getDataModelID();
             fBulider.core.window.open("", "SQL动作管理", _global.sitePath + "/DataModelSQL/Index?dataid=" + modelid);
+
+        },
+        openExtend: function () {
+            var modelid = this.getDataModelID();
+            fBulider.core.window.open("", "事件扩展", _global.sitePath + "/DataModel/Extend?dataid=" + modelid);
 
         },
         downRow: function () {
