@@ -294,6 +294,8 @@ namespace FormBuilder.Web.Areas.FormBuilder.Controllers
         /// </summary>
         /// <param name="model"></param>
         /// <returns></returns>
+        /// 
+        [ValidateInput(false)]
         [HttpPost]
         public JsonResult publicUser(string model, string link)
         {
@@ -456,6 +458,8 @@ namespace FormBuilder.Web.Areas.FormBuilder.Controllers
                 //throw ex;
             }
         }
+
+        [ValidateInput(false)]
         [HttpPost]
         public JsonResult saveToolBar(string model)
         {
@@ -478,7 +482,7 @@ namespace FormBuilder.Web.Areas.FormBuilder.Controllers
         }
 
 
-
+        [ValidateInput(false)]
         [HttpPost]
         public JsonResult saveToolBarList(string model)
         {

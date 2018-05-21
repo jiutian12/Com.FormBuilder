@@ -208,7 +208,7 @@
         loadViewer: function () {
             var self = this;
             if (typeof (Viewer) == "undefined") {
-                var baseDir = _global.scriptPath + "/Dlist/Viewer/";
+                var baseDir = _global.scriptPath + "Dlist/Viewer/";
                 self.includeCss(baseDir + "viewer.min.css");
                 jQuery.getScript(baseDir + "viewer.js").done(function () {
                     self.bindViewImage();

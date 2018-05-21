@@ -717,7 +717,7 @@ window.Page.UI = (function (ui, service, model, win, $) {
                     else {
                         $ele.leeUI().setValue(mainModel[bindKey]);
                     }
-                    
+
                 } else {
                     var type = $ele.attr("type");
                     if (type == "text" || $ele.is("textarea")) {
@@ -833,6 +833,34 @@ window.Page.UI = (function (ui, service, model, win, $) {
             ui.fileManager.initParamsEmpty();
             this.setStatus("addsame");
             return true;
+        },
+        deleteGridRow: function (gridid) {
+            var bindings = this.getGridBindData(gridid);
+            var bindtable = bindings.ctrl.bindtable;
+            var grid = bindings.grid;
+
+            var selected = grid.getSelected();
+            if (selected) {
+                grid.endEdit();
+                grid.remove(selected);
+                model.deleteDetailRow(bindtable, selected);
+                // 这里是否要告知模型
+            }
+            return true;
+            // 触发行公式
+            // 刷新整个模型
+
+        },
+        addGridRow: function (gridid) {
+            var bindings = this.getGridBindData(gridid);
+            var bindtable = bindings.ctrl.bindtable;
+            var grid = bindings.grid;
+            grid.addRow(model.getDefaultGridRow(bindtable, model.getMainDataID()));
+            return true;
+        },
+        getGridBindData: function (gridid) {
+
+            return ui.gridController.grids[gridid];
         },
         setValue: function (data) {
             //获取界面上主表绑定进行赋值
@@ -1041,7 +1069,7 @@ window.Page.UI = (function (ui, service, model, win, $) {
                     }
                     else {
                         $ele.leeUI().setValue(mainModel[bindKey]);
-                    } 
+                    }
                 } else {
                     var type = $ele.attr("type");
                     if (type == "text" || $ele.is("textarea")) {
@@ -3833,7 +3861,7 @@ window.Page.UI = (function (ui, service, model, win, $) {
 
                 return [];
             }
-           
+
 
             opts.onConfirmSelect = function (g, p, data, srcID) {
                 function getMapObj(mapFields, data) {
