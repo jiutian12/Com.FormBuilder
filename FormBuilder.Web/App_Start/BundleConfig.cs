@@ -100,7 +100,7 @@ namespace FormBuilder.Web.App_Start
             bundles.Add(new ScriptBundle("~/Bundle/Scripts/LEEUI")
                .Include("~/DList/nicevalidator/jquery.validator.js")
                .Include("~/DList/nicevalidator/local/zh-CN.js")
-               .Include("~/DList/leeui/leeui.min.js"));
+               .Include("~/DList/leeui/leeui.js"));
 
             bundles.Add(new ScriptBundle("~/Bundle/Scripts/Ztree")
                 .Include("~/DList/zTree/js/jquery.ztree.all-3.5.js"));

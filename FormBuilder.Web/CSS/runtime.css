@@ -1069,3 +1069,25 @@
 .lee-table-form.table-border .table-editor {
     min-height: 32px;
 }
+
+.lee-grid-row-alt .lee-grid-row-cell-rownumbers, .lee-grid-row-alt .lee-grid-row-cell {
+    background: #FDFDFD;
+}
+
+.lee-selected .lee-grid-row-cell, .lee-selected td {
+    background: #108ee9 !important;
+    color: #FFF;
+}
+
+
+.lee-upload-files .list .item {
+    display: block;
+    border: 1px solid #DDD;
+    margin:0;
+    margin-top: -1px;
+    background: #fdfdfd;
+}
+.lee-upload-files .list .item img{
+    height: 18px;
+    width: 18px;
+}

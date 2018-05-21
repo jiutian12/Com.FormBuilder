@@ -80,7 +80,8 @@
                 duplicate: true,
                 swf: BASE_URL + '/Uploader.swf',
                 server: p.url,
-                pick: g.picker
+                pick: g.picker,
+                accept: g.getAccept()
             });
             uploader.on('uploadStart', function (file) {
                 g._updateProgress(0);
@@ -101,7 +102,7 @@
                     var model = {
                         id: response.data,
                         name: file.name,
-                        ext: file.ext,
+                        ext: "." + file.ext,
                         type: file.type
                     }
                     if (p.isCard) {
@@ -137,6 +138,45 @@
 
             this.uploader.option('formData', obj);
         },
+        getAccept: function () {
+            var g = this,
+                 p = this.options;
+            var hashExt = {
+                "jpeg": "image/jpeg",
+                "jpg": "image/jpg",
+                "png": "image/png",
+                "gif": "image/gif",
+                "bmp": "image/bmp",
+                "pdf": "application/pdf",
+                "doc": "application/msword",
+                "docx": "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+                "ppt": "application/vnd.ms-powerpoint",
+                "pptx": "application/vnd.openxmlformats-officedocument.presentationml.presentation",
+                "xls": "application/vnd.ms-excel",
+                "xlsx": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+            };
+            if (p.ext != "") {
+                var mimetypearr = [];
+                var arr = p.ext.split(",");
+                $.each(arr, function (i, key) {
+
+                    mimetypearr.push(getMimeType(key));
+                });
+
+                return {
+                    title: '自定义文件',
+                    extensions: p.ext,
+                    mimeTypes: mimetypearr.join(",")
+                }
+
+            }
+
+            function getMimeType(ext) {
+                ext = ext.toLocaleLowerCase();
+                return hashExt[ext];
+            }
+
+        },
         _buidTitle: function (data) {
             var arr = [];
             if (data.name) {
@@ -157,16 +197,24 @@
             var g = this,
                   p = this.options;
             g.wrapper.on("click", ".op.download", function (e) {
-
-
+                g.downloadFile($(this));
             });
             g.wrapper.on("click", ".op.delete", function (e) {
                 g.removeFile($(this));
             });
         },
+        downloadFile: function (achor) {
+            var g = this,
+                  p = this.options;
+            var $ele = $(achor).closest(".box");
+            var id = $ele.attr("dataid");
+
+            window.open(p.downloadUrl + id);
+
+        },
         removeFile: function (achor) {
             var $ele = $(achor).closest(".box");
-            var id = $ele.attr("data-id");
+            var id = $ele.attr("dataid");
 
             this.removeData(id);
             this._setEmpty();
@@ -219,19 +267,23 @@
                 self.bindViewImage();
             }
         },
-        downloadFile: function () {
-
-        },
         _canPreview: function (ext) {
             ext = ext.toLowerCase();
             if (ext) ext = ext.substr(1);
-            if (ext == "jpg" || ext == "png" || ext == "jgeg" || ext == "gif") {
-                return { res: true }
+            if (ext == "jpg" || ext == "png" || ext == "jpeg" || ext == "gif") {
+                return { res: true, src: _global.imgFolder + "/png.png" }
             }
             else if (ext == "xls" || ext == "xlsx") {
                 return { res: false, src: _global.imgFolder + "/excel.png" };
             } else if (ext == "ppt" || ext == "pptx") {
                 return { res: false, src: _global.imgFolder + "/ppt.png" };
+            }
+            else if (ext == "txt") {
+                return { res: false, src: _global.imgFolder + "/txt.png" };
+            } else if (ext == "zip") {
+                return { res: false, src: _global.imgFolder + "/zip.png" };
+            } else if (ext == "pdf") {
+                return { res: false, src: _global.imgFolder + "/pdf.png" };
             }
             else if (ext == "doc" || ext == "docx") {
                 return { res: false, src: _global.imgFolder + "/doc.png" };
@@ -271,7 +323,7 @@
                 g.emptyWrap.hide();
             }
 
-            if (p.data.length == 1 && !p.isMul) {
+            if (p.data.length >= 1 && !p.isMul) {
                 g.picker.hide();
             } else {
                 g.picker.show();
@@ -312,6 +364,8 @@
                 htmlarr.push('</div>');
             } else {
                 htmlarr.push('<div class="item box" dataid="' + data.id + '">');
+                var img = g._canPreview(data.ext);
+                htmlarr.push('    <img class="fileinfo" src="' + img.src + '"/>');
                 htmlarr.push('    <a href="#" class="op download"  title="' + g._buidTitle(data) + '">' + data.name + '</a>');
                 htmlarr.push('    <span class="op"><i class="lee-ion-android-close op delete"></i></span>');
                 htmlarr.push('</div>');

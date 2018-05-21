@@ -187,6 +187,8 @@
     <Content Include="CSS\images\bg1.jpg" />
     <Content Include="CSS\images\btn_icon.gif" />
     <Content Include="CSS\images\datepicker_icon.png" />
+    <Content Include="CSS\images\doc.png" />
+    <Content Include="CSS\images\docx.png" />
     <Content Include="CSS\images\lineload.svg" />
     <Content Include="CSS\images\ball-triangle.svg" />
     <Content Include="CSS\images\bars.svg" />
@@ -203,13 +205,18 @@
     <Content Include="CSS\images\loading-tip.gif" />
     <Content Include="CSS\images\login_ico.png" />
     <Content Include="CSS\images\oval.svg" />
+    <Content Include="CSS\images\pdf.png" />
+    <Content Include="CSS\images\png.png" />
     <Content Include="CSS\images\property_icon_101.png" />
     <Content Include="CSS\images\puff.svg" />
+    <Content Include="CSS\images\rar.png" />
     <Content Include="CSS\images\rings.svg" />
     <Content Include="CSS\images\spinning-circles.svg" />
     <Content Include="CSS\images\tail-spin.svg" />
     <Content Include="CSS\images\three-dots.svg" />
+    <Content Include="CSS\images\txt.png" />
     <Content Include="CSS\images\ui-icons_222222_256x240.png" />
+    <Content Include="CSS\images\xlsx.png" />
     <Content Include="CSS\leeui\lee-loader.css" />
     <Content Include="CSS\lee-ui.css" />
     <Content Include="CSS\leeui\lee.button.css" />

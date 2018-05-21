@@ -3973,6 +3973,8 @@ window.Page.UI = (function (ui, service, model, win, $) {
             var editor = this.options.editor_file;
             opts.isCard = editor.iscard;//
             opts.ext = editor.ext;//扩展名
+            opts.isMul = editor.ismul;
+
             opts.isPreview = editor.ispreview;
             opts.buttonText = editor.buttontext;
             opts.typecode = editor.typecode;
