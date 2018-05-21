@@ -11588,9 +11588,18 @@ function ($) {
 
         },
         removeFile: function (achor) {
+
+            var g = this,
+                 p = this.options;
             var $ele = $(achor).closest(".box");
             var id = $ele.attr("dataid");
 
+
+            if (p.onRemoveFile) {
+
+                p.onRemoveFile(g, id, $ele);
+                return;
+            }
             this.removeData(id);
             this._setEmpty();
 

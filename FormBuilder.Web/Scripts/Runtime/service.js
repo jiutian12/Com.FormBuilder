@@ -257,6 +257,20 @@ window.Page.Service = (function (service, win, $) {
         return defer.promise();
     }
 
+
+    /*删除文件列表*/
+    service.deleteFile = function (id) {
+        var defer = $.Deferred();
+        this.requestApi("/File/DeleteFile", { fileID: id }, "正在删除附件...")
+            .done(function (data) {
+                defer.resolve(data);
+            })
+            .fail(function (data) {
+                defer.reject(data);
+            });
+        return defer.promise();
+    }
+
     ///执行数据库服务脚本
     service.execService = function (dsID, data) {
 

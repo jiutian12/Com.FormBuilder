@@ -3979,6 +3979,21 @@ window.Page.UI = (function (ui, service, model, win, $) {
             opts.buttonText = editor.buttontext;
             opts.typecode = editor.typecode;
             opts.url = _global.sitePath + "/File/upload";
+
+            opts.onRemoveFile = function (g, id, dom) {
+
+                $.leeDialog.confirm("确认要删除吗？", "提示", function (type) {
+                    if (type) {
+                        service.deleteFile(id).done(function (data) {
+                            leeUI.Success(data.mes);
+                            g.removeData(id);
+                            g._setEmpty();
+                            dom.remove();
+                        });
+                    }
+                });
+                
+            }
             return opts;
         },
         init: function () {

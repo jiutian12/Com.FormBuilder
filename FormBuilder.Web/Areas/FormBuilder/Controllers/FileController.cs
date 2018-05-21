@@ -110,7 +110,7 @@ namespace FormBuilder.Web.Areas.FormBuilder.Controllers
             try
             {
                 this._service.deleteFile(fileID);
-                return Json(new { res = false, mes = "删除成功！" });
+                return Json(new { res = true, mes = "删除成功！" });
             }
             catch (Exception ex)
             {
