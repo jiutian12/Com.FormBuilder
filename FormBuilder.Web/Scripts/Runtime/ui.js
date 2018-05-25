@@ -320,7 +320,7 @@ window.Page.UI = (function (ui, service, model, win, $) {
 
             var dataID = "";
             this.openForm(dataID, frmID, "card", "addsame", formState, title, isrefresh, height, width, function () {
-                var dgContext = parent.document.getElementById('frmView' + dataID).contentWindow;
+                var dgContext = document.getElementById('frmView' + dataID).contentWindow;
                 dgContext.Page.UI.instance.initTreeInfo(selected);
             });
 
@@ -332,7 +332,7 @@ window.Page.UI = (function (ui, service, model, win, $) {
                 var dataID = "";
                 this.openForm(dataID, frmID, "card", "addchild", formState, title, isrefresh, height, width, function () {
 
-                    var dgContext = parent.document.getElementById('frmView' + dataID).contentWindow;
+                    var dgContext = document.getElementById('frmView' + dataID).contentWindow;
                     dgContext.Page.UI.instance.initTreeInfo(selected);
                 })
             } else {
@@ -1398,10 +1398,22 @@ window.Page.UI = (function (ui, service, model, win, $) {
                     //self.setStatus("edit");
                     //console.log(data);
                     // 处理主表  处理明细表字段
+                    var copyrow = data.data;
+
+
+
                     var newid = Guid.NewGuid().ToString();
                     model.setModel(data.data);
-                    model.setMainModelObject(model.pkCol, newid);
+                    //model.setMainModelObject(model.pkCol, newid);
+                    model.setNewDataID(newid)
                     self.setDataID(newid);
+
+                    var row = model.getDefaultDataRow();
+                    for (var key in row) {
+                        if (row[key]) {
+                            model.setMainModelObject(key, row[key]);
+                        }
+                    }
                     self.bindCtrl();
                     self.setStatus("add");
                 } else {
@@ -3992,7 +4004,7 @@ window.Page.UI = (function (ui, service, model, win, $) {
                         });
                     }
                 });
-                
+
             }
             return opts;
         },

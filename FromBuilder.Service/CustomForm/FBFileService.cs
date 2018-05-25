@@ -53,7 +53,7 @@ namespace FormBuilder.Service
             return list;
         }
 
-    
+
 
         /// <summary>
         /// 保存文件
@@ -62,12 +62,12 @@ namespace FormBuilder.Service
 
         public void saveFile(FBFileSave model)
         {
-            base.Db.Save<FBFileSave>(model);
+            //base.Db.Save<FBFileSave>(model);
         }
 
         public void saveFile(FBFileSave model, byte[] data)
         {
-            throw new NotImplementedException();
+            // base.Db.Save<FBFileSave>(model);
 
         }
 
@@ -82,7 +82,7 @@ namespace FormBuilder.Service
         /// <param name="file"></param>
         public void upload(string frmID, string dataID, string fileid, string key, string fileName, byte[] file)
         {
-            throw new NotImplementedException();
+
         }
 
 

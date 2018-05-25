@@ -292,9 +292,14 @@
     model.getModel = function () {
         return defaultInstance;
     }
-
+    model.setNewDataID = function (value) {
+        var index = this.getModelObjectIndex(model.mainTableName);
+        if (index != -1)
+            defaultInstance[index].data[0][model.pkCol] = value;
+    }
+    
     model.setMainModelObject = function (key, value) {
-
+        if (key == model.pkCol) return;
         var index = this.getModelObjectIndex(model.mainTableName);
         if (index != -1)
             defaultInstance[index].data[0][key] = value;

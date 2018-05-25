@@ -5,6 +5,7 @@ $.validator.config({
     rules: {
         required: function (ele, params, field) {
             var value = ele.value;
+            value = $.trim(value);
             var title = field.title;
             if (value == "") {
                 return false;
@@ -68,6 +69,7 @@ $(function () {
 var Rules = {
     required: function (value, params) {
         //alert(value);
+        value = $.trim(value);
         if (value == "") {
             return { res: false, mes: params ? params : "不能为空！" };
         } else {
