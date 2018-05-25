@@ -351,11 +351,11 @@
             if (value) {
                 this.options.disabled = true;
                 this.wrapper.addClass('lee-text-disabled');
-                this.inputText.attr("readonly", "readonly");
+                 this.inputText.attr("readonly", "readonly");
             } else {
                 this.options.disabled = false;
                 this.wrapper.removeClass('lee-text-disabled');
-                this.inputText.removeAttr("readonly");
+                //this.inputText.removeAttr("readonly");
             }
         },
         _setRequired: function (value) {
