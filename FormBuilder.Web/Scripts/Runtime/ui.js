@@ -912,11 +912,13 @@ window.Page.UI = (function (ui, service, model, win, $) {
         /*字典单行编辑方法*/
         deleteData: function () {
             var self = this;
+            var defer = $.Deferred();
             this.getCtrl();
             var dataID = model.getMainDataID();
             $.leeDialog.confirm("确认要删除吗？", "提示", function (type) {
                 if (type) {
                     service.deleteModel(modelID, dataID).done(function (data) {
+                        defer.resolve(data);
                         self.lastID = "";
                         self.saveExpandStatus();
                         self.reload();
@@ -927,6 +929,7 @@ window.Page.UI = (function (ui, service, model, win, $) {
                     });
                 }
             });
+            return defer.promise();
         },
         saveExpandStatus: function () {
             this.expandrows = [];
@@ -1109,9 +1112,12 @@ window.Page.UI = (function (ui, service, model, win, $) {
                             var id = this.id
                             var idField = model.pkCol;
                             var modelID = model.ID;
+                            var beforeID = self.lastID;
                             var dataID = rowdata[idField];
                             self.lastID = dataID;//记录上一次选中值
-
+                            if (!ui.stateMachine.cannot("cancel")) {
+                                ui.stateMachine.action("cancel");
+                            }
 
                             //发起请求获取数据 调用service
                             service.getModelByDataID(modelID, dataID).done(function (data) {
@@ -2933,6 +2939,9 @@ window.Page.UI = (function (ui, service, model, win, $) {
         },
         action: function (type) {
             this.fsm.action(type);
+        },
+        cannot: function (action) {
+            return this.fsm.cannot(action, false);
         },
         refreshUI: function (fsm, mes) {
 
