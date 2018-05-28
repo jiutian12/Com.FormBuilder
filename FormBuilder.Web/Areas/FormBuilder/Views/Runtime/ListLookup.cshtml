@@ -50,6 +50,10 @@
             },
             reloadGrid: function () {
 
+
+
+                $("#grid").leeUI().options.newPage = 1;
+
                 if (this.options.async) {
                     this.asyncLoadFirst($(".lee-search-words").val());
                 }
@@ -181,11 +185,32 @@
                             }
                         }
                         self.grid.loadData({ Rows: data.data }); //添加数据
+                        self.tiggerDetailLevel();
                     }
                     $.leeDialog.hideLoading();
                 }).fail(function (data) {
                     console.log("失败");
                 });
+            },
+            tiggerDetailLevel: function () {
+                var manger = $("#grid").leeUI();
+                if (manger) {
+                    var data = manger.getData();
+                    var index = 0;
+                    for (var item in data) {
+                        if (data[item][modelpkcol] == self.targetID) {
+                            manger.select(index);
+                            var row = manger.getRow(index);
+                            var dom = manger._getRowDomId(row);
+                            window.setTimeout(function () {
+                                $(document.getElementById(dom)).find(".lee-grid-tree-link-close").click();
+                            }, 50);
+
+                            break;
+                        }
+                        index++;
+                    }
+                }
             },
             bulidTreeOptions: function () {
                 this.treeInfo = this.config.treeInfo;
@@ -228,21 +253,23 @@
                     onAfterShowData: function () {
 
                         $.leeDialog.hideLoading();
-                        var manger = $("#grid").leeUI();
-                        if (manger) {
-                            var data = manger.getData();
-                            var index = 0;
-                            for (var item in data) {
-                                if (data[item][modelpkcol] == self.targetID) {
-                                    manger.select(index);
-                                    var row = manger.getRow(index);
-                                    var dom = manger._getRowDomId(row);
-                                    $(document.getElementById(dom)).find(".lee-grid-tree-link-close").click();
-                                    break;
-                                }
-                                index++;
-                            }
-                        }
+
+                        self.tiggerDetailLevel();
+                        //var manger = $("#grid").leeUI();
+                        //if (manger) {
+                        //    var data = manger.getData();
+                        //    var index = 0;
+                        //    for (var item in data) {
+                        //        if (data[item][modelpkcol] == self.targetID) {
+                        //            manger.select(index);
+                        //            var row = manger.getRow(index);
+                        //            var dom = manger._getRowDomId(row);
+                        //            $(document.getElementById(dom)).find(".lee-grid-tree-link-close").click();
+                        //            break;
+                        //        }
+                        //        index++;
+                        //    }
+                        //}
                         //targetID
                         // 返回的数据里找到id
                         //$(".lee-grid-body-main .target:first .lee-grid-tree-link-close").click();
@@ -299,7 +326,7 @@
                 if (keyword != "") {
                     if (this.selectField != "") {
                         //alert(this.selectField);
-                        express.push(this.selectField, keyword);
+                        express.push("", "", this.selectField, keyword, "LIKE", "");
                     }
                     else {
                         //编号 or 名称字段like

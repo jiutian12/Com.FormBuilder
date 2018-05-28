@@ -423,9 +423,12 @@
 			g.text.removeClass('lee-text-disabled');
 			p.disabled = false;
 		},
-		setDisabled: function() {
+		setDisabled: function(flag) {
 			var g = this,
 				p = this.options;
+			if (flag == false) {
+			    this.setEnabled();
+			}
 			g.inputText.attr("readonly", "readonly");
 			g.text.addClass('lee-text-disabled');
 			p.disabled = true;

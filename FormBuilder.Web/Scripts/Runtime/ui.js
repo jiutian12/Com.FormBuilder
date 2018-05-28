@@ -1414,6 +1414,7 @@ window.Page.UI = (function (ui, service, model, win, $) {
                     model.setNewDataID(newid)
                     self.setDataID(newid);
 
+                    model.clearTimeStamp();//清空时间戳信息
                     var row = model.getDefaultDataRow();
                     for (var key in row) {
                         if (row[key]) {

@@ -211,6 +211,16 @@
 
 
     }
+
+    model.getTimeInfo = function (sourceid) {
+        var index = hashSchema[sourceid];
+        if (index) {
+            return model.schema[index].timeInfo;
+        } else {
+            index = hashSchema[this.mainTable.id];
+            return model.schema[index].timeInfo;
+        }
+    }
     // 处理模型缓存
     model.setCache = function () {
         var main = this.getMainObject();
@@ -297,13 +307,28 @@
         if (index != -1)
             defaultInstance[index].data[0][model.pkCol] = value;
     }
-    
+
     model.setMainModelObject = function (key, value) {
         if (key == model.pkCol) return;
         var index = this.getModelObjectIndex(model.mainTableName);
         if (index != -1)
             defaultInstance[index].data[0][key] = value;
     }
+
+    model.clearTimeStamp = function () {
+        if (key == model.pkCol) return;
+        var index = this.getModelObjectIndex(model.mainTableName);
+        if (index != -1) {
+            var timeInfo = model.getTimeInfo(model.mainTable.id);
+            if (timeInfo) {
+                defaultInstance[index].data[0][timeInfo.lastModifyUser] = "";
+                defaultInstance[index].data[0][timeInfo.lastModifyTime] = "";
+                defaultInstance[index].data[0][timeInfo.createUser] = "";
+                defaultInstance[index].data[0][timeInfo.createTime] = "";
+            }
+        }
+    }
+    //timeinfo
     model.setMainModel = function (data) {
         var index = this.getModelObjectIndex(model.mainTableName);
         if (index != -1)
