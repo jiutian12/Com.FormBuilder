@@ -3797,7 +3797,9 @@ window.Page.UI = (function (ui, service, model, win, $) {
             var self = this;
             var ctrl = this.ele.leeDate(opt);
             this.ele.change(function () {
-                self.ele.isValid();
+                window.setTimeout(function () {
+                    self.ele.isValid();
+                }, 200);
             });
             return ctrl;
             //如果是数据模型 绑定远程url

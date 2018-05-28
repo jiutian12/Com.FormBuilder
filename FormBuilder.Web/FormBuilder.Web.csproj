@@ -1108,6 +1108,7 @@
     <Content Include="DList\jquery-ui\jquery-ui.theme.min.css" />
     <Content Include="DList\jquery-ui\LICENSE.txt" />
     <Content Include="DList\laydate\laydate.js" />
+    <Content Include="DList\laydate\laydate.min.js" />
     <Content Include="DList\laydate\theme\default\font\iconfont.svg" />
     <Content Include="DList\laydate\theme\default\laydate.css" />
     <Content Include="DList\layer\layer.js" />
