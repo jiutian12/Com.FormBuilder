@@ -45,6 +45,14 @@ namespace FormBuilder.Service
                 //获取树形结构
                 model.treeInfo = Newtonsoft.Json.JsonConvert.DeserializeObject<JFBTreeStruct>(model.tree);
             }
+            if (!string.IsNullOrEmpty(model.changeFields))
+            {
+
+                model.timeInfo = Newtonsoft.Json.JsonConvert.DeserializeObject<JFBTimeStamp>(model.changeFields);
+            }
+
+
+
             if (!string.IsNullOrEmpty(model.condition))
             {
 

@@ -24,10 +24,14 @@ namespace FormBuilder.Model
         public string isMainTable { get; set; }//是否主表
 
         public string tree { get; set; }
+
+        public string changeFields { get; set; }
         public string condition { get; set; }
 
         public JFBTreeStruct treeInfo { get; set; }
 
+
+        public JFBTimeStamp timeInfo { get; set; }
 
         public List<Condition> conditionInfo { get; set; }
         public List<JFBColumn> cols { get; set; }//字段集合

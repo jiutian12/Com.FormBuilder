@@ -185,7 +185,7 @@
                             }
                         }
                         self.grid.loadData({ Rows: data.data }); //添加数据
-                        self.tiggerDetailLevel();
+                        //self.tiggerDetailLevel();
                     }
                     $.leeDialog.hideLoading();
                 }).fail(function (data) {
@@ -193,6 +193,7 @@
                 });
             },
             tiggerDetailLevel: function () {
+                var self = this;
                 var manger = $("#grid").leeUI();
                 if (manger) {
                     var data = manger.getData();

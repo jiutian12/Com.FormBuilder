@@ -428,6 +428,7 @@
 				p = this.options;
 			if (flag == false) {
 			    this.setEnabled();
+			    return;
 			}
 			g.inputText.attr("readonly", "readonly");
 			g.text.addClass('lee-text-disabled');
