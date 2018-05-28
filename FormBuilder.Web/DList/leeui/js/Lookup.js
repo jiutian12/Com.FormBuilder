@@ -15,6 +15,7 @@
         title: "请选择",
         dgWidth: "550",
         type: "", //类型 1.页面内 2.新页面 
+        nameSwitch: true,
         dockType: "", //1.下拉 2.侧边栏
         isTree: "", //是否树形
         childOnly: false,// 只选明细
@@ -67,6 +68,10 @@
 
             g.valueField.data("beforeText", "").data("beforeValue", "");
             g.inputText.addClass("lee-text-field");
+
+            if (!p.nameSwitch) {
+                g.inputText.attr("readonly", "readonly");
+            }
             //开关 事件 图标绑定
             g.link.hover(function () {
                 if (p.disabled) return;
@@ -105,9 +110,11 @@
 
             });
             g.inputText.on("change", function (e) {
-
+                if (!p.nameSwitch) return;
                 var otext = g.valueField.data("beforeText");//原来的名称
                 var ovalue = g.valueField.data("beforeValue");//原来的value
+
+
                 g.onTextSearch.call(g, e, otext, ovalue);
 
             });
@@ -375,7 +382,8 @@
             } else {
                 this.options.disabled = false;
                 this.wrapper.removeClass('lee-text-disabled');
-                this.inputText.removeAttr("readonly");
+                if (this.options.nameSwitch)
+                    this.inputText.removeAttr("readonly");
             }
         },
         _setRequired: function (value) {
