@@ -90,6 +90,13 @@ namespace FormBuilder.Service
                     //获取树形结构
                     item.treeInfo = Newtonsoft.Json.JsonConvert.DeserializeObject<JFBTreeStruct>(item.tree);
                 }
+
+                if (!string.IsNullOrEmpty(item.changeFields))
+                {
+
+                    item.timeInfo = Newtonsoft.Json.JsonConvert.DeserializeObject<JFBTimeStamp>(item.changeFields);
+                }
+
                 //获取明细列信息
                 List<JFBColumn> obj_list = new List<JFBColumn>();
                 // 这里改成用字母排序 方便查看

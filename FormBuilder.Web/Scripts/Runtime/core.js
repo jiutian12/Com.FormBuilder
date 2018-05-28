@@ -45,7 +45,16 @@ $(function () {
         $(".lee-layout-center").css("border", "0");
         $("body").css("padding", "0");
     }
+    $(".lee-layout-content").scroll(function (event) {
+        var managers = $.leeUI.find($.leeUI.controls.DropDown);
+        for (var i = 0, l = managers.length; i < l; i++) {
+            var o = managers[i];
+            if (o.selectBox.is(":visible") != null && o.selectBox.is(":visible")) {
+                o._toggleSelectBox(true);
+            }
 
+        }
+    });
 
     //$.each(pageConfig, function (key, obj) {
     //    if ($("#" + key)) {

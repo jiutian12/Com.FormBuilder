@@ -2264,9 +2264,14 @@ window.Page.UI = (function (ui, service, model, win, $) {
                 onAfterShowData: this.onAfterShowData,
                 onSelectRow: this.onSelectRow,
                 enabledEdit: true,
-                heightDiff: ctrl.border ? 0 : 1
+                heightDiff: ctrl.border ? 0 : 1,
+
             };
 
+
+            if (ctrl.diff) {
+                opts.heightDiff += ctrl.diff;
+            }
 
             $.each(ctrl.columns, function (i, obj) {
                 if (obj.group) {
@@ -2894,7 +2899,7 @@ window.Page.UI = (function (ui, service, model, win, $) {
                 items: findBarByID(barid), onbuttonClick: function (res, item) {
                     if (item.action) {
                         //deffered 
-                        if (res.then) {
+                        if (res && res.then) {
                             res.then(function (data) {
                                 if (data) {
                                     ui.stateMachine.action(item.action);
@@ -3148,7 +3153,7 @@ window.Page.UI = (function (ui, service, model, win, $) {
 
                                 //txt_filterexp
                                 if (value != "") {
-
+                                    value = $.trim(value);
                                     if (ctrl.filtertype == "4" && ctrl.filterexp) {//表达式分支处理
 
                                         expressList.push(ctrl.filterfield, self.dealExp({ value: value }, ctrl.filterexp), " in ", " and ", true);
@@ -3561,7 +3566,7 @@ window.Page.UI = (function (ui, service, model, win, $) {
 
             opts.isLabel = editor.islabel;
             opts.autocomplete = editor.issuggest; //是否智能提示 
-
+ 
             opts.onselected = function (value, text) {
                 ui.event.trigger(self.id, "selected", [value, text]);
                 //值改变后 触发计算公式 验证？

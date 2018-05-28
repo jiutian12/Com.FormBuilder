@@ -294,7 +294,7 @@
                                 if (res === false) {
 
                                 } else {
-                                    leeUI.Error("请选中要操作的数据！");
+                                    g.getContext().leeUI.Error("请选中要操作的数据！");
                                 }
                             }
                             else {

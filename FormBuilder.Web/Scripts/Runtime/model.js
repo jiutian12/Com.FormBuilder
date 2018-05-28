@@ -316,7 +316,7 @@
     }
 
     model.clearTimeStamp = function () {
-        if (key == model.pkCol) return;
+      
         var index = this.getModelObjectIndex(model.mainTableName);
         if (index != -1) {
             var timeInfo = model.getTimeInfo(model.mainTable.id);

@@ -327,7 +327,7 @@
                 if (keyword != "") {
                     if (this.selectField != "") {
                         //alert(this.selectField);
-                        express.push("", "", this.selectField, keyword, "LIKE", "");
+                        express.add("", "", this.selectField, keyword, "LIKE", " ");
                     }
                     else {
                         //编号 or 名称字段like

@@ -164,7 +164,7 @@
                 });
 
                 return {
-                    title: '自定义文件',
+                    title: p.ext,
                     extensions: p.ext,
                     mimeTypes: mimetypearr.join(",")
                 }
