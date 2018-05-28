@@ -3876,6 +3876,9 @@ a.lee-radio-checked:after {
   display: block;
   margin-bottom: 4px;
 }
+.lee-alert.tipblack .alert-message {
+  color: #FFF;
+}
 .lee-alert .alert-description {
   display: block;
   font-size: 12px;

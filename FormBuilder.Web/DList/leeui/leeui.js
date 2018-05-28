@@ -1296,18 +1296,18 @@ function ($) {
 				});
 			} else {
 				//这里处理是否能拉伸出去
-				if(cur.top <= 0) {
-					cur.top = 0;
-				}
-				if(cur.left <= 0) {
-					cur.left = 0;
-				}
-				if(cur.top >= $(document).height() - $(applyResultBody).height()-3) {
-					cur.top = $(document).height() - $(applyResultBody).height()-3;
-				}
-				if(cur.left >= $(document).width() - $(applyResultBody).width()-3) {
-					cur.left = $(document).width() - $(applyResultBody).width()-3
-				}
+//				if(cur.top <= 0) {
+//					cur.top = 0;
+//				}
+//				if(cur.left <= 0) {
+//					cur.left = 0;
+//				}
+//				if(cur.top >= $(document).height() - $(applyResultBody).height()-3) {
+//					cur.top = $(document).height() - $(applyResultBody).height()-3;
+//				}
+//				if(cur.left >= $(document).width() - $(applyResultBody).width()-3) {
+//					cur.left = $(document).width() - $(applyResultBody).width()-3
+//				}
 				applyResultBody.css(cur);
 			}
 		},
@@ -8446,7 +8446,7 @@ function ($) {
             } else {
                 this.options.disabled = false;
                 this.wrapper.removeClass('lee-text-disabled');
-                this.inputText.removeAttr("readonly");
+                //this.inputText.removeAttr("readonly");
             }
         },
         _setRequired: function (value) {
