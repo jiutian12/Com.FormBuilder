@@ -8442,7 +8442,7 @@ function ($) {
             if (value) {
                 this.options.disabled = true;
                 this.wrapper.addClass('lee-text-disabled');
-                this.inputText.attr("readonly", "readonly");
+                 this.inputText.attr("readonly", "readonly");
             } else {
                 this.options.disabled = false;
                 this.wrapper.removeClass('lee-text-disabled');
@@ -10076,7 +10076,8 @@ function ($) {
         openLookup: function () {
             var g = this, p = this.options;
             // 如果parent页面有dialog对象 则采用parent
-
+            if (g.isopen) return; //如果已经弹出则不允许弹出了
+            g.isopen = true;
             var $openDg = this.getContext().$.leeDialog.open({
                 title: p.title,
                 name: 'lookupwindow',
@@ -10087,7 +10088,7 @@ function ($) {
                 height: p.dgHeight,
                 onclose: function () {
                     g.dealcolse();
-
+                    g.isopen = false;
                 },
                 url: p.url + p.helpID,
                 onLoaded: function () {
@@ -10120,7 +10121,7 @@ function ($) {
                                 if (res === false) {
 
                                 } else {
-                                    leeUI.Error("请选中要操作的数据！");
+                                    g.getContext().leeUI.Error("请选中要操作的数据！");
                                 }
                             }
                             else {
@@ -10130,6 +10131,8 @@ function ($) {
                                 //单选 多选 触发值改变事件
                                 //alert(value);
                                 $openDg.close();
+                                g.dealcolse();
+                                g.isopen = false;
                                 g.setKeyword("");
                             }
                         }
@@ -10139,6 +10142,7 @@ function ($) {
                         cls: 'lee-dialog-btn-cancel ',
                         onclick: function (item, dialog) {
                             g.dealcolse();
+                            g.isopen = false;
                             $openDg.close();
 
                         }
@@ -11526,7 +11530,7 @@ function ($) {
                  p = this.options;
             var hashExt = {
                 "jpeg": "image/jpeg",
-                "jpg": "image/jpg",
+                "jpg": "image/jpeg",
                 "png": "image/png",
                 "gif": "image/gif",
                 "bmp": "image/bmp",
@@ -11547,7 +11551,7 @@ function ($) {
                 });
 
                 return {
-                    title: '自定义文件',
+                    title: p.ext,
                     extensions: p.ext,
                     mimeTypes: mimetypearr.join(",")
                 }

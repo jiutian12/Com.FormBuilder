@@ -143,7 +143,7 @@
                  p = this.options;
             var hashExt = {
                 "jpeg": "image/jpeg",
-                "jpg": "image/jpg",
+                "jpg": "image/jpeg",
                 "png": "image/png",
                 "gif": "image/gif",
                 "bmp": "image/bmp",

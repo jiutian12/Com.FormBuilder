@@ -250,7 +250,8 @@
         openLookup: function () {
             var g = this, p = this.options;
             // 如果parent页面有dialog对象 则采用parent
-
+            if (g.isopen) return; //如果已经弹出则不允许弹出了
+            g.isopen = true;
             var $openDg = this.getContext().$.leeDialog.open({
                 title: p.title,
                 name: 'lookupwindow',
@@ -261,7 +262,7 @@
                 height: p.dgHeight,
                 onclose: function () {
                     g.dealcolse();
-
+                    g.isopen = false;
                 },
                 url: p.url + p.helpID,
                 onLoaded: function () {
@@ -304,6 +305,8 @@
                                 //单选 多选 触发值改变事件
                                 //alert(value);
                                 $openDg.close();
+                                g.dealcolse();
+                                g.isopen = false;
                                 g.setKeyword("");
                             }
                         }
@@ -313,6 +316,7 @@
                         cls: 'lee-dialog-btn-cancel ',
                         onclick: function (item, dialog) {
                             g.dealcolse();
+                            g.isopen = false;
                             $openDg.close();
 
                         }
