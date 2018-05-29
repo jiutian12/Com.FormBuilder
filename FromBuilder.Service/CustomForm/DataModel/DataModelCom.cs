@@ -37,7 +37,7 @@ namespace FormBuilder.Service
             if (Db.DatabaseType == DatabaseType.MySQL)
                 token = "`";
             //获取数据模型的表关联信息
-            Sql sql = new Sql(" select " + token + "Condition" + token + ",Tree,ID,Code as tableName,PKCOLName as pkCol,Label as tableLabel, isMain as isMainTable from FBDataModelObjects where ModelID =@0 and ismain = '1'", modelID);
+            Sql sql = new Sql(" select " + token + "Condition" + token + ",changeFields,Tree,ID,Code as tableName,PKCOLName as pkCol,Label as tableLabel, isMain as isMainTable from FBDataModelObjects where ModelID =@0 and ismain = '1'", modelID);
             model = Db.FirstOrDefault<JFBSchema>(sql);
             model.isMain = model.isMainTable == "1" ? true : false;
             if (!string.IsNullOrEmpty(model.tree))
@@ -79,7 +79,7 @@ namespace FormBuilder.Service
                 token = "`";
             }
             //获取数据模型的表关联信息
-            Sql sql = new Sql(@" select  " + token + "Condition" + token + ", Tree,ID,Code as tableName,PKCOLName as pkCol,Label as tableLabel , isMain as isMainTable  from FBDataModelObjects where ModelID=@0", modelID);
+            Sql sql = new Sql(@" select  " + token + "Condition" + token + ", changeFields,Tree,ID,Code as tableName,PKCOLName as pkCol,Label as tableLabel , isMain as isMainTable  from FBDataModelObjects where ModelID=@0", modelID);
             list = Db.Fetch<JFBSchema>(sql);
 
             foreach (var item in list)

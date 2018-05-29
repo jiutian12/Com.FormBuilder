@@ -3570,12 +3570,14 @@ window.Page.UI = (function (ui, service, model, win, $) {
 
             opts.isLabel = editor.islabel;
             opts.autocomplete = editor.issuggest; //是否智能提示 
- 
+
             opts.onselected = function (value, text) {
                 ui.event.trigger(self.id, "selected", [value, text]);
                 //值改变后 触发计算公式 验证？
             }
 
+
+            opts.cancelable = (editor.cancel ? true : false);
 
 
             return opts;

@@ -371,6 +371,7 @@ var EditorFactory = (function () {
 				"#ed_dropdown_ismul",
 				"#ed_dropdown_issuggest",
                 "#ed_dropdown_islabel",
+                "#ed_dropdown_cancel",
                 "#ed_dropdown_isbit"
 
 
@@ -414,6 +415,8 @@ var EditorFactory = (function () {
             $("#ed_dropdown_ismul").prop("checked", editor.ismul);
             $("#ed_dropdown_issuggest").prop("checked", editor.issuggest);
             $("#ed_dropdown_islabel").prop("checked", editor.islabel);
+            $("#ed_dropdown_cancel").prop("checked", editor.cancel);
+            
             $("#ed_dropdown_isbit").prop("checked", editor.isbit);
 
             
@@ -466,6 +469,7 @@ var EditorFactory = (function () {
             this.editor.ismul = $("#ed_dropdown_ismul").prop("checked");
             this.editor.issuggest = $("#ed_dropdown_issuggest").prop("checked");
             this.editor.islabel = $("#ed_dropdown_islabel").prop("checked");
+            this.editor.cancel = $("#ed_dropdown_cancel").prop("checked"); 
             this.editor.isbit = $("#ed_dropdown_isbit").prop("checked");
         },
         getCompleteName: function (key) {

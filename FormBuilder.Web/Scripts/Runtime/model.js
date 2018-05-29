@@ -101,6 +101,15 @@
         if (isTree)
             obj = model.getTreeDataRow(obj, rowdata, isSame);
 
+
+
+        var timeInfo = model.getTimeInfo(model.mainTable.id);
+        if (timeInfo) {
+            obj[timeInfo.lastModifyUser] = Page.Context.get("UserName");
+            obj[timeInfo.lastModifyTime] = Page.Context.getNow();
+            obj[timeInfo.createUser] = Page.Context.get("UserName");
+            obj[timeInfo.createTime] = Page.Context.getNow();
+        }
         //这里要处理模型的默认值信息
 
         //树形结构需获取分级码信息 根据上级的内容
@@ -316,7 +325,7 @@
     }
 
     model.clearTimeStamp = function () {
-      
+
         var index = this.getModelObjectIndex(model.mainTableName);
         if (index != -1) {
             var timeInfo = model.getTimeInfo(model.mainTable.id);
