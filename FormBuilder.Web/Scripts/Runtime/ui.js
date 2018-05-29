@@ -1117,7 +1117,10 @@ window.Page.UI = (function (ui, service, model, win, $) {
                             self.lastID = dataID;//记录上一次选中值
                             if (!ui.stateMachine.cannot("cancel")) {
                                 ui.stateMachine.action("cancel");
+                                //self.validMain(function () { });
                             }
+
+
 
                             //发起请求获取数据 调用service
                             service.getModelByDataID(modelID, dataID).done(function (data) {
@@ -1127,6 +1130,7 @@ window.Page.UI = (function (ui, service, model, win, $) {
                                     //self.bindCtrl();
                                     self.setValue(data.data);
                                     self.setStatus("edit");
+                                    self.validMain(function () { });//赋值后重新触发校验
                                 } else {
                                     $.leeUI.Warn(data.mes);
                                 }

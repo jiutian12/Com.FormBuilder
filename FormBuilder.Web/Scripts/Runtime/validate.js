@@ -136,7 +136,7 @@ var Rules = {
         },
         setRules: function (rules) {
             this.rules = rules;
-            $('#form').validator({ timely: 2, theme: 'yellow_bottom' });
+            $('#form').validator({ timely: 3, theme: 'yellow_bottom' });
             $('#form').validator("setField", this.rules);
 
         },
