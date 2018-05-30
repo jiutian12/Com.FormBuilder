@@ -484,7 +484,7 @@ GridManager.prototype = {
             "#grid_label,#grid_colspan,#grid_readonly,#grid_onAfterShowData",
             "#grid_border,#grid_rownumber,#grid_checkbox,#grid_pager,#grid_margin,#grid_async,#grid_alt",
             "#grid_tree,#grid_treefield,#grid_height,#grid_qrycmptype,#grid_isqry,#grid_qryexp",
-            "#grid_height,#grid_top,#grid_left,#grid_width,#grid_pagesize", "grid_diff"
+            "#grid_height,#grid_top,#grid_left,#grid_width,#grid_pagesize", "#grid_diff"
         ]; $(ctlrArr.join(",")).change(function () {
             //alert($(this).attr("id"));
             self.onPropChanged();

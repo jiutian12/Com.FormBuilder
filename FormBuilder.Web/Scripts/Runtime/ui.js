@@ -1486,6 +1486,8 @@ window.Page.UI = (function (ui, service, model, win, $) {
             this.setDataID(model.getMainDataID());
             this.bindCtrl();
             ui.fileManager.initParamsEmpty();
+
+            ui.event.trigger("", "onadd", []);
             return true;
 
         },
@@ -2268,13 +2270,13 @@ window.Page.UI = (function (ui, service, model, win, $) {
                 onAfterShowData: this.onAfterShowData,
                 onSelectRow: this.onSelectRow,
                 enabledEdit: true,
-                heightDiff: ctrl.border ? 0 : 1,
+                heightDiff: (ctrl.border ? 0 : 1),
 
             };
 
 
             if (ctrl.diff) {
-                opts.heightDiff += ctrl.diff;
+                opts.heightDiff += Number(ctrl.diff);
             }
 
             $.each(ctrl.columns, function (i, obj) {
@@ -3604,6 +3606,8 @@ window.Page.UI = (function (ui, service, model, win, $) {
 
                             ctrl.setData(data.data);
                             ctrl.options.data = data.data;
+
+                            ui.event.trigger("", "onselectload", [ctrl.id]);
 
                         }
                     }).fail(function (data) {

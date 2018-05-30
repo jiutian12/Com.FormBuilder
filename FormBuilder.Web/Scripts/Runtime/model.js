@@ -42,6 +42,15 @@
             }
         }
     }
+    //获取模型值的switch
+    model.getDefaultValueChange = function (tableName, col, value) {
+        if (tableName == "") tableName = model.mainTable.code;
+        var dataType = hashCol[tableName + "." + col].dataType;
+        if (dataType == "6") { //bit bool类型
+            return (value == "1" ? true : false);
+        }
+        return value;
+    }
     model.dealDefautlDatatypeValue = function (tableName, col, value) {
         var dataType = defalutCol[tableName + "." + col].dataType;
         if (dataType == "6") { //bit bool类型
@@ -128,8 +137,10 @@
         if (!rowdata) {
             obj[treeInfo.level] = treeInfo.rootlevel ? treeInfo.rootlevel : "1";
             obj[treeInfo.parentid] = treeInfo.rootvalue ? treeInfo.rootvalue : "-1";
-            obj[treeInfo.isdetail] = "1";
-            obj[treeInfo.ischild] = "1";
+
+
+            obj[treeInfo.isdetail] = model.getDefaultValueChange("", treeInfo.isdetail, "1");
+            obj[treeInfo.ischild] = model.getDefaultValueChange("", treeInfo.ischild, "1");
             obj[treeInfo.grade] = "0001";
         }
         curentTreeObj = {};
@@ -143,7 +154,7 @@
             } else {
                 obj[treeInfo.level] = String(parseInt(rowdata[treeInfo.level]) + 1);
             }
-            obj[treeInfo.isdetail] = "1";
+            obj[treeInfo.isdetail] = model.getDefaultValueChange("", treeInfo.ischild, "1");
         }
 
 
@@ -154,7 +165,7 @@
             } else {
                 obj[treeInfo.parentid] = rowdata[treeInfo.id];
             }
-            obj[treeInfo.ischild] = "1";
+            obj[treeInfo.ischild] = model.getDefaultValueChange("", treeInfo.ischild, "1");
             curentTreeObj.id = rowdata[treeInfo.id];
             curentTreeObj.parentid = rowdata[treeInfo.parentid];
 
@@ -230,6 +241,7 @@
             return model.schema[index].timeInfo;
         }
     }
+    var hashCol = {};
     // 处理模型缓存
     model.setCache = function () {
         var main = this.getMainObject();
@@ -253,6 +265,14 @@
                 code: obj.tableName,
                 data: []
             });
+
+            for (var j = 0; j < obj.cols.length; j++) {
+
+                var columnName = obj.cols[j]["label"];//标签名称 
+                hashCol[obj.tableName + "." + columnName] = obj.cols[j];
+      
+
+            }
 
         });
 
