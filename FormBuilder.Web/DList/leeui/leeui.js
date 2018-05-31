@@ -1082,7 +1082,7 @@ function ($) {
 		onStopDrag: false,
 		handler: null,
 		//鼠标按下再弹起，如果中间的间隔小于[dragDelay]毫秒，那么认为是点击，不会进行拖拽操作
-		clickDelay: 100,
+		clickDelay: 300,
 		//代理 拖动时的主体,可以是'clone'或者是函数,放回jQuery 对象
 		proxy: true,
 		revert: false,
@@ -11421,6 +11421,7 @@ function ($) {
             if (p.isCard && !p.isMul) {
                 p.isAvatar = true;
             }
+            g.deldata = [];
             //p.isCard = false;
             g.inputText = $(this.element);
             g.picker = $("<div class='picker'></div>");
@@ -11621,10 +11622,12 @@ function ($) {
         removeData: function (id) {
             var g = this,
                  p = this.options;
+            g.deldata = g.deldata || [];
             var index = -1;
             for (var item in p.data) {
-                if (p.data.id === id) {
+                if (p.data[item].id === id) {
                     index = item;
+                    g.deldata.push(p.data[item]);
                 }
             }
             p.data.splice(item, 1);
@@ -11802,6 +11805,11 @@ function ($) {
               p = this.options;
 
             return p.data;
+        },
+        getDelData: function () {
+            var g = this,
+            p = this.options;
+            return g.deldata;
         },
         getSingleValue: function () {
             var g = this,

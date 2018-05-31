@@ -135,6 +135,7 @@
                 var self = this;
                 var onTreeExpand = function (rowdata, e) {
                     var grid = this;
+                    var scrollTop = grid.gridbody.scrollTop();
 
                     if (rowdata._loaded || (rowdata.children && rowdata.children.length > 0)) return;
                     if (!rowdata._loaded && !rowdata.children) {
@@ -162,6 +163,7 @@
                             grid.append(data.data, rowdata); //添加数据    
                             e.update();
                             rowdata._loaded = true;
+                            grid.gridbody[0].scrollTop = scrollTop;
                         }
                         grid.toggleLoading(false);
                     }).fail(function (data) {

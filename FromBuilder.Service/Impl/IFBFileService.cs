@@ -28,7 +28,7 @@ namespace FormBuilder.Service
 
         JFBFileSave getFileInfo(string fileid);
 
-
+        int setFileMainID(string fileID, string mainID);
         void deleteFile(string fileID);
     }
 }

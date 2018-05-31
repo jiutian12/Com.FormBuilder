@@ -71,6 +71,11 @@ namespace FormBuilder.Service
 
         }
 
+        public int setFileMainID(string fileID, string mainID)
+        {
+            return 1;
+        }
+
         /// <summary>
         /// 上传文件
         /// </summary>

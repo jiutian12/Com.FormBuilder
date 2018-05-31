@@ -1078,7 +1078,9 @@
     background: #108ee9 !important;
     color: #FFF;
 }
-
+.lee-selected .lee-grid-row-cell, .lee-selected td a {
+    color: #FFF;
+}
 
 .lee-upload-files .list .item {
     display: block;

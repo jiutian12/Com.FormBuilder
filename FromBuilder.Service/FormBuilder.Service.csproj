@@ -41,6 +41,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Web" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -76,6 +77,8 @@
     <Compile Include="CustomForm\FBFormService.cs" />
     <Compile Include="CustomForm\FBDataSourceService.cs" />
     <Compile Include="CustomForm\FBSmartHelpService.cs" />
+    <Compile Include="CustomForm\FileProvider\FileManger.cs" />
+    <Compile Include="CustomForm\FileProvider\FileProvider.cs" />
     <Compile Include="Impl\IFBAccountService.cs" />
     <Compile Include="Impl\IFBCMPService.cs" />
     <Compile Include="Impl\IFBModelExtend.cs" />

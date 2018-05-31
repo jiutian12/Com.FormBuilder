@@ -382,7 +382,8 @@ namespace FormBuilder.Service
 
             if (!string.IsNullOrEmpty(keyWord))
             {
-                string qrySql = string.Format(" and {0}.{1} like '{2}%'", model.tableLabel, model.treeInfo.treename, keyWord);
+
+                string qrySql = string.Format(" and ({0}.{1} like '{2}%' or {0}.{3} like '{2}%')", model.tableLabel, model.treeInfo.treename, keyWord, model.treeInfo.treecode);
                 var resultList = ywDB.Fetch<Dictionary<string, object>>(new Sql(sbInit).Append(new Sql(qrySql)));
 
                 foreach (var item in result)
@@ -717,7 +718,7 @@ namespace FormBuilder.Service
 
                         }
                         dataID = ds.Tables[item.Code].Rows[0][item.PKCOLName].ToString();//记录主键
-                        saveFileList(modelID, dataID, ds, Db); //保存主表附件信息
+                        FileManger.saveFileList(modelID, dataID, ds, Db); //保存主表附件信息
                         saveTimeStampInfo(item, editFlag, true, dataID, ywDB); // 时间戳处理
                     }
                     else if (item.isSave == "1") // 如果明细表启用了保存的话
@@ -933,7 +934,7 @@ namespace FormBuilder.Service
 
 
                         //保存卡片附件信息
-                        saveFileList(modelID, dataID, ds, Db);
+                        FileManger.saveFileList(modelID, dataID, ds, Db);
                         saveTimeStampInfo(item, editFlag, true, dataID, ywDB); // 时间戳处理
                     }
                     else if (item.isSave == "1") // 如果明细表启用了保存的话
@@ -1097,29 +1098,31 @@ namespace FormBuilder.Service
 
 
         #region 保存附件信息 saveFileList
-        private static void saveFileList(string modelID, string dataID, DataSet ds, Database Db)
-        {
-            if (!ds.Tables.Contains("FBFileSave")) return;
-            DataTable dt = ds.Tables["FBFileSave"];
-            List<JFBFileSave> list = Db.Fetch<JFBFileSave>(new Sql(" select  id,filename name ,fileext ext,'' src,createuser,createtime from FBFileSave  where dataid=@0 ", dataID));
+        //private static void saveFileList(string modelID, string dataID, DataSet ds, Database Db)
+        //{
+        //    if (!ds.Tables.Contains("FBFileSave")) return;
+        //    DataTable dt = ds.Tables["FBFileSave"];
+        //    List<JFBFileSave> list = Db.Fetch<JFBFileSave>(new Sql(" select  id,filename name ,fileext ext,'' src,createuser,createtime from FBFileSave  where dataid=@0 ", dataID));
 
-            List<string> deleteArr = new List<string>();
-            foreach (var item in list)
-            {
+        //    // 如果当前id和 dataid 不相同 需要调用setmainid
+        //    // 如果状态是删除 则需要删除附件
+        //    List<string> deleteArr = new List<string>();
+        //    foreach (var item in list)
+        //    {
 
-                if (dt.Rows.Count == 0 || dt.Select(" id='" + item.id + "'").Length <= 0)//如果保存的数据里没有 则删除数据库记录
-                    deleteArr.Add(item.id);
-            }
-            //删除记录
-            foreach (var item in deleteArr)
-            {
+        //        if (dt.Rows.Count == 0 || dt.Select(" id='" + item.id + "'").Length <= 0)//如果保存的数据里没有 则删除数据库记录
+        //            deleteArr.Add(item.id);
+        //    }
+        //    //删除记录
+        //    foreach (var item in deleteArr)
+        //    {
 
-                //FileOpService extSvr = new FileOpService();
-                ////
-                //extSvr.svr.deleteFile(item);
-                Db.Execute(new Sql("delete from FBFileSave where id=@0", item));
-            }
-        }
+        //        //FileOpService extSvr = new FileOpService();
+        //        ////
+        //        //extSvr.svr.deleteFile(item);
+        //        Db.Execute(new Sql("delete from FBFileSave where id=@0", item));
+        //    }
+        //}
         #endregion
 
 

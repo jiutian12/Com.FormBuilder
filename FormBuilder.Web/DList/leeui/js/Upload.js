@@ -34,6 +34,7 @@
             if (p.isCard && !p.isMul) {
                 p.isAvatar = true;
             }
+            g.deldata = [];
             //p.isCard = false;
             g.inputText = $(this.element);
             g.picker = $("<div class='picker'></div>");
@@ -234,10 +235,12 @@
         removeData: function (id) {
             var g = this,
                  p = this.options;
+            g.deldata = g.deldata || [];
             var index = -1;
             for (var item in p.data) {
-                if (p.data.id === id) {
+                if (p.data[item].id === id) {
                     index = item;
+                    g.deldata.push(p.data[item]);
                 }
             }
             p.data.splice(item, 1);
@@ -415,6 +418,11 @@
               p = this.options;
 
             return p.data;
+        },
+        getDelData: function () {
+            var g = this,
+            p = this.options;
+            return g.deldata;
         },
         getSingleValue: function () {
             var g = this,

@@ -117,6 +117,10 @@ window.Page.UI = (function (ui, service, model, win, $) {
             // 获取当前页面的主键信息
             return this.dataID;
         },
+        getTmpID: function () {
+            this.tmpid = this.tmpid || Guid.NewGuid().ToString();
+            return this.tmpid;
+        },
         getAction: function () {
             // 获取当前页面的主键信息
             return this.status;
@@ -950,6 +954,7 @@ window.Page.UI = (function (ui, service, model, win, $) {
             this.getCtrl();
             var data = model.getSaveData();
             data["FBFileSave"] = ui.fileManager.getAllData();//绑定附件数据
+            data["FBFileDel"] = ui.fileManager.getDelData();//绑定附件数据
             if (ui.event.triggerHandler("", "beforeSave", data) === false) return;
             var tmpid = model.getMainDataID();
             var treeCurrent = model.getCurrentTreeObj();
@@ -1130,7 +1135,9 @@ window.Page.UI = (function (ui, service, model, win, $) {
                                     //self.bindCtrl();
                                     self.setValue(data.data);
                                     self.setStatus("edit");
-                                    self.validMain(function () { });//赋值后重新触发校验
+
+                                    $('#form').validator("cleanUp");
+                                    //self.validMain(function () { });//赋值后重新触发校验
                                 } else {
                                     $.leeUI.Warn(data.mes);
                                 }
@@ -1290,6 +1297,8 @@ window.Page.UI = (function (ui, service, model, win, $) {
             model.setMainModel(ui.gridController.mainGrid.getData());
             var data = model.getSaveData();//获取保存数据
             data["FBFileSave"] = ui.fileManager.getAllData();//绑定附件数据
+            data["FBFileDel"] = ui.fileManager.getDelData();//绑定附件数据
+
             //模型id 数据
             if (ui.event.triggerHandler("", "beforeSave", data) === false) return;
             service.saveModelList(modelID, JSON.stringify(data), JSON.stringify(this.deleteData)).done(function (data) {
@@ -1553,6 +1562,7 @@ window.Page.UI = (function (ui, service, model, win, $) {
             this.getCtrl();
             var data = model.getSaveData();
             data["FBFileSave"] = ui.fileManager.getAllData();//绑定附件数据
+            data["FBFileDel"] = ui.fileManager.getDelData();//绑定删除附件数据
             //获取到树形
             var treeCurrent = model.getCurrentTreeObj();
             if (ui.event.triggerHandler("", "beforeSave", data) === false) return;
@@ -1738,7 +1748,7 @@ window.Page.UI = (function (ui, service, model, win, $) {
                 var $ele = $("#" + item).leeUI();
                 $ele.updateParams({
                     frmID: ui.getFrmID(),
-                    dataID: ui.instance.getDataID(),
+                    dataID: ui.instance.getTmpID(), //"随机生成一个主键"
                     field: "",
                     typecode: ctrl.editor_file.typecode
                 });
@@ -1755,13 +1765,23 @@ window.Page.UI = (function (ui, service, model, win, $) {
             }
             return arr;
         },
+        getDelData: function () {
+            // 获取界面上所有的附件数据集合
+            var arr = [];
+            for (var item in ui.instance.controls["file"]) {
+                var ctrl = ui.instance.controls["file"][item];
+                var $ele = $("#" + item).leeUI();
+                arr = arr.concat($ele.getDelData());//把删除数据也放入表中
+            }
+            return arr;
+        },
         initParamsEmpty: function () {
             for (var item in ui.instance.controls["file"]) {
                 var ctrl = ui.instance.controls["file"][item];
                 var $ele = $("#" + item).leeUI();
                 $ele.updateParams({
                     frmID: ui.getFrmID(),
-                    dataID: ui.instance.getDataID(),
+                    dataID: ui.instance.getTmpID(),  //"随机生成一个主键"
                     field: ""
                 });
                 $ele.setValue([]);
@@ -4023,6 +4043,7 @@ window.Page.UI = (function (ui, service, model, win, $) {
 
                 $.leeDialog.confirm("确认要删除吗？", "提示", function (type) {
                     if (type) {
+
                         service.deleteFile(id).done(function (data) {
                             leeUI.Success(data.mes);
                             g.removeData(id);

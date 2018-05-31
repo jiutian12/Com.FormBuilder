@@ -31,9 +31,14 @@ namespace FormBuilder.LBFileProvider
             return stream;
 
         }
+        public int setFileMainID(string fileID, string mainID)
+        {
+            return svr.SetFileMainId(fileID, mainID);
+        }
 
         public byte[] downLoadFile(string fileid)
         {
+
             return svr.GetDownloadFile(fileid);
         }
 
