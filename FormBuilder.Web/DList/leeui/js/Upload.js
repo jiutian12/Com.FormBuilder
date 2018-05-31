@@ -156,11 +156,12 @@
                 "xls": "application/vnd.ms-excel",
                 "xlsx": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
             };
+          
             if (p.ext != "") {
                 var mimetypearr = [];
                 var arr = p.ext.split(",");
                 $.each(arr, function (i, key) {
-
+                  
                     mimetypearr.push(getMimeType(key));
                 });
 

@@ -22,10 +22,7 @@ namespace FormBuilder.Service
 
             foreach (DataRow row in dt.Rows)
             {
-                if (!row["DataID"].ToString().Equals(dataID))
-                {
-                    FileProvider.Provider.setFileMainID(row["ID"].ToString(), dataID);
-                }
+                FileProvider.Provider.setFileMainID(row["ID"].ToString(), dataID);
             }
         }
 
