@@ -494,7 +494,7 @@ GridManager.prototype = {
 
         $("#grid_readonly").leeCheckBox({ labelText: "只读" });
 
-        
+
         $("#grid_alt").leeCheckBox({ labelText: "隔行换色" });
         $("#grid_border").leeCheckBox({ labelText: "显示边框" });
         $("#grid_rownumber").leeCheckBox({ labelText: "行号" });
@@ -600,7 +600,7 @@ GridManager.prototype = {
         $("#grid_treefield").val(obj.treefield);
         $("#grid_diff").val(obj.diff);
 
-        
+
         $("#grid_height").val(obj.height);
 
         $("#grid_width").val(obj.width);
@@ -615,7 +615,7 @@ GridManager.prototype = {
         $("#grid_border").prop("checked", obj.border);
         $("#grid_border").leeCheckBox().setValue(obj.border);
 
-       
+
         $("#grid_alt").prop("checked", obj.alt);
         $("#grid_alt").leeCheckBox().setValue(obj.alt);
 
@@ -652,7 +652,7 @@ GridManager.prototype = {
         $("#grid_qrycmptype").val(obj.qrycmptype);
         $("#grid_pagesize").val(obj.pagesize);
 
-        
+
 
         $("#grid_qryexp").val(obj.qryexp);
 
@@ -740,7 +740,15 @@ GridManager.prototype = {
                 width: 60,
                 align: 'center',
                 render: leeUI.gridRender.CheckboxRender
-            }, {
+            },
+             {
+                 display: '是否排序',
+                 name: 'issort',
+                 width: 60,
+                 align: 'center',
+                 render: leeUI.gridRender.CheckboxRender
+             },
+             {
                 display: '格式化',
                 name: 'fomart',
                 width: 80,

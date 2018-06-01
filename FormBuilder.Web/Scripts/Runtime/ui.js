@@ -2409,6 +2409,7 @@ window.Page.UI = (function (ui, service, model, win, $) {
                     required: obj.required,
                     width: obj.colwidth,
                     readonly: obj.readonly,
+                    isSort: (obj.issort == false ? false : true),
                     align: obj.align ? obj.align : "left",
                     hide: obj.hidden == "1" ? true : false
                 };
