@@ -668,13 +668,13 @@ window.Page.UI = (function (ui, service, model, win, $) {
                     if (type == "Upload") {
                         BindValue = $ele.leeUI().getSingleValue();
                     } else {
-                        BindValue = $ele.leeUI().getValue();
+                        BindValue = $.trim($ele.leeUI().getValue());
                     }
 
                 } else {
                     var type = $ele.attr("type");
                     if (type == "text" || $ele.is("textarea")) {
-                        BindValue = $ele.val();
+                        BindValue = $.trim($ele.val());
                     }
                     else if (type == "checkbox") {
                         BindValue = $ele.prop("checked") ? "1" : "0";
@@ -1028,13 +1028,13 @@ window.Page.UI = (function (ui, service, model, win, $) {
                     if (type == "Upload") {
                         BindValue = $ele.leeUI().getSingleValue();
                     } else {
-                        BindValue = $ele.leeUI().getValue();
+                        BindValue = $.trim($ele.leeUI().getValue());
                     }
 
                 } else {
                     var type = $ele.attr("type");
                     if (type == "text" || $ele.is("textarea")) {
-                        BindValue = $ele.val();
+                        BindValue = $.trim($ele.val());
                     }
                     else if (type == "checkbox") {
                         BindValue = $ele.prop("checked") ? "1" : "0";
@@ -1633,12 +1633,12 @@ window.Page.UI = (function (ui, service, model, win, $) {
                     if (type == "Upload") {
                         BindValue = $ele.leeUI().getSingleValue();
                     } else {
-                        BindValue = $ele.leeUI().getValue();
+                        BindValue = $.trim($ele.leeUI().getValue());
                     }
                 } else {
                     var type = $ele.attr("type");
                     if (type == "text" || $ele.is("textarea")) {
-                        BindValue = $ele.val();
+                        BindValue =  $.trim($ele.val());
                     }
                     else if (type == "checkbox") {
                         BindValue = $ele.prop("checked") ? "1" : "0";

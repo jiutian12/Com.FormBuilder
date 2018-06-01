@@ -55,11 +55,14 @@
                 $("#grid").leeUI().options.newPage = 1;
 
                 if (this.options.async) {
-                    this.asyncLoadFirst($(".lee-search-words").val());
+                    this.asyncLoadFirst(this.getKeword());
                 }
                 else {
                     $("#grid").leeUI().reload();
                 }
+            },
+            getKeword: function () {
+                return $.trim($(".lee-search-words").val());
             },
             bind: function () {
                 var self = this;
@@ -146,7 +149,7 @@
                     var parentIDField = treeInfo.id;
                     //alert(parentIDField);
                     //console.log(rowdata);
-                    Page.Service.getTreeAsyncLoadData(self.config.modelID, rowdata[levelField], rowdata[gradeField], rowdata[parentIDField], $(".lee-search-words").val(), "", "", false).done(function (data) {
+                    Page.Service.getTreeAsyncLoadData(self.config.modelID, rowdata[levelField], rowdata[gradeField], rowdata[parentIDField], self.getKeword(), "", "", false).done(function (data) {
                         if (data.res) {
                             var flag = true;
                             for (var item in data.data) {
@@ -325,7 +328,7 @@
             },
             getFilter: function () {
                 var express = new Utils.Express();
-                var keyword = $(".lee-search-words").val();
+                var keyword = this.getKeword();
                 if (keyword != "") {
                     if (this.selectField != "") {
                         //alert(this.selectField);
