@@ -52,7 +52,7 @@
                 g.textFieldID = this.element.id;
             }
             //g.valueField = null;
-
+            g.defer = null;
             g.valueField = $('<input type="hidden"/>');
             g.valueField[0].id = g.valueField[0].name = g.textFieldID + "_val";
 
@@ -143,16 +143,25 @@
         },
         onTextSearch: function (e, otext, ovalue) {
             var g = this, p = this.options;
+
             if (g.inputText.val() == "") {
                 g.setValue("", "");
                 return;
             }
             if (g.inputText.val() == otext) return;
+            g.defer = $.Deferred();//创建一个异步promise
             g.getQueryResult(g.inputText.val());
             //var res = { Code: "0101", Name: "哈哈哈" };//查询结果
             //g.setValue(res[p.valueField], res[p.textField]);
             //g.trigger("valuechange", res); // 触发值改变事件
             ////如果没有匹配 那么则把text改成原来的 并给予提示
+        },
+        getDefer: function () {
+            var g = this;
+            if (g.defer) {
+                return g.defer.promise();
+            }
+            return null;
         },
         getQueryResult: function (value) {
             //getModelDataByDataID
@@ -167,6 +176,8 @@
                     filter = JSON.stringify(p.getFilter());
                 }
                 p.service.getQueryHelpSwitch(p.helpID, value, p.codeField, p.textField, filter, false).done(function (data) {
+                    if (g.defer)
+                        g.defer.resolve(data);
                     if (data.res) {
                         var arr = data.data;
 
@@ -186,13 +197,11 @@
                             g.confirmSelect(arr);// 触发选中事件 
                             g.query = false;
                         }
-
-
-
                     }
                     else {
                         g.query = false;
                     }
+                    g.defer = null;
                 }).fail(function (data) {
                     console.log("失败");
 

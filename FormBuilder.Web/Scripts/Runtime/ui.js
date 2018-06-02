@@ -949,36 +949,56 @@ window.Page.UI = (function (ui, service, model, win, $) {
         },
         /*字典类保存方法*/
         _saveData: function (callback) {
-            //validate 
+
             var self = this;
-            this.getCtrl();
-            var data = model.getSaveData();
-            data["FBFileSave"] = ui.fileManager.getAllData();//绑定附件数据
-            data["FBFileDel"] = ui.fileManager.getDelData();//绑定附件数据
-            if (ui.event.triggerHandler("", "beforeSave", data) === false) return;
-            var tmpid = model.getMainDataID();
-            var treeCurrent = model.getCurrentTreeObj();
-            this.saveExpandStatus();
-            //模型id 数据
-            service.saveModel(
-                modelID,
-                JSON.stringify(data),
-                this.status,
-                JSON.stringify(treeCurrent)
-            ).done(function (data) {
-                if (ui.event.triggerHandler("", "afterSave", data) === false) return;
-                self.lastID = tmpid;
-                self.reload();
-                if (data.res) {
-                    leeUI.Success(data.mes);
+            var ctrls = $.leeUI.managers;
+            var deferred = [];
+            $.each(ctrls, function (i, obj) {
+                if (obj.type == "Lookup") {
+                    console.log(" 帮助控件");
+                    console.log(obj.getDefer());
+                    var ret = obj.getDefer();
+                    if (ret && ret.then) {
+                        deferred.push(ret);
+                    }
                 }
-                callback(data.res);
-
-
-            })
-            .fail(function (data) {
-                console.log("失败");
             });
+            $.when.apply(
+               null,
+               $.map(deferred, function (v) { return v; })
+           ).done(function () {
+               self.getCtrl();
+               var data = model.getSaveData();
+               data["FBFileSave"] = ui.fileManager.getAllData();//绑定附件数据
+               data["FBFileDel"] = ui.fileManager.getDelData();//绑定附件数据
+               if (ui.event.triggerHandler("", "beforeSave", data) === false) return;
+               var tmpid = model.getMainDataID();
+               var treeCurrent = model.getCurrentTreeObj();
+               self.saveExpandStatus();
+               //模型id 数据
+               service.saveModel(
+                   modelID,
+                   JSON.stringify(data),
+                   self.status,
+                   JSON.stringify(treeCurrent)
+               ).done(function (data) {
+                   if (ui.event.triggerHandler("", "afterSave", data) === false) return;
+                   self.lastID = tmpid;
+                   self.reload();
+                   if (data.res) {
+                       leeUI.Success(data.mes);
+                   }
+                   callback(data.res);
+
+
+               })
+               .fail(function (data) {
+                   console.log("失败");
+               });
+           });
+
+
+
         },
         saveData: function () {
 
@@ -1559,35 +1579,54 @@ window.Page.UI = (function (ui, service, model, win, $) {
         },
         _saveData: function (callback) {
             var self = this;
-            this.getCtrl();
-            var data = model.getSaveData();
-            data["FBFileSave"] = ui.fileManager.getAllData();//绑定附件数据
-            data["FBFileDel"] = ui.fileManager.getDelData();//绑定删除附件数据
-            //获取到树形
-            var treeCurrent = model.getCurrentTreeObj();
-            if (ui.event.triggerHandler("", "beforeSave", data) === false) return;
-            //模型id 数据
-            service.saveModelALL(
-                modelID,
-                this.getDataID(),
-                JSON.stringify(data),
-                this.status,
-                JSON.stringify(treeCurrent)
-            ).done(function (data) {
-                //self.reload();
-                if (ui.event.triggerHandler("", "afterSave", data) === false) return;
-                if (data.res) {
-                    leeUI.Success(data.mes);
-                    self.loadData(true);
-                    self.setStatus("edit");//保存后状态改为修改
-                    //callback(data.res);
+            var ctrls = $.leeUI.managers;
+            var deferred = [];
+            $.each(ctrls, function (i, obj) {
+                if (obj.type == "Lookup") {
+                    console.log(" 帮助控件");
+                    console.log(obj.getDefer());
+                    var ret = obj.getDefer();
+                    if (ret && ret.then) {
+                        deferred.push(ret);
+                    }
                 }
-                callback(data.res);
-                //成功后刷新列表
-                //触发保存成功事件
-            }).fail(function (data) {
-                console.log("失败");
             });
+            $.when.apply(
+               null,
+               $.map(deferred, function (v) { return v; })
+           ).done(function () {
+               self.getCtrl();
+               var data = model.getSaveData();
+               data["FBFileSave"] = ui.fileManager.getAllData();//绑定附件数据
+               data["FBFileDel"] = ui.fileManager.getDelData();//绑定删除附件数据
+               //获取到树形
+               var treeCurrent = model.getCurrentTreeObj();
+               if (ui.event.triggerHandler("", "beforeSave", data) === false) return;
+               //模型id 数据
+               service.saveModelALL(
+                   modelID,
+                   self.getDataID(),
+                   JSON.stringify(data),
+                   self.status,
+                   JSON.stringify(treeCurrent)
+               ).done(function (data) {
+                   //self.reload();
+                   if (ui.event.triggerHandler("", "afterSave", data) === false) return;
+                   if (data.res) {
+                       leeUI.Success(data.mes);
+                       self.loadData(true);
+                       self.setStatus("edit");//保存后状态改为修改
+                       //callback(data.res);
+                   }
+                   callback(data.res);
+                   //成功后刷新列表
+                   //触发保存成功事件
+               }).fail(function (data) {
+                   console.log("失败");
+               });
+           });
+
+
         },
         saveData: function (callback) {
             var defer = $.Deferred();
