@@ -242,13 +242,18 @@
             },
             bulidOptions: function () {
                 var self = this;
+
+                var popts = [];
+                if (this.config.pageOption) {
+                    popts = this.config.pageOption.split(",");
+                }
                 var opts = {
                     columns: this.buildColumns(),
                     fixedCellHeight: true,//固定行高
                     alternatingRow: false,
                     usePager: true,
-                    pageSize: 200,
-                    pageSizeOptions: [100, 200, 500, 1000, 2000],
+                    pageSize: (this.config.pageSize || 50),
+                    pageSizeOptions: popts,
                     height: "100%",
                     checkbox: this.options.isMul,
                     rownumbers: true,
@@ -342,6 +347,9 @@
                 }
                 if (this.options.filter)
                     express.joinCondition(this.options.filter);
+
+                if (this.config.filter)
+                    express.joinCondition($.parseJSON(this.config.filter));
                 return JSON.stringify(express.serialize());
             },
             getOrder: function () {

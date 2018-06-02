@@ -481,7 +481,7 @@ GridManager.prototype = {
     bind: function () {
         var self = this;
         var ctlrArr = [
-            "#grid_label,#grid_colspan,#grid_readonly,#grid_onAfterShowData",
+            "#grid_label,#grid_colspan,#grid_readonly,#grid_onAfterShowData","#grid_hidecol",
             "#grid_border,#grid_rownumber,#grid_checkbox,#grid_pager,#grid_margin,#grid_async,#grid_alt",
             "#grid_tree,#grid_treefield,#grid_height,#grid_qrycmptype,#grid_isqry,#grid_qryexp",
             "#grid_height,#grid_top,#grid_left,#grid_width,#grid_pagesize", "#grid_diff"
@@ -493,7 +493,10 @@ GridManager.prototype = {
         $("#grid_checkbox").leeCheckBox({ labelText: "复选" });
 
         $("#grid_readonly").leeCheckBox({ labelText: "只读" });
+        $("#grid_hidecol").leeCheckBox({ labelText: "隐藏列" });
 
+
+        
 
         $("#grid_alt").leeCheckBox({ labelText: "隔行换色" });
         $("#grid_border").leeCheckBox({ labelText: "显示边框" });
@@ -611,6 +614,16 @@ GridManager.prototype = {
 
         $("#grid_readonly").prop("checked", obj.readonly);
         $("#grid_readonly").leeCheckBox().setValue(obj.readonly);
+
+
+
+        $("#grid_hidecol").prop("checked", obj.hidecol);
+        $("#grid_hidecol").leeCheckBox().setValue(obj.hidecol);
+
+
+
+        
+
 
         $("#grid_border").prop("checked", obj.border);
         $("#grid_border").leeCheckBox().setValue(obj.border);
@@ -845,6 +858,9 @@ GridManager.prototype = {
 
         //this.obj.readonly = $("#grid_readonly").prop("checked");
         this.obj.readonly = $("#grid_readonly").leeUI().getValue();
+        this.obj.hidecol = $("#grid_hidecol").leeUI().getValue();
+
+        
         //this.obj.border = $("#grid_border").prop("checked");
         this.obj.border = $("#grid_border").leeUI().getValue();
         this.obj.alt = $("#grid_alt").leeUI().getValue();

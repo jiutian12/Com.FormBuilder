@@ -124,7 +124,25 @@ namespace FormBuilder.Web.Areas.FormBuilder.Controllers
             return View(model);
         }
 
+        [HttpPost]
+        // GET: FBMeta
+        public JsonResult GetSYSDate(string format)
+        {
+            try
+            {
+                if (string.IsNullOrEmpty(format))
+                    format = "yyyy-MM-dd HH:mm:ss";
+                return Json(new { res = true, data = DateTime.Now.ToString(format), mes = "ok" });
 
+                //return Content("213213");
+            }
+            catch (Exception ex)
+            {
+                return Json(new { res = true, mes = ex.Message });
+                //throw ex;
+                //return Json(new { res = true, mes = "操作失败" + ex.Message });
+            }
+        }
 
     }
 }

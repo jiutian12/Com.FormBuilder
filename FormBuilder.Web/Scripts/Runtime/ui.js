@@ -1638,7 +1638,7 @@ window.Page.UI = (function (ui, service, model, win, $) {
                 } else {
                     var type = $ele.attr("type");
                     if (type == "text" || $ele.is("textarea")) {
-                        BindValue =  $.trim($ele.val());
+                        BindValue = $.trim($ele.val());
                     }
                     else if (type == "checkbox") {
                         BindValue = $ele.prop("checked") ? "1" : "0";
@@ -2294,6 +2294,7 @@ window.Page.UI = (function (ui, service, model, win, $) {
 
             };
 
+            opts.allowHideColumn = (ctrl.hidecol ? true : false);
 
             if (ctrl.diff) {
                 opts.heightDiff += Number(ctrl.diff);

@@ -77,8 +77,25 @@ window.Page.Service = (function (service, win, $) {
         return defer.promise();
     }
 
+    service.getSYSDate = function (format) {
+        var data = null;
+        $.ajax({
+            url: service.defaults.baseURL + "/Runtime/GetSYSDate",
+            async: false,
+            data: { format: format },
+            dataType: "json",
+            success: function (res) {
+                data = res;
+            }
+        });
+        console.log(data);
+        //alert(data.res);
+        if (data.res) {
+            return data.data;
+        }
+        return "";
 
-
+    }
 
     ///获取模型数据 list
     service.getModelData = function (modelID, filter, order, keyword, isCustom) {

@@ -119,7 +119,7 @@ namespace FormBuilder.Service
 
         public JFBSmartHelp getRuntimeModel(string helpid)
         {
-            Sql sql = new Sql(@"select id,modelID,title,viewtype as type from FBSmartHelp  where  ID=@0", helpid);
+            Sql sql = new Sql(@"select id,modelID,title,viewtype as type,pageOption,pageSize,autoCol,filter,sort from FBSmartHelp  where  ID=@0", helpid);
 
             JFBSmartHelp model = base.Db.FirstOrDefault<JFBSmartHelp>(sql);
 

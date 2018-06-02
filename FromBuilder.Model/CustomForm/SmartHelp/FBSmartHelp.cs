@@ -73,5 +73,12 @@ namespace FormBuilder.Model
 
         [Ignore]
         public string parentID { get; set; }
+
+
+        public string PageOption { get; set; }
+
+        public string PageSize { get; set; }
+
+        public string AutoCol { get; set; }
     }
 }

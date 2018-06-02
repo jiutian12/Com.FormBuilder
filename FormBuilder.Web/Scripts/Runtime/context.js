@@ -22,6 +22,9 @@
         },
         getNow: function () {
             return getFormatDate(new Date());
+        },
+        getSerNow: function () {
+            return Page.Service.getSYSDate();
         }
     };
 
@@ -146,7 +149,7 @@
         }
     };
 
-  
+
     var config = new ConfigManger();
     config.init();
 

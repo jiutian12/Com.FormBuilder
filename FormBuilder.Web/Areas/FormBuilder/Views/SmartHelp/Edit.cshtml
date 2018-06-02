@@ -145,7 +145,7 @@
                                 <input type="text" class='lee-input ' data-bind="Filter" id='txtFilter'>
                             </td>
                         </tr>
-                        <tr>
+                        <tr style="display:none;">
                             <td class="label ">
                                 排序条件
                             </td>
@@ -153,6 +153,26 @@
                                 <input type="text" class='lee-input ' data-bind="Sort" id='txtSort'>
                             </td>
                         </tr>
+                        <tr>
+                            <td class="label ">
+                                分页大小
+                            </td>
+                            <td>
+                                <input type="text" class='lee-input ' data-bind="PageSize" id='txtPageSize'>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td class="label ">
+                                分页选项
+                            </td>
+                            <td>
+                                <input type="text" class='lee-input ' data-bind="PageOption" id='txtPageOption'>
+                            </td>
+                        </tr>
+
+
+
                         <tr>
                             <td class="label">
                                 创建人
@@ -221,10 +241,48 @@
 </style>
 @section ExternalScripts{
     <script src="~/Scripts/FrameWork/page.js"></script>
+    <script src="~/Scripts/FrameWork/ui.js"></script>
     <script src="~/Scripts/SHelp/edit.js"></script>
 }
 <script>
+    $(function () {
 
+        var $injector2 = new $.leeUI.PopUp.FilterEditorInjector({
+            width: 800, height: 250, getValue: function () {
+                return $("#txtFilter").leeUI().getValue();
+            }, getFields: function () {
+                var data = $("#grid").leeUI().getData();
+
+                var arr = [];
+                $.each(data, function (i, obj) {
+                    arr.push({ id: obj.ColCode, text: obj.ColName });
+                });
+                return arr;
+            }
+        });
+
+        $("#txtFilter").leePopup({ onButtonClick: $.leeUI.PopUp.Lookup($injector2) });
+
+
+
+        var $injector9 = new $.leeUI.PopUp.SortInjector({
+            width: 800, height: 250, getValue: function () {
+                return $("#txtSort").leeUI().getValue();
+            }, getFields: function () {
+                var data = $("#grid").leeUI().getData();
+
+                var arr = [];
+                $.each(data, function (i, obj) {
+                    arr.push({ id: obj.ColCode, text: obj.ColName });
+                });
+                return arr;
+            }
+        });
+
+        $("#txtSort").leePopup({ onButtonClick: $.leeUI.PopUp.Lookup($injector9) });
+
+
+    });
 
 
 

@@ -655,7 +655,7 @@ namespace FormBuilder.Web.Areas.FormBuilder.Controllers
             }
             catch (Exception ex)
             {
-                return Json(new { res = false, mes = "操作失败" + ex.Message });
+                return Json(new { res = false, mes = ex.Message });
                 //throw ex;
             }
         }
@@ -691,7 +691,7 @@ namespace FormBuilder.Web.Areas.FormBuilder.Controllers
             }
             catch (Exception ex)
             {
-                return Json(new { res = false, mes = "操作失败" + ex.Message });
+                return Json(new { res = false, mes = ex.Message });
                 //throw ex;
             }
         }
@@ -711,7 +711,7 @@ namespace FormBuilder.Web.Areas.FormBuilder.Controllers
             }
             catch (Exception ex)
             {
-                return Json(new { res = false, mes = "操作失败" + ex.Message });
+                return Json(new { res = false, mes = ex.Message });
                 //throw ex;
             }
         }
@@ -783,7 +783,7 @@ namespace FormBuilder.Web.Areas.FormBuilder.Controllers
 
         #region 获取数据模型主表的分页接口【分页】
         [HttpPost]
-       
+
         // GET: FBMeta
         public string getDSPageList(string dsID, string pagesize, string page, string filter, string order, string sortname, string sortorder)
         {

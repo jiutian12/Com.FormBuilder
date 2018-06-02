@@ -115,9 +115,9 @@
         var timeInfo = model.getTimeInfo(model.mainTable.id);
         if (timeInfo) {
             obj[timeInfo.lastModifyUser] = Page.Context.get("UserName");
-            obj[timeInfo.lastModifyTime] = Page.Context.getNow();
+            obj[timeInfo.lastModifyTime] = Page.Context.getSerNow();
             obj[timeInfo.createUser] = Page.Context.get("UserName");
-            obj[timeInfo.createTime] = Page.Context.getNow();
+            obj[timeInfo.createTime] = Page.Context.getSerNow();
         }
         //这里要处理模型的默认值信息
 

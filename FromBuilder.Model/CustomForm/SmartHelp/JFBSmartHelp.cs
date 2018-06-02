@@ -34,6 +34,9 @@ namespace FormBuilder.Model
         /// 数据模型ID
         /// </summary>
         public string modelID { get; set; }
+
+
+        public string filter { get; set; }
         /// <summary>
         /// 主键列
         /// </summary>
@@ -41,6 +44,9 @@ namespace FormBuilder.Model
 
         public string title { get; set; }
 
+
+        public string pageSize { get; set; }
+        public string pageOption { get; set; }
         /// <summary>
         /// 模型的分级结构
         /// </summary>

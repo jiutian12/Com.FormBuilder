@@ -427,7 +427,7 @@ Create Table If Not Exists FBSmartHelp
 	ViewType       CHAR (1),
 	AutoCol	       CHAR (1),
 	PageSize       VARCHAR (20),
-	PageOption     VARCHAR (500),
+	PageOption     VARCHAR (200),
 	CreateTime     VARCHAR (20),
 	CreateUser     VARCHAR (50),
 	LastModifyTime VARCHAR (20),
@@ -553,3 +553,10 @@ Create Table If Not Exists FBSettings
 
 
 
+/*∞Ô÷˙‘ˆº”¡–*/
+
+
+alter TABLE  FBSmartHelp ADD PageOption VARCHAR(200);
+
+alter TABLE  FBSmartHelp ADD PageSize VARCHAR(20);
+alter TABLE  FBSmartHelp ADD AutoCol char(1);
