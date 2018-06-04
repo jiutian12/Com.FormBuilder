@@ -11497,7 +11497,20 @@ function ($) {
                 console.log("progress:" + percentage);
                 g._updateProgress(percentage * 100);
             });
+            uploader.on('all', function (type, info, file) {
+                var stats;
+                switch (type) {
+                    case 'error':
+                        if (info == "F_EXCEED_SIZE") {
+                            var mb = p.fileSizeLimit / (1024 * 1024);
+                            alert("上传文件超出大小" + mb + "M限制");
+                        }
+                        break;
+                    default:
+                        break;
 
+                }
+            });
             uploader.on('uploadSuccess', function (file, response) {
                 //alert(1);
                 var srcinfo = "";
