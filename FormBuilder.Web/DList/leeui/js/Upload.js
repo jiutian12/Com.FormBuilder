@@ -12,7 +12,8 @@
         downloadUrl: _global.sitePath + "/File/DownFile?fileid=",
         buttonText: "上传附件",
         isAvatar: false,
-        data: []
+        data: [],
+        fileSizeLimit: 2 * 1024 * 1024
     };
     $.leeUI.controls.Upload = function (element, options) {
         $.leeUI.controls.Upload.base.constructor.call(this, element, options);
@@ -82,7 +83,8 @@
                 swf: BASE_URL + '/Uploader.swf',
                 server: p.url,
                 pick: g.picker,
-                accept: g.getAccept()
+                accept: g.getAccept(),
+                fileSingleSizeLimit: p.fileSizeLimit
             });
             uploader.on('uploadStart', function (file) {
                 g._updateProgress(0);
@@ -156,12 +158,12 @@
                 "xls": "application/vnd.ms-excel",
                 "xlsx": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
             };
-          
+
             if (p.ext != "") {
                 var mimetypearr = [];
                 var arr = p.ext.split(",");
                 $.each(arr, function (i, key) {
-                  
+
                     mimetypearr.push(getMimeType(key));
                 });
 

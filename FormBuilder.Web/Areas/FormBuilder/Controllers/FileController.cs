@@ -45,7 +45,7 @@ namespace FormBuilder.Web.Areas.FormBuilder.Controllers
         /// <param name="field"></param>
         /// <returns></returns>
         [HttpPost]
-        public JsonResult Upload(string dataID, string frmID, string field,string typecode)
+        public JsonResult Upload(string dataID, string frmID, string field, string typecode)
         {
             try
             {
@@ -58,7 +58,8 @@ namespace FormBuilder.Web.Areas.FormBuilder.Controllers
                     model.FrmID = frmID;
                     model.FileName = file.FileName;
                     model.TypeCode = typecode;
-                    _service.saveFile(model, StreamToBytes(file.InputStream));
+                    var res = _service.saveFile(model, StreamToBytes(file.InputStream));
+                    if (!string.IsNullOrEmpty(res)) model.ID = res;
 
                 }
                 else

@@ -668,7 +668,11 @@ window.Page.UI = (function (ui, service, model, win, $) {
                     if (type == "Upload") {
                         BindValue = $ele.leeUI().getSingleValue();
                     } else {
-                        BindValue = $.trim($ele.leeUI().getValue());
+                        var val = $ele.leeUI().getValue();
+                        BindValue = val;
+                        if (typeof (val) == "string") {
+                            BindValue = $.trim(val);
+                        }
                     }
 
                 } else {
@@ -1048,7 +1052,12 @@ window.Page.UI = (function (ui, service, model, win, $) {
                     if (type == "Upload") {
                         BindValue = $ele.leeUI().getSingleValue();
                     } else {
-                        BindValue = $.trim($ele.leeUI().getValue());
+                        var val = $ele.leeUI().getValue();
+                        BindValue = val;
+                        if (typeof (val) == "string") {
+                            BindValue = $.trim(val);
+                        }
+                        //BindValue = $.trim($ele.leeUI().getValue());
                     }
 
                 } else {
@@ -1672,7 +1681,12 @@ window.Page.UI = (function (ui, service, model, win, $) {
                     if (type == "Upload") {
                         BindValue = $ele.leeUI().getSingleValue();
                     } else {
-                        BindValue = $.trim($ele.leeUI().getValue());
+                        var val = $ele.leeUI().getValue();
+                        BindValue = val;
+                        if (typeof (val) == "string") {
+                            BindValue = $.trim(val);
+                        }
+                        //BindValue = $.trim($ele.leeUI().getValue());
                     }
                 } else {
                     var type = $ele.attr("type");
@@ -4079,7 +4093,7 @@ window.Page.UI = (function (ui, service, model, win, $) {
             opts.buttonText = editor.buttontext;
             opts.typecode = editor.typecode;
             opts.url = _global.sitePath + "/File/upload";
-
+            opts.fileSizeLimit = editor.sizelimit;
             opts.onRemoveFile = function (g, id, dom) {
 
                 $.leeDialog.confirm("确认要删除吗？", "提示", function (type) {

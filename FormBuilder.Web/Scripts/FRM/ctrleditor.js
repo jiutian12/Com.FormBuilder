@@ -641,6 +641,7 @@ var EditorFactory = (function () {
             var self = this;
             this.propsarr = [
 				"#ed_file_ismul",
+                "#ed_file_sizelimit",
                 "#ed_file_iscard",
                 "#ed_file_ispreview",
                 "#ed_file_ext",
@@ -661,6 +662,7 @@ var EditorFactory = (function () {
             $("#ed_file_ispreview").prop("checked", editor.ispreview);
             $("#ed_file_ext").val(editor.ext);
             $("#ed_file_buttontext").val(editor.buttontext);
+            $("#ed_file_sizelimit").val(editor.sizelimit);
             $("#ed_file_typecode").val(editor.typecode);
 
             
@@ -673,7 +675,8 @@ var EditorFactory = (function () {
             this.editor.ext = $("#ed_file_ext").val();
             this.editor.buttontext = $("#ed_file_buttontext").val();
             this.editor.typecode = $("#ed_file_typecode").val();
-
+            this.editor.sizelimit = $("#ed_file_sizelimit").val();
+ 
             
         },
         getCompleteName: function (key) {

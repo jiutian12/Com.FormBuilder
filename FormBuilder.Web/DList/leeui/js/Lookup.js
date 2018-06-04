@@ -186,6 +186,8 @@
                             if (p.textmode && arr.length == 0) {
                                 var obj = {};
                                 obj[p.textField] = obj[p.valueField] = value;
+                                g.inputText.val(value);
+                                g.valueField.val(value);
                                 g.confirmSelect([obj]);
                                 g.query = false;
                             } else {
