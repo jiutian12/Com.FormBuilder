@@ -176,8 +176,7 @@
                     filter = JSON.stringify(p.getFilter());
                 }
                 p.service.getQueryHelpSwitch(p.helpID, value, p.codeField, p.textField, filter, false).done(function (data) {
-                    if (g.defer)
-                        g.defer.resolve(data);
+                   
                     if (data.res) {
                         var arr = data.data;
 
@@ -203,7 +202,10 @@
                     else {
                         g.query = false;
                     }
-                    g.defer = null;
+                    if (g.defer) {
+                        g.defer.resolve(data);
+                        g.defer = null;
+                    }
                 }).fail(function (data) {
                     console.log("失败");
 

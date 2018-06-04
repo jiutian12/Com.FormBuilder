@@ -22,7 +22,7 @@ namespace FormBuilder.Service
 
         void saveFile(FBFileSave model);
 
-        void saveFile(FBFileSave model, byte[] data);
+        string saveFile(FBFileSave model, byte[] data);
         List<JFBFileSave> getFileList(string dataID, string frmID, string field);
 
 

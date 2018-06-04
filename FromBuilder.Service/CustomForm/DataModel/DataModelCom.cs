@@ -322,20 +322,45 @@ namespace FormBuilder.Service
             model = getModelMainSchemaForWeb(modelID, Db);
 
             List<Dictionary<string, object>> result = new List<Dictionary<string, object>>();
+            List<Condition> filters = new List<Condition>();
+            List<SortCondition> orders = new List<SortCondition>();
+
 
             // 获取树形取数的Sql信息
-            StringBuilder sb = getModelTreeSelectSql(modelID, Db);
+            // StringBuilder sb = getModelTreeSelectSql(modelID, Db);
+
+            if (!string.IsNullOrEmpty(filter) && filter != "[]")
+            {
+
+
+                //StringBuilder sbfilter = new StringBuilder();
+                filters = Newtonsoft.Json.JsonConvert.DeserializeObject<List<Condition>>(filter);
+                //参数改造？
+            }
+            if (!string.IsNullOrEmpty(order))
+            {
+                orders = Newtonsoft.Json.JsonConvert.DeserializeObject<List<SortCondition>>(order);
+            }
+
+
+            StringBuilder sb = getModelSelectSql(modelID, false, true, ref filters, ref orders, Db);
+
+            sb.AppendFormat(" {0} ", ConditionParser.Serialize(filters));
+
+
+
+
             string sbInit = sb.ToString();
 
 
 
-            //过滤条件
-            if (!string.IsNullOrEmpty(filter))
-            {
-                StringBuilder sbfilter = new StringBuilder();
-                List<Condition> filters = Newtonsoft.Json.JsonConvert.DeserializeObject<List<Condition>>(filter);
-                sb.AppendFormat(" {0} ", ConditionParser.Serialize(filters));
-            }
+            ////过滤条件
+            //if (!string.IsNullOrEmpty(filter))
+            //{
+            //    StringBuilder sbfilter = new StringBuilder();
+            //    List<Condition> filters = Newtonsoft.Json.JsonConvert.DeserializeObject<List<Condition>>(filter);
+            //    sb.AppendFormat(" {0} ", ConditionParser.Serialize(filters));
+            //}
 
             JFBTreeStruct treeInfo = model.treeInfo;
             var isParentModel = true;
@@ -367,13 +392,16 @@ namespace FormBuilder.Service
 
 
 
-            //排序
-            if (!string.IsNullOrEmpty(order))
-            {
-                List<SortCondition> orders = Newtonsoft.Json.JsonConvert.DeserializeObject<List<SortCondition>>(order);
-                if (orders.Count > 0)
-                    sb.AppendFormat(" order by {0} ", SortConditionParser.Serialize(orders));
-            }
+            ////排序
+            //if (!string.IsNullOrEmpty(order))
+            //{
+            //    List<SortCondition> orders = Newtonsoft.Json.JsonConvert.DeserializeObject<List<SortCondition>>(order);
+            //    if (orders.Count > 0)
+            //        sb.AppendFormat(" order by {0} ", SortConditionParser.Serialize(orders));
+            //}
+
+            if (orders.Count > 0)
+                sb.AppendFormat(" order by {0} ", SortConditionParser.Serialize(orders));
 
 
             result = ywDB.Fetch<Dictionary<string, object>>(sb.ToString());
@@ -420,27 +448,45 @@ namespace FormBuilder.Service
             model = getModelMainSchemaForWeb(modelID, Db);
 
             List<Dictionary<string, object>> result = new List<Dictionary<string, object>>();
+            List<Condition> filters = new List<Condition>();
+            List<SortCondition> orders = new List<SortCondition>();
+
+            if (!string.IsNullOrEmpty(filter) && filter != "[]")
+            {
+
+                filters = Newtonsoft.Json.JsonConvert.DeserializeObject<List<Condition>>(filter);
+                //参数改造？
+            }
+            if (!string.IsNullOrEmpty(order))
+            {
+                orders = Newtonsoft.Json.JsonConvert.DeserializeObject<List<SortCondition>>(order);
+            }
+
+            StringBuilder sb = getModelSelectSql(modelID, false, true, ref filters, ref orders, Db);
+            sb.AppendFormat(" {0} ", ConditionParser.Serialize(filters));
 
             // 获取树形取数的Sql信息
-            StringBuilder sb = getModelTreeSelectSql(modelID, Db);
+            // StringBuilder sb = getModelTreeSelectSql(modelID, Db);
             string sbInit = sb.ToString();
-            //过滤条件
-            if (!string.IsNullOrEmpty(filter))
-            {
-                StringBuilder sbfilter = new StringBuilder();
-                List<Condition> filters = Newtonsoft.Json.JsonConvert.DeserializeObject<List<Condition>>(filter);
-                sb.AppendFormat(" {0} ", ConditionParser.Serialize(filters));
-            }
+            ////过滤条件
+            //if (!string.IsNullOrEmpty(filter))
+            //{
+            //    StringBuilder sbfilter = new StringBuilder();
+            //    List<Condition> filters = Newtonsoft.Json.JsonConvert.DeserializeObject<List<Condition>>(filter);
+            //    sb.AppendFormat(" {0} ", ConditionParser.Serialize(filters));
+            //}
 
             JFBTreeStruct treeInfo = model.treeInfo;
 
             //排序
-            if (!string.IsNullOrEmpty(order))
-            {
-                List<SortCondition> orders = Newtonsoft.Json.JsonConvert.DeserializeObject<List<SortCondition>>(order);
-                if (orders.Count > 0)
-                    sb.AppendFormat(" order by {0} ", SortConditionParser.Serialize(orders));
-            }
+            //if (!string.IsNullOrEmpty(order))
+            //{
+            //    List<SortCondition> orders = Newtonsoft.Json.JsonConvert.DeserializeObject<List<SortCondition>>(order);
+            //    if (orders.Count > 0)
+            //        sb.AppendFormat(" order by {0} ", SortConditionParser.Serialize(orders));
+            //}
+            if (orders.Count > 0)
+                sb.AppendFormat(" order by {0} ", SortConditionParser.Serialize(orders));
             result = ywDB.Fetch<Dictionary<string, object>>(sb.ToString());
 
 

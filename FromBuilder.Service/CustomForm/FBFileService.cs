@@ -70,10 +70,10 @@ namespace FormBuilder.Service
             //base.Db.Save<FBFileSave>(model);
         }
 
-        public void saveFile(FBFileSave model, byte[] data)
+        public string saveFile(FBFileSave model, byte[] data)
         {
             // base.Db.Save<FBFileSave>(model);
-
+            return "";
         }
 
         public int setFileMainID(string fileID, string mainID)

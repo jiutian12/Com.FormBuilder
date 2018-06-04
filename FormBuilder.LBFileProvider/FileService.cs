@@ -87,8 +87,9 @@ namespace FormBuilder.LBFileProvider
 
         }
 
-        public void saveFile(FBFileSave model, byte[] data)
+        public string saveFile(FBFileSave model, byte[] data)
         {
+            var fileid = "";
             AttrachmentUploadEntity entity = new AttrachmentUploadEntity();
             entity.FileId = model.ID;
             entity.FileName = model.FileName;
@@ -104,7 +105,8 @@ namespace FormBuilder.LBFileProvider
                 entity.FileTypeCode = model.TypeCode;
 
             //entity.FileString
-            svr.SaveFile(entity, data);
+            fileid= svr.SaveFile(entity, data);
+            return fileid;
         }
 
         public void upload(string frmID, string dataID, string fileid, string key, string fileName, byte[] file)
