@@ -190,7 +190,10 @@
             else {
                 var table = detailObject.tableName;
                 var defalvalue = this.getDefaultValueExpress(table, key);
-                obj[key] = defalvalue ? defalvalue : "";
+                if (typeof (defalvalue) == "boolean")
+                    obj[key] = defalvalue;
+                else
+                    obj[key] = defalvalue ? defalvalue : "";
             }
         }
         return obj;
@@ -270,7 +273,7 @@
 
                 var columnName = obj.cols[j]["label"];//标签名称 
                 hashCol[obj.tableName + "." + columnName] = obj.cols[j];
-      
+
 
             }
 
