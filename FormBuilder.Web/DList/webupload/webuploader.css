@@ -141,6 +141,7 @@
 
 .lee-upload-files .file-item img {
     width: 100%;
+    max-height: 100%;
 }
 
 .lee-upload-files .file-item .info, .file-item .panel, .file-item .error {
