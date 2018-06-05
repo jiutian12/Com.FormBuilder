@@ -98,7 +98,7 @@ Page.Api.openExport = function (params, beforecheck, width, height) {
 Page.Api.openFile = function (params, height, width) {
     var ip = Page.Config.get("FileIp");
     if (ip.indexOf("http") != 0) ip = "http://" + ip;
-    var url = "/AttachmentManager/SelectAttachments?fileTypeCode=" + params.type + "&mainId=" + params.id + "&mainName=" + params.name + "&create=" + Page.Context.get("UserID");
+    var url = "/Commonality/AttachmentManager/SelectAttachments?fileTypeCode=" + params.type + "&mainId=" + params.id + "&mainName=" + params.name + "&create=" + Page.Context.get("UserID");
     width = width || "400";
     height = height || "300";
     $.leeDialog.open({

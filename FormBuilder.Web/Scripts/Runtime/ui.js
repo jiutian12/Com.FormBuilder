@@ -4093,9 +4093,9 @@ window.Page.UI = (function (ui, service, model, win, $) {
             opts.buttonText = editor.buttontext;
             opts.typecode = editor.typecode;
             opts.url = _global.sitePath + "/File/upload";
-            opts.fileSizeLimit = editor.sizelimit;
+            //opts.fileSizeLimit = editor.sizelimit;
 
-            if (opts.fileSizeLimit) opts.fileSizeLimit = Number(opts.fileSizeLimit);
+            if (editor.sizelimit) opts.fileSizeLimit = Number(opts.fileSizeLimit);
             //opts.onRemoveFile = function (g, id, dom) {
 
             //    $.leeDialog.confirm("确认要删除吗？", "提示", function (type) {
