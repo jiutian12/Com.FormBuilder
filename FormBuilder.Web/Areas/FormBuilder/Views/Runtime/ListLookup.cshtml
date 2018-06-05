@@ -318,8 +318,13 @@
 
                 var opts = this.bulidOptions();
                 this.grid = $("#grid").leeGrid(opts);
-                if (opts.async)//如果是异步记载
+                if (opts.async) {
+                    //如果是异步记载
                     this.asyncLoadFirst();
+                    $(".search-field").hide();
+                }
+
+                   
             },
             getQuery: function () {
                 var reobj = [];

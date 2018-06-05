@@ -1459,7 +1459,7 @@ window.Page.UI = (function (ui, service, model, win, $) {
                     model.clearTimeStamp();//清空时间戳信息
                     var row = model.getDefaultDataRow();
                     for (var key in row) {
-                        if (row[key]) {
+                        if (row[key] || typeof (row[key]) == "boolean") {
                             model.setMainModelObject(key, row[key]);
                         }
                     }

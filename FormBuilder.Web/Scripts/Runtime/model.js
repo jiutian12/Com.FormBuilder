@@ -104,7 +104,11 @@
                 if (!table) table = model.mainTableName;
                 // 处理默认值
                 var defalvalue = this.getDefaultValueExpress(table, key);
-                obj[key] = defalvalue ? defalvalue : "";
+                //obj[key] = defalvalue ? defalvalue : "";
+                if (typeof (defalvalue) == "boolean")
+                    obj[key] = defalvalue;
+                else
+                    obj[key] = defalvalue ? defalvalue : ""
             }
         }
         if (isTree)

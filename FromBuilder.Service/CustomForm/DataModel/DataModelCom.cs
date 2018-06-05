@@ -516,7 +516,7 @@ namespace FormBuilder.Service
 
 
         #region  获取帮助模型查询 getQueryHelpSwitch
-        public static List<dynamic> getQueryHelpSwitch(string modelID, string keyword, string codeField, string nameField, string filter, bool isParent, Database Db)
+        public static List<dynamic> getQueryHelpSwitch(string modelID, string keyword, string codeField, string nameField, string filter, string deffilter, bool isParent, Database Db)
         {
             List<dynamic> result = new List<dynamic>();
 
@@ -536,9 +536,16 @@ namespace FormBuilder.Service
                 //过滤条件
                 if (!string.IsNullOrEmpty(filter))
                 {
-                    StringBuilder sbfilter = new StringBuilder();
+                    //StringBuilder sbfilter = new StringBuilder();
                     List<Condition> filters = Newtonsoft.Json.JsonConvert.DeserializeObject<List<Condition>>(filter);
                     sb.AppendFormat(" {0} ", ConditionParser.Serialize(filters));
+                }
+
+                if (!string.IsNullOrEmpty(deffilter) && deffilter != "[]")
+                {
+                    //StringBuilder sbfilter = new StringBuilder();
+                    List<Condition> deffilters = Newtonsoft.Json.JsonConvert.DeserializeObject<List<Condition>>(deffilter);
+                    sb.AppendFormat(" {0} ", ConditionParser.Serialize(deffilters));
                 }
                 var data = ywDB.Fetch<dynamic>(sb.ToString());
 

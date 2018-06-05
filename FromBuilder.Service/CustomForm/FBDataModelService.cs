@@ -737,7 +737,8 @@ namespace FormBuilder.Service
         {
             var svr = new FBSmartHelpService(context);
             var model = svr.getModel(helpID);
-            return DataModelCom.getQueryHelpSwitch(model.ModelID, keyword, codeField, nameField, filter, isParent, base.Db);
+
+            return DataModelCom.getQueryHelpSwitch(model.ModelID, keyword, codeField, nameField, filter, model.Filter, isParent, base.Db);
         }
         #endregion
 
