@@ -324,7 +324,7 @@
                     $(".search-field").hide();
                 }
 
-                   
+
             },
             getQuery: function () {
                 var reobj = [];
@@ -342,7 +342,7 @@
                 if (keyword != "") {
                     if (this.selectField != "") {
                         //alert(this.selectField);
-                        express.add("", "", this.selectField, keyword, "LIKE", " ");
+                        express.add("", "", this.selectField, keyword, "LIKE", " and");
                     }
                     else {
                         //编号 or 名称字段like

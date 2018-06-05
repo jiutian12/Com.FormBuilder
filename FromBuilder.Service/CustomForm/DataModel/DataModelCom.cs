@@ -534,6 +534,13 @@ namespace FormBuilder.Service
                 // 树形的查询条件增加是否明细这个参数
                 sb.AppendFormat(" and ({0}.{2} like '{1}%' or {0}.{3} like '{1}%')", item.Label, keyword, codeField, nameField);
                 //过滤条件
+                if (!string.IsNullOrEmpty(deffilter) && deffilter != "[]")
+                {
+                    //StringBuilder sbfilter = new StringBuilder();
+                    List<Condition> deffilters = Newtonsoft.Json.JsonConvert.DeserializeObject<List<Condition>>(deffilter);
+                    sb.AppendFormat(" {0} ", ConditionParser.Serialize(deffilters));
+                }
+
                 if (!string.IsNullOrEmpty(filter))
                 {
                     //StringBuilder sbfilter = new StringBuilder();
@@ -541,12 +548,7 @@ namespace FormBuilder.Service
                     sb.AppendFormat(" {0} ", ConditionParser.Serialize(filters));
                 }
 
-                if (!string.IsNullOrEmpty(deffilter) && deffilter != "[]")
-                {
-                    //StringBuilder sbfilter = new StringBuilder();
-                    List<Condition> deffilters = Newtonsoft.Json.JsonConvert.DeserializeObject<List<Condition>>(deffilter);
-                    sb.AppendFormat(" {0} ", ConditionParser.Serialize(deffilters));
-                }
+                
                 var data = ywDB.Fetch<dynamic>(sb.ToString());
 
                 result = data;
