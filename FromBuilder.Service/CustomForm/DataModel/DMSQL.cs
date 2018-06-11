@@ -84,6 +84,7 @@ namespace FormBuilder.Service
             sql = sql.Replace("{Session.UserCode}", session.UserCode);
             sql = sql.Replace("{Session.UserName}", session.UserName);
             sql = sql.Replace("{Session.CurDate}", session.CurDate);
+            sql = sql.Replace("{Session.Now}", DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"));
             //应用服务器时间
             //其他信息
             return sql;

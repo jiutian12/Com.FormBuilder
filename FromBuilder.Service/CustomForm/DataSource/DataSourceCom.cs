@@ -328,7 +328,7 @@ namespace FormBuilder.Service
         /// <returns></returns>
         public static string execAssLoader(string assInfo, Dictionary<string, object> arr, Database Db)
         {
-            
+
             var className = "";
             var assemblyName = "";
             var methodInfo = "";
@@ -345,7 +345,7 @@ namespace FormBuilder.Service
 
         private static Sql dealSQL(string sql, Dictionary<string, object> dict)
         {
-
+            sql = dealSqlSession(sql);
             if (sql.IndexOf("@") != -1)
             {
                 ArrayList arr = new ArrayList();
@@ -373,6 +373,19 @@ namespace FormBuilder.Service
             {
                 return null;
             }
+        }
+
+        public static string dealSqlSession(string sql)
+        {
+            var session = SessionProvider.Provider.Current();
+            sql = sql.Replace("{Session.UserID}", session.UserID);
+            sql = sql.Replace("{Session.UserCode}", session.UserCode);
+            sql = sql.Replace("{Session.UserName}", session.UserName);
+            sql = sql.Replace("{Session.CurDate}", session.CurDate);
+            sql = sql.Replace("{Session.Now}", DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"));
+            //应用服务器时间
+            //其他信息
+            return sql;
         }
 
     }

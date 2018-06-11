@@ -531,8 +531,8 @@ namespace FormBuilder.Service
             foreach (var item in list)
             {
                 StringBuilder sb = DataModelEngine.BuildSelectSql(item, item.Relation);
-                // 树形的查询条件增加是否明细这个参数
-                sb.AppendFormat(" and ({0}.{2} like '{1}%' or {0}.{3} like '{1}%')", item.Label, keyword, codeField, nameField);
+                // 树形的查询条件增加是否明细这个参数  编号模糊匹配 名称全部匹配？
+                sb.AppendFormat(" and ({0}.{2} like '{1}%' or {0}.{3} = '{1}')", item.Label, keyword, codeField, nameField);
                 //过滤条件
                 if (!string.IsNullOrEmpty(deffilter) && deffilter != "[]")
                 {
@@ -548,7 +548,7 @@ namespace FormBuilder.Service
                     sb.AppendFormat(" {0} ", ConditionParser.Serialize(filters));
                 }
 
-                
+
                 var data = ywDB.Fetch<dynamic>(sb.ToString());
 
                 result = data;
@@ -571,6 +571,9 @@ namespace FormBuilder.Service
             Database ywDB = getModelDataSource(model.DataSource);
 
             DataModelEngine.setStrategy(getStrategy(ywDB));
+
+            DataModelExtend extendMgr = new DataModelExtend(modelID, Db, ywDB);
+
             try
             {
                 ywDB.BeginTransaction();
@@ -600,6 +603,8 @@ namespace FormBuilder.Service
                                 throw new Exception("删除失败！" + string.Format(checkitem.DeleteTip, ""));
                             }
                         }
+
+                        extendMgr.ExecBeforeDelete(modelID, dataid, ywDB);
                     }
 
 
@@ -622,6 +627,10 @@ namespace FormBuilder.Service
                         if (dict != null)
                             treeHelper.updateParentMXField(item, dataid, dict);
                         // 找到上级 找到同级 同级没有更新上级
+                    }
+                    if (item.isMain == "1")
+                    {
+                        extendMgr.ExecAfterDelete(modelID, dataid, ywDB);
                     }
 
                 }
