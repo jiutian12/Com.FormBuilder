@@ -731,7 +731,7 @@ namespace FormBuilder.Web.Areas.FormBuilder.Controllers
             }
             catch (Exception ex)
             {
-                return Json(new { res = false, mes = "操作失败" + ex.Message });
+                return Json(new { res = false, mes = "" + ex.Message });
                 //throw ex;
             }
         }
@@ -749,7 +749,7 @@ namespace FormBuilder.Web.Areas.FormBuilder.Controllers
             }
             catch (Exception ex)
             {
-                return Json(new { res = false, mes = "操作失败" + ex.Message });
+                return Json(new { res = false, mes = "" + ex.Message });
                 //throw ex;
             }
         }

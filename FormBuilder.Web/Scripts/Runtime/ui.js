@@ -1286,7 +1286,7 @@ window.Page.UI = (function (ui, service, model, win, $) {
         init: function () {
             //this.setStatus("view");//初始状态为查看
 
-            this.deleteData = [];//记录删除的列表数据
+            this.deleteDataRow = [];//记录删除的列表数据
         },
         loadData: function () {
             //如果主grid 不是分页 手动加载数据
@@ -1330,7 +1330,7 @@ window.Page.UI = (function (ui, service, model, win, $) {
 
             //模型id 数据
             if (ui.event.triggerHandler("", "beforeSave", data) === false) return;
-            service.saveModelList(modelID, JSON.stringify(data), JSON.stringify(this.deleteData)).done(function (data) {
+            service.saveModelList(modelID, JSON.stringify(data), JSON.stringify(this.deleteDataRow)).done(function (data) {
                 //self.reload();
                 if (ui.event.triggerHandler("", "afterSave", data) === false) return;
                 if (data.res) {
@@ -1389,7 +1389,7 @@ window.Page.UI = (function (ui, service, model, win, $) {
             }
         },
         pushDelete: function (data) {
-            this.deleteData.push(data);
+            this.deleteDataRow.push(data);
         },
         /*刷新界面数据*/
         reload: function (iscustom) {
@@ -2374,7 +2374,7 @@ window.Page.UI = (function (ui, service, model, win, $) {
                 opts.url = this.bulidRequestUrl(ctrl);
                 opts.parms = this.bulidParams(ctrl);
                 opts.dataAction = 'server';
-
+                opts.switchPageSizeApplyComboBox = false;
                 opts.pageSize = ctrl.pagesize ? ctrl.pagesize : "50";
                 //opts.scrollToPage = true;
                 //opts.scroll = true;
@@ -4289,3 +4289,7 @@ window.Page.UI = (function (ui, service, model, win, $) {
     }
     return ui;
 })(Page.UI, Page.Service, Page.Model, window, $);
+
+//重写输出日志方法
+window.console.log = function () {
+}

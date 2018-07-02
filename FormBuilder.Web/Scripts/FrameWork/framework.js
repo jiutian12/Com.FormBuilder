@@ -13,7 +13,7 @@ window.fBulider.framework = (function (framework, win, $) {
                     {
                         id: "0101", name: "基础设置", root: true, icon: "ios-gear", child: [
                             {
-                                id: "010101", name: "数据库设置", url: _global.sitePath + "/Settings/DBConnection", root: true
+                                id: "010101", name: "数据库设置", url: _global.sitePath + "/Runtime/Dict?frmid=14353f50-c631-42e3-a869-2fe3a2b9d3f6", root: true
                             },
                             {
                                 id: "010102", name: "自定义取数", url: _global.sitePath + "/DataSource/List", root: true

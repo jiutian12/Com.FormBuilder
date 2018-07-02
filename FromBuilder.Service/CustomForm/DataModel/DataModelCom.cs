@@ -381,6 +381,10 @@ namespace FormBuilder.Service
             {
                 if (string.IsNullOrEmpty(path))
                 {
+                    if (string.IsNullOrEmpty(level))
+                    {
+                        level = treeInfo.rootlevel == "" ? "1" : treeInfo.rootlevel;
+                    }
                     sb.AppendFormat(" and {0}.{1}='{2}' ", model.tableLabel, model.treeInfo.level, level);
                 }
                 else
@@ -600,7 +604,7 @@ namespace FormBuilder.Service
                             Sql checksql = new Sql(string.Format("select count(1) from {0} where 1=1 {1}", checkitem.TableName, checkitem.RefFilter + " " + checkitem.ExtendFilter), dataid);
                             if (ywDB.ExecuteScalar<long>(checksql) > 0)
                             {
-                                throw new Exception("删除失败！" + string.Format(checkitem.DeleteTip, ""));
+                                throw new Exception(string.Format(checkitem.DeleteTip, ""));
                             }
                         }
 
@@ -741,7 +745,7 @@ namespace FormBuilder.Service
                             var checksql = sqlActionMgr.dealSQL(sql, ds.Tables[item.Code]);
                             if (ywDB.ExecuteScalar<long>(checksql) > 0)
                             {
-                                throw new Exception("保存失败！" + checkitem.Tips);
+                                throw new Exception(checkitem.Tips);
                             }
                         }
 
@@ -979,7 +983,7 @@ namespace FormBuilder.Service
                             var checksql = sqlActionMgr.dealSQL(sql, ds.Tables[item.Code]);
                             if (ywDB.ExecuteScalar<long>(checksql) > 0)
                             {
-                                throw new Exception("保存失败！" + checkitem.Tips);
+                                throw new Exception(checkitem.Tips);
                             }
                         }
 
