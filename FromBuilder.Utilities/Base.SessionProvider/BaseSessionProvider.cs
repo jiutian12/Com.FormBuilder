@@ -5,6 +5,7 @@ using System.Linq;
 using System.Runtime.Remoting.Messaging;
 using System.Text;
 using System.Threading.Tasks;
+using NPoco;
 
 namespace FormBuilder.Utilities
 {
@@ -117,6 +118,11 @@ namespace FormBuilder.Utilities
             }
             var converted = Convert.FromBase64String(output); // Standard base64 decoder  
             return converted;
+        }
+
+        public Database GetCurrentDataBase()
+        {
+            return new Database("DataPlatformDB");
         }
     }
 }

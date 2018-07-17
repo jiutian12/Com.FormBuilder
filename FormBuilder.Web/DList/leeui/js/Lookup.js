@@ -176,18 +176,20 @@
                     filter = JSON.stringify(p.getFilter());
                 }
                 p.service.getQueryHelpSwitch(p.helpID, value, p.codeField, p.textField, filter, false).done(function (data) {
-                   
+
                     if (data.res) {
                         var arr = data.data;
 
                         if (arr.length > 1 || arr.length == 0) {
-
-                            if (p.textmode && arr.length == 0) {
+                            if (p.textmode) {
                                 var obj = {};
                                 obj[p.textField] = obj[p.valueField] = value;
                                 g.inputText.val(value);
                                 g.valueField.val(value);
                                 g.confirmSelect([obj]);
+                            }
+
+                            if (p.textmode && arr.length == 0) {
                                 g.query = false;
                             } else {
                                 g.setKeyword(value);
@@ -256,7 +258,8 @@
             g.setKeyword("");
             if (g.inputText.data("otext") !== g.inputText.val()) {
                 //alert(1);
-                g.inputText.val(g.inputText.data("otext"));
+                if (!p.textmode)
+                    g.inputText.val(g.inputText.data("otext"));
             }
             g.query = false;
         },

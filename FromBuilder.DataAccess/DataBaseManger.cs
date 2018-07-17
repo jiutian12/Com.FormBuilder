@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Collections;
 using NPoco;
+using FormBuilder.Utilities;
 
 namespace FormBuilder.DataAccess
 {
@@ -16,7 +17,9 @@ namespace FormBuilder.DataAccess
 
         static DataBaseManger()
         {
-            _mainDB = new Database("DataPlatformDB");
+            // _mainDB = new Database("DataPlatformDB");
+
+            _mainDB = SessionProvider.Provider.GetCurrentDataBase();
             initDBCache();
         }
 
@@ -74,7 +77,7 @@ namespace FormBuilder.DataAccess
             }
 
 
-            return new Database("DataPlatformDB");
+            return SessionProvider.Provider.GetCurrentDataBase();
         }
 
 

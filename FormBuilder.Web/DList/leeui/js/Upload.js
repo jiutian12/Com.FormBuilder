@@ -105,6 +105,9 @@
                             var mb = p.fileSizeLimit / (1024 * 1024);
                             alert("上传文件超出大小" + mb + "M限制");
                         }
+                        else if (info == "Q_TYPE_DENIED") {
+                            alert("不支持的文件类型！");
+                        }
                         break;
                     default:
                         break;

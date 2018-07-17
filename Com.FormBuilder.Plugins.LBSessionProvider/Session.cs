@@ -8,6 +8,7 @@ using System.Web;
 using Newtonsoft.Json;
 using Com.CF.FrameworkCore.Context;
 using Com.CF.SysManage.Services.ForegroundImpl;
+using NPoco;
 
 namespace FormBuilder.LBSessionProvider
 {
@@ -45,7 +46,7 @@ namespace FormBuilder.LBSessionProvider
             session.UserCode = LBFContext.Current.Session.UserCode;
             session.UserName = svr.GetUserNameById(session.UserID);
             session.IPAddress = "";
-            
+
             session.TokenID = LBFContext.Current.TokenId;
             session.MainDatabaseCode = LBFContext.Current.MainDatabaseCode;
             return session;
@@ -91,6 +92,11 @@ namespace FormBuilder.LBSessionProvider
             {
                 return false;
             }
+        }
+
+        public Database GetCurrentDataBase()
+        {
+            return LBFContext.Current.GetDatabase(LBFContext.Current.MainDatabaseCode);
         }
     }
 }

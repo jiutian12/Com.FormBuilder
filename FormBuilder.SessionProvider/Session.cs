@@ -104,5 +104,12 @@ namespace FormBuilder.SessionProvider
 
 
         private static object GetCallContextValue(string key) => CallContext.LogicalGetData(key);
+
+        public Database GetCurrentDataBase()
+        {
+
+            return new Database("DataPlatformDB");
+         
+        }
     }
 }

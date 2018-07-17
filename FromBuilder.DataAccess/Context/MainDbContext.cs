@@ -1,6 +1,7 @@
 ﻿using System;
 using FormBuilder.DataAccess.Interface;
 using NPoco;
+using FormBuilder.Utilities;
 
 namespace FormBuilder.DataAccess
 {
@@ -15,7 +16,8 @@ namespace FormBuilder.DataAccess
 
         public MainDbContext()
         {
-            this.Db = new Database("DataPlatformDB");
+            this.Db = SessionProvider.Provider.GetCurrentDataBase();//
+            //new Database("DataPlatformDB");
         }
 
         public void Dispose()

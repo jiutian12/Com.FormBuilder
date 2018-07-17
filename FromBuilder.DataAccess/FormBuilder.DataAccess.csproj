@@ -51,6 +51,12 @@
     <Compile Include="IDatabase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\FromBuilder.Utilities\FormBuilder.Utilities.csproj">
+      <Project>{b310b0a3-6fdb-4393-a326-6c88ac8152af}</Project>
+      <Name>FormBuilder.Utilities</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
