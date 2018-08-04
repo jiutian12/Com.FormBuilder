@@ -1056,312 +1056,312 @@ function ($) {
     })
 
 }(jQuery);
-(function($) {
+(function ($) {
 
-	$.fn.leeDrag = function(options) {
-		return $.leeUI.run.call(this, "leeUIDrag", arguments, {
-			idAttrName: 'dragid',
-			hasElement: false,
-			propertyToElemnt: 'target'
-		});
-		//drag 和resize比较特殊 会把 dragid resizeid挂到 dom下的一个属性上 目前是挂在到 
-		//this.options.target指向的是自身的element 这里可以缓存属性
-	};
+    $.fn.leeDrag = function (options) {
+        return $.leeUI.run.call(this, "leeUIDrag", arguments, {
+            idAttrName: 'dragid',
+            hasElement: false,
+            propertyToElemnt: 'target'
+        });
+        //drag 和resize比较特殊 会把 dragid resizeid挂到 dom下的一个属性上 目前是挂在到 
+        //this.options.target指向的是自身的element 这里可以缓存属性
+    };
 
-	$.fn.leeGetDragManager = function() {
-		return $.leeUI.run.call(this, "leeUIGetDragManager", arguments, {
-			idAttrName: 'dragid',
-			hasElement: false,
-			propertyToElemnt: 'target'
-		});
-	};
+    $.fn.leeGetDragManager = function () {
+        return $.leeUI.run.call(this, "leeUIGetDragManager", arguments, {
+            idAttrName: 'dragid',
+            hasElement: false,
+            propertyToElemnt: 'target'
+        });
+    };
 
-	$.leeUIDefaults.Drag = {
-		onStartDrag: false,
-		onDrag: false,
-		onStopDrag: false,
-		handler: null,
-		//鼠标按下再弹起，如果中间的间隔小于[dragDelay]毫秒，那么认为是点击，不会进行拖拽操作
-		clickDelay: 300,
-		//代理 拖动时的主体,可以是'clone'或者是函数,放回jQuery 对象
-		proxy: true,
-		revert: false,
-		animate: true,
-		onRevert: null,
-		onEndRevert: null,
-		//接收区域 jQuery对象或者jQuery选择字符
-		receive: null,
-		//进入区域
-		onDragEnter: null,
-		//在区域移动
-		onDragOver: null,
-		//离开区域
-		onDragLeave: null,
-		//在区域释放
-		onDrop: null,
-		disabled: false,
-		proxyX: null, //代理相对鼠标指针的位置,如果不设置则对应target的left
-		proxyY: null
-	};
+    $.leeUIDefaults.Drag = {
+        onStartDrag: false,
+        onDrag: false,
+        onStopDrag: false,
+        handler: null,
+        //鼠标按下再弹起，如果中间的间隔小于[dragDelay]毫秒，那么认为是点击，不会进行拖拽操作
+        clickDelay: 100,
+        //代理 拖动时的主体,可以是'clone'或者是函数,放回jQuery 对象
+        proxy: true,
+        revert: false,
+        animate: true,
+        onRevert: null,
+        onEndRevert: null,
+        //接收区域 jQuery对象或者jQuery选择字符
+        receive: null,
+        //进入区域
+        onDragEnter: null,
+        //在区域移动
+        onDragOver: null,
+        //离开区域
+        onDragLeave: null,
+        //在区域释放
+        onDrop: null,
+        disabled: false,
+        proxyX: null, //代理相对鼠标指针的位置,如果不设置则对应target的left
+        proxyY: null
+    };
 
-	$.leeUI.controls.Drag = function(options) {
-		$.leeUI.controls.Drag.base.constructor.call(this, null, options);
-	};
+    $.leeUI.controls.Drag = function (options) {
+        $.leeUI.controls.Drag.base.constructor.call(this, null, options);
+    };
 
-	$.leeUI.controls.Drag.leeExtend($.leeUI.core.UIComponent, {
-		__getType: function() {
-			return 'Drag';
-		},
-		__idPrev: function() {
-			return 'Drag';
-		},
-		_render: function() {
-			var g = this,
+    $.leeUI.controls.Drag.leeExtend($.leeUI.core.UIComponent, {
+        __getType: function () {
+            return 'Drag';
+        },
+        __idPrev: function () {
+            return 'Drag';
+        },
+        _render: function () {
+            var g = this,
 				p = this.options;
-			this.set(p);
-			g.cursor = "move";
-			g.handler.css('cursor', g.cursor);
-			g.mouseDowned = false;
-			g.handler.bind('mousedown.drag', function(e) {
-				if(p.disabled) return;
-				
-				if(e.button == 2) return;
-				g.mouseDowned = true;
-				$(document).bind("selectstart.drag", function() { return false; });
-				setTimeout(function() {
-					//如果过了N毫秒,鼠标还没有弹起来，才认为是启动drag
-					if(g.mouseDowned) {
-						g._start.call(g, e);
-					}
-				}, p.clickDelay || 100);
-			}).bind('mousemove.drag', function() {
-				if(p.disabled) return;
-				g.handler.css('cursor', g.cursor);
-			}).bind('mouseup.drag', function() {
-				
-				$(document).unbind("selectstart.drag");
-			});
+            this.set(p);
+            g.cursor = "move";
+            g.handler.css('cursor', g.cursor);
+            g.mouseDowned = false;
+            g.handler.bind('mousedown.drag', function (e) {
+                if (p.disabled) return;
 
-			$(document).bind('mouseup', function() {
-				g.mouseDowned = false;
-			});
-		},
-		_rendered: function() {
-			this.options.target.dragid = this.id;
-		},
-		_start: function(e) {
-			var g = this,
+                if (e.button == 2) return;
+                g.mouseDowned = true;
+                $(document).bind("selectstart.drag", function () { return false; });
+                setTimeout(function () {
+                    //如果过了N毫秒,鼠标还没有弹起来，才认为是启动drag
+                    if (g.mouseDowned) {
+                        g._start.call(g, e);
+                    }
+                }, p.clickDelay || 100);
+            }).bind('mousemove.drag', function () {
+                if (p.disabled) return;
+                g.handler.css('cursor', g.cursor);
+            }).bind('mouseup.drag', function () {
+
+                $(document).unbind("selectstart.drag");
+            });
+
+            $(document).bind('mouseup', function () {
+                g.mouseDowned = false;
+            });
+        },
+        _rendered: function () {
+            this.options.target.dragid = this.id;
+        },
+        _start: function (e) {
+            var g = this,
 				p = this.options;
-			if(g.reverting) return;
-			if(p.disabled) return;
-			g.current = {
-				target: g.target,
-				left: g.target.offset().left,
-				top: g.target.offset().top,
-				startX: e.pageX || e.screenX,
-				startY: e.pageY || e.clientY
-			};
-			if(g.trigger('startDrag', [g.current, e]) == false) return false;
-			g.cursor = "move";
-			g._createProxy(p.proxy, e);
-			//代理没有创建成功
-			if(p.proxy && !g.proxy) return false;
-			(g.proxy || g.handler).css('cursor', g.cursor);
-			$(document).bind('mousemove.drag', function() {
-				g._drag.apply(g, arguments);
-			});
-			$.leeUI.draggable.dragging = true;
-			$(document).bind('mouseup.drag', function() {
-				$.leeUI.draggable.dragging = false;
-				
-				g._stop.apply(g, arguments);
-			});
-		},
-		_drag: function(e) {
-			var g = this,
+            if (g.reverting) return;
+            if (p.disabled) return;
+            g.current = {
+                target: g.target,
+                left: g.target.offset().left,
+                top: g.target.offset().top,
+                startX: e.pageX || e.screenX,
+                startY: e.pageY || e.clientY
+            };
+            if (g.trigger('startDrag', [g.current, e]) == false) return false;
+            g.cursor = "move";
+            g._createProxy(p.proxy, e);
+            //代理没有创建成功
+            if (p.proxy && !g.proxy) return false;
+            (g.proxy || g.handler).css('cursor', g.cursor);
+            $(document).bind('mousemove.drag', function () {
+                g._drag.apply(g, arguments);
+            });
+            $.leeUI.draggable.dragging = true;
+            $(document).bind('mouseup.drag', function () {
+                $.leeUI.draggable.dragging = false;
+
+                g._stop.apply(g, arguments);
+            });
+        },
+        _drag: function (e) {
+            var g = this,
 				p = this.options;
-			if(!g.current) return;
-			var pageX = e.pageX || e.screenX;
-			var pageY = e.pageY || e.screenY;
-			g.current.diffX = pageX - g.current.startX;
-			g.current.diffY = pageY - g.current.startY;
-			(g.proxy || g.handler).css('cursor', g.cursor);
-			if(g.receive) {
-				g.receive.each(function(i, obj) {
-					var receive = $(obj);
-					var xy = receive.offset();
-					if(pageX > xy.left && pageX < xy.left + receive.width() &&
+            if (!g.current) return;
+            var pageX = e.pageX || e.screenX;
+            var pageY = e.pageY || e.screenY;
+            g.current.diffX = pageX - g.current.startX;
+            g.current.diffY = pageY - g.current.startY;
+            (g.proxy || g.handler).css('cursor', g.cursor);
+            if (g.receive) {
+                g.receive.each(function (i, obj) {
+                    var receive = $(obj);
+                    var xy = receive.offset();
+                    if (pageX > xy.left && pageX < xy.left + receive.width() &&
 						pageY > xy.top && pageY < xy.top + receive.height()) {
-						if(!g.receiveEntered[i]) {
-							g.receiveEntered[i] = true;
-							g.trigger('dragEnter', [obj, g.proxy || g.target, e]);
-						} else {
-							g.trigger('dragOver', [obj, g.proxy || g.target, e]);
-						}
-					} else if(g.receiveEntered[i]) {
-						g.receiveEntered[i] = false;
-						g.trigger('dragLeave', [obj, g.proxy || g.target, e]);
-					}
-				});
-			}
-			if(g.hasBind('drag')) {
-				if(g.trigger('drag', [g.current, e]) != false) {
-					
-				} else {
-					if(g.proxy) {
-						//g._removeProxy();
-					} else {
-						
-						//g._stop();
-					}
-				}
-				g._applyDrag();
-			} else {
-				g._applyDrag();
-			}
-		},
-		_stop: function(e) {
-			var g = this,
-				p = this.options;
-			$(document).unbind('mousemove.drag');
-			$(document).unbind('mouseup.drag');
-			$(document).unbind("selectstart.drag");
-			if(g.receive) {
-				g.receive.each(function(i, obj) {
-					if(g.receiveEntered[i]) {
-						g.trigger('drop', [obj, g.proxy || g.target, e]);
-					}
-				});
-			}
-			if(g.proxy) {
-				if(p.revert) {
-					if(g.hasBind('revert')) {
-						if(g.trigger('revert', [g.current, e]) != false)
-							g._revert(e);
-						else
-							g._removeProxy();
-					} else {
-						g._revert(e);
-					}
-				} else {
-					g._applyDrag(g.target);
-					g._removeProxy();
-				}
-			}
-			g.cursor = 'move';
-			g.trigger('stopDrag', [g.current, e]);
-			g.current = null;
-			g.handler.css('cursor', g.cursor);
-			
-		},
-		_revert: function(e) {
-			 
-			var g = this;
-			g.reverting = true;
-			g.proxy.animate({
-				left: g.current.left,
-				top: g.current.top
-			}, function() {
-				g.reverting = false;
-				g._removeProxy();
-				g.trigger('endRevert', [g.current, e]);
-				g.current = null;
-			});
-		},
-		_applyDrag: function(applyResultBody) {
-			var g = this,
-				p = this.options;
-			applyResultBody = applyResultBody || g.proxy || g.target;
-			var cur = {},
-				changed = false;
-			var noproxy = applyResultBody == g.target;
-			if(g.current.diffX) {
-				if(noproxy || p.proxyX == null)
-					cur.left = g.current.left + g.current.diffX;
-				else
-					cur.left = g.current.startX + p.proxyX + g.current.diffX;
-				changed = true;
-			}
-			if(g.current.diffY) {
-				if(noproxy || p.proxyY == null)
-					cur.top = g.current.top + g.current.diffY;
-				else
-					cur.top = g.current.startY + p.proxyY + g.current.diffY;
-				changed = true;
-			}
-			if(applyResultBody == g.target && g.proxy && p.animate) {
-				g.reverting = true;
-				applyResultBody.animate(cur, function() {
-					g.reverting = false;
-				});
-			} else {
-				//这里处理是否能拉伸出去
-//				if(cur.top <= 0) {
-//					cur.top = 0;
-//				}
-//				if(cur.left <= 0) {
-//					cur.left = 0;
-//				}
-//				if(cur.top >= $(document).height() - $(applyResultBody).height()-3) {
-//					cur.top = $(document).height() - $(applyResultBody).height()-3;
-//				}
-//				if(cur.left >= $(document).width() - $(applyResultBody).width()-3) {
-//					cur.left = $(document).width() - $(applyResultBody).width()-3
-//				}
-				applyResultBody.css(cur);
-			}
-		},
-		_setReceive: function(receive) {
-			this.receiveEntered = {};
-			if(!receive) return;
-			if(typeof receive == 'string')
-				this.receive = $(receive);
-			else
-				this.receive = receive;
-		},
-		_setHandler: function(handler) {
-			var g = this,
-				p = this.options;
-			if(!handler)
-				g.handler = $(p.target);
-			else
-				g.handler = (typeof handler == 'string' ? $(handler, p.target) : handler);
-		},
-		_setTarget: function(target) {
-			this.target = $(target);
-		},
-		_setCursor: function(cursor) {
-			this.cursor = cursor;
-			(this.proxy || this.handler).css('cursor', cursor);
-		},
-		_createProxy: function(proxy, e) {
-			if(!proxy) return;
-			var g = this,
-				p = this.options;
-			if(typeof proxy == 'function') {
-				g.proxy = proxy.call(this.options.target, g, e);
-			} else if(proxy == 'clone') {
-				g.proxy = g.target.clone().css('position', 'absolute');
-				g.proxy.appendTo('body');
-			} else {
-				g.proxy = $("<div class='lee-draggable'></div>");
-				g.proxy.width(g.target.width()).height(g.target.height())
-				g.proxy.attr("dragid", g.id).appendTo('body');
-			}
-			g.proxy.css({
-				left: p.proxyX == null ? g.current.left : g.current.startX + p.proxyX,
-				top: p.proxyY == null ? g.current.top : g.current.startY + p.proxyY
-			}).show();
-		},
-		_removeProxy: function() {
-			var g = this;
-			if(g.proxy) {
-				g.proxy.remove();
-				g.proxy = null;
-			}
-		}
+                        if (!g.receiveEntered[i]) {
+                            g.receiveEntered[i] = true;
+                            g.trigger('dragEnter', [obj, g.proxy || g.target, e]);
+                        } else {
+                            g.trigger('dragOver', [obj, g.proxy || g.target, e]);
+                        }
+                    } else if (g.receiveEntered[i]) {
+                        g.receiveEntered[i] = false;
+                        g.trigger('dragLeave', [obj, g.proxy || g.target, e]);
+                    }
+                });
+            }
+            if (g.hasBind('drag')) {
+                if (g.trigger('drag', [g.current, e]) != false) {
 
-	});
+                } else {
+                    if (g.proxy) {
+                        //g._removeProxy();
+                    } else {
+
+                        //g._stop();
+                    }
+                }
+                g._applyDrag();
+            } else {
+                g._applyDrag();
+            }
+        },
+        _stop: function (e) {
+            var g = this,
+				p = this.options;
+            $(document).unbind('mousemove.drag');
+            $(document).unbind('mouseup.drag');
+            $(document).unbind("selectstart.drag");
+            if (g.receive) {
+                g.receive.each(function (i, obj) {
+                    if (g.receiveEntered[i]) {
+                        g.trigger('drop', [obj, g.proxy || g.target, e]);
+                    }
+                });
+            }
+            if (g.proxy) {
+                if (p.revert) {
+                    if (g.hasBind('revert')) {
+                        if (g.trigger('revert', [g.current, e]) != false)
+                            g._revert(e);
+                        else
+                            g._removeProxy();
+                    } else {
+                        g._revert(e);
+                    }
+                } else {
+                    g._applyDrag(g.target);
+                    g._removeProxy();
+                }
+            }
+            g.cursor = 'move';
+            g.trigger('stopDrag', [g.current, e]);
+            g.current = null;
+            g.handler.css('cursor', g.cursor);
+
+        },
+        _revert: function (e) {
+
+            var g = this;
+            g.reverting = true;
+            g.proxy.animate({
+                left: g.current.left,
+                top: g.current.top
+            }, function () {
+                g.reverting = false;
+                g._removeProxy();
+                g.trigger('endRevert', [g.current, e]);
+                g.current = null;
+            });
+        },
+        _applyDrag: function (applyResultBody) {
+            var g = this,
+				p = this.options;
+            applyResultBody = applyResultBody || g.proxy || g.target;
+            var cur = {},
+				changed = false;
+            var noproxy = applyResultBody == g.target;
+            if (g.current.diffX) {
+                if (noproxy || p.proxyX == null)
+                    cur.left = g.current.left + g.current.diffX;
+                else
+                    cur.left = g.current.startX + p.proxyX + g.current.diffX;
+                changed = true;
+            }
+            if (g.current.diffY) {
+                if (noproxy || p.proxyY == null)
+                    cur.top = g.current.top + g.current.diffY;
+                else
+                    cur.top = g.current.startY + p.proxyY + g.current.diffY;
+                changed = true;
+            }
+            if (applyResultBody == g.target && g.proxy && p.animate) {
+                g.reverting = true;
+                applyResultBody.animate(cur, function () {
+                    g.reverting = false;
+                });
+            } else {
+                //这里处理是否能拉伸出去
+                //				if(cur.top <= 0) {
+                //					cur.top = 0;
+                //				}
+                //				if(cur.left <= 0) {
+                //					cur.left = 0;
+                //				}
+                //				if(cur.top >= $(document).height() - $(applyResultBody).height()-3) {
+                //					cur.top = $(document).height() - $(applyResultBody).height()-3;
+                //				}
+                //				if(cur.left >= $(document).width() - $(applyResultBody).width()-3) {
+                //					cur.left = $(document).width() - $(applyResultBody).width()-3
+                //				}
+                applyResultBody.css(cur);
+            }
+        },
+        _setReceive: function (receive) {
+            this.receiveEntered = {};
+            if (!receive) return;
+            if (typeof receive == 'string')
+                this.receive = $(receive);
+            else
+                this.receive = receive;
+        },
+        _setHandler: function (handler) {
+            var g = this,
+				p = this.options;
+            if (!handler)
+                g.handler = $(p.target);
+            else
+                g.handler = (typeof handler == 'string' ? $(handler, p.target) : handler);
+        },
+        _setTarget: function (target) {
+            this.target = $(target);
+        },
+        _setCursor: function (cursor) {
+            this.cursor = cursor;
+            (this.proxy || this.handler).css('cursor', cursor);
+        },
+        _createProxy: function (proxy, e) {
+            if (!proxy) return;
+            var g = this,
+				p = this.options;
+            if (typeof proxy == 'function') {
+                g.proxy = proxy.call(this.options.target, g, e);
+            } else if (proxy == 'clone') {
+                g.proxy = g.target.clone().css('position', 'absolute');
+                g.proxy.appendTo('body');
+            } else {
+                g.proxy = $("<div class='lee-draggable'></div>");
+                g.proxy.width(g.target.width()).height(g.target.height())
+                g.proxy.attr("dragid", g.id).appendTo('body');
+            }
+            g.proxy.css({
+                left: p.proxyX == null ? g.current.left : g.current.startX + p.proxyX,
+                top: p.proxyY == null ? g.current.top : g.current.startY + p.proxyY
+            }).show();
+        },
+        _removeProxy: function () {
+            var g = this;
+            if (g.proxy) {
+                g.proxy.remove();
+                g.proxy = null;
+            }
+        }
+
+    });
 
 })(jQuery);
 /**
@@ -3095,6 +3095,7 @@ function ($) {
                 if (!haslselected && i == 0) g.selectedTabId = tabid;
                 var showClose = contentitem.attr("showClose");
                 if (showClose) {
+                    li.addClass("lee-tab-hasclose");
                     li.append("<i class='lee-ion-android-close lee-tab-links-item-close'></i>");
                 }
                 $("> ul", g.tab.links).append(li);
@@ -3656,7 +3657,7 @@ function ($) {
                 g.selectTabItem(tabid);
                 return;
             }
-            var tabitem = $("<li><a></a><i class='lee-ion-android-close lee-tab-links-item-close'></i></li>");
+            var tabitem = $("<li class='lee-tab-hasclose'><a></a><i class='lee-ion-android-close lee-tab-links-item-close'></i></li>");
             var contentitem = $("<div class='lee-tab-content-item'><div class='lee-tab-loading' style='display:block;'></div><iframe frameborder='0'></iframe></div>");
             var iframeloading = $("div:first", contentitem);
             var iframe = $("iframe:first", contentitem);
@@ -9665,8 +9666,8 @@ function ($) {
         range: false,
         showType: "date",//year month time datetime
         cancelable: true,
-        max:"",
-        min:""
+        max: "",
+        min: ""
     };
     $.leeUI.controls.Date = function (element, options) {
         $.leeUI.controls.Date.base.constructor.call(this, element, options);
@@ -9733,21 +9734,21 @@ function ($) {
                 if (p.disabled) return;
                 g.wrapper.addClass("lee-text-focus");
             }).change(function () {
-            	 
+
                 g.trigger('change');
             });
 
-			var opts={
-			 	elem: "#"+g.textFieldID,
+            var opts = {
+                elem: "#" + g.textFieldID,
                 range: p.range,
-                format:p.format,
-                type:p.showType,
-                done: function(value, date,enddate){ //监听日期被切换
-			    	g.inputText.trigger('change');
-			  	}
-			};
-			if(p.min) opts.min=p.min;
-			if(p.max) opts.max=p.max;
+                format: p.format,
+                type: p.showType,
+                done: function (value, date, enddate) { //监听日期被切换
+                    g.inputText.trigger('change');
+                }
+            };
+            if (p.min) opts.min = p.min;
+            if (p.max) opts.max = p.max;
             laydate.render(opts);
             g.set(p);
         },
@@ -9791,7 +9792,7 @@ function ($) {
             g.unselect.click(function () {
                 g._setValue("");
                 g.inputText.trigger('change');
-                
+
             });
         },
         _setValue: function (value) {
@@ -10002,18 +10003,20 @@ function ($) {
                     filter = JSON.stringify(p.getFilter());
                 }
                 p.service.getQueryHelpSwitch(p.helpID, value, p.codeField, p.textField, filter, false).done(function (data) {
-                   
+
                     if (data.res) {
                         var arr = data.data;
 
                         if (arr.length > 1 || arr.length == 0) {
-
-                            if (p.textmode && arr.length == 0) {
+                            if (p.textmode) {
                                 var obj = {};
                                 obj[p.textField] = obj[p.valueField] = value;
                                 g.inputText.val(value);
                                 g.valueField.val(value);
                                 g.confirmSelect([obj]);
+                            }
+
+                            if (p.textmode && arr.length == 0) {
                                 g.query = false;
                             } else {
                                 g.setKeyword(value);
@@ -10082,7 +10085,8 @@ function ($) {
             g.setKeyword("");
             if (g.inputText.data("otext") !== g.inputText.val()) {
                 //alert(1);
-                g.inputText.val(g.inputText.data("otext"));
+                if (!p.textmode)
+                    g.inputText.val(g.inputText.data("otext"));
             }
             g.query = false;
         },
@@ -11505,6 +11509,9 @@ function ($) {
                             var mb = p.fileSizeLimit / (1024 * 1024);
                             alert("上传文件超出大小" + mb + "M限制");
                         }
+                        else if (info == "Q_TYPE_DENIED") {
+                            alert("不支持的文件类型！");
+                        }
                         break;
                     default:
                         break;
@@ -12817,7 +12824,7 @@ $.leeUIDefaults.Grid = {
 	hideLoadButton: false, //是否隐藏刷新按钮
 	pagerRender: null, //分页栏自定义渲染函数
 	page: 1, //默认当前页 
-	pageSize: 10, //每页默认的结果数
+	pageSize: 100, //每页默认的结果数
 	pageSizeOptions: [10, 20, 30, 40, 50], //可选择设定的每页结果数
 	parms: [], //提交到服务器的参数 
 	columns: [], //列配置信息

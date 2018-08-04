@@ -1248,6 +1248,7 @@
     <Content Include="DList\zTree\js\jquery.ztree.exedit.js" />
     <Content Include="DList\zTree\js\jquery.ztree.exhide-3.5.js" />
     <Content Include="DList\zTree\js\jquery.ztree.exhide-3.5.min.js" />
+    <Content Include="gulpfile.js" />
     <Content Include="packages.config" />
     <Content Include="Scripts\CMP\edit.js" />
     <Content Include="Scripts\CMP\list.js" />

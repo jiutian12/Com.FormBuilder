@@ -88,6 +88,7 @@
                 if (!haslselected && i == 0) g.selectedTabId = tabid;
                 var showClose = contentitem.attr("showClose");
                 if (showClose) {
+                    li.addClass("lee-tab-hasclose");
                     li.append("<i class='lee-ion-android-close lee-tab-links-item-close'></i>");
                 }
                 $("> ul", g.tab.links).append(li);
@@ -649,7 +650,7 @@
                 g.selectTabItem(tabid);
                 return;
             }
-            var tabitem = $("<li><a></a><i class='lee-ion-android-close lee-tab-links-item-close'></i></li>");
+            var tabitem = $("<li class='lee-tab-hasclose'><a></a><i class='lee-ion-android-close lee-tab-links-item-close'></i></li>");
             var contentitem = $("<div class='lee-tab-content-item'><div class='lee-tab-loading' style='display:block;'></div><iframe frameborder='0'></iframe></div>");
             var iframeloading = $("div:first", contentitem);
             var iframe = $("iframe:first", contentitem);
