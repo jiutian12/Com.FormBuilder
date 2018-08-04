@@ -1431,6 +1431,7 @@
     <Content Include="Areas\Admin\Views\MenuInfo\Dict.cshtml" />
     <Content Include="Areas\FormBuilder\Views\HomePage\Home.cshtml" />
     <Content Include="Areas\FormBuilder\Views\DataModel\Extend.cshtml" />
+    <Content Include="package.json" />
     <None Include="Properties\PublishProfiles\1.pubxml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>

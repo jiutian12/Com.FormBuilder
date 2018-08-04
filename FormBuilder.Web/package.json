@@ -1,0 +1,11 @@
+{
+  "name": "formbuilder.web",
+  "version": "1.0.0",
+  "description": "custom form builder",
+  "main": "gulpfile.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "skiphyuk",
+  "license": "ISC"
+}
