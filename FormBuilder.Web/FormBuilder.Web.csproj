@@ -25,6 +25,7 @@
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
     <TargetFrameworkProfile />
+    <Use64BitIISExpress />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -1432,6 +1433,7 @@
     <Content Include="Areas\FormBuilder\Views\HomePage\Home.cshtml" />
     <Content Include="Areas\FormBuilder\Views\DataModel\Extend.cshtml" />
     <Content Include="package.json" />
+    <Content Include="CSS\framework\less\variables.less" />
     <None Include="Properties\PublishProfiles\1.pubxml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
