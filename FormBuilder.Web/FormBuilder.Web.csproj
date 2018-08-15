@@ -141,6 +141,7 @@
     <Content Include="CSS\designer.css" />
     <Content Include="CSS\file.css" />
     <Content Include="CSS\formDesign.css" />
+    <Content Include="CSS\framework\framework.css" />
     <Content Include="CSS\hook.css" />
     <Content Include="CSS\iconfont\demo.css" />
     <Content Include="CSS\iconfont\demo_fontclass.html" />

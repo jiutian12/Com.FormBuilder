@@ -5,258 +5,13 @@
 
 
 <style>
-    .lee-nav {
-        background: none;
-        /*border-bottom: 1px solid #dedede;*/
-        /*background-image: linear-gradient(143deg,#2865e2 20%,#2b83f9 81%,#3a9dff);*/
-        background-color: #1E9FFF;
-    }
-
-    .lee-nav > ul > li > a {
-        background-color: transparent;
-        font-size: 14px;
-    }
-
-    .lee-nav > ul > li > a:focus, .lee-nav > ul > li > a:hover {
-        background-color: #2f5991;
-        background-color: #4d84cd;
-        background-color: rgba(51, 51, 51, 0.1);
-    }
-
-    .lee-nav > ul > li > a:hover {
-    }
-
-    .lee-navbar .nav-child li > a:hover {
-        /*background: #fbfbfb;*/
-    }
-
-    .lee-tab-links li {
-        border-radius: 0;
-    }
-
-    .lee-tab-links li.lee-selected {
-        border-radius: 0;
-        border-top: 2px solid #108ee9;
-    }
-
-
-
-    .lee-menu {
-        border-radius: 0;
-        box-shadow: 0 1px 9px rgba(136, 136, 136, 0.59);
-    }
-
-    .lee-menu-item.lee-menu-item-over,
-    .lee-menu-item:hover {
-        background: #2196F3;
-        color: #FFF;
-    }
-
-
-    .tooglebtn {
-        display: inline-block;
-        height: 43px;
-        line-height: 42px;
-        padding: 0 10px;
-        color: #FFF;
-        border: 0;
-        font-size: 27px;
-        position: absolute !important;
-        left: 230px;
-        top: 0;
-    }
-
-    .lee-tab-links {
-        font-size: 14px;
-        min-height: 37px;
-    }
-
-
-    .lee-tab-links-item-close {
-        top: 10px;
-        opacity: 1;
-        transition: none;
-    }
-
-    .lee-tab-links-item-close:hover {
-        background: #FF5722;
-        border-radius: 76%;
-        color: #FFF;
-    }
-
-    .lee-tab-links li {
-        margin-left: -1px;
-        border-top: 0;
-        padding: 8px 20px;
-        border-color: #efecec;
-        background: transparent;
-    }
-
-    .lee-tab-links li.lee-tab-hasclose {
-        padding-right: 25px;
-    }
-
-    .lee-tab-links li.lee-selected {
-        border-radius: 0;
-        border-top: 1px solid #DDD;
-        border-top: 0;
-        background: #f5f5f5;
-        border-bottom-color: #f5f5f5;
-        border-left-color: #f5f5f5;
-        border-right-color: #f5f5f5;
-    }
-
-    .lee-tab-links li.lee-selected:after {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 0;
-        height: 2px;
-        border-radius: 0;
-        background-color: #292B34;
-        transition: all .3s;
-        -webkit-transition: all .3s;
-    }
-
-    .lee-tab-links li {
-        border-bottom-color: #f9f9f9;
-    }
-
-    .lee-menu-item {
-        transition: none;
-    }
-
-    .dropdown-menu > li > a {
-        padding: 9px 20px;
-        font-size: 14px;
-    }
-    .lee-nav .avatar > img {
-        height:28px;
-    }
-    .lee-nav .avatar {
-        position:absolute;
-        top:8px;
-    }
-    .lee-nav .username {
-        padding-left:35px;
-    }
 </style>
-<div class="lee-nav top-nav">
 
-    <a class="tooglebtn"><i class="lee-ion-android-menu"></i></a>
-    @*<ul>
-            <li>
-                <a href="#" style="font-size: 18px;"><i style="font-size: 18px;margin-right: 5px;" class="lee-ion-social-foursquare"></i>FormBulider</a>
-            </li>
-        </ul>*@
-    <ul style="float: right;">
-        <li>
-            <a href="#"><i style="margin-right: 5px;" class="lee-ion-search"></i>搜索</a>
-        </li>
-        <li>
-            <a href="#"><i style="font-size:16px;" class="lee-ion-android-notifications"></i></a>
-        </li>
-        @*<li class="dropdown ">
-                <a href="#" data-toggle="dropdown"><i style="margin-right: 5px;" class="lee-ion-android-notifications"></i>通知</a></a>
-                <ul class="dropdown-menu dropdown-menu-right">
-
-                    sdfa
-
-                </ul>
-            </li>*@
-        <li class="dropdown ">
-            <a href="#" data-toggle="dropdown">
-                <span class="avatar">
-                    <img src="~/CSS/images/user.png" />
-                </span>
-                <span class="username">李伟龙</span>
-                <i style="margin-left: 5px;" class="lee-ion-android-arrow-dropdown"></i>
-            </a>
-            <ul class="dropdown-menu dropdown-menu-right">
-
-                <li>
-                    <a href="###"><i class="lee-ion-android-contact"></i>个人资料</a>
-                </li>
-                <li>
-                    <a href="###"><i class="lee-ion-android-exit"></i>修改密码</a>
-                </li>
-                <li class="divider"></li>
-                <li>
-                    <a href="###"><i class="lee-ion-android-exit"></i>退出登录</a>
-                </li>
-
-
-            </ul>
-        </li>
-    </ul>
-
-    <ul></ul>
-</div>
-
-<style>
-    .top-nav {
-        z-index: 1000;
-    }
-
-    .left-nav {
-        position: absolute;
-        width: 220px;
-        left: 0px;
-        padding-top: 0px;
-        top: 0px;
-        bottom: 0;
-        z-index: 10004;
-    }
-
-    .center-nav {
-        position: absolute;
-        left: 0;
-        top: 44px;
-        right: 0px;
-        bottom: 0px;
-        margin-left: 225px;
-        margin-left: 221px;
-    }
-
-    .lee-tab-content {
-        position: absolute;
-        bottom: 0;
-        top: 37px;
-    }
-
-    .lee-menu, .lee-tab-windowsswitch {
-        font-size: 14px;
-    }
-
-    .lee-tab-content-item {
-        overflow: hidden;
-    } 
-
-    .lee-navbar {
-        border-right: 0;
-        position: absolute;
-        top: 44px;
-        right: 0;
-        left: 0;
-        bottom: 0;
-        height: auto;
-    }
-
-    .lee-navbar-gray {
-        font-size: 14px !important;
-        background-color: #344058;
-    }
-
-    .lee-navbar-gray .nav-child > li.active > a {
-        background-color: #0085e8 !important;
-    }
-</style>
 
 <section class="left-nav">
     <ul>
         <li>
-            <a href="#" style=" background-color: #1e9fff;border-bottom: 1px solid rgba(0, 0, 0, 0.24);font-size: 18px;height: 44px;display: block;line-height: 44px;background: #263238;color: #FFF;padding-left: 20px;background-color: #0085e8 !important"><i style="font-size: 18px;margin-right: 5px;" class="lee-ion-social-foursquare"></i>FormBulider</a>
+            <a href="#" class="logo"><i  class="lee-ion-social-foursquare"></i><span>FormBulider</span></a>
         </li>
     </ul>
 
@@ -264,7 +19,58 @@
 
 
 <div class="center-nav">
-    <div class="tabbar" style="overflow:hidden;height:100%;">
+    <div class="lee-nav top-nav">
+
+        <a class="tooglebtn"><i class="lee-ion-android-menu"></i></a>
+        @*<ul>
+                <li>
+                    <a href="#" style="font-size: 18px;"><i style="font-size: 18px;margin-right: 5px;" class="lee-ion-social-foursquare"></i>FormBulider</a>
+                </li>
+            </ul>*@
+        <ul style="float: right;">
+            <li>
+                <a href="#"><i style="margin-right: 5px;" class="lee-ion-search"></i>搜索</a>
+            </li>
+            <li>
+                <a href="#"><i style="font-size:16px;" class="lee-ion-android-notifications"></i></a>
+            </li>
+            @*<li class="dropdown ">
+                    <a href="#" data-toggle="dropdown"><i style="margin-right: 5px;" class="lee-ion-android-notifications"></i>通知</a></a>
+                    <ul class="dropdown-menu dropdown-menu-right">
+
+                        sdfa
+
+                    </ul>
+                </li>*@
+            <li class="dropdown ">
+                <a href="#" data-toggle="dropdown">
+                    <span class="avatar">
+                        <img src="~/CSS/images/user.png" />
+                    </span>
+                    <span class="username">李伟龙</span>
+                    <i style="margin-left: 5px;" class="lee-ion-android-arrow-dropdown"></i>
+                </a>
+                <ul class="dropdown-menu dropdown-menu-right">
+
+                    <li>
+                        <a href="###"><i class="lee-ion-android-contact"></i>个人资料</a>
+                    </li>
+                    <li>
+                        <a href="###"><i class="lee-ion-android-exit"></i>修改密码</a>
+                    </li>
+                    <li class="divider"></li>
+                    <li>
+                        <a href="###"><i class="lee-ion-android-exit"></i>退出登录</a>
+                    </li>
+
+
+                </ul>
+            </li>
+        </ul>
+
+        <ul></ul>
+    </div>
+    <div class="tabbar" style="">
         <div title="首页"></div>
     </div>
 </div>
@@ -272,19 +78,11 @@
 
     <script src="~/Scripts/FrameWork/page.js"></script>
     <script src="~/Scripts/FrameWork/framework.js"></script>
-
+    <link rel="stylesheet" href="~/CSS/framework/framework.css" />
 }
 
 <script>
     $(function () {
         var tab = $(".tabbar").leeTab();
-        //tab.addTabItem({
-        //    tabid: "131",
-        //    text: "百度首页",
-        //    url: "https://www.baidu.com/",
-        //    callback: function () {
-
-        //    }
-        //});
     });
 </script>
