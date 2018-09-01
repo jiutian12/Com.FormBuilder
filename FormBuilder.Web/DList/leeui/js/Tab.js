@@ -756,6 +756,7 @@
             if (currentIsSelected) {
                 $(".lee-tab-content-item[tabid=" + tabid + "]", g.tab.content).prev().show();
                 $("li[tabid=" + tabid + "]", g.tab.links.ul).prev().addClass("lee-selected").siblings().removeClass("lee-selected");
+                //选中前一个并没有触发事件
             }
             var contentItem = $(".lee-tab-content-item[tabid=" + tabid + "]", g.tab.content);
             var jframe = $('iframe', contentItem);

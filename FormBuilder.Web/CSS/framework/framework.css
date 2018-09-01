@@ -54,6 +54,7 @@
 .center-nav .lee-tab-links {
     font-size: 14px;
     min-height: 37px;
+    overflow:hidden;
 }
 
 .center-nav .lee-tab-links li {

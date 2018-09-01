@@ -618,13 +618,19 @@ function refresh() {
 //控件属性基类
 //控件类型
 var leeManger = {
-    getNewUid: function (prev) {    //生成一个随机的ID
-        var arr = [];
-        var idStr = Date.now().toString(36);
-        arr.push(prev + "_");
-        arr.push(idStr);
-        arr.push(Math.random().toString(36).substr(3));
-        return arr.join("");
+    //getNewUid: function (prev) {    //生成一个随机的ID
+    //    var arr = [];
+    //    var idStr = Date.now().toString(36);
+    //    arr.push(prev + "_");
+    //    arr.push(idStr);
+    //    arr.push(Math.random().toString(36).substr(3));
+    //    return arr.join("");
+    //},
+    getNewUid: function (type) {
+        return type + "_" + this.randomFromInterval(1, 1e6)
+    },
+    randomFromInterval: function (e, t) {
+        return Math.floor(Math.random() * (t - e + 1) + e)
     },
     getFrmID: function () {
         return fBulider.utils.getQuery("dataid");
