@@ -65,16 +65,16 @@ gulp.task('leeui', function () {
             'DList/leeui/js/Grid.Defaults.js',
             'DList/leeui/js/Grid.js',
             'DList/leeui/js/Grid.Render.js',
-            'DList/leeui/js/Pager.js',
+            'DList/leeui/js/Pager.js', 
             'DList/leeui/js/ListView.js',
             'DList/leeui/js/TreeListView.js'
 
         ])
         .pipe(concat('leeui.js'))
-        .pipe(gulp.dest('dist/leeui'))
+        .pipe(gulp.dest('DList/leeui'))
         .pipe(rename({ suffix: '.min' }))
         .pipe(uglify())
-        .pipe(gulp.dest('dist/leeui'))
+        .pipe(gulp.dest('DList/leeui'))
         .pipe(notify({ message: 'js task ok' }));
 });
 

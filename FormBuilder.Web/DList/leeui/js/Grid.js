@@ -1042,7 +1042,7 @@
             g.rows = [];
             g.records = {};
             var previd = -1;
-
+            //重新对rowid index 排序
             function load(data, pid) {
                 if (!data || !data.length) return;
                 for (var i = 0, l = data.length; i < l; i++) {
@@ -1109,10 +1109,13 @@
             var g = this,
 				p = this.options;
             rowdata = rowdata || {};
+            //重新构造数据
             g._addData(rowdata, parentRowData, neardata, isBefore);
+            //全量渲染
             g.reRender();
             //标识状态
             rowdata[p.statusName] = 'add';
+            //递归设置子节点状态
             if (p.tree) {
                 var children = g.getChildren(rowdata, true);
                 if (children) {
@@ -1121,10 +1124,14 @@
                     }
                 }
             }
+            //标记数据变化
             g.isDataChanged = true;
+            //标记数据总数
             p.total = p.total ? (p.total + 1) : 1;
             p.pageCount = Math.ceil(p.total / p.pageSize);
+            //构造分页器
             g._buildPager();
+            //触发事件
             g.trigger('SysGridHeightChanged');
             g.trigger('afterAddRow', [rowdata]);
             return rowdata;
@@ -2684,7 +2691,7 @@
             $('.l-bar-btnloading:first', g.toolbar).removeClass('l-bar-btnloading');
             if (g.trigger('beforeShowData', [g.currentData]) == false) return;
             if (sourceType != "scrollappend") {
-                g._clearGrid();
+                g._clearGrid();//不是追加数据则清空
             }
             g.isDataChanged = false;
             if (!data || !data.length) {
@@ -2727,10 +2734,12 @@
             if (sourceType == "scroll") {
                 g.trigger('sysScrollLoaded');
             }
+            //汇总行
             if (p.totalRender) {
                 $(".l-panel-bar-total", g.element).remove();
                 $(".l-panel-bar", g.element).before('<div class="l-panel-bar-total">' + p.totalRender(g.data, g.filteredData) + '</div>');
             }
+            //绑定鼠标事件
             if (p.mouseoverRowCssClass) {
                 for (var i in g.rows) {
                     var rowobj = $(g.getRowObj(g.rows[i]));
@@ -2748,6 +2757,7 @@
                 g.toolbar.html(p.pagerRender.call(g));
                 return;
             }
+            //触发事件
             g.gridbody.trigger('scroll.grid');
 
             g.trigger('afterShowData', [g.currentData]);

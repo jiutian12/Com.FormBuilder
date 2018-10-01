@@ -296,6 +296,11 @@
     background: url("images/tfs-icons.png") no-repeat -2352px -16px !important;
 }
 
+.icon-folder {
+    background: url(images/folder_win10_small.png) !important;
+    background-size: cover !important;
+}
+
 .icon-font-color {
     background: url("images/tfs-icons.png") no-repeat -2384px -16px !important;
 }

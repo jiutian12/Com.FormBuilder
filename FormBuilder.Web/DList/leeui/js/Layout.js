@@ -103,17 +103,19 @@
             //left
             if ($("> div[position=left]", g.layout).length > 0) {
                 g.left = $("> div[position=left]", g.layout).wrap('<div class="lee-layout-left" style="left:0px;"></div>').parent();
-                g.left.header = $('<div class="lee-layout-header"><div class="lee-icon lee-layout-header-toggle"></div><div class="lee-layout-header-inner"></div></div>');
-                g.left.prepend(g.left.header);
-                g.left.header.toggle = $(".lee-layout-header-toggle", g.left.header);
+               
                 g.left.content = $("> div[position=left]", g.left);
-                if (!g.left.content.hasClass("lee-layout-content"))
+                //if (!g.left.content.hasClass("lee-layout-content"))
                     g.left.content.addClass("lee-layout-content");
-                if (!p.allowLeftCollapse) $(".lee-layout-header-toggle", g.left.header).remove();
+
                 //set title
                 var lefttitle = g.left.content.attr("title");
                 if (lefttitle) {
                     g.left.content.attr("title", "");
+                    g.left.header = $('<div class="lee-layout-header"><div class="lee-icon lee-layout-header-toggle"></div><div class="lee-layout-header-inner"></div></div>');
+                    g.left.prepend(g.left.header);
+                    g.left.header.toggle = $(".lee-layout-header-toggle", g.left.header);
+                    if (!p.allowLeftCollapse) $(".lee-layout-header-toggle", g.left.header).remove();
                     $(".lee-layout-header-inner", g.left.header).html(lefttitle);
                 }
                 //set title 

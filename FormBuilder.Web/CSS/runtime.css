@@ -1082,8 +1082,17 @@
 .lee-selected .lee-grid-row-cell, .lee-selected td a {
     /*color: #FFF;*/
 }
-.lee-selected, .lee-selected .lee-grid-row-cell {
+.lee-grid-row-over,
+.lee-grid-row-over .lee-grid-row-cell,.lee-selected, .lee-selected .lee-grid-row-cell {
     transition: unset;
+}
+
+.lee-panel-btn-over {
+    background: #d1e2f2;
+    color: #404040;
+    border: 1px solid #78aee5;
+}.lee-grid-row-over td {
+    background: #ecf6fd;
 }
 .lee-upload-files .list .item {
     display: block;

@@ -138,9 +138,9 @@ window.lsp.cf = (function (cf, core, win, $) {
     // 个人收藏
     cf.favor = {
         add: function () {
+
         },
         remove: function () {
-
 
         },
         init: function () {
@@ -299,6 +299,12 @@ window.lsp.cf = (function (cf, core, win, $) {
     /*处理菜单绑定*/
     $(function () {
 
+        //初始化身份 
+        //框架设置
+        //菜单
+        //个人收藏
+        //消息通知
+        //审计日志
         $(".nav-item", ".lee-navbar").click(function () {
             $(".nav-item.active").removeClass("active");
             $(this).addClass("active");
@@ -318,22 +324,22 @@ window.lsp.cf = (function (cf, core, win, $) {
         var tab = $(".tabbar").leeTab({
             showSwitch: false,
             onBeforeRemoveTabItem: function (tabid) {
-                alert(1);
+                //alert(1);
             },
             onAfterRemoveTabItem: function (tabid) {
-                alert(2);
+                //alert(2);
             },
             onBeforeAddTabItem: function (tabid) {
-                alert(3);
+               // alert(3);
             },
             onAfterAddTabItem: function (tabid) {
-                alert(5);
+                //alert(5);
             },
             onBeforeSelectTabItem: function (tabid) {
-                alert(6);
+               // alert(6);
             },
             onAfterSelectTabItem: function (tabid) {
-                alert(7);
+                //alert(7);
             }
         });
         bindEvent();

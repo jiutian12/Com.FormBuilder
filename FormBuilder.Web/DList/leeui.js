@@ -15,7 +15,7 @@
         if (overrides) $.extend(this.prototype, overrides);
         //扩展集成方法	
     }
-
+    
     Function.prototype.leeDefer = function (o, defer, args) {
         var fn = this;
         return setTimeout(function () {
@@ -26,7 +26,7 @@
     window.leeUI = $.leeUI = {
         version: "1.0.0",
         managerCount: 0,
-        //组件缓存
+        //组件缓存 
         managers: {},
         managerIdPrev: "leeUI",
         //管理器id已经存在时自动创建新的
