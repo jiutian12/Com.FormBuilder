@@ -184,40 +184,6 @@ window.lsp.cf = (function (cf, core, win, $) {
                         ]
                     }
                 ]
-            },
-            {
-                id: "01", name: "表单平台", icon: "social-foursquare", root: true, child: [
-                    {
-                        id: "0101", name: "基础设置", root: true, icon: "ios-gear", child: [
-                            {
-                                id: "010101", name: "数据库设置", url: _global.sitePath + "/Runtime/Dict?frmid=14353f50-c631-42e3-a869-2fe3a2b9d3f6", root: true
-                            },
-                            {
-                                id: "010102", name: "自定义取数", url: _global.sitePath + "/DataSource/List", root: true
-                            }
-                            ,
-                            {
-                                id: "010103", name: "构件管理", url: _global.sitePath + "/CMP/List", root: true
-                            }
-                        ]
-                    },
-                    {
-                        id: "0102", name: "开发平台", url: "", root: true, icon: "monitor", child: [
-                            {
-                                id: "010201", name: "数据对象", url: _global.sitePath + "/DataObject/List", root: true
-                            },
-                            {
-                                id: "010202", name: "数据模型", url: _global.sitePath + "/DataModel/List", root: true
-                            },
-                            {
-                                id: "010203", name: "帮助定义", url: _global.sitePath + "/SmartHelp/List", root: true
-                            },
-                            {
-                                id: "010204", name: "表单设计", url: _global.sitePath + "/Form/List", root: true
-                            }
-                        ]
-                    }
-                ]
             }
         ]
 

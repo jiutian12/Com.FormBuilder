@@ -171,6 +171,9 @@
 .icon-document {
     background: url("images/tfs-icons.png") no-repeat -1360px -16px !important;
 }
+.icon-document {
+    background: url("images/file.gif")   !important;
+}
 
 .icon-dot {
     background: url("images/tfs-icons.png") no-repeat -1392px -16px !important;

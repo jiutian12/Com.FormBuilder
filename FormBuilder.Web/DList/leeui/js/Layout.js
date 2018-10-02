@@ -60,12 +60,12 @@
             $.leeUI.controls.Layout.base._init.call(this);
 
             var g = this,
-				p = this.options;
+                p = this.options;
             if (p.InWindow != null && p.inWindow == null) p.inWindow = p.InWindow; //旧版本命名错误纠正
         },
         _render: function () {
             var g = this,
-				p = this.options;
+                p = this.options;
             g.layout = $(this.element);
             g.layout.addClass("lee-layout"); //添加布局
             g.width = g.layout.width(); //计算宽度
@@ -103,10 +103,10 @@
             //left
             if ($("> div[position=left]", g.layout).length > 0) {
                 g.left = $("> div[position=left]", g.layout).wrap('<div class="lee-layout-left" style="left:0px;"></div>').parent();
-               
+
                 g.left.content = $("> div[position=left]", g.left);
                 //if (!g.left.content.hasClass("lee-layout-content"))
-                    g.left.content.addClass("lee-layout-content");
+                g.left.content.addClass("lee-layout-content");
 
                 //set title
                 var lefttitle = g.left.content.attr("title");
@@ -117,6 +117,8 @@
                     g.left.header.toggle = $(".lee-layout-header-toggle", g.left.header);
                     if (!p.allowLeftCollapse) $(".lee-layout-header-toggle", g.left.header).remove();
                     $(".lee-layout-header-inner", g.left.header).html(lefttitle);
+                } else {
+                    g.left.content.css("top", "0");
                 }
                 //set title 
                 if (g.left.content.attr("hidetitle")) {
@@ -225,7 +227,7 @@
         },
         setLeftCollapse: function (isCollapse) {
             var g = this,
-				p = this.options;
+                p = this.options;
             if (!g.left) return false;
             g.isLeftCollapse = isCollapse;
             if (g.isLeftCollapse) {
@@ -243,7 +245,7 @@
         },
         setRightCollapse: function (isCollapse) {
             var g = this,
-				p = this.options;
+                p = this.options;
             if (!g.right) return false;
             g.isRightCollapse = isCollapse;
             g._onResize();
@@ -262,7 +264,7 @@
         },
         _bulid: function () {
             var g = this,
-				p = this.options;
+                p = this.options;
             $("> .lee-layout-left .lee-layout-header,> .lee-layout-right .lee-layout-header", g.layout).hover(function () {
                 $(this).addClass("lee-layout-header-over");
             }, function () {
@@ -305,7 +307,7 @@
         },
         _setCollapse: function () {
             var g = this,
-				p = this.options;
+                p = this.options;
             g.leftCollapse.hover(function () {
                 $(this).addClass("lee-layout-collapse-left-over");
             }, function () {
@@ -345,7 +347,7 @@
         },
         _addDropHandle: function () {
             var g = this,
-				p = this.options;
+                p = this.options;
             if (g.left && p.allowLeftResize) {
                 g.leftDropHandle = $("<div class='lee-layout-drophandle-left'></div>");
                 g.layout.append(g.leftDropHandle);
@@ -393,7 +395,7 @@
         },
         _setDropHandlePosition: function () {
             var g = this,
-				p = this.options;
+                p = this.options;
             if (g.leftDropHandle) {
                 g.leftDropHandle.css({ left: g.left.width() + parseInt(g.left.css('left')), height: g.middleHeight, top: g.middleTop });
             }
@@ -416,7 +418,7 @@
         },
         _onResize: function () {
             var g = this,
-				p = this.options;
+                p = this.options;
             var oldheight = g.layout.height();
             //set layout height 
             var h = 0;
@@ -560,21 +562,21 @@
         //加了centerBottom以后，需要对centerBottom进行刷新处理一下
         _updateCenterBottom: function (isHeightResize) {
             var g = this,
-				p = this.options;
+                p = this.options;
             if (g.centerBottom) {
                 if (isHeightResize) {
                     var centerBottomHeight = g.centerBottomHeight || p.centerBottomHeight;
                     g.centerBottom.css({ left: g.centerLeft });
                     g.centerWidth >= 0 && g.centerBottom.width(g.centerWidth);
                     var centerHeight = g.center.height(),
-						centerTop = parseInt(g.center.css("top"));
+                        centerTop = parseInt(g.center.css("top"));
                     g.centerBottom.height(centerBottomHeight)
                     g.centerBottom.css({ top: centerTop + centerHeight - centerBottomHeight });
                     g.center.height(centerHeight - centerBottomHeight - 6);
                     //
                     var contentHeight = centerHeight - centerBottomHeight - 6;
                     if (g.center.header) contentHeight -= g.center.header.height();
-                    
+
                     contentHeight >= 0 && g.center.content.height(contentHeight);
                 }
                 var centerLeft = parseInt(g.center.css("left"));
@@ -583,7 +585,7 @@
         },
         _start: function (dragtype, e) {
             var g = this,
-				p = this.options;
+                p = this.options;
             g.dragtype = dragtype;
             if (dragtype == 'leftresize' || dragtype == 'rightresize') {
                 g.xresize = { startX: e.pageX };
@@ -618,7 +620,7 @@
         },
         _drag: function (e) {
             var g = this,
-				p = this.options;
+                p = this.options;
             if (g.xresize) {
                 g.xresize.diff = e.pageX - g.xresize.startX;
                 g.draggingyline.css({ left: e.pageX - g.layout.offset().left });
@@ -631,7 +633,7 @@
         },
         _stop: function (e) {
             var g = this,
-				p = this.options;
+                p = this.options;
             var diff;
             if (g.xresize && g.xresize.diff != undefined) {
                 diff = g.xresize.diff;
