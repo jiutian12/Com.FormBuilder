@@ -49,6 +49,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Admin\FBMenuInfo.cs" />
+    <Compile Include="Admin\FBPos.cs" />
     <Compile Include="Admin\FBRole.cs" />
     <Compile Include="Admin\FBOrgInfo.cs" />
     <Compile Include="CustomForm\Component\FBCMPMethod.cs" />

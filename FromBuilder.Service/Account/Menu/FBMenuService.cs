@@ -32,7 +32,7 @@ namespace FormBuilder.Service
 
         public List<FBMenuInfo> getMenuList(string appcode, string keyword, string parentID, string filter)
         {
-            throw new NotImplementedException();
+            return base.Fetch<FBMenuInfo>();
         }
 
         public FBMenuInfo getModel(string id)

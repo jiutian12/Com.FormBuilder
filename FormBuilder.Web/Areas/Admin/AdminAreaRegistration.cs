@@ -22,7 +22,7 @@ namespace FormBuilder.Web.Areas.Admin
 
             context.MapRoute(
                "Admin_default",
-               "Admin/{controller}/{action}/{id}",
+               "FrameWork/{controller}/{action}/{id}",
                defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional },
                namespaces: new string[] { "FormBuilder.Web.Areas.Admin.Controllers" }
            );

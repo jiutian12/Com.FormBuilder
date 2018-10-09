@@ -7,10 +7,41 @@ window.lsp.core = (function (core, win, $) {
         version: "0.0.1",
         host: "",
         loingURL: "",
-        baseURL: "", //+ "/FormBuilder.Web",
+        baseURL: "/FormBuilder.Web",
         invokeURL: ""
     };
 
+    core.utils = {
+        arrayToTree: function (data, id, pid, child) {
+            var childrenName = child || "children";
+            if (!data || !data.length) return [];
+            var targetData = []; //存储数据的容器(返回) 
+            var records = {};
+            var itemLength = data.length; //数据集合的个数
+            for (var i = 0; i < itemLength; i++) {
+                var o = data[i];
+                var key = getKey(o[id]);
+                records[key] = o;
+            }
+            for (var i = 0; i < itemLength; i++) {
+                var currentData = data[i];
+                var key = getKey(currentData[pid]);
+                var parentData = records[key];
+                if (!parentData) {
+                    targetData.push(currentData);
+                    continue;
+                }
+                parentData[childrenName] = parentData[childrenName] || [];
+                parentData[childrenName].push(currentData);
+            }
+            return targetData;
+
+            function getKey(key) {
+                if (typeof (key) == "string") key = key.replace(/[.]/g, '').toLowerCase();
+                return key;
+            }
+        }
+    };
 
     //获取框架身份信息
     core.state = (function (state) {
@@ -103,7 +134,7 @@ window.lsp.core = (function (core, win, $) {
         return service;
     })(core.service || {});
 
-
+    return core;
 })(window.lsp.core, window, $);
 
 
@@ -124,7 +155,7 @@ window.lsp.cf = (function (cf, core, win, $) {
         },
         getMenu: function (callback) {
             //获取菜单
-            core.service.post("/FrameWork/Menu", {}).then(function (data) {
+            core.service.post("/FrameWork/MenuInfo/GetMenuList", {}).then(function (data) {
                 callback(data);
             });
         },
@@ -146,83 +177,61 @@ window.lsp.cf = (function (cf, core, win, $) {
         init: function () {
         }
     };
+    //系统身份
+    cf.context = {
+        init: function () {
 
-    // tab页管理
-    cf.tab = (function () {
-        var tab;
-        var navData = [
-            {
-                id: "01", name: "表单平台", icon: "social-foursquare", root: true, child: [
-                    {
-                        id: "0101", name: "基础设置", root: true, icon: "ios-gear", child: [
-                            {
-                                id: "010101", name: "数据库设置", url: _global.sitePath + "/Runtime/Dict?frmid=14353f50-c631-42e3-a869-2fe3a2b9d3f6", root: true
-                            },
-                            {
-                                id: "010102", name: "自定义取数", url: _global.sitePath + "/DataSource/List", root: true
-                            }
-                            ,
-                            {
-                                id: "010103", name: "构件管理", url: _global.sitePath + "/CMP/List", root: true
-                            }
-                        ]
-                    },
-                    {
-                        id: "0102", name: "开发平台", url: "", root: true, icon: "monitor", child: [
-                            {
-                                id: "010201", name: "数据对象", url: _global.sitePath + "/DataObject/List", root: true
-                            },
-                            {
-                                id: "010202", name: "数据模型", url: _global.sitePath + "/DataModel/List", root: true
-                            },
-                            {
-                                id: "010203", name: "帮助定义", url: _global.sitePath + "/SmartHelp/List", root: true
-                            },
-                            {
-                                id: "010204", name: "表单设计", url: _global.sitePath + "/Form/List", root: true
-                            }
-                        ]
-                    }
-                ]
-            }
-        ]
+        },
+        get: function () {
 
-        $(function () {
-            initTab();
-            initNav(navData);
-        });
-
-        var initTab = function () {
-            tab = $(".tabbar").leeTab();
-        };
-        var addTab = function (opt) {
-            tab.addTabItem({
-                tabid: opt.id,
-                text: opt.name,
-                url: opt.url,
-                callback: function () {
-                    //alert("加载完成!");
-                }
-            });
         }
-        var initNav = function (node) {
+    };
+    //系统设置
+    cf.setting = {
+        init: function () {
+            // 框架设置 
+            // 系统通知弹窗
+            // 偏好设置
+            // 自动运行菜单
+        },
+        get: function () {
+
+        }
+    };
+
+    //系统菜单
+    cf.menu = {
+        init: function () {
+
+            var self = this;
+            cf.service.getMenu(function (data) {
+                //
+                var res = core.utils.arrayToTree(data.data, "ID", "PID");
+                console.log(res);
+
+                self.initView(res);
+                self.bind();
+            })
+        },
+        initView: function (navData) {
+
             var g = $('<ul class="lee-navbar lee-navbar-gray"></ul>');
             $.each(navData, function (i, header) {
-                if (header.root) {
-                    var icon = header.icon ? "<i class='lee-ion-" + header.icon + "'></i>" : "";
+                if (header.IsDetail == "0") {
+                    var icon = header.ICON ? "<i class='" + header.ICON + "'></i>" : "";
 
                     var wrap = $("<li></li>")
-                    wrap.append('<div class="nav-header">' + icon + ' <span class="menu-title">' + header.name + '</span><i class="arrow ion"></i></div>');
+                    wrap.append('<div class="nav-header">' + icon + ' <span class="menu-title">' + header.Name + '</span><i class="arrow ion"></i></div>');
 
                     var subwrap = $('<ul class="nav-child" style="display: block;"></ul>');
-                    $.each(header.child, function (j, sub) {
-                        if (sub.root) {
-                            var icon = sub.icon ? "<i class='lee-ion-" + sub.icon + "'></i>" : "";
+                    $.each(header.children, function (j, sub) {
+                        if (sub.IsDetail == "0") {
+                            var icon = sub.ICON ? "<i class='" + sub.ICON + "'></i>" : "";
                             var subcontainer = $("<li></li>");
-                            subcontainer.append('<a class="nav-header" href="#">' + icon + '<span class="menu-title">' + sub.name + '</span> <i class="arrow ion"></i> </a>');
+                            subcontainer.append('<a class="nav-header" href="#">' + icon + '<span class="menu-title">' + sub.Name + '</span> <i class="arrow ion"></i> </a>');
 
                             var thirdwrap = $('<ul class="nav-child" style="display: block;"></ul>');
-                            $.each(sub.child, function (k, thrid) {
+                            $.each(sub.children, function (k, thrid) {
                                 createDetail(thrid, thirdwrap);
                             })
                             subcontainer.append(thirdwrap);
@@ -241,18 +250,86 @@ window.lsp.cf = (function (cf, core, win, $) {
             // $(".left-nav").empty();
             g.appendTo($(".left-nav"));
 
-        }
-        var createDetail = function (node, wrap) {
-            var icon = node.icon ? "<i class='lee-ion-" + node.icon + "'></i>" : "";
-            var item = $('<li class="nav-item"><a href="#">' + icon + '<span class="menu-title">' + node.name + '</span> </a></li>');
-            item.click(function () {
-                //alert(2);
-                addTab(node);
-            });
-            wrap.append(item);
-        }
-    })();
+            function createDetail(node, wrap) {
+                var icon = node.ICON ? "<i class='" + node.ICON + "'></i>" : "";
+                var item = $('<li class="nav-item"><a href="#">' + icon + '<span class="menu-title">' + node.Name + '</span> </a></li>');
+                item.click(function () {
+                    cf.tab.addTab(node);
+                });
+                wrap.append(item);
+            }
 
+
+        },
+        bind: function () {
+            $(".nav-item", ".lee-navbar").click(function () {
+                $(".nav-item.active").removeClass("active");
+                $(this).addClass("active");
+            });
+            $(".nav-header", ".lee-navbar").click(function () {
+                var parent = $(this).parent();
+                if (parent.hasClass("collapse")) {
+                    parent.removeClass("collapse");
+                    parent.addClass("open");
+                    $(this).next().show();
+                } else {
+                    parent.removeClass("open");
+                    parent.addClass("collapse");
+                    $(this).next().hide();
+                }
+            });
+        },
+        get: function (id) {
+
+        },
+        open: function (id) {
+
+        },
+        close: function (id) {
+
+        }
+    }
+
+    // tab页管理
+    cf.tab = {
+        init: function () {
+            this.tab = $(".tabbar").leeTab({
+                showSwitch: false,
+                onBeforeRemoveTabItem: function (tabid) {
+                    //alert(1);
+                },
+                onAfterRemoveTabItem: function (tabid) {
+                    //alert(2);
+                },
+                onBeforeAddTabItem: function (tabid) {
+                    // alert(3);
+                },
+                onAfterAddTabItem: function (tabid) {
+                    //alert(5);
+                },
+                onBeforeSelectTabItem: function (tabid) {
+                    // alert(6);
+                },
+                onAfterSelectTabItem: function (tabid) {
+                    //alert(7);
+                }
+            });
+        },
+        addTab: function (opt) {
+            this.tab.addTabItem({
+                tabid: opt.ID,
+                text: opt.Name,
+                url: opt.URL,
+                callback: function () {
+                    //alert("加载完成!");
+                }
+            });
+        }
+    };
+    cf.tab.init();
+    cf.menu.init();
+
+    //绑定事件
     function bindEvent() {
         $(".tooglebtn").click(function () {
             var shirinkflag = $(this).data("shirink") || false;
@@ -267,47 +344,39 @@ window.lsp.cf = (function (cf, core, win, $) {
 
         //初始化身份 
         //框架设置
+
+
         //菜单
         //个人收藏
+
         //消息通知
         //审计日志
-        $(".nav-item", ".lee-navbar").click(function () {
-            $(".nav-item.active").removeClass("active");
-            $(this).addClass("active");
-        });
-        $(".nav-header", ".lee-navbar").click(function () {
-            var parent = $(this).parent();
-            if (parent.hasClass("collapse")) {
-                parent.removeClass("collapse");
-                parent.addClass("open");
-                $(this).next().show();
-            } else {
-                parent.removeClass("open");
-                parent.addClass("collapse");
-                $(this).next().hide();
-            }
-        });
-        var tab = $(".tabbar").leeTab({
-            showSwitch: false,
-            onBeforeRemoveTabItem: function (tabid) {
-                //alert(1);
-            },
-            onAfterRemoveTabItem: function (tabid) {
-                //alert(2);
-            },
-            onBeforeAddTabItem: function (tabid) {
-               // alert(3);
-            },
-            onAfterAddTabItem: function (tabid) {
-                //alert(5);
-            },
-            onBeforeSelectTabItem: function (tabid) {
-               // alert(6);
-            },
-            onAfterSelectTabItem: function (tabid) {
-                //alert(7);
-            }
-        });
+
+        //绑定菜单收起事件
+       
+
+
+        //var tab = $(".tabbar").leeTab({
+        //    showSwitch: false,
+        //    onBeforeRemoveTabItem: function (tabid) {
+        //        //alert(1);
+        //    },
+        //    onAfterRemoveTabItem: function (tabid) {
+        //        //alert(2);
+        //    },
+        //    onBeforeAddTabItem: function (tabid) {
+        //        // alert(3);
+        //    },
+        //    onAfterAddTabItem: function (tabid) {
+        //        //alert(5);
+        //    },
+        //    onBeforeSelectTabItem: function (tabid) {
+        //        // alert(6);
+        //    },
+        //    onAfterSelectTabItem: function (tabid) {
+        //        //alert(7);
+        //    }
+        //});
         bindEvent();
     });
     return cf;
