@@ -23,7 +23,7 @@ namespace FormBuilder.Service
         GridViewModel<FBDataSource> getPageList(string type, string keyword, string order, int currentPage, int perPage, out long totalPages, out long totalItems);
 
         List<Dictionary<string, object>> getModelTreeDataDictList(string modeID, string level, string path, string parentID, string keyWord, string filter, string order);
-        List<Dictionary<string, object>> getModelTreeDataALL(string modeID, string keyWord, string filter, string order);
+        List<Dictionary<string, object>> getModelTreeDataALL(string modeID, string keyWord, string filter, string order, Dictionary<string, object> formstate);
 
 
 

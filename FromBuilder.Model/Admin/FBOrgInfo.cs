@@ -4,6 +4,10 @@ using NPoco;
 namespace FormBuilder.Model
 {
 
+
+    /// <summary>
+    /// 系统组织表
+    /// </summary>
     [TableName("FBOrgInfo")]
     [PrimaryKey("ID", AutoIncrement = false)]
     public class FBOrgInfo
@@ -22,10 +26,19 @@ namespace FormBuilder.Model
         /// </summary>
         public string OrgType { get; set; }
 
+        /// <summary>
+        /// 排序
+        /// </summary>
         public string Ord { get; set; }
 
+        /// <summary>
+        /// 启用状态
+        /// </summary>
         public string State { get; set; }
 
+        /// <summary>
+        /// 备注
+        /// </summary>
         public string Note { get; set; }
 
         /// <summary>
@@ -33,11 +46,23 @@ namespace FormBuilder.Model
         /// </summary>
         public string AuthUser { get; set; }
 
+        /// <summary>
+        /// 创建人
+        /// </summary>
         public string CreateUser { get; set; }
+        /// <summary>
+        /// 创建时间
+        /// </summary>
         public string CreateTime { get; set; }
 
+        /// <summary>
+        /// 最后修改人
+        /// </summary>
         public string LastModifyUser { get; set; }
 
+        /// <summary>
+        /// 最后修改时间
+        /// </summary>
         public string LastModifyTime { get; set; }
 
     }

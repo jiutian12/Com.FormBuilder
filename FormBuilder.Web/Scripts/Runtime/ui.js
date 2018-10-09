@@ -1907,7 +1907,7 @@ window.Page.UI = (function (ui, service, model, win, $) {
         load: function (bindtable, callback) {
             var isDataModel = model.isMainSource(bindtable);
             var filter = ui.params.getFilterDataSource(bindtable).serialize();
-            service.getModelTreeDataALL((isDataModel ? modelID : bindtable), filter, "", "", !isDataModel).done(function (data) {
+            service.getModelTreeDataALL((isDataModel ? modelID : bindtable), filter, "", "", !isDataModel, Page.FormSate.serialize()).done(function (data) {
                 if (data.res) {
                     callback(data.data);
                 }
@@ -2218,7 +2218,7 @@ window.Page.UI = (function (ui, service, model, win, $) {
             else if (!this.isPager(gridid) && !model.isDetailSoucre(bindtable)) {  // 如果不是明细表 而且没分页
                 filter = this.getFilterExpress(bindtable, gridid); //获取查询条件
                 var isDataModel = model.isMainSource(bindtable);// 是否是数据模型主表
-                service.getModelTreeDataALL((isDataModel ? modelID : bindtable), filter, "", keyword, !isDataModel).done(function (data) {
+                service.getModelTreeDataALL((isDataModel ? modelID : bindtable), filter, "", keyword, !isDataModel, Page.FormSate.serialize()).done(function (data) {
                     if (data.res) {
                         self.setGridData(gridid, data.data);
                     }
@@ -2821,7 +2821,7 @@ window.Page.UI = (function (ui, service, model, win, $) {
             return this.trees[id].ctrl.async;
         },
         getNoAsynData: function (sourceID, isCustom, filter, keyword, callback) {
-            service.getModelTreeDataALL(sourceID, filter, "", keyword, isCustom).done(function (data) {
+            service.getModelTreeDataALL(sourceID, filter, "", keyword, isCustom, Page.FormSate.serialize()).done(function (data) {
                 if (data.res) {
 
                     callback(data.data);

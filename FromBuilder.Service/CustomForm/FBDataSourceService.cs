@@ -144,9 +144,9 @@ namespace FormBuilder.Service
         #endregion
 
         #region 获取树形结构数据 非异步加载
-        public List<Dictionary<string, object>> getModelTreeDataALL(string modeID, string keyWord, string filter, string order)
+        public List<Dictionary<string, object>> getModelTreeDataALL(string modeID, string keyWord, string filter, string order, Dictionary<string, object> formstate)
         {
-            return DataSourceCom.getDSTreeDataALL(modeID, keyWord, filter, order, base.Db);
+            return DataSourceCom.getDSTreeDataALL(modeID, keyWord, filter, order, formstate,base.Db);
         }
         #endregion
 

@@ -523,7 +523,7 @@ namespace FormBuilder.Web.Areas.FormBuilder.Controllers
         /// <param name="order">排序条件</param>
         /// <returns></returns>
         [HttpPost]
-        public string getModelTreeData(string modelID, string level, string path, string parentID, string keyWord, string filter, string order, bool isCustom)
+        public string getModelTreeData(string modelID, string level, string path, string parentID, string keyWord, string filter, string order, bool isCustom, string formstate)
         {
             try
             {
@@ -551,16 +551,19 @@ namespace FormBuilder.Web.Areas.FormBuilder.Controllers
 
         #region 获取数据模型主表数据接口【不分页】
         [HttpPost]
-        public string getModelTreeDataALL(string modelID, string keyword, string filter, string order, bool isCustom)
+        public string getModelTreeDataALL(string modelID, string keyword, string filter, string order, bool isCustom,string formstate)
         {
             try
             {
                 // var data = this._service.getModelTreeDataALL(modelID, keyword, filter, order);
 
+                var dict = Newtonsoft.Json.JsonConvert.DeserializeObject<Dictionary<string, object>>(formstate);
+
+
                 List<Dictionary<string, object>> data;
                 if (isCustom)
                 {
-                    data = this._serviceCutomDS.getModelTreeDataALL(modelID, keyword, filter, order);
+                    data = this._serviceCutomDS.getModelTreeDataALL(modelID, keyword, filter, order, dict);
                 }
                 else
                 {
@@ -579,16 +582,18 @@ namespace FormBuilder.Web.Areas.FormBuilder.Controllers
 
 
         [HttpPost]
-        public ActionResult getExcelServer(string modelID, string keyword, string filter, string order, bool isCustom, string cols)
+        public ActionResult getExcelServer(string modelID, string keyword, string filter, string order, bool isCustom, string cols,string formstate)
         {
             try
             {
                 // var data = this._service.getModelTreeDataALL(modelID, keyword, filter, order);
                 DataTable dt = Newtonsoft.Json.JsonConvert.DeserializeObject<DataTable>(cols);
+
+                var dict = Newtonsoft.Json.JsonConvert.DeserializeObject<Dictionary<string, object>>(formstate);
                 List<Dictionary<string, object>> data;
                 if (isCustom)
                 {
-                    data = this._serviceCutomDS.getModelTreeDataALL(modelID, keyword, filter, order);
+                    data = this._serviceCutomDS.getModelTreeDataALL(modelID, keyword, filter, order, dict);
                 }
                 else
                 {

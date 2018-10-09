@@ -98,7 +98,7 @@ window.Page.Service = (function (service, win, $) {
     }
 
     ///获取模型数据 list
-    service.getModelData = function (modelID, filter, order, keyword, isCustom) {
+    service.getModelData = function (modelID, filter, order, keyword, isCustom, formstate) {
 
         var defer = $.Deferred();
         this.requestApi("/DataModel/getModelData", {
@@ -106,7 +106,8 @@ window.Page.Service = (function (service, win, $) {
             filter: filter,
             order: order,
             keyword: keyword,
-            isCustom: isCustom
+            isCustom: isCustom,
+            formstate: formstate
         }).done(function (data) {
             defer.resolve(data);
         }).fail(function (data) {
@@ -116,7 +117,7 @@ window.Page.Service = (function (service, win, $) {
     }
 
     ///获取模型数据 list
-    service.getModelTreeDataALL = function (modelID, filter, order, keyword, isCustom) {
+    service.getModelTreeDataALL = function (modelID, filter, order, keyword, isCustom, formstate) {
 
         var defer = $.Deferred();
         this.requestApi("/DataModel/getModelTreeDataALL", {
@@ -124,7 +125,8 @@ window.Page.Service = (function (service, win, $) {
             filter: filter,
             order: order,
             keyword: keyword,
-            isCustom: isCustom
+            isCustom: isCustom,
+            formstate: formstate
         }).done(function (data) {
             defer.resolve(data);
         }).fail(function (data) {
@@ -242,7 +244,7 @@ window.Page.Service = (function (service, win, $) {
     }
 
     // 树列表/帮助异步加载相关接口
-    service.getTreeAsyncLoadData = function (modelID, level, path, parentID, keyword, filter, sort, isCustom) {
+    service.getTreeAsyncLoadData = function (modelID, level, path, parentID, keyword, filter, sort, isCustom, formstate) {
         var defer = $.Deferred();
         this.requestApi("/DataModel/getModelTreeData", {
             modelID: modelID,
@@ -252,6 +254,7 @@ window.Page.Service = (function (service, win, $) {
             keyword: keyword,
             filter: filter,
             isCustom: isCustom,
+            formstate: formstate,
             sort: sort
         }).done(function (data) {
             defer.resolve(data);

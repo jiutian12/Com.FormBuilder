@@ -81,6 +81,7 @@
 
             var formState = this.getQuery("formstate");
 
+            if (formState == "") return;
             var arr = formState.split(";");
             for (var item in arr) {
                 var val_arr = arr[item].split(",");
@@ -112,7 +113,8 @@
             return _formSateObj[key];
         },
         serialize: function () {
-
+            //获取所有的界面参数
+            return JSON.stringify(_formSateObj);
         }
     };
     var sateManager = new FormStateManger();

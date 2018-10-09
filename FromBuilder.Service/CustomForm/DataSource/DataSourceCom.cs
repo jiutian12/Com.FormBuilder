@@ -228,7 +228,7 @@ namespace FormBuilder.Service
         #endregion
 
         #region 获取树形数据源的所有节点数据
-        public static List<Dictionary<string, object>> getDSTreeDataALL(string dsID, string keyWord, string filter, string order, Database Db)
+        public static List<Dictionary<string, object>> getDSTreeDataALL(string dsID, string keyWord, string filter, string order, Dictionary<string, object> formstate,Database Db)
         {
 
             FBDataSource model = getDSModel(dsID, Db);
@@ -238,6 +238,8 @@ namespace FormBuilder.Service
             var type = model.DsType;
             var sql = model.SqlInfo;
 
+
+         
             List<Dictionary<string, object>> result = new List<Dictionary<string, object>>();
 
             // 获取树形取数的Sql信息
@@ -253,6 +255,8 @@ namespace FormBuilder.Service
                 sb.AppendFormat(" {0} ", ConditionParser.Serialize(filters));
             }
 
+
+
             JFBTreeStruct treeInfo = model.treeInfo;
 
             //排序
@@ -262,7 +266,7 @@ namespace FormBuilder.Service
                 if (orders.Count > 0)
                     sb.AppendFormat(" order by {0} ", SortConditionParser.Serialize(orders));
             }
-            result = ywDB.Fetch<Dictionary<string, object>>(sb.ToString());
+            result = ywDB.Fetch<Dictionary<string, object>>(dealSQL(sb.ToString(), formstate));
 
 
 
