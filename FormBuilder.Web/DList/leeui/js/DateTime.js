@@ -10,6 +10,7 @@
         range: false,
         showType: "date",//year month time datetime
         cancelable: true,
+        theme: "#108ee9",
         max: "",
         min: ""
     };
@@ -26,7 +27,7 @@
         },
         _render: function () {
             var g = this,
-				p = this.options;
+                p = this.options;
             if (p.showTime) {
                 p.format = "yyyy-MM-dd HH:mm:ss";
             }
@@ -86,6 +87,7 @@
                 elem: "#" + g.textFieldID,
                 range: p.range,
                 format: p.format,
+                //theme: p.theme,
                 type: p.showType,
                 done: function (value, date, enddate) { //监听日期被切换
                     g.inputText.trigger('change');
@@ -98,7 +100,7 @@
         },
         showDate: function () {
             var g = this,
-               p = this.options;
+                p = this.options;
 
             //WdatePicker({
             //    el: g.textFieldID,

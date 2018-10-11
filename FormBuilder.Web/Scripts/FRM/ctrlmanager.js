@@ -1082,7 +1082,7 @@ TreeManager.prototype = {
 
 
         var self = this;
-        $("#tree_async,#tree_ismain,#tree_title,#tree_checkbox,#tree_filter,#tree_onClick,#tree_height,#tree_showbar,#tree_isqry,#tree_qrycmptype,#tree_qryexp,#tree_filterexp").change(function () {
+        $("#tree_async,#tree_ismain,#tree_title,#tree_checkbox,#tree_filter,#tree_onClick,#tree_height,#tree_showbar,#tree_isqry,#tree_qrycmptype,#tree_qryexp,#tree_filterexp,#tree_halfcheck").change(function () {
             self.onPropChanged();
         });
 
@@ -1161,6 +1161,9 @@ TreeManager.prototype = {
         $("#tree_qryexp").val(obj.qryexp);
 
 
+
+        
+        $("#tree_halfcheck").prop("checked", obj.halfcheck ? true : false);
         $("#tree_checkbox").prop("checked", obj.checkbox ? true : false);
         $("#tree_showbar").prop("checked", obj.showbar ? true : false);
 
@@ -1236,6 +1239,9 @@ TreeManager.prototype = {
         this.obj.iconField = $("#tree_iconField").leeUI().getValue();
 
         this.obj.checkbox = $("#tree_checkbox").prop("checked");
+        this.obj.halfcheck = $("#tree_halfcheck").prop("checked");
+
+        
         this.obj.filter = $("#tree_filter").prop("checked");
         this.obj.showbar = $("#tree_showbar").prop("checked");
 

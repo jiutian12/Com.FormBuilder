@@ -852,6 +852,7 @@ window.Page.UI = (function (ui, service, model, win, $) {
                 grid.endEdit();
                 grid.remove(selected);
                 model.deleteDetailRow(bindtable, selected);
+                grid.select(0);
                 // 这里是否要告知模型
             }
             return true;
@@ -941,14 +942,21 @@ window.Page.UI = (function (ui, service, model, win, $) {
         },
         saveExpandStatus: function () {
             this.expandrows = [];
+            this.collapserows = [];
             var self = this;
             var grid = ui.gridController.mainGrid;
             var lnks = $(".lee-grid-tree-link-open");
+            var idField = model.pkCol;
             $.each(lnks, function (i, ele) {
                 var domid = $(ele).closest("tr").attr("id");
-                var idField = model.pkCol;
                 var rowkey = grid._getRowByDomId(domid)[idField];
                 self.expandrows.push(rowkey);
+            });
+            var lnks = $(".lee-grid-tree-link-close");
+            $.each(lnks, function (i, ele) {
+                var domid = $(ele).closest("tr").attr("id");
+                var rowkey = grid._getRowByDomId(domid)[idField];
+                self.collapserows.push(rowkey);
             });
         },
         /*字典类保存方法*/
@@ -1210,14 +1218,12 @@ window.Page.UI = (function (ui, service, model, win, $) {
                                 } else {
                                     grid.select(0);
                                 }
-                                //alert(index); 树形grid的时候 这里记录索引有问题 todo
-
                             }
-                            var rows = self.expandrows;
+                            var rows = self.expandrows;//上次展开的行记录
                             var data = grid.rows;
                             for (var i = 0; i < data.length; i++) {
                                 if ($.inArray(data[i][model.pkCol], rows) != -1) {
-                                    grid.expand(data[i]);
+                                    grid.expand(data[i]);//如果不在上次展开的范围内 则展开？
                                 }
                             }
                             self.expandrows = [];
@@ -1543,6 +1549,7 @@ window.Page.UI = (function (ui, service, model, win, $) {
                 grid.endEdit();
                 grid.remove(selected);
                 model.deleteDetailRow(bindtable, selected);
+                grid.select(0);
                 // 这里是否要告知模型
             }
             return true;
@@ -2210,7 +2217,7 @@ window.Page.UI = (function (ui, service, model, win, $) {
             var bindtable = this.grids[gridid].ctrl.bindtable;
 
 
-            if (this.isAsync()) {
+            if (this.isAsync(gridid)) {
                 // 如果异步加载的话
                 filter = this.getFilterExpress(bindtable, gridid); //获取查询条件
                 this.asyncLoadFirst(bindtable, filter);
@@ -2232,15 +2239,27 @@ window.Page.UI = (function (ui, service, model, win, $) {
             return flag;
         },
         setGridData: function (gridid, data) {
+
+            if (ui.instance.collapserows) {
+                for (var item in data) {
+                    var id = data[item][model.pkCol];
+                    if ($.inArray(id, ui.instance.collapserows) != -1) {
+                        data[item].isexpand = false;
+                    }
+                }
+
+            }
+            //重新加载数据清除缓存记录
+            $("#" + gridid).leeUI().collapsedRows = null;
             $("#" + gridid).leeUI().loadData({ Rows: data });
         },
         isPager: function (gridid) {
             return this.grids[gridid].ctrl.pager;
         },
-        isAsync: function () {
+        isAsync: function (id) {
             //主grid是否异步加载
             if (!this.mainGridID) return false;
-            return this.grids[this.mainGridID].ctrl.async;
+            return this.grids[id].ctrl.async;
         },
         loadLocalData: function (filter) {
             // 加载数据源数据
@@ -2272,8 +2291,12 @@ window.Page.UI = (function (ui, service, model, win, $) {
                 childrenName: "children",
                 parentIDField: this.treeInfo.parentid,
                 isExtend: function (data) {
+                    //return false;
                     if (!data._loaded) {
                         //return false;
+                    }
+                    if (data.isexpand === false) {
+                        return false;
                     }
                     return true;//是否展开？
                 },
@@ -2693,8 +2716,9 @@ window.Page.UI = (function (ui, service, model, win, $) {
             $input.keydown(function (event) {
                 if (event.keyCode == 13) {
                     self.load(id, $input.val());
+                    return false;
                 }
-                showClose();
+                //showClose();
             });
             $btn.click(function () {
                 //alert(id);
@@ -2762,6 +2786,9 @@ window.Page.UI = (function (ui, service, model, win, $) {
             if (ctrl.async) {
                 opt.onBeforeExpand = this.bulidTreeAsyncOptions(ctrl);
             }
+
+            opt.enabledCompleteCheckbox = ctrl.halfcheck ? true : false;
+          
             return opt;
         },
         add: function (id, tree) {

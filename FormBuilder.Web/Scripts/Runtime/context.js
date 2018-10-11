@@ -120,7 +120,7 @@
     var sateManager = new FormStateManger();
     sateManager.init();
 
-    win.Page.FormSate = sateManager;
+    win.Page.FormState = win.Page.FormSate = sateManager;
 })(window, $);
 
 

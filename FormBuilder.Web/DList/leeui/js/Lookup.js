@@ -218,7 +218,7 @@
         },
         destroy: function () {
             if (this.wrapper) this.wrapper.remove();
-            this.options = null;
+            //this.options = null;
             $.leeUI.remove(this);
         },
         clear: function () {

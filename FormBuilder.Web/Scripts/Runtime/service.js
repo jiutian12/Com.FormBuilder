@@ -23,6 +23,7 @@ window.Page.Service = (function (service, win, $) {
     });
     service.defaults = {
         baseURL: _global.sitePath,
+        rootURL: _global.rootPath,
         invokeURL: ""
     };
 
@@ -37,29 +38,34 @@ window.Page.Service = (function (service, win, $) {
     }
 
     //请求通用的ajax封装
-    service.requestApi = function (api, apiParams, tipMessage) {
+    service.requestApi = function (api, apiParams, tipMessage, isroot) {
         //提示 这里可以检查超时
+        var path = service.defaults.baseURL + api;
+
+        if (isroot) path = service.defaults.rootURL + api;
         tipMessage && $.leeDialog.loading(tipMessage);
         var defer = $.Deferred();
-        $.ajax({ url: service.defaults.baseURL + api, data: apiParams, dataType: "json" })
-            .done(function (data) {
-                $.leeDialog.hideLoading();
-                //取消loading//如果有报错提示
-                if (data.res == false) {
-                    leeUI.Error(data.mes);
-                    if (data.redirect) {
-                        window.setTimeout(function () {
-                            // 这里加上系统地址
-                            window.top.location.href = data.redirect;
-                        }, 500);
-                    }
+        $.ajax({
+            url: path,
+            data: apiParams,
+            dataType: "json"
+        }).done(function (data) {
+            $.leeDialog.hideLoading();
+            //取消loading//如果有报错提示
+            if (data.res == false) {
+                leeUI.Error(data.mes);
+                if (data.redirect) {
+                    window.setTimeout(function () {
+                        // 这里加上系统地址
+                        window.top.location.href = data.redirect;
+                    }, 500);
                 }
-                defer.resolve(data);
-            })
-            .fail(function (data) {
-                $.leeDialog.hideLoading();
-                defer.reject(data);
-            });
+            }
+            defer.resolve(data);
+        }).fail(function (data) {
+            $.leeDialog.hideLoading();
+            defer.reject(data);
+        });
         return defer.promise();
     }
 

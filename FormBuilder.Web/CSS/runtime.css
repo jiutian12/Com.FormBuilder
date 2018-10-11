@@ -1107,3 +1107,16 @@
 }
 
 ::-ms-clear,::-ms-reveal{display:none;}
+
+ .layui-laydate .layui-laydate-footer span:hover,  .layui-laydate td.layui-this {
+    color: #5a8bff !important;
+}
+.layui-laydate td.layui-this, .layui-laydate td.layui-this:hover {
+    background: #f1f5fd !important;
+}
+.layui-laydate {
+    font-size: 12px;
+}
+.layui-laydate-content td, .layui-laydate-content th {
+    height:24px;
+}

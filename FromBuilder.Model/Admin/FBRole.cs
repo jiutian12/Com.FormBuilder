@@ -29,13 +29,19 @@ namespace FormBuilder.Model
     /// 角色岗位授权结果表
     /// </summary>
     [TableName("FBAuthPermission")]
-    [PrimaryKey("MasterValue", AutoIncrement = false)]
+
+    [PrimaryKey("ID", AutoIncrement = false)]
     public class FBAuthPermission
     {
+
+        /// <summary>
+        /// 主键
+        /// </summary>
+        public string ID { get; set; }
         /// <summary>
         /// 授权维度
         /// </summary>
-        public string Master { get; set; }
+        public string MasterType { get; set; }
         /// <summary>
         /// 角色/岗位ID
         /// </summary>

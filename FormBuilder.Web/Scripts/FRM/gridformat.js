@@ -271,7 +271,7 @@
         getEnum: function () {
             // 获取table上的数据
 
-            var $items = $(".grid .item");
+            var $items = $(".enum .grid .item");
             var arr = [];
             $.each($items, function (i, ele) {
                 var id = $(ele).find("input[data-bind='id']").val();

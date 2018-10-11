@@ -273,7 +273,7 @@ namespace FormBuilder.Service
             if (!string.IsNullOrEmpty(keyWord))
             {
                 string qrySql = string.Format(" and  {0} like '{1}%'", model.treeInfo.treename, keyWord);
-                var resultList = ywDB.Fetch<Dictionary<string, object>>(new Sql(sbInit).Append(new Sql(qrySql)));
+                var resultList = ywDB.Fetch<Dictionary<string, object>>(dealSQL(sbInit, formstate).Append(new Sql(qrySql)));
 
                 foreach (var item in result)
                 {
@@ -282,6 +282,7 @@ namespace FormBuilder.Service
                     if (res.ToList().Count > 0)
                     {
                         item["_istarget"] = "1";
+                        item["isexpand"] = true;
                     }
 
                 }

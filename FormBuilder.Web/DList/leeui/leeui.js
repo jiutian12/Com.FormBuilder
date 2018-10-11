@@ -9505,6 +9505,7 @@ function ($) {
         range: false,
         showType: "date",//year month time datetime
         cancelable: true,
+        theme: "#108ee9",
         max: "",
         min: ""
     };
@@ -9521,7 +9522,7 @@ function ($) {
         },
         _render: function () {
             var g = this,
-				p = this.options;
+                p = this.options;
             if (p.showTime) {
                 p.format = "yyyy-MM-dd HH:mm:ss";
             }
@@ -9581,6 +9582,7 @@ function ($) {
                 elem: "#" + g.textFieldID,
                 range: p.range,
                 format: p.format,
+                //theme: p.theme,
                 type: p.showType,
                 done: function (value, date, enddate) { //监听日期被切换
                     g.inputText.trigger('change');
@@ -9593,7 +9595,7 @@ function ($) {
         },
         showDate: function () {
             var g = this,
-               p = this.options;
+                p = this.options;
 
             //WdatePicker({
             //    el: g.textFieldID,
@@ -9884,7 +9886,7 @@ function ($) {
         },
         destroy: function () {
             if (this.wrapper) this.wrapper.remove();
-            this.options = null;
+            //this.options = null;
             $.leeUI.remove(this);
         },
         clear: function () {

@@ -35,9 +35,10 @@ namespace FormBuilder.Service
             try {
                 base.Db.BeginTransaction();
                 
-                base.Db.Execute(new Sql("delete from FBAuthPermission where masterValue=@0 and AccessType=@1",masterValue,AccessType));
+                base.Db.Execute(new Sql("delete from FBAuthPermission where masterValue=@0 and Access=@1",masterValue,AccessType));
                 foreach (var model in list) {
-                    base.Save(model);
+                    model.ID = Guid.NewGuid().ToString();
+                    base.Add(model);
                 }
                 this.Db.CompleteTransaction();
 

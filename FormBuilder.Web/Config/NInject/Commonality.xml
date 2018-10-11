@@ -15,4 +15,5 @@
   <bind service="FormBuilder.Service.IFBCMPService, FormBuilder.Service" to="FormBuilder.Service.FBCMPService, FormBuilder.Service" />
   <bind service="FormBuilder.Service.IFBModelExtendService, FormBuilder.Service" to="FormBuilder.Service.FBModelExtendService, FormBuilder.Service" />
   <bind service="FormBuilder.Service.IFBMenuService, FormBuilder.Service" to="FormBuilder.Service.FBMenuService, FormBuilder.Service" />
+  <bind service="FormBuilder.Service.IFBAuthService, FormBuilder.Service" to="FormBuilder.Service.FBAuthService, FormBuilder.Service" />
 </module>
