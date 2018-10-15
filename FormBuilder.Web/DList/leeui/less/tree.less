@@ -1,0 +1,210 @@
+.checkbox(@color) {
+    position: relative;
+    top: 0;
+    left: 0;
+    display: block;
+    width: 14px;
+    height: 14px;
+    border: 1px solid #d9d9d9;
+    border-radius: 2px;
+    background-color: #fff;
+    -webkit-transition: all 0.3s;
+    transition: all 0.3s;
+    background-image: none;
+    margin: 4px 4px 0 5px;
+    &:after {
+        -webkit-transform: rotate(45deg) scale(0);
+        -ms-transform: rotate(45deg) scale(0);
+        transform: rotate(45deg) scale(0);
+        position: absolute;
+        left: 4px;
+        top: 1px;
+        display: table;
+        width: 5px;
+        height: 8px;
+        border: 2px solid #fff;
+        border-top: 0;
+        border-left: 0;
+        content: " ";
+        -webkit-transition: all 0.1s cubic-bezier(.71, -.46, .88, .6);
+        transition: all 0.1s cubic-bezier(.71, -.46, .88, .6);
+    }
+    &.lee-checkbox-checked {
+        background-color: @color;
+        border-color: @color;
+        &:after {
+            -webkit-transform: rotate(45deg) scale(1);
+            -ms-transform: rotate(45deg) scale(1);
+            transform: rotate(45deg) scale(1);
+            position: absolute;
+            left: 4px;
+            top: 1px;
+            display: table;
+            width: 5px;
+            height: 8px;
+            border: 2px solid #fff;
+            border-top: 0;
+            border-left: 0;
+            content: " ";
+            -webkit-transition: all 0.2s cubic-bezier(.12, .4, .29, 1.46) 0.1s;
+            transition: all 0.2s cubic-bezier(.12, .4, .29, 1.46) 0.1s;
+        }
+    }
+    &.lee-disabled {
+        border-color: #d9d9d9!important;
+        background-color: #f3f3f3;
+        &:after {
+            -webkit-animation-name: none;
+            animation-name: none;
+            border-color: #f3f3f3;
+            border-color: rgba(0, 0, 0, .25);
+        }
+    }
+    &.lee-checkbox-incomplete {
+        background-color: @color;
+        border-color: @color;
+        &:after {
+            content: " ";
+            -webkit-transform: scale(1);
+            -ms-transform: scale(1);
+            transform: scale(1);
+            position: absolute;
+            left: 2px;
+            top: 5px;
+            width: 8px;
+            height: 1px;
+        }
+    }
+}
+
+.lee-tree {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    overflow: hidden;
+    position: relative;
+    display: block;
+    background: white;
+    & .lee-box {
+        width: 22px;
+        height: 22px;
+        overflow: hidden;
+        float: left;
+    }
+    & .lee-over {
+        background: #f3f3f3;
+    }
+    & .lee-selected {
+        background: #f3f3f3;
+        & span {}
+        //      background: #D9E8FB;
+    }
+    & .lee-tree-icon-none img {
+        border: 0;
+        height: 16px;
+        width: 16px;
+        top: 2px;
+        margin-top: 2px;
+        margin-left: 2px;
+    }
+    & a,
+    & span {
+        color: #333;
+        height: 22px;
+        line-height: 22px;
+        text-decoration: none;
+    }
+
+    & li {
+        clear: both;
+        display: block;
+        cursor: pointer;
+        & .lee-body {
+            //height: 22px;
+            line-height: 22px;
+            padding: 4px;
+            overflow: hidden;
+            width: 2000px;
+            transition: all ease 0.3s;
+        }
+    }
+    & .lee-body span {
+        display: block;
+        float: left;
+        padding: 0 5px;
+    }
+    & .lee-checkbox {
+        .checkbox(@brand-primary)
+    }
+}
+
+.lee-tree .lee-expandable-open {
+    background: none;
+    display: inline-block;
+    font: normal normal normal 14px/1 FontAwesome;
+    font-size: inherit;
+    text-rendering: auto;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-align: center;
+    font-size: 14px;
+    line-height: 22px;
+    color: #888;
+    padding-left: 10px;
+}
+.lee-tree .lee-expandable-open:after {
+    content: "\f0d7";
+}
+
+.lee-tree .lee-expandable-close {
+    background: none;
+    display: inline-block;
+    font: normal normal normal 14px/1 FontAwesome;
+    font-size: inherit;
+    text-rendering: auto;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-align: center;
+    font-size: 14px;
+    color: #888;
+    line-height: 22px;
+    padding-left: 10px;
+}
+.lee-tree .lee-expandable-close:after {
+    content: "\f0da";
+}
+.lee-tree .lee-tree-icon-folder-open:after {
+    content: "\f07c";
+    padding-left: 3px;
+
+}
+.lee-tree .lee-tree-icon-folder:after {
+    content: "\f07b";
+}
+.lee-tree .lee-tree-icon-leaf:after {
+    content: "\f15b";
+}
+
+.lee-tree .lee-tree-icon-folder,
+.lee-tree .lee-tree-icon-folder-open,
+.lee-tree .lee-tree-icon-leaf {
+    background: none;
+    display: inline-block;
+    font: normal normal normal 14px/1 FontAwesome;
+    font-size: inherit;
+    text-rendering: auto;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-align: center;
+    font-size: 14px;
+    line-height: 22px;
+    color: #adaaaa;
+
+}
+.lee-tree .lee-tree-icon-none:after {
+    content: "";
+}
+.lee-tree .lee-tree-icon-none .icon-img {
+    margin-top: 3px;
+    margin-left: 3px;
+}

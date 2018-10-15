@@ -1,0 +1,141 @@
+/*
+    工具条 
+*/
+.lee-toolbar-float{
+    height: 40px;
+    overflow: visible !important;
+}
+.lee-toolbar-large {
+    & .lee-panel-btn {
+        padding: 5px 10px;
+    }
+    & .lee-bar-separator {
+        margin: 4px 2px;
+    }
+    & .lee-search-wrap {
+        & .lee-search-words {
+            height: 28px;
+        }
+        & .search {
+            height: 28px;
+            width: 28px;
+        }
+    }
+}
+
+.lee-toolbar>.dropitem>a{
+    &:hover{
+        background: #f1f1f1;
+    }&:focus{
+        background: #f1f1f1;
+    }
+}
+
+.lee-toolbar {
+    display: block;
+    border: 1px solid @toolbar-border;
+    overflow: auto;
+    position: relative;
+    padding: 5px 2px;
+    .box-shadow(0 1px 3px rgba(136, 136, 136, 0.2));
+}
+
+.lee-toolbar-small .lee-btn {
+    padding: 3px 10px;
+    line-height: inherit;
+}
+
+.lee-toolbar-item {
+    float: left;
+    margin-left: 4px;
+    margin-right: 4px;
+}
+
+.lee-bar-separator {
+    float: left;
+    height: 20px;
+    border-left: 1px solid @toolbar-border;
+    border-right: 1px solid white;
+    margin: 2px;
+}
+
+.lee-toolbar-item .lee-icon,
+.lee-toolbar-item img {
+    &+span {
+        margin-left: 5px;
+    }
+}
+.lee-toolbar-item .lee-ion{
+    &+span {
+        margin-left: 5px;
+    }
+}
+.lee-toolbar-item img {
+    width: 16px;
+    height: 16px;
+    border: 0;
+}
+.lee-toolbar-item .icon-img{
+    float: left;
+    margin-right: 4px;
+}
+.lee-toolbar-item .lee-icon.right {
+    margin-left: 5px;
+}
+
+.lee-toolbar-item-hasicon {
+    padding-left: 22px;
+}
+
+.lee-toolbar-item-disable {
+    background: #f6f6f6;
+    cursor: not-allowed !important;
+}
+
+.lee-toolbar-item-disable span {
+    color: @toolbar-disabled-color;
+}
+
+.lee-toolbar-item-color {
+    border: 1px solid @toolbar-border;
+    position: absolute;
+    width: 14px;
+    height: 14px;
+    left: 3px;
+    top: 3px;
+}
+
+.lee-panel-btn {
+    display: block;
+    overflow: hidden;
+    position: relative;
+    padding: 3px 10px;
+    cursor: pointer;
+    text-align: center;
+    color: @toolbar-item-color;
+    text-decoration: none;
+    cursor: pointer;
+    border: 1px solid transparent;
+    transition: all ease 0.3s;
+}
+
+.lee-panel-btn-over {
+    outline: none;
+    color: @toolbar-item-hover-color;
+    background-color: @toolbar-item-hover-bg;
+    border-color: @toolbar-item-hover-border;
+    
+    background: #f1f1f1;
+    color: #000000;
+    border-color: #f1f1f1;
+}
+
+.lee-panel-btn-selected {
+    color: @toolbar-item-selected-color;
+    background-color: @toolbar-item-selected-bg;
+    border-color: @toolbar-item-selected-border;
+    
+    background: #f1f1f1;
+    color: #000000;
+    border-color: #f1f1f1;
+}

@@ -99,7 +99,7 @@
                     if (unescape(ar[1]) == 'undefined') {
                         return "";
                     } else {
-                        return unescape(ar[1]);
+                        return decodeURI(ar[1]);
                     }
                 }
             }

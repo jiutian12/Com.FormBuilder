@@ -45,7 +45,7 @@
 
 
             if (p.labelText) {
-                
+
                 g.labelwrap = g.wrapper.wrap("<div class='lee-checkbox-label'></div>").parent();
                 g.labelspan = $("<span class='lee-checkbox-label-span' style='font-size:12px;'>" + p.labelText + "</span>");
                 g.labelwrap.append(g.labelspan);
@@ -89,8 +89,10 @@
         },
         _setValue: function (value) {
             var g = this,
-				p = this.options;
-
+                p = this.options;
+            if (p.notbit) {
+                value = (value == "1" ? true : false);
+            }
 
             if (!value) {
 

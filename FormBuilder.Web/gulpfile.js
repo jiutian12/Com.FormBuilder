@@ -8,30 +8,26 @@ notify = require('gulp-notify');
 minifycss = require('gulp-minify-css');
 
 
-gulp.task('default', function () {
-    gulp.src(['less/bulid.less']) //多个文件以数组形式传入
+gulp.task('css', function () {
+    gulp.src(['DList/leeui/less/bulid.less']) //多个文件以数组形式传入
         .pipe(less())
-        .pipe(gulp.dest('dlist/css')); //将会在src/css下生成index.css以及detail.css 
+        .pipe(gulp.dest('DList/leeui/css')); //将会在src/css下生成index.css以及detail.css 
 });
 
+//gulp.task('minifycss', function () {
+//    return gulp.src('src/css/*.css')
+//        .pipe(concat('main.css'))  //需要操作的文件
+//        .pipe(rename({ suffix: '.min' }))   //rename压缩后的文件名
+//        .pipe(minifycss())   //执行压缩
+//        .pipe(gulp.dest('src/css'));   //输出文件夹
+//});
 
-
-
-
-gulp.task('minifycss', function () {
-    return gulp.src('src/css/*.css')
-        .pipe(concat('main.css'))  //需要操作的文件
-        .pipe(rename({ suffix: '.min' }))   //rename压缩后的文件名
-        .pipe(minifycss())   //执行压缩
-        .pipe(gulp.dest('src/css'));   //输出文件夹
-});
-
-gulp.task('minifycss2', function () {
-    return gulp.src('src/css/*.css')
-        .pipe(concat('main.css'))  //需要操作的文件
-        .pipe(minifycss())   //执行压缩
-        .pipe(gulp.dest('src/css'));   //输出文件夹
-});
+//gulp.task('minifycss2', function () {
+//    return gulp.src('src/css/*.css')
+//        .pipe(concat('main.css'))  //需要操作的文件
+//        .pipe(minifycss())   //执行压缩
+//        .pipe(gulp.dest('src/css'));   //输出文件夹
+//});
 
 
 gulp.task('leeui', function () {

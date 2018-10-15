@@ -1,0 +1,237 @@
+.lee-tab {}
+
+.lee-tab-links {
+    position: relative;
+    width: 100%;
+    min-height: 30px;
+    border-bottom: 1px solid @tab-border-color;
+}
+
+.lee-tab-links-left,
+.lee-tab-links-right {
+    position: absolute;
+    top: 0px;
+    overflow: hidden;
+    z-index: 13;
+    cursor: pointer;
+    padding: 6px;
+    border: 1px solid #FFF;
+    background: #fff;
+    border-bottom: 0;
+    transition: all ease .3s;
+}
+
+.lee-tab-links-left {
+    left: 0;
+}
+
+.lee-tab-links-right {
+    right: 0;
+}
+
+.lee-tab-links-left-over {
+    background: #EEEEEE;
+}
+
+.lee-tab-links-right-over {
+    background: #EEEEEE;
+}
+
+.lee-tab-links-left-invalid {
+    cursor: not-allowed;
+}
+
+.lee-tab-links-right-invalid {
+    cursor: not-allowed;
+}
+
+.lee-tab-switch {
+    position: absolute;
+    right: 0;
+    top: 0px;
+    overflow: hidden;
+    background: #ffffff;
+    z-index: 13;
+    cursor: pointer;
+    display: none;
+    padding: 6px 4px;
+    border: 1px solid transparent;
+    border-bottom: 0;
+    transition: all ease .3s;
+}
+
+.lee-tab-switch:hover {
+    background: #EEEEEE;
+}
+
+.lee-tab-itemswitch {
+    border-top-right-radius: 3px;
+    background: #fff;
+    position: relative;
+    padding: 6px !important;
+}
+
+.lee-tab-links .lee-tab-itemswitch a {}
+
+.lee-tab-switchable .lee-tab-links-right {
+    right: 16px;
+}
+
+.lee-tab-switchable .lee-tab-switch {
+    display: block;
+}
+
+.lee-tab-windowsswitch {
+    border: 1px solid #CCC;
+    padding: 1px;
+    background: #ffffff;
+    position: absolute;
+    z-index: 9900;
+    box-shadow: 0 1px 3px rgba(136, 136, 136, 0.2);
+}
+
+
+/*.lee-tab-windowsswitch .closeall {
+    background: url(../images/layout/closeall.gif);
+    height: 16px;
+    line-height: 16px;
+    width: 16px;
+}*/
+
+.lee-tab-windowsswitch a {
+    display: block;
+    text-decoration: none;
+    height: 24px;
+    line-height: 24px;
+    border: 1px solid #fff;
+    color: #333;
+    padding: 0 5px;
+    width: 130px;
+    overflow: hidden;
+    margin: 1px;
+}
+
+.lee-tab-windowsswitch a:hover {
+    border: 1px solid @tab-back-color;
+    background: @tab-back-color;
+}
+
+.lee-tab-windowsswitch a.selected {
+    border: 1px solid @tab-back-color;
+    background: @tab-back-color;
+    font-weight: bold;
+}
+
+.lee-tab-links ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    width: 9999px;
+    margin-bottom: -1px;
+    position: absolute;
+}
+
+.lee-tab-links ul:before,
+.lee-tab-links ul:after {
+    display: table;
+    content: " ";
+    clear: both;
+}
+
+.lee-tab-links li {
+    float: left;
+    margin: 0;
+    padding: 0;
+    margin-left: 2px;
+    /*height: 26px;
+    line-height: 26px;*/
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    border: none;
+    border: 1px solid @tab-border-color;
+    border-radius: 5px 5px 0 0;
+    background: @tab-back-color;
+    transition: all ease .3s;
+    padding: 6px 20px;
+}
+
+.lee-tab-links li.lee-selected {
+    background: @tab-selected-bg;
+    border: 1px solid @tab-border-color;
+    border-radius: 5px 5px 0 0;
+    margin-top: 0px;
+    border-bottom-color: @tab-selected-bg;
+}
+
+.lee-tab-links li a {
+    display: block;
+    text-decoration: none;
+    transition: all ease .3s;
+}
+
+.lee-tab-links li.lee-selected a,
+.lee-tab-links li.lee-selected a:hover {
+    color: @tab-selected-color;
+}
+
+.lee-tab-links li.lee-selected a {
+    font-weight: bold;
+}
+
+.lee-tab-links-item-close {
+    width: 14px;
+    height: 14px;
+    overflow: hidden;
+    position: absolute;
+    top: 2px;
+    right: 2px;
+    z-index: 12;
+    cursor: pointer;
+    transition: all ease .3s;
+    opacity: 0;
+    text-align: center;
+    line-height: 14px;
+    color: rgba(0, 0, 0, 0.65);
+}
+
+.lee-tab-links-item-close:hover {
+    color: #108ee9;
+}
+
+.lee-tab-item-hover a {
+    color: #108ee9;
+}
+
+.lee-tab-item-hover .lee-tab-links-item-close {
+    opacity: 1;
+}
+
+.lee-tab-links-item-close:after {
+    content: "\f00d";
+}
+
+.lee-tab-links-item-close-over {
+    color: #444444;
+}
+
+.lee-tab-content {
+    margin: 0 auto;
+    padding: 0;
+    border: none;
+    width: 100%;
+}
+
+.lee-tab-content-item {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    position: relative;
+    overflow: auto;
+}
+
+.lee-tab-content-item iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+}

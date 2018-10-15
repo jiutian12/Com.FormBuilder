@@ -1,0 +1,319 @@
+/* --------------
+   *   layout  *
+* ------------ */
+
+.lee-layout {
+    position: relative;
+}
+
+.lee-layout-left,
+.lee-layout-right,
+.lee-layout-center,
+.lee-layout-top,
+.lee-layout-bottom,
+.lee-layout-centerbottom {
+    position: absolute;
+    border: 1px solid #c5c5c5;
+    background: white;
+    z-index: 10;
+    overflow: hidden;
+}
+
+.lee-layout-top {
+    width: 100%;
+}
+
+.lee-layout-bottom {
+    width: 100%
+}
+
+.lee-layout-left .lee-layout-header-toggle {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    height: 20px;
+    width: 20px;
+    overflow: hidden;
+    background: url('../images/layout/togglebar.gif');
+    background-position: -20px 0px;
+    cursor: pointer;
+    text-align: center;
+    line-height: 20px;
+}
+
+.lee-layout-left .lee-layout-header-toggle:after {
+    content: "\f100";
+}
+
+.lee-layout-left .lee-layout-header-toggle-over {
+    background: #ececec;
+}
+
+.lee-layout-right .lee-layout-header-toggle {
+    position: absolute;
+    top: 5px;
+    left: 5px;
+    height: 20px;
+    width: 20px;
+    overflow: hidden;
+    cursor: pointer;
+    text-align: center;
+    line-height: 20px;
+}
+
+.lee-layout-right .lee-layout-header-toggle:after {
+    content: "\f101";
+}
+
+.lee-layout-right .lee-layout-header-toggle-over {
+    background: #f3f3f3;
+}
+
+.lee-layout-center .lee-layout-header {
+    cursor: default;
+}
+
+.lee-layout-centerbottom .lee-layout-header {
+    cursor: default;
+}
+
+.lee-layout-header {
+    position: relative;
+    padding-left: 10px;
+    font-weight: bold;
+    height: 32px;
+    line-height: 32px;
+    background: #f8f8f8;
+    overflow: hidden;
+    cursor: pointer;
+    font-size: 14px;
+    color: #3c3c3c;
+    border-bottom: 1px solid #c5c5c5;
+}
+
+.lee-layout-header-inner {
+    padding-right: 22px;
+}
+
+.lee-layout-right .lee-layout-header-inner {
+    padding-left: 22px;
+    padding-right: auto;
+}
+
+.lee-layout-header-over {}
+
+.lee-layout-collapse-left,
+.lee-layout-collapse-right {
+    width: 32px;
+    background: #f8f8f8;
+    border: 1px solid #c5c5c5;
+    position: absolute;
+    top: 0px;
+    display: none;
+    height: 100%;
+    z-index: 10;
+}
+
+
+/*.lee-layout-collapse-left-over,
+.lee-layout-collapse-right-over {
+    background: #f3f3f3;
+}*/
+
+.lee-layout-collapse-left-toggle,
+.lee-layout-collapse-right-toggle {
+    position: absolute;
+    height: 20px;
+    width: 20px;
+    overflow: hidden;
+    background: url('../images/layout/togglebar.gif');
+    cursor: pointer;
+    line-height: 20px;
+    text-align: center;
+}
+
+.lee-layout-collapse-left {
+    left: 0px;
+}
+
+.lee-layout-collapse-left-toggle {
+    left: 5px;
+    top: 5px;
+    right: 5px;
+}
+
+.lee-layout-collapse-left-toggle:after {
+    content: "\f101";
+}
+
+.lee-layout-collapse-left-toggle-over {
+    background: #f3f3f3;
+}
+
+.lee-layout-collapse-right {
+    right: 0px;
+}
+
+.lee-layout-collapse-right-toggle {
+    top: 5px;
+    left: 5px;
+    right: 5px;
+    background-position: -20px 0px;
+}
+
+.lee-layout-collapse-right-toggle:after {
+    content: "\f100";
+}
+
+.lee-layout-collapse-right-toggle-over {
+    background: #f3f3f3;
+}
+
+.lee-layout-drophandle-left {
+    position: absolute;
+    width: 5px;
+    cursor: col-resize;
+    z-index: 10;
+    display: none;
+}
+
+.lee-layout-drophandle-right {
+    position: absolute;
+    width: 5px;
+    cursor: col-resize;
+    z-index: 10;
+    display: none;
+}
+
+.lee-layout-drophandle-top {
+    position: absolute;
+    height: 5px;
+    cursor: row-resize;
+    z-index: 10;
+    display: none;
+    line-height: 1px;
+    overflow: hidden;
+}
+
+.lee-layout-drophandle-bottom {
+    position: absolute;
+    height: 5px;
+    cursor: row-resize;
+    z-index: 10;
+    display: none;
+    line-height: 1px;
+    overflow: hidden;
+}
+
+.lee-layout-drophandle-centerbottom {
+    position: absolute;
+    height: 5px;
+    cursor: row-resize;
+    z-index: 10;
+    display: none;
+    line-height: 1px;
+    overflow: hidden;
+}
+
+.lee-layout-dragging-xline {
+    background: #E0E4E2;
+    height: 4px;
+    position: absolute;
+    display: none;
+    z-index: 9999;
+    padding: 0;
+    margin: 0;
+    line-height: 1px;
+    overflow: hidden;
+}
+
+.lee-layout-dragging-yline {
+    background: #E0E4E2;
+    width: 4px;
+    position: absolute;
+    display: none;
+    z-index: 9999;
+    padding: 0;
+    margin: 0;
+}
+
+.lee-layout-lock {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    display: none;
+    z-index: 9990;
+    margin: 0;
+    padding: 0;
+}
+
+.lee-layout-content {
+    position: relative;
+    background: white;
+    overflow: hidden;
+}
+
+.lee-layout-drophandle {
+    position: absolute;
+    top: 0px;
+    left: -5px;
+    width: 5px;
+    cursor: col-resize;
+    z-index: 10;
+    height: 100%;
+    display: none;
+}
+
+.lee-layout-collapse {
+    width: 24px;
+    background: #EAF2FE;
+    border: 1px solid #B8D0D6;
+    position: absolute;
+    top: 0px;
+    left: 4px;
+    display: none;
+    height: 100%;
+    z-index: 10;
+}
+
+.lee-layout-collapse-over {
+    background: #f3f3f3;
+}
+
+.lee-layout-collapse-toggle {
+    position: absolute;
+    top: 0px;
+    right: 2px;
+    height: 20px;
+    width: 20px;
+    overflow: hidden;
+    background: url('../images/layout/togglebar.gif');
+    background-position: -20px -40px;
+    cursor: pointer;
+}
+
+.lee-layout-collapse-toggle-over {
+    background-position: -20px -60px;
+}
+
+.lee-layout-dragging-line {
+    background: #E0E4E2;
+    width: 4px;
+    position: absolute;
+    top: 0px;
+    display: none;
+    z-index: 9999;
+    padding: 0;
+    margin: 0;
+    height: 100%;
+}
+
+.lee-layout-xmask {
+    cursor: col-resize;
+    z-index: 9990;
+}
+
+.lee-layout-ymask {
+    cursor: row-resize;
+    z-index: 9990;
+}

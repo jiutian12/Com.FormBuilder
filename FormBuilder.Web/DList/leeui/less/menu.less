@@ -1,0 +1,58 @@
+.lee-menu {
+    width: 120px;
+    left: 183px;
+    top: 24px;
+    /* display: none; */
+    border: 1px solid @menu-border-color;
+    background-color: @menu-bg;
+    color: @menu-text-color;
+    .box-shadow(0 1px 3px rgba(136, 136, 136, 0.2));
+    position: absolute;
+    border-radius: @menu-border-radius;
+    z-index: 2000;
+}
+
+.lee-menu-inner {
+    position: relative;
+    width: 100%;
+    z-index: 103;
+}
+
+.lee-menu-item {
+    padding: 6px 10px;
+    transition: all ease 0.3s;
+    position: relative;
+    cursor: pointer;
+}
+.lee-menu-item.lee-menu-item-over,
+.lee-menu-item:hover {
+    background: @menu-selected-bg;
+}
+
+.lee-menu-item.lee-menu-item-disable {
+    cursor: not-allowed;
+    color: @menu-text-disabled-color;
+}
+
+.lee-menu.hasicon .lee-menu-item {
+    padding-left: 25px;
+}
+
+.lee-menu-item .lee-icon {
+    top: 5px;
+    height: 16px;
+    width: 16px;
+    line-height: 16px;
+    text-align: center;
+    font-size: 12px;
+}
+
+.lee-menu-item .right {
+    position: absolute;
+    right: 5px;
+}
+
+.lee-menu-item .left {
+    position: absolute;
+    left: 5px;
+}

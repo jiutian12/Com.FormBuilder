@@ -53,9 +53,9 @@ window.Page.UI = (function (ui, service, model, win, $) {
             //}
             if (this.lastID) {
                 this.setDataID(this.lastID);
-
+                this.loadData();//查看和修改则加载数据
             }
-            this.loadData();//查看和修改则加载数据
+
             this.setStatus("view");
             $('#form').validator("cleanUp");
             return true;
@@ -66,6 +66,13 @@ window.Page.UI = (function (ui, service, model, win, $) {
         },
         getStatus: function () {
             return this.status;
+        },
+        closeFunc: function () {
+            if (window.top.lsp) {
+                window.top.lsp.cf.tab.close(this.getQuery("funcid"));
+            } else {
+                window.close();
+            }
         },
         setPageReadOnly: function () {
             // 把当前表单设置成只读
@@ -316,7 +323,7 @@ window.Page.UI = (function (ui, service, model, win, $) {
             }
         },
         addCard: function (frmID, formState, title, isrefresh, height, width) {
-            this.openForm("", frmID, "card", "add", formState, title, isrefresh);
+            this.openForm("", frmID, "card", "add", formState, title, isrefresh, height, width);
         },
         addSameCard: function (frmID, gridid, formState, title, isrefresh, height, width) {
             var grid = $("#" + gridid).leeUI();
@@ -540,10 +547,10 @@ window.Page.UI = (function (ui, service, model, win, $) {
                         self.reload(true);
                 },
                 url: _global.sitePath + "/Runtime/" + type
-                    + "?frmid=" + frmID
-                    + "&dataid=" + dataID
-                    + "&action=" + action
-                    + "&formstate=" + formState,
+                + "?frmid=" + frmID
+                + "&dataid=" + dataID
+                + "&action=" + action
+                + "&formstate=" + formState,
             });
         },
         addControl: function (type, ctrl) {
@@ -706,36 +713,38 @@ window.Page.UI = (function (ui, service, model, win, $) {
             var data = model.getModel();
             var mainModel = data[0].data[0];
             this.bindfields = this.bindfields || $("[data-bindfield]");
+            if (mainModel) {
+                for (var i = 0; i < this.bindfields.length; i++) {
+                    var item = this.bindfields[i];
+                    var $ele = $(item);
+                    //if (i == 0) $ele.focus();
+                    var bindKey = $ele.attr("data-bindfield");
+                    var bindTable = $ele.attr("data-bindtable");
+                    if (bindKey == "" || bindTable == "") continue;
+                    if ($ele.leeUI()) {
 
-            for (var i = 0; i < this.bindfields.length; i++) {
-                var item = this.bindfields[i];
-                var $ele = $(item);
-                //if (i == 0) $ele.focus();
-                var bindKey = $ele.attr("data-bindfield");
-                var bindTable = $ele.attr("data-bindtable");
-                if (bindKey == "" || bindTable == "") continue;
-                if ($ele.leeUI()) {
+                        var type = $ele.leeUI().type;
+                        if (type.toLowerCase() == "lookup")
+                            $ele.leeUI().setValue(mainModel[bindKey], mainModel[bindKey]);
+                        else if (type.toLowerCase() == "upload") {
+                            // 附件有单独的方法处理赋值事件
+                        }
+                        else {
+                            $ele.leeUI().setValue(mainModel[bindKey]);
+                        }
 
-                    var type = $ele.leeUI().type;
-                    if (type.toLowerCase() == "lookup")
-                        $ele.leeUI().setValue(mainModel[bindKey], mainModel[bindKey]);
-                    else if (type.toLowerCase() == "upload") {
-                        // 附件有单独的方法处理赋值事件
-                    }
-                    else {
-                        $ele.leeUI().setValue(mainModel[bindKey]);
-                    }
-
-                } else {
-                    var type = $ele.attr("type");
-                    if (type == "text" || $ele.is("textarea")) {
-                        $ele.val(mainModel[bindKey]);
-                    }
-                    else if (type == "checkbox") {
-                        $ele.prop("checked", mainModel[bindKey] == "1");
+                    } else {
+                        var type = $ele.attr("type");
+                        if (type == "text" || $ele.is("textarea")) {
+                            $ele.val(mainModel[bindKey]);
+                        }
+                        else if (type == "checkbox") {
+                            $ele.prop("checked", mainModel[bindKey] == "1");
+                        }
                     }
                 }
             }
+
 
             // 绑定明细表
             var detailctrls = ui.gridController.grids;
@@ -976,38 +985,38 @@ window.Page.UI = (function (ui, service, model, win, $) {
                 }
             });
             $.when.apply(
-               null,
-               $.map(deferred, function (v) { return v; })
-           ).done(function () {
-               self.getCtrl();
-               var data = model.getSaveData();
-               data["FBFileSave"] = ui.fileManager.getAllData();//绑定附件数据
-               data["FBFileDel"] = ui.fileManager.getDelData();//绑定附件数据
-               if (ui.event.triggerHandler("", "beforeSave", data) === false) return;
-               var tmpid = model.getMainDataID();
-               var treeCurrent = model.getCurrentTreeObj();
-               self.saveExpandStatus();
-               //模型id 数据
-               service.saveModel(
-                   modelID,
-                   JSON.stringify(data),
-                   self.status,
-                   JSON.stringify(treeCurrent)
-               ).done(function (data) {
-                   if (ui.event.triggerHandler("", "afterSave", data) === false) return;
-                   self.lastID = tmpid;
-                   self.reload();
-                   if (data.res) {
-                       leeUI.Success(data.mes);
-                   }
-                   callback(data.res);
+                null,
+                $.map(deferred, function (v) { return v; })
+            ).done(function () {
+                self.getCtrl();
+                var data = model.getSaveData();
+                data["FBFileSave"] = ui.fileManager.getAllData();//绑定附件数据
+                data["FBFileDel"] = ui.fileManager.getDelData();//绑定附件数据
+                if (ui.event.triggerHandler("", "beforeSave", data) === false) return;
+                var tmpid = model.getMainDataID();
+                var treeCurrent = model.getCurrentTreeObj();
+                self.saveExpandStatus();
+                //模型id 数据
+                service.saveModel(
+                    modelID,
+                    JSON.stringify(data),
+                    self.status,
+                    JSON.stringify(treeCurrent)
+                ).done(function (data) {
+                    if (ui.event.triggerHandler("", "afterSave", data) === false) return;
+                    self.lastID = tmpid;
+                    self.reload();
+                    if (data.res) {
+                        leeUI.Success(data.mes);
+                    }
+                    callback(data.res);
 
 
-               })
-               .fail(function (data) {
-                   console.log("失败");
-               });
-           });
+                })
+                    .fail(function (data) {
+                        console.log("失败");
+                    });
+            });
 
 
 
@@ -1026,9 +1035,9 @@ window.Page.UI = (function (ui, service, model, win, $) {
                 else {
                     if (gridid) {
                         var tips = "表【"
-                                + ui.gridController.grids[gridid].ctrl.label
-                                + "】的第【"
-                                + String(index + 1) + "】行数据校验失败 <br/>";
+                            + ui.gridController.grids[gridid].ctrl.label
+                            + "】的第【"
+                            + String(index + 1) + "】行数据校验失败 <br/>";
 
                         for (var item in mes) {
                             tips += "<b>" + ui.rules[gridid + "." + mes[item].key].title + "</b>"
@@ -1098,30 +1107,31 @@ window.Page.UI = (function (ui, service, model, win, $) {
             var index = model.getMainIndex();
             var mainModel = data[index].data[0];
             this.bindfields = this.bindfields || $("[data-bindfield]");
-
-            for (var i = 0; i < this.bindfields.length; i++) {
-                var item = this.bindfields[i];
-                var $ele = $(item);
-                //if (i == 0) $ele.focus();
-                var bindKey = $ele.attr("data-bindfield");
-                var bindTable = $ele.attr("data-bindtable");
-                if ($ele.leeUI()) {
-                    var type = $ele.leeUI().type;
-                    if (type.toLowerCase() == "lookup")
-                        $ele.leeUI().setValue(mainModel[bindKey], mainModel[bindKey]);
-                    else if (type.toLowerCase() == "upload") {
-                        // 附件有单独的方法处理赋值事件
-                    }
-                    else {
-                        $ele.leeUI().setValue(mainModel[bindKey]);
-                    }
-                } else {
-                    var type = $ele.attr("type");
-                    if (type == "text" || $ele.is("textarea")) {
-                        $ele.val(mainModel[bindKey]);
-                    }
-                    else if (type == "checkbox") {
-                        $ele.prop("checked", mainModel[bindKey] == "1");
+            if (mainModel) {
+                for (var i = 0; i < this.bindfields.length; i++) {
+                    var item = this.bindfields[i];
+                    var $ele = $(item);
+                    //if (i == 0) $ele.focus();
+                    var bindKey = $ele.attr("data-bindfield");
+                    var bindTable = $ele.attr("data-bindtable");
+                    if ($ele.leeUI()) {
+                        var type = $ele.leeUI().type;
+                        if (type.toLowerCase() == "lookup")
+                            $ele.leeUI().setValue(mainModel[bindKey], mainModel[bindKey]);
+                        else if (type.toLowerCase() == "upload") {
+                            // 附件有单独的方法处理赋值事件
+                        }
+                        else {
+                            $ele.leeUI().setValue(mainModel[bindKey]);
+                        }
+                    } else {
+                        var type = $ele.attr("type");
+                        if (type == "text" || $ele.is("textarea")) {
+                            $ele.val(mainModel[bindKey]);
+                        }
+                        else if (type == "checkbox") {
+                            $ele.prop("checked", mainModel[bindKey] == "1");
+                        }
                     }
                 }
             }
@@ -1179,9 +1189,9 @@ window.Page.UI = (function (ui, service, model, win, $) {
                                     $.leeUI.Warn(data.mes);
                                 }
                             })
-                            .fail(function (data) {
-                                console.log("失败");
-                            });
+                                .fail(function (data) {
+                                    console.log("失败");
+                                });
                         });
                         ui.event.register(id, "afterShowData", function (e, data) {
                             var grid = $("#" + id).leeUI();
@@ -1260,9 +1270,9 @@ window.Page.UI = (function (ui, service, model, win, $) {
                                     $.leeUI.Warn(data.mes);
                                 }
                             })
-                            .fail(function (data) {
-                                console.log("失败");
-                            });
+                                .fail(function (data) {
+                                    console.log("失败");
+                                });
                         });
 
                         ui.event.register(id, "afterShowData", function (e, data) {
@@ -1348,9 +1358,9 @@ window.Page.UI = (function (ui, service, model, win, $) {
                 //成功后刷新列表
                 //触发保存成功事件
             })
-            .fail(function (data) {
-                console.log("失败");
-            });
+                .fail(function (data) {
+                    console.log("失败");
+                });
         },
         saveData: function () {
             var defer = $.Deferred();
@@ -1364,9 +1374,9 @@ window.Page.UI = (function (ui, service, model, win, $) {
                 else {
                     if (gridid) {
                         var tips = "表【"
-                                + ui.gridController.grids[gridid].ctrl.label
-                                + "】的第【"
-                                + String(index + 1) + "】行数据校验失败 <br/>";
+                            + ui.gridController.grids[gridid].ctrl.label
+                            + "】的第【"
+                            + String(index + 1) + "】行数据校验失败 <br/>";
 
                         for (var item in mes) {
                             tips += "<b>" + ui.rules[gridid + "." + mes[item].key].title + "</b>"
@@ -1476,9 +1486,9 @@ window.Page.UI = (function (ui, service, model, win, $) {
                 }
 
             })
-            .fail(function (data) {
-                console.log("失败");
-            });
+                .fail(function (data) {
+                    console.log("失败");
+                });
         },
         bind: function () {
             this.setPageReadOnly();
@@ -1586,9 +1596,9 @@ window.Page.UI = (function (ui, service, model, win, $) {
                 }
 
             })
-            .fail(function (data) {
-                console.log("失败");
-            });
+                .fail(function (data) {
+                    console.log("失败");
+                });
             if (!flag)
                 ui.fileManager.loadData();
 
@@ -1608,39 +1618,39 @@ window.Page.UI = (function (ui, service, model, win, $) {
                 }
             });
             $.when.apply(
-               null,
-               $.map(deferred, function (v) { return v; })
-           ).done(function () {
-               self.getCtrl();
-               var data = model.getSaveData();
-               data["FBFileSave"] = ui.fileManager.getAllData();//绑定附件数据
-               data["FBFileDel"] = ui.fileManager.getDelData();//绑定删除附件数据
-               //获取到树形
-               var treeCurrent = model.getCurrentTreeObj();
-               if (ui.event.triggerHandler("", "beforeSave", data) === false) return;
-               //模型id 数据
-               service.saveModelALL(
-                   modelID,
-                   self.getDataID(),
-                   JSON.stringify(data),
-                   self.status,
-                   JSON.stringify(treeCurrent)
-               ).done(function (data) {
-                   //self.reload();
-                   if (ui.event.triggerHandler("", "afterSave", data) === false) return;
-                   if (data.res) {
-                       leeUI.Success(data.mes);
-                       self.loadData(true);
-                       self.setStatus("edit");//保存后状态改为修改
-                       //callback(data.res);
-                   }
-                   callback(data.res);
-                   //成功后刷新列表
-                   //触发保存成功事件
-               }).fail(function (data) {
-                   console.log("失败");
-               });
-           });
+                null,
+                $.map(deferred, function (v) { return v; })
+            ).done(function () {
+                self.getCtrl();
+                var data = model.getSaveData();
+                data["FBFileSave"] = ui.fileManager.getAllData();//绑定附件数据
+                data["FBFileDel"] = ui.fileManager.getDelData();//绑定删除附件数据
+                //获取到树形
+                var treeCurrent = model.getCurrentTreeObj();
+                if (ui.event.triggerHandler("", "beforeSave", data) === false) return;
+                //模型id 数据
+                service.saveModelALL(
+                    modelID,
+                    self.getDataID(),
+                    JSON.stringify(data),
+                    self.status,
+                    JSON.stringify(treeCurrent)
+                ).done(function (data) {
+                    //self.reload();
+                    if (ui.event.triggerHandler("", "afterSave", data) === false) return;
+                    if (data.res) {
+                        leeUI.Success(data.mes);
+                        self.loadData(true);
+                        self.setStatus("edit");//保存后状态改为修改
+                        //callback(data.res);
+                    }
+                    callback(data.res);
+                    //成功后刷新列表
+                    //触发保存成功事件
+                }).fail(function (data) {
+                    console.log("失败");
+                });
+            });
 
 
         },
@@ -1657,9 +1667,9 @@ window.Page.UI = (function (ui, service, model, win, $) {
 
                     if (gridid) {
                         var tips = "表【"
-                                + ui.gridController.grids[gridid].ctrl.label
-                                + "】的第【"
-                                + String(index + 1) + "】行数据校验失败 <br/>";
+                            + ui.gridController.grids[gridid].ctrl.label
+                            + "】的第【"
+                            + String(index + 1) + "】行数据校验失败 <br/>";
 
                         for (var item in mes) {
                             tips += "<b>" + ui.rules[gridid + "." + mes[item].key].title + "</b>"
@@ -1728,30 +1738,31 @@ window.Page.UI = (function (ui, service, model, win, $) {
             var index = model.getMainIndex();
             var mainModel = data[index].data[0];
             this.bindfields = this.bindfields || $("[data-bindfield]");
-
-            for (var i = 0; i < this.bindfields.length; i++) {
-                var item = this.bindfields[i];
-                var $ele = $(item);
-                //if (i == 0) $ele.focus();
-                var bindKey = $ele.attr("data-bindfield");
-                var bindTable = $ele.attr("data-bindtable");
-                if ($ele.leeUI()) {
-                    var type = $ele.leeUI().type;
-                    if (type.toLowerCase() == "lookup")
-                        $ele.leeUI().setValue(mainModel[bindKey], mainModel[bindKey]);
-                    else if (type.toLowerCase() == "upload") {
-                        // 附件有单独的方法处理赋值事件
-                    }
-                    else {
-                        $ele.leeUI().setValue(mainModel[bindKey]);
-                    }
-                } else {
-                    var type = $ele.attr("type");
-                    if (type == "text" || $ele.is("textarea")) {
-                        $ele.val(mainModel[bindKey]);
-                    }
-                    else if (type == "checkbox") {
-                        $ele.prop("checked", mainModel[bindKey] == "1");
+            if (mainModel) {
+                for (var i = 0; i < this.bindfields.length; i++) {
+                    var item = this.bindfields[i];
+                    var $ele = $(item);
+                    //if (i == 0) $ele.focus();
+                    var bindKey = $ele.attr("data-bindfield");
+                    var bindTable = $ele.attr("data-bindtable");
+                    if ($ele.leeUI()) {
+                        var type = $ele.leeUI().type;
+                        if (type.toLowerCase() == "lookup")
+                            $ele.leeUI().setValue(mainModel[bindKey], mainModel[bindKey]);
+                        else if (type.toLowerCase() == "upload") {
+                            // 附件有单独的方法处理赋值事件
+                        }
+                        else {
+                            $ele.leeUI().setValue(mainModel[bindKey]);
+                        }
+                    } else {
+                        var type = $ele.attr("type");
+                        if (type == "text" || $ele.is("textarea")) {
+                            $ele.val(mainModel[bindKey]);
+                        }
+                        else if (type == "checkbox") {
+                            $ele.prop("checked", mainModel[bindKey] == "1");
+                        }
                     }
                 }
             }
@@ -1938,10 +1949,10 @@ window.Page.UI = (function (ui, service, model, win, $) {
                     type: 'cross'
                 },
                 itemTpl: '<li data-index={index} style="margin-bottom:4px;">'
-                  + '<span style="background-color:{color};" class="g2-tooltip-marker"></span>'
-                  + '{name}<br/>'
-                  + '{value}'
-                  + '</li>'
+                + '<span style="background-color:{color};" class="g2-tooltip-marker"></span>'
+                + '{name}<br/>'
+                + '{value}'
+                + '</li>'
             });
             chart.point().position('height*weight').color('gender').size(4).opacity(0.65).shape('circle').tooltip(
                 'gender*height*weight', function (dim, height, weight) {
@@ -2240,6 +2251,10 @@ window.Page.UI = (function (ui, service, model, win, $) {
         },
         setGridData: function (gridid, data) {
 
+            //处理加载表格前事件 不分页
+            var res = ui.event.triggerHandler("", "beforeLoadGridData", [gridid, data]);
+            if (res) data = res;
+            //
             if (ui.instance.collapserows) {
                 for (var item in data) {
                     var id = data[item][model.pkCol];
@@ -2788,7 +2803,7 @@ window.Page.UI = (function (ui, service, model, win, $) {
             }
 
             opt.enabledCompleteCheckbox = ctrl.halfcheck ? true : false;
-          
+
             return opt;
         },
         add: function (id, tree) {
@@ -3239,6 +3254,7 @@ window.Page.UI = (function (ui, service, model, win, $) {
         getFilterDataSource: function (table) {
             var expressList = new Utils.Express();
             var self = this;
+            // 查询区域条件
             if (this.qrycols) {
                 $.each(this.qrycols, function (i, col) {
                     if (col.dsid == table) {
@@ -3250,6 +3266,7 @@ window.Page.UI = (function (ui, service, model, win, $) {
                                 } else {
                                     value = $ele.val();
                                 }
+                                // 多选checkbox
                                 if (value != "" && ctrl.type == "checkbox" && ctrl.editor_checkbox.ismul) {
                                     var arr = value.split(",");
                                     var resarr = [];
@@ -3259,15 +3276,12 @@ window.Page.UI = (function (ui, service, model, win, $) {
                                     value = "(" + resarr.join(",") + ")";
                                 }
 
-                                //txt_filterexp
                                 if (value != "") {
                                     value = $.trim(value);
                                     if (ctrl.filtertype == "4" && ctrl.filterexp) {//表达式分支处理
-
                                         expressList.push(ctrl.filterfield, self.dealExp({ value: value }, ctrl.filterexp), " in ", " and ", true);
-
                                     }
-                                    else if (ctrl.filtertype == "9") {
+                                    else if (ctrl.filtertype == "9") {// 日期区间
                                         var rangvalue = value.split(" - ");
                                         if (rangvalue.length == 2) {
                                             expressList.push(ctrl.filterfield, rangvalue[0], " >= ", " and ");
@@ -3286,7 +3300,7 @@ window.Page.UI = (function (ui, service, model, win, $) {
                 });
             }
 
-            //左树联动条件
+            // 左树联动条件
             if (this.treelist) {
                 $.each(this.treelist, function (i, obj) {
                     if (self.isVisible(obj.id)) {// 互斥可见
@@ -3294,18 +3308,21 @@ window.Page.UI = (function (ui, service, model, win, $) {
                             var tree = $("#" + obj.id).leeUI();
                             if (tree.getSelected()) {
                                 var rowdata = tree.getSelected().data;
-                                var value = rowdata[obj.treefield];
-                                if (obj.cmptype == "4") {
-                                    expressList.push(obj.dsfield, self.dealExp(rowdata, obj.exp), " in ", " and ", true);
-                                } else {
-                                    expressList.push(obj.dsfield, value, self.getCmpType(obj.cmptype || ""), " and ");
+                                var value = rowdata[obj.treefield]; //树形控件的过滤条件
+                                if (value) {
+                                    if (obj.cmptype == "4") {
+                                        expressList.push(obj.dsfield, self.dealExp(rowdata, obj.exp), " in ", " and ", true);
+                                    } else {
+                                        expressList.push(obj.dsfield, value, self.getCmpType(obj.cmptype || ""), " and ");
+                                    }
                                 }
+
                             }
                         }
                     }
                 });
             }
-            //左列表联动条件
+            // 左列表联动条件
             if (this.gridlist) {
                 $.each(this.gridlist, function (i, obj) {
                     if (self.isVisible(obj.id)) {// 互斥可见
@@ -3324,7 +3341,9 @@ window.Page.UI = (function (ui, service, model, win, $) {
                     }
                 });
             }
-            return expressList;
+            var data = ui.event.triggerHandler("", "beforeFilter", [table, expressList]);
+            //alert(data);
+            return data || expressList;
         },
         getFilterList: function (table, gridid, ignoreDefault) {
             var expressList = new Utils.Express();
@@ -3677,6 +3696,7 @@ window.Page.UI = (function (ui, service, model, win, $) {
 
             opts.onselected = function (value, text) {
                 ui.event.trigger(self.id, "selected", [value, text]);
+                this.inputText.isValid();
                 //值改变后 触发计算公式 验证？
             }
 
@@ -3717,6 +3737,12 @@ window.Page.UI = (function (ui, service, model, win, $) {
                     });
                 }
             }
+
+            //this.ele.change(function () {
+            //    window.setTimeout(function () {
+            //        self.ele.isValid();
+            //    }, 200);
+            //});
             return ctrl;
             //如果是数据模型 绑定远程url
         }
@@ -3946,7 +3972,7 @@ window.Page.UI = (function (ui, service, model, win, $) {
             opts.mapFields = editor.fieldmap;
             opts.title = editor.dialogtitle ? editor.dialogtitle : undefined;//帮助标题
             opts.async = editor.async ? true : false,
-            opts.nameSwitch = editor.nameswitch;
+                opts.nameSwitch = editor.nameswitch;
             opts.isMul = editor.ismul;
             opts.isMulGrid = editor.ismulgrid;
             opts.isChildOnly = editor.childonly;

@@ -316,14 +316,22 @@ window.lsp.cf = (function (cf, core, win, $) {
             });
         },
         addTab: function (opt) {
+
+            //function formatUrl(url) {
+            //    if (url.indexOf("?")) {
+            //    }
+            //}
             this.tab.addTabItem({
                 tabid: opt.ID,
                 text: opt.Name,
-                url: opt.URL,
+                url: opt.URL + "&funcid=" + opt.ID,
                 callback: function () {
                     //alert("加载完成!");
                 }
             });
+        },
+        close: function (tabid) {
+            this.tab.removeTabItem(tabid);
         }
     };
     cf.tab.init();

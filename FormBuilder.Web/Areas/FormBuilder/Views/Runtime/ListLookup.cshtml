@@ -301,6 +301,13 @@
                 }
                 if (this.config.type == "1") {
                     opts.tree = this.bulidTreeOptions();
+                    opts.treeIconRender = function (rowdata, status) {
+                        // console.log(rowdata); 给tree增加点色彩
+                        if (rowdata.__hasChildren)
+                            return "<i class='tree-grid-icon icon-img icon-folder'></i>";
+                        else
+                            return "<i class='tree-grid-icon icon-img icon-document'></i>";
+                    }
                     opts.async = this.options.async;
 
                     if (opts.async) {

@@ -47,13 +47,13 @@ fBulider.page.ToolBarController.leeExtend(fBulider.page.UIController, {
                     }
                 }
             },
-				{
-				    text: '取消',
-				    cls: 'lee-dialog-btn-cancel ',
-				    onclick: function (item, dialog) {
-				        dialog.close();
-				    }
-				}
+            {
+                text: '取消',
+                cls: 'lee-dialog-btn-cancel ',
+                onclick: function (item, dialog) {
+                    dialog.close();
+                }
+            }
             ]
         })
     },
@@ -379,24 +379,25 @@ var toolbarBaiscList = {
         { "ID": "", "FormID": "", "BarID": "", "IsRoot": "0", "BarType": "1", "Icon": "icon-tfs-query-tree", "Func": "return Page.UI.instance.addChild()", "ParentID": "", "Ord": "10", "IsUsed": "1", "IsSys": " ", "BizObject": "", "Text": "增加下级", "IsFixed": "0", "PropName": "btnAddDown", "Align": " ", "Action": "adddown" },
         { "ID": "", "FormID": "", "BarID": "", "IsRoot": "0", "BarType": "1", "Icon": "icon-Edit", "Func": "return  true;", "ParentID": "", "Ord": "15", "IsUsed": "1", "IsSys": " ", "BizObject": "", "Text": "编辑", "IsFixed": "0", "PropName": "btnEdit", "Align": " ", "Action": "modify" },
         { "ID": "", "FormID": "", "BarID": "", "IsRoot": "0", "BarType": "1", "Icon": "icon-undo", "Func": "return Page.UI.instance.cancel();\nreturn  true;", "ParentID": "", "Ord": "20", "IsUsed": "1", "IsSys": " ", "BizObject": "", "Text": "取消", "IsFixed": "0", "PropName": "btnCancel", "Align": " ", "Action": "cancel" },
-        { "ID": "", "FormID": "", "BarID": "", "IsRoot": "0", "BarType": "1", "Icon": "icon-delete ", "Func": "return Page.UI.instance.deleteData()", "ParentID": "", "Ord": "25", "IsUsed": "1", "IsSys": " ", "BizObject": "", "Text": "删除", "IsFixed": "0", "PropName": "btnDelete", "Align": " ", "Action": "delete" },
-        { "ID": "", "FormID": "", "BarID": "", "IsRoot": "0", "BarType": "1", "Icon": "icon-save", "Func": "return Page.UI.instance.saveData()", "ParentID": "", "Ord": "30", "IsUsed": "1", "IsSys": " ", "BizObject": "", "Text": "保存", "IsFixed": "0", "PropName": "btnSave", "Align": " ", "Action": "save" }
+        { "ID": "", "FormID": "", "BarID": "", "IsRoot": "0", "BarType": "1", "Icon": "icon-Delete ", "Func": "return Page.UI.instance.deleteData()", "ParentID": "", "Ord": "25", "IsUsed": "1", "IsSys": " ", "BizObject": "", "Text": "删除", "IsFixed": "0", "PropName": "btnDelete", "Align": " ", "Action": "delete" },
+        { "ID": "", "FormID": "", "BarID": "", "IsRoot": "0", "BarType": "1", "Icon": "icon-save", "Func": "return Page.UI.instance.saveData()", "ParentID": "", "Ord": "30", "IsUsed": "1", "IsSys": " ", "BizObject": "", "Text": "保存", "IsFixed": "0", "PropName": "btnSave", "Align": " ", "Action": "save" },
+        { "ID": "", "FormID": "", "BarID": "", "IsRoot": "0", "BarType": "1", "Icon": "icon-Close", "Func": "return Page.UI.instance.closeFunc()", "ParentID": "", "Ord": "35", "IsUsed": "1", "IsSys": " ", "BizObject": "", "Text": "关闭", "IsFixed": "0", "PropName": "btnSave", "Align": " ", "Action": "" }
     ],
     "1": [
-
-         { "ID": "", "FormID": "", "BarID": "", "IsRoot": "0", "BarType": "1", "Icon": "lee-ion-plus-round", "Func": "return Page.UI.instance.addRow();", "ParentID": "", "Ord": "5", "IsUsed": "1", "IsSys": " ", "BizObject": "", "Text": "增加行", "IsFixed": "0", "PropName": "btnAddRow", "Align": " ", "Action": null },
-         { "ID": "", "FormID": "", "BarID": "", "IsRoot": "0", "BarType": "1", "Icon": "lee-ion-minus", "Func": "return Page.UI.instance.deleteRow();", "ParentID": "", "Ord": "10", "IsUsed": "1", "IsSys": " ", "BizObject": "", "Text": "删除行", "IsFixed": "0", "PropName": "btnDeleteRow", "Align": " ", "Action": "" },
-         { "ID": "", "FormID": "", "BarID": "", "IsRoot": "0", "BarType": "1", "Icon": "icon-save", "Func": "return Page.UI.instance.saveData();", "ParentID": "", "Ord": "20", "IsUsed": "1", "IsSys": " ", "BizObject": "", "Text": "保存", "IsFixed": "0", "PropName": "btnSave", "Align": " ", "Action": null },
-         { "ID": "", "FormID": "", "BarID": "", "IsRoot": "0", "BarType": "1", "Icon": "icon-New", "Func": "return Page.UI.instance.openForm(\"\",\"表单ID\",\"card\",\"add\",\"\");\n", "ParentID": "", "Ord": "15", "IsUsed": "1", "IsSys": " ", "BizObject": "", "Text": "增加", "IsFixed": "0", "PropName": "btnAddCard", "Align": " ", "Action": "" },
-         { "ID": "", "FormID": "", "BarID": "", "IsRoot": "0", "BarType": "1", "Icon": "icon-Edit", "Func": "return Page.UI.instance.editCard(\"表单ID\",\"\");", "ParentID": "", "Ord": "25", "IsUsed": "1", "IsSys": " ", "BizObject": "", "Text": "修改", "IsFixed": "0", "PropName": "btnEdit", "Align": " ", "Action": "" },
-         { "ID": "", "FormID": "", "BarID": "", "IsRoot": "0", "BarType": "1", "Icon": "icon-delete ", "Func": "return Page.UI.instance.deleteData()", "ParentID": "", "Ord": "25", "IsUsed": "1", "IsSys": " ", "BizObject": "", "Text": "删除", "IsFixed": "0", "PropName": "btnDelete", "Align": " ", "Action": "delete" },
+        { "ID": "", "FormID": "", "BarID": "", "IsRoot": "0", "BarType": "1", "Icon": "lee-ion-plus-round", "Func": "return Page.UI.instance.addRow();", "ParentID": "", "Ord": "5", "IsUsed": "1", "IsSys": " ", "BizObject": "", "Text": "增加行", "IsFixed": "0", "PropName": "btnAddRow", "Align": " ", "Action": "" },
+        { "ID": "", "FormID": "", "BarID": "", "IsRoot": "0", "BarType": "1", "Icon": "lee-ion-minus", "Func": "return Page.UI.instance.deleteRow();", "ParentID": "", "Ord": "10", "IsUsed": "1", "IsSys": " ", "BizObject": "", "Text": "删除行", "IsFixed": "0", "PropName": "btnDeleteRow", "Align": " ", "Action": "" },
+        { "ID": "", "FormID": "", "BarID": "", "IsRoot": "0", "BarType": "1", "Icon": "icon-save", "Func": "return Page.UI.instance.saveData();", "ParentID": "", "Ord": "20", "IsUsed": "1", "IsSys": " ", "BizObject": "", "Text": "保存", "IsFixed": "0", "PropName": "btnSave", "Align": " ", "Action": "" },
+        { "ID": "", "FormID": "", "BarID": "", "IsRoot": "0", "BarType": "1", "Icon": "icon-Collapse", "Func": "return Page.UI.instance.addCard(\"表单ID\",\"界面传参\",\"新增标题\",true,400,600);", "ParentID": "", "Ord": "15", "IsUsed": "1", "IsSys": " ", "BizObject": "", "Text": "增加", "IsFixed": "0", "PropName": "btnAddCard", "Align": " ", "Action": "" },
+        { "ID": "", "FormID": "", "BarID": "", "IsRoot": "0", "BarType": "1", "Icon": "icon-edit-grey-f1-background", "Func": "return Page.UI.instance.editCard(\"表单ID\",\"界面传参\",\"修改标题\",\"\",true,400,600);", "ParentID": "", "Ord": "25", "IsUsed": "1", "IsSys": " ", "BizObject": "", "Text": "修改", "IsFixed": "0", "PropName": "btnEdit", "Align": " ", "Action": "" },
+        { "ID": "", "FormID": "", "BarID": "", "IsRoot": "0", "BarType": "1", "Icon": "icon-Delete ", "Func": "return Page.UI.instance.deleteData()", "ParentID": "", "Ord": "25", "IsUsed": "1", "IsSys": " ", "BizObject": "", "Text": "删除", "IsFixed": "0", "PropName": "btnDelete", "Align": " ", "Action": "delete" },
+        { "ID": "", "FormID": "", "BarID": "", "IsRoot": "0", "BarType": "1", "Icon": "icon-Close", "Func": "return Page.UI.instance.closeFunc()", "ParentID": "", "Ord": "30", "IsUsed": "1", "IsSys": " ", "BizObject": "", "Text": "关闭", "IsFixed": "0", "PropName": "btnSave", "Align": " ", "Action": "" }
     ],
     "2": [
         { "ID": "", "FormID": "", "BarID": "", "IsRoot": "0", "BarType": "1", "Icon": "icon-New", "Func": "return Page.UI.instance.add()", "ParentID": "", "Ord": "0", "IsUsed": "1", "IsSys": " ", "BizObject": "", "Text": "新增", "IsFixed": "0", "PropName": "btnAdd", "Align": " ", "Action": "add" },
         { "ID": "", "FormID": "", "BarID": "", "IsRoot": "0", "BarType": "1", "Icon": "icon-Edit ", "Func": "return Page.UI.instance.edit()", "ParentID": "", "Ord": "5", "IsUsed": "1", "IsSys": " ", "BizObject": "", "Text": "编辑", "IsFixed": "0", "PropName": "btnEdit", "Align": " ", "Action": "modify" },
         { "ID": "", "FormID": "", "BarID": "", "IsRoot": "0", "BarType": "1", "Icon": "icon-undo", "Func": "return Page.UI.instance.cancel()", "ParentID": "", "Ord": "15", "IsUsed": "1", "IsSys": " ", "BizObject": "", "Text": "取消", "IsFixed": "0", "PropName": "btnCancel", "Align": " ", "Action": "cancel" },
         { "ID": "", "FormID": "", "BarID": "", "IsRoot": "0", "BarType": "1", "Icon": "icon-save ", "Func": "return Page.UI.instance.saveData()", "ParentID": "", "Ord": "20", "IsUsed": "1", "IsSys": " ", "BizObject": "", "Text": "保存", "IsFixed": "0", "PropName": "btnSave", "Align": " ", "Action": "save" },
-        { "ID": "", "FormID": "", "BarID": "", "IsRoot": "0", "BarType": "1", "Icon": "icon-delete ", "Func": "return Page.UI.instance.close()", "ParentID": "", "Ord": "25", "IsUsed": "1", "IsSys": " ", "BizObject": "", "Text": "关闭", "IsFixed": "0", "PropName": "btnClose", "Align": " ", "Action": "" }
+        { "ID": "", "FormID": "", "BarID": "", "IsRoot": "0", "BarType": "1", "Icon": "icon-Delete ", "Func": "return Page.UI.instance.close()", "ParentID": "", "Ord": "25", "IsUsed": "1", "IsSys": " ", "BizObject": "", "Text": "关闭", "IsFixed": "0", "PropName": "btnClose", "Align": " ", "Action": "" }
     ],
     "3": [
         { "ID": "", "FormID": "", "BarID": "", "IsRoot": "0", "BarType": "1", "Icon": "lee-ion-plus-round", "Func": "return Page.UI.instance.addGridRow(g.options.gridid);", "ParentID": "", "Ord": "0", "IsUsed": "1", "IsSys": " ", "BizObject": "", "Text": "添加行", "IsFixed": "0", "PropName": "addGridRow", "Align": " ", "Action": "edit" },

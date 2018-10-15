@@ -78,6 +78,7 @@ $(function () {
 
     // 初始化tab页
     $(".tablayout").leeTab({
+        contextmenu:false,//默认不开启右键菜单
         onAfterSelectTabItem: function (tabid, id) {
             Page.UI.refreshColumn(id);
         }

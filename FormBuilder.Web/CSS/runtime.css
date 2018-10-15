@@ -1117,6 +1117,12 @@
 .layui-laydate {
     font-size: 12px;
 }
+.layui-laydate td {
+    border-radius: 6px;
+}
 .layui-laydate-content td, .layui-laydate-content th {
     height:24px;
+}
+.layui-laydate .layui-laydate-footer span {
+    border: none;
 }

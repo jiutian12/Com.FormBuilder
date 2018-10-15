@@ -129,13 +129,38 @@
         },
         addSearchBox: function (item) {
             var g = this;
-            var $search = $('<div class="lee-search-wrap lee-toolbar-item"><input class="lee-search-words" type="text" placeholder="请输入查询关键字"><button class="search lee-ion-search" type="button" ></button></div>');
+            var $search = $('<div class="lee-search-wrap lee-toolbar-item"><input class="lee-search-words" type="text" placeholder="请输入查询关键字"><i class="lee-ion-close close"></i><button class="search lee-ion-search" type="button" ></button></div>');
             this.setAlign($search, item.align);
             this.toolBar.append($search);
+
+
             $("button", $search).click(function () {
                 var res = item.click(item, g, $("input", $search).val());// 查询按钮调用
                 g.trigger('buttonClick', [res, item]);
             });
+
+            $("input", $search).keyup(function (event) {
+                if (event.keyCode == 13) {
+                    var res = item.click(item, g, $("input", $search).val());// 查询按钮调用
+                    g.trigger('buttonClick', [res, item]);
+                }
+                showClose();
+            });
+
+
+            $(".close").click(function () {
+                $("input", $search).val("");
+                showClose();
+                $("input", $search).focus();
+            });
+
+            function showClose() {
+                if ($("input", $search).val() == "") {
+                    $(".close", $search).hide();
+                } else {
+                    $(".close", $search).show();
+                }
+            }
             return this;
         },
         addLink: function (item) {

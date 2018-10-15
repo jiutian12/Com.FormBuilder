@@ -1,0 +1,206 @@
+@pre: ~"lee-";
+
+//##Gray Base Colors
+@gray-base:              #000;
+@gray-darker:            lighten(@gray-base, 13.5%); // #222
+@gray-dark:              lighten(@gray-base, 20%);   // #333
+@gray:                   lighten(@gray-base, 33.5%); // #555
+@gray-light:             lighten(@gray-base, 46.7%); // #777
+@gray-lighter:           lighten(@gray-base, 93.5%); // #eee
+
+
+@brand-primary:         #108ee9; // #337ab7
+@brand-success:         #5cb85c;
+@brand-info:            #5bc0de;
+@brand-warning:         #f0ad4e;
+@brand-danger:          #f04134;
+
+
+
+
+
+@input-text-color:             lighten(@gray-base, 46.7%); // #777
+@input-text-hover:             lighten(@gray-base, 46.7%); // #777
+@input-text-border:            lighten(@gray-base, 46.7%); // #777
+@input-text-background:       lighten(@gray-base, 46.7%); // #777
+
+@grid-border:  #DDDDDD; // #222
+@grid-header-bg: lighten(@gray-base, 13.5%); // #222
+
+@border-radius-base:        4px;
+@border-radius-large:       6px;
+@border-radius-small:       2px;
+@border-color:              #d9d9d9;
+
+//tab variables//
+@tab-border-color:          @border-color;//边框颜色
+@tab-back-color:            #f9f9f9;//tab 背景色
+@tab-selected-bg:           #ffffff;//选中北京
+@tab-selected-color:        #108ee9;//选中文字
+
+//menu variables//
+@menu-border-color:         @border-color;//边框颜色
+@menu-text-color:           #444;//
+@menu-text-disabled-color:  #aca9a9;
+@menu-bg:                   #FFFFFF;     
+@menu-selected-bg:          #f9f9f9;//
+@menu-border-radius:        @border-radius-base;
+
+//toolbar variables//
+@toolbar-border:           @border-color;//边框颜色
+@toolbar-item-color:       @input-text-color;
+@toolbar-disabled-color:   #aca9a9;
+@toolbar-item-hover-color: #49a9ee;
+@toolbar-item-hover-bg:    #fff;
+@toolbar-item-hover-border: #49a9ee;
+
+@toolbar-item-selected-bg:#fff;
+@toolbar-item-selected-color:#0e77ca;
+@toolbar-item-selected-border:#0e77ca;
+//== Typography 字体的相关定义
+//
+//## Font, line-height, and color for body text, headings, and more.
+
+@font-family-sans-serif:  "Helvetica Neue", Helvetica, Arial, sans-serif;
+@font-family-serif:       Georgia, "Times New Roman", Times, serif;
+//** Default monospace fonts for `<code>`, `<kbd>`, and `<pre>`.
+@font-family-monospace:   Menlo, Monaco, Consolas, "Courier New", monospace;
+@font-family-base:        @font-family-sans-serif;
+
+@font-size-base:          14px;
+@font-size-large:         ceil((@font-size-base * 1.25)); // ~18px
+@font-size-small:         ceil((@font-size-base * 0.85)); // ~12px
+
+@font-size-h1:            floor((@font-size-base * 2.6)); // ~36px
+@font-size-h2:            floor((@font-size-base * 2.15)); // ~30px
+@font-size-h3:            ceil((@font-size-base * 1.7)); // ~24px
+@font-size-h4:            ceil((@font-size-base * 1.25)); // ~18px
+@font-size-h5:            @font-size-base;
+@font-size-h6:            ceil((@font-size-base * 0.85)); // ~12px 
+//== Buttons
+//按钮部分的样式定义
+//## For each of Bootstrap's buttons, define text, background and border color.
+
+@btn-font-weight:                normal;
+@btn-border-radius-base: @border-radius-base;
+@btn-default-color:              #333;
+@btn-default-bg:                 #fff;
+@btn-default-border:             #ccc;
+
+@btn-primary-color:              #fff;
+@btn-primary-bg:                 @brand-primary;
+@btn-primary-border:             darken(@btn-primary-bg, 5%);
+
+@btn-success-color:              #fff;
+@btn-success-bg:                 @brand-success;
+@btn-success-border:             darken(@btn-success-bg, 5%);
+
+@btn-info-color:                 #fff;
+@btn-info-bg:                    @brand-info;
+@btn-info-border:                darken(@btn-info-bg, 5%);
+
+@btn-warning-color:              #fff;
+@btn-warning-bg:                 @brand-warning;
+@btn-warning-border:             darken(@btn-warning-bg, 5%);
+
+@btn-danger-color:               #fff;
+@btn-danger-bg:                  @brand-danger;
+@btn-danger-border:              darken(@btn-danger-bg, 5%);
+
+@btn-link-disabled-color:        @gray-light;
+
+@btn-border-radius-base:        @border-radius-base;
+@btn-border-radius-large:        @border-radius-large;
+@btn-border-radius-small:        @border-radius-small;
+
+
+
+
+
+@padding-base-vertical:     6px;
+@padding-base-horizontal:   12px;
+
+@padding-large-vertical:    10px;
+@padding-large-horizontal:  16px;
+
+@padding-small-vertical:    6px;
+@padding-small-horizontal:  10px;
+
+@padding-sm-vertical:    6px;
+@padding-sm-horizontal:  12px;
+
+
+@padding-xs-vertical:       1px;
+@padding-xs-horizontal:     5px;
+
+@line-height-large:         1.3333333; // extra decimals for Win 8.1 Chrome
+@line-height-small:         1.5;
+
+ 
+//== Iconography
+//
+//## Specify custom location and filename of the included Glyphicons icon font. Useful for those including Bootstrap via Bower.
+
+//** Load fonts from this directory.
+@icon-font-path:          "../font/";
+//** File name for all font files.
+@icon-font-name:          "fontawesome-webfont";
+//** Element ID within SVG icon file.
+@icon-font-svg-id:        "glyphicons_halflingsregular";
+
+
+
+//*tooltip*//
+@zindex-navbar:            1000;
+@zindex-dropdown:          1000;
+@zindex-popover:           1060;
+@zindex-tooltip:           1070;
+@zindex-navbar-fixed:      1030;
+
+//** Tooltip max width
+@tooltip-max-width:           200px;
+//** Tooltip text color
+@tooltip-color:               #fff;
+//** Tooltip background color
+@tooltip-bg:                  rgba(64, 64, 64, .85);
+@tooltip-opacity:             .9;
+
+//** Tooltip arrow width
+@tooltip-arrow-width:         5px;
+//** Tooltip arrow color
+@tooltip-arrow-color:         @tooltip-bg;
+
+
+//== Popovers
+//
+//##
+
+//** Popover body background color
+@popover-bg:                          #fff;
+//** Popover maximum width
+@popover-max-width:                   276px;
+//** Popover border color
+@popover-border-color:                rgba(0,0,0,.2);
+//** Popover fallback border color
+@popover-fallback-border-color:       #ccc;
+
+//** Popover title background color
+@popover-title-bg:                    darken(@popover-bg, 3%);
+
+//** Popover arrow width
+@popover-arrow-width:                 10px;
+//** Popover arrow color
+@popover-arrow-color:                 @popover-bg;
+
+//** Popover outer arrow width
+@popover-arrow-outer-width:           (@popover-arrow-width + 1);
+//** Popover outer arrow color
+@popover-arrow-outer-color:           fadein(@popover-border-color, 5%);
+//** Popover outer arrow fallback color
+@popover-arrow-outer-fallback-color:  darken(@popover-fallback-border-color, 20%);
+
+
+
+
+ 
+

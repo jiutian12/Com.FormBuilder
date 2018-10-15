@@ -1,0 +1,127 @@
+.lee-message {
+    position: fixed;
+    top: 20px;
+    left: 10px;
+    z-index: 99000;
+    box-sizing: border-box;
+    width: 350px;
+}
+
+.lee-message-center,
+.lee-message-bottom-center,
+.lee-message-top-center {
+    left: 50%;
+    margin-left: -175px;
+}
+
+.lee-message-bottom-right,
+.lee-message-top-right {
+    left: auto;
+    right: 10px;
+}
+
+.lee-message-bottom-center,
+.lee-message-bottom-left,
+.lee-message-bottom-right {
+    top: auto;
+    bottom: 10px;
+}
+
+.lee-alert {
+    position: relative;
+    padding: 8px 18px 8px 18px;
+    border-radius: 4px;
+    color: rgba(0, 0, 0, .65);
+    font-size: 12px;
+    line-height: 16px;
+    margin-bottom: 10px;
+}
+
+.lee-alert .close {
+    position: absolute;
+    cursor: pointer;
+    right: 10px;
+    t transition: all ease .3s;
+    top: 5px;
+    opacity: .5;
+}
+
+.lee-alert .close:hover {
+    opacity: .9;
+}
+
+.lee-alert.large {}
+
+.lee-alert.success {
+    border: 1px solid #cfefdf;
+    background-color: #ebf8f2;
+}
+
+.lee-alert.info {
+    border: 1px solid #d2eafb;
+    background-color: #ecf6fd;
+}
+
+.lee-alert.tip {
+    background: #FFFFFF;
+    border: 1px solid #DDD;
+    box-shadow: 0 1px 6px rgba(179, 179, 179, 0.3);
+}
+
+.lee-alert.tipblack {
+    background: rgba(64, 64, 64, 0.85);
+    box-shadow: 0 1px 6px rgba(0, 0, 0, 0.2);
+    color: #FFF;
+}
+
+.lee-alert.warning {
+    border: 1px solid #fff3cf;
+    background-color: #fffaeb;
+}
+
+.lee-alert.error {
+    border: 1px solid #fcdbd9;
+    background-color: #fef0ef;
+}
+
+.lee-alert .alert-icon {
+    font-size: 14px;
+    top: 9.5px;
+    left: 16px;
+    position: absolute;
+    &.lee-icon-error {
+        color: @brand-danger;
+    }
+    &.lee-icon-success {
+        color: @brand-success;
+    }
+    &.lee-icon-question {
+        color: @brand-danger;
+    }
+    &.lee-icon-warn {
+        color: @brand-warning;
+    }
+}
+
+.lee-alert.hasicon {
+    padding: 8px 48px 8px 38px;
+}
+.alert-message{
+    font-weight: bold;
+}
+.lee-alert.hasdesc .alert-message {
+    font-size: 14px;
+    color: rgba(0, 0, 0, .85);
+    display: block;
+    margin-bottom: 4px;
+}
+
+.lee-alert.tipblack .alert-message {
+    color:#FFF;
+}
+
+.lee-alert .alert-description {
+    display: block;
+    font-size: 12px;
+    line-height: 21px;
+}

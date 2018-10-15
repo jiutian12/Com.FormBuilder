@@ -1,0 +1,475 @@
+.lee-text input {
+    width: 100%;
+    padding: 3px 4px;
+    outline: none;
+    border: 1px solid #cccccc;
+}
+
+.lee-text-focus input {
+    border: 1px solid #49a9ee;
+}
+.lee-text-focus .lee-right{
+    color: #49a9ee;
+}
+.lee-text-field-number{
+    text-align: right;
+}
+.lee-text,
+.lee-text-date,
+.lee-text-drop-down,
+.lee-text-spinner {
+    position: relative;
+    & .lee-text-field {
+        width: 100%;
+        padding: 3px 4px;
+        border: 1px solid #cccccc;
+        padding-right: 20px;
+        box-shadow: 0 1px 5px rgba(0, 0, 0, .05) inset;
+    }
+    & .lee-clear {
+        position: absolute;
+        right: 22px;
+        top: 1px;
+        height: 22px;
+        & i {
+            min-width: 20px;
+            cursor: pointer;
+            text-align: center;
+            line-height: 22px;
+            min-height: 16px;
+            height: 22px;
+            color: #797979;
+            &:hover {
+                color: #202A2F;
+            }
+        }
+    }
+    & .lee-right {
+        //右侧按钮区
+        position: absolute;
+        right: 1px;
+        top: 1px;
+        height: 22px;
+        background: #fbfbfb;
+        border-left: 1px solid #DDD;
+        
+        
+        &:hover{
+            color:  #49a9ee;
+            opacity: 0.8;
+        }
+        & .dropdown,
+        & .popup {
+            min-width: 20px;
+            cursor: pointer;
+            text-align: center;
+            line-height: 22px;
+            min-height: 16px;
+            height: 22px;
+            font-size: 14px;
+        }
+        & .lee-spinner-down,
+        & .lee-spinner-up {
+            min-width: 20px;
+            cursor: pointer;
+            text-align: center;
+            line-height: 11px;
+            display: block;
+            height: 11px;
+            &:hover {
+                background: #f1f1f1;
+                color: #49a9ee;
+            }
+        }
+        & i {
+            transition: all ease 0.3s;
+        }
+        &.reverse i {
+            transform: rotate(180deg);
+        }
+    }
+    &.lee-text-focus {
+        & input {
+            border: 1px solid #49a9ee;
+            outline: none;
+        }
+        & .dropdown,
+        & .lee-spinner-down,
+        & .lee-spinner-up {
+            color: #49a9ee;
+        }
+    }
+}
+
+.lee-text-disabled .lee-text-field {
+    cursor: not-allowed;
+    background: #ececec;
+}
+
+.lee-box-select {
+    border: 1px solid #ccc;
+    color: #444;
+    background: #FFF;
+    z-index: 10000;
+    .box-shadow( 0 1px 3px rgba(136, 136, 136, 0.2));
+    position: absolute;
+    & .lee-box-select-inner {
+        overflow: auto;
+    }
+    & .lee-box-select-table {
+        margin: 0;
+        padding: 0;
+        width: 100%;
+    }
+    & .lee-table-nocheckbox td {
+        padding: 5px 10px;
+        text-align: left;
+        &.lee-over,
+        &:hover {
+            background-color: #ecf6fd;
+            cursor: pointer;
+        }
+        &.lee-selected {
+            background-color: #f7f7f7;
+            font-weight: 700;
+            color: rgba(0, 0, 0, .65);
+        }
+    }
+}
+
+
+/*日期控件主wrap*/
+
+.lee-date-box {
+    position: absolute;
+    width: 242px;
+    font: 12px '\5B8B\4F53';
+    border: 1px solid #B1D2EC;
+    color: #1F547E;
+    .box-shadow( 0 1px 3px rgba(136, 136, 136, 0.2));
+}
+
+.lee-date-top {
+    position: relative;
+    overflow: auto;
+    padding: 5px;
+    z-index: 99;
+}
+
+.lee-date-ym {
+    border: 1px solid #B1D2EC;
+    float: left;
+    position: relative;
+}
+
+.lee-date-ym.lee-date-m {
+    width: 99px;
+}
+
+.lee-date-ym.lee-date-y {
+    width: 125px;
+    margin-right: 6px;
+}
+
+.lee-date-ym input {
+    float: left;
+    height: 24px;
+    line-height: 24px;
+    text-align: center;
+    border: none;
+    cursor: pointer;
+    outline: 0;
+    font-size: 14px;
+    color: #1F547E;
+    width: 64px;
+    margin-right: 19px;
+    background-color: #fff;
+}
+
+.lee-date-ym .choose {
+    display: block;
+    float: left;
+    position: relative;
+    width: 20px;
+    height: 24px;
+    & i {
+        position: absolute;
+        width: 0;
+        height: 0;
+        border-width: 5px;
+        border-style: dashed;
+        border-color: transparent;
+        overflow: hidden;
+        cursor: pointer;
+        left: 50%;
+        top: 50%;
+    }
+}
+
+.lee-date-ym .prev i {
+    margin: -5px 0 0 -7px;
+    border-right-style: solid;
+    border-right-color: #3081C2;
+}
+
+.lee-date-ym .next i {
+    margin: -5px 0 0 -2px;
+    border-left-style: solid;
+    border-left-color: #3081C2;
+}
+
+.lee-date-year {
+    display: none;
+    border: 1px solid #B1D2EC;
+    background-color: #fff;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, .1);
+    width: 125px;
+    padding: 0;
+    position: absolute;
+    left: 5px;
+    top: 30px;
+    height: 181px;
+    z-index: 10;
+    & .lee-date-y-wrap {
+        height: 139px;
+    }
+    & a {
+        position: relative;
+        display: block;
+        height: 20px;
+        cursor: pointer;
+        background-color: #DEECF8;
+        & i {
+            border-style: dashed;
+            border-color: transparent;
+            border-bottom-style: solid;
+            left: 50%;
+            top: 50%;
+            position: absolute;
+            width: 0;
+            height: 0;
+            border-width: 5px;
+            overflow: hidden;
+            cursor: pointer;
+        }
+    }
+    & a:hover {
+        background-color: #B1D2EC;
+    }
+    & a.top {
+        border-bottom: 1px solid #B1D2EC;
+        & i {
+            margin: -7px 0 0 -5px;
+            border-bottom-color: #3081C2;
+        }
+    }
+    & a.down {
+        border-top: 1px solid #B1D2EC;
+        & i {
+            margin: -2px 0 0 -5px;
+            border-top-color: #3081C2;
+        }
+    }
+}
+
+.lee-date-month {
+    display: none;
+    border: 1px solid #B1D2EC;
+    background-color: #fff;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, .1);
+    width: 99px;
+    padding: 0;
+    position: absolute;
+    right: 5px;
+    top: 30px;
+    height: 181px;
+    z-index: 10;
+    & span {
+        display: block;
+        float: left;
+        width: 42px;
+        margin: 5px 0 0 5px;
+        line-height: 24px;
+        text-align: center;
+    }
+    & span:hover,
+    span.selected {
+        background: #E2EDFE;
+    }
+    & .selected {
+        background-color: #eee!important;
+    }
+}
+
+.lee-date-time {
+    display: none;
+    position: absolute;
+    left: 5px;
+    bottom: 26px;
+    background: #FFF;
+    border: 1px solid #B1D2EC;
+    width: 131px;
+    height: 127px;
+    & .header {
+        height: 20px;
+        line-height: 20px;
+        text-align: center;
+        border-bottom: 1px solid #B1D2EC;
+        background-color: #ECF4FB;
+        & span {
+            position: absolute;
+            width: 20px;
+            top: 0;
+            right: 0;
+            cursor: pointer;
+        }
+    }
+    & .wrap {
+        padding: 6px 0 0 8px;
+        & span {
+            display: block;
+            float: left;
+            width: 24px;
+            height: 19px;
+            line-height: 19px;
+            text-align: center;
+            cursor: pointer;
+        }
+    }
+}
+
+.lee-date-time.mul {
+    width: 230px;
+    height: 150px;
+}
+
+.lee-date-top label {
+    position: absolute;
+    width: 0;
+    height: 0;
+    border-width: 5px;
+    border-style: dashed;
+    border-color: transparent;
+    overflow: hidden;
+    cursor: pointer;
+    top: 50%;
+    margin: -2px 0 0 -5px;
+    border-top-style: solid;
+    right: 28px;
+    border-top-color: #3081C2;
+}
+
+.month-text {
+    width: 42px !important;
+    margin-right: 15px !important;
+}
+
+
+/*日期主题table*/
+
+.lee-date-table {
+    width: 230px;
+    margin: 0 5px;
+    border-collapse: collapse;
+    border-spacing: 0;
+    border: 1px solid #B1D2EC;
+}
+
+.lee-date-table thead {
+    background-color: #DEECF8;
+    height: 22px;
+    line-height: 22px;
+    & th {
+        font-weight: 400;
+        font-size: 12px;
+        text-align: center;
+    }
+}
+
+.lee-date-table td {
+    width: 31px;
+    height: 19px;
+    line-height: 19px;
+    text-align: center;
+    cursor: pointer;
+    font-size: 12px;
+    border: 1px solid #B1D2EC;
+    background-color: #fff;
+    color: #1F547E;
+    &.out {
+        color: #60A2D7;
+    }
+    &:hover {
+        background-color: #ECF4FB;
+    }
+    &.today {
+        background: #ECF4FB;
+    }
+}
+
+.lee-date-bottom {
+    position: relative;
+    overflow: auto;
+    line-height: 20px;
+    padding: 5px;
+    font-size: 12px;
+}
+
+.lee-date-hms {
+    position: relative;
+    z-index: 1;
+    float: left;
+    border: 1px solid #B1D2EC;
+}
+
+.lee-date-bottom input {
+    float: left;
+    width: 21px;
+    height: 20px;
+    line-height: 20px;
+    border: none;
+    text-align: center;
+    cursor: pointer;
+    font-size: 12px;
+    font-weight: 400;
+}
+
+.lee-date-bottom li {
+    float: left;
+    height: 20px;
+    line-height: 20px;
+    border-right: none;
+    font-weight: 900;
+}
+
+.lee-date-bottom .time {
+    width: 33px;
+    text-align: center;
+    font-weight: 400;
+    border-right: 1px solid #B1D2EC;
+    background-color: #ECF4FB;
+}
+
+.lee-date-btn {
+    position: absolute;
+    right: 5px;
+    top: 5px;
+    border: 1px solid #B1D2EC;
+}
+
+.lee-date-btn a {
+    border-right: 1px solid #B1D2EC;
+    background-color: #ECF4FB;
+    display: block;
+    cursor: pointer;
+    float: left;
+    height: 20px;
+    cursor: pointer;
+    padding: 0 6px;
+    &:hover {
+        background-color: #fff;
+    }
+    &:last-child {
+        border-right: none;
+    }
+}
