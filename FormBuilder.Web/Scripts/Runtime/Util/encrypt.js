@@ -113,7 +113,7 @@
 window.lb = window.lb || {};
 window.lb.crypto || (function (plat) {
     var obj = {};
-
+    var ivdef = "1234567890000000";
     obj.randomKey = function () {
         var ret = '', rlen = 16, str = 'abcdefghijklmnopqrstuvwxyz1234567890ABCDEFGHIJKLMNOPQRSTUVWXYZ', mIndex = str.length - 1;
         for (var i = 0; i < rlen; i++) {
@@ -125,7 +125,7 @@ window.lb.crypto || (function (plat) {
     obj.strEncrypt = function (str, key) {
         var crypto = CryptoJS, mod = crypto.mode.CBC, pad = crypto.pad.Pkcs7, kSize = 128 / 8, p = crypto.enc.Utf8.parse;
         var k = p(key + key), iv = p(key);
-        return crypto.AES.encrypt(str, k, { keySize: kSize, iv: iv, mode: mod, padding: pad }).toString();
+        return crypto.AES.encrypt(p(str), k, { keySize: kSize, iv: iv, mode: mod, padding: pad }).toString();
     }
 
     plat.crypto = obj;

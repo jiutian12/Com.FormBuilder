@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using FormBuilder.Utilities;
 using System.Web.Mvc;
 
 namespace FormBuilder.Web.Areas.FormBuilder.Controllers
@@ -17,9 +18,20 @@ namespace FormBuilder.Web.Areas.FormBuilder.Controllers
 
         public ActionResult Dict()
         {
+            //var res = AESHelper.DecryptByAES("E94B7uOi9pDeG64wyPwJ/g==", "fb12345fb12345", "fb12345");
+            //"E94B7uOi9pDeG64wyPwJ/g==";
+            //fb12345
             return View();
         }
 
+        [HttpGet]
+        public string Get(string data,string key)
+        {
+            var res = AESHelper.Decrypt(data, key+ key, key);
+            //"E94B7uOi9pDeG64wyPwJ/g==";
+            //fb12345
+            return res;
+        }
 
         public ActionResult ListView()
         {

@@ -22,7 +22,7 @@ namespace FormBuilder.SessionProvider
             CookieHelper.WriteCookie(SYSConstants.LoginJWTKey, StateChecker.CreateJWTToken(user));
 
         }
-         
+
 
 
 
@@ -58,9 +58,16 @@ namespace FormBuilder.SessionProvider
 
         public void EmptyCurrent()
         {
+            ISessionKey user = GetCallContextValue("FBState") as ISessionKey;
+            if (user != null)
+            {
+                StateChecker.RemoveOnlineUser(user);
+            }
+
             // 清除cookie
             SetCallContextValue("FBState", null);
             CookieHelper.DelCookie(SYSConstants.LoginJWTKey);
+
         }
 
 
@@ -109,7 +116,7 @@ namespace FormBuilder.SessionProvider
         {
 
             return new Database("DataPlatformDB");
-         
+
         }
     }
 }

@@ -76,6 +76,7 @@
     <Compile Include="Base.Excel\DataToExcel.cs" />
     <Compile Include="Base.File\IFileProvider.cs" />
     <Compile Include="Base.GridView\GridViewModel.cs" />
+    <Compile Include="Base.Security\AESHelper.cs" />
     <Compile Include="Base.Security\DESEncrypt.cs" />
     <Compile Include="Base.Security\Md5Helper.cs" />
     <Compile Include="Base.Security\SQLInject.cs" />

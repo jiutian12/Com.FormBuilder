@@ -84,6 +84,19 @@ namespace FormBuilder.SessionProvider
         }
 
 
+        /// <summary>
+        ///  清除在线状态
+        /// </summary>
+        /// <param name="info"></param>
+        public static void RemoveOnlineUser(ISessionKey info) {
+
+            Database db = DataBaseManger.GetDB("");
+            //info.Token
+            var clearSql = new Sql("delete from FBOnlineUser where uid=@0 and DeviceType='PC'", info.UserID);
+            db.Execute(clearSql);
+            
+        }
+
 
         public static string CreateServerStateToken(ISessionKey info)
         {

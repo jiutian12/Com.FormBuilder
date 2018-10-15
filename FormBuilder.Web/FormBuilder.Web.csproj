@@ -1490,6 +1490,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
+    <Compile Include="Areas\Admin\Controllers\AccountController.cs" />
     <Compile Include="Areas\Admin\Controllers\AuthController.cs" />
     <Compile Include="Areas\Admin\Controllers\MenuInfoController.cs" />
     <Compile Include="Areas\FormBuilder\Controllers\CommonFBController.cs" />
@@ -1517,6 +1518,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Areas\Admin\Models\" />
+    <Folder Include="Areas\Admin\Views\Account\" />
     <Folder Include="Areas\Admin\Views\Auth\" />
     <Folder Include="Areas\Admin\Views\OrgInfo\" />
     <Folder Include="Areas\Admin\Views\User\" />

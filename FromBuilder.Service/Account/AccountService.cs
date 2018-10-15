@@ -26,7 +26,7 @@ namespace FormBuilder.Service
         public static bool checkLogin(string username, string password, out string mes, Database db)
         {
             mes = "";
-            var sql = new Sql("select * from FBUserInfo  where usercode=@0 and userPwd=@1", username, password);
+            var sql = new Sql("select * from FBUserInfo where usercode=@0 and userPwd=@1", username, password);
             var model = db.Fetch<FBUserInfo>(sql);
             if (model.Count <= 0)
             {
@@ -41,6 +41,22 @@ namespace FormBuilder.Service
             }
 
         }
+
+        public static bool changePassWord(string uid, string password, string salt, out string mes, Database db)
+        {
+
+            //如果是自己的用户
+            //如果是自己管理范围的用户
+
+            mes = "";
+            var sql = new Sql("update FBUserInfo  set password=@0 where  uid=@1", password, uid);
+            db.Execute(sql);
+            return true;
+        }
+
+
+
+
 
         /// <summary>
         /// 
@@ -71,11 +87,13 @@ namespace FormBuilder.Service
         }
 
 
-   
+
         public static void LogOut()
         {
             SessionProvider.Provider.EmptyCurrent();
         }
+
+
 
     }
 }
