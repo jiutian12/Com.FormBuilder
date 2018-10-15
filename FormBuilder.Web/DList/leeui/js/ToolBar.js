@@ -26,7 +26,7 @@
         },
         _render: function () {
             var g = this,
-				p = this.options;
+                p = this.options;
             g.toolbarItemCount = 0;
             g.toolBar = $(this.element);
             g.toolBar.addClass("lee-toolbar"); //外围包裹css
@@ -41,18 +41,18 @@
         },
         removeItem: function (itemid) {
             var g = this,
-				p = this.options;
+                p = this.options;
             $("> .lee-toolbar-item[toolbarid=" + itemid + "]", g.toolBar).remove();
         },
         setEnabled: function (itemid) {
             var g = this,
-				p = this.options;
+                p = this.options;
             $("> .lee-toolbar-item[toolbarid=" + itemid + "]", g.toolBar).removeClass("lee-toolbar-item-disable");
             $("a[toolbarid=" + itemid + "]", g.toolBar).removeAttr("disabled");
         },
         _setDisabled: function (itemid) {
             var g = this,
-				p = this.options;
+                p = this.options;
 
             $("> .lee-toolbar-item[toolbarid=" + itemid + "]", g.toolBar).addClass("lee-toolbar-item-disable");
 
@@ -60,14 +60,14 @@
         },
         setDisabled: function (itemid) {
             var g = this,
-				p = this.options;
+                p = this.options;
             $("> .lee-toolbar-item[toolbarid=" + itemid + "]", g.toolBar).addClass("lee-toolbar-item-disable").removeClass("lee-panel-btn-over");
 
             $("a[toolbarid=" + itemid + "]", g.toolBar).attr("disabled", "disabled");
         },
         isEnable: function (itemid) {
             var g = this,
-				p = this.options;
+                p = this.options;
             return !$("> .lee-toolbar-item[toolbarid=" + itemid + "]", g.toolBar).hasClass("lee-toolbar-item-disable");
         },
         bulidDropDownMenu: function (item, $wrap) {
@@ -122,7 +122,7 @@
             this.toolBar.append($line);
         },
         addText: function (item) {
-          
+
             var $text = $('<div class="lee-toolbar-item lee-toolbar-text"><span><p>' + (item.text || "") + '</p></span></div>');
             this.setAlign($text, item.align);
             this.toolBar.append($text);
@@ -133,32 +133,34 @@
             this.setAlign($search, item.align);
             this.toolBar.append($search);
 
-
-            $("button", $search).click(function () {
-                var res = item.click(item, g, $("input", $search).val());// 查询按钮调用
+            var $input = $("input", $search);
+            var $close = $(".close", $search);
+            var $button = $("button", $search);
+            $button.click(function () {
+                var res = item.click(item, g, $input.val());// 查询按钮调用
                 g.trigger('buttonClick', [res, item]);
             });
 
-            $("input", $search).keyup(function (event) {
+            $input.keyup(function (event) {
                 if (event.keyCode == 13) {
-                    var res = item.click(item, g, $("input", $search).val());// 查询按钮调用
-                    g.trigger('buttonClick', [res, item]);
+                    $button.click();
                 }
                 showClose();
             });
 
 
-            $(".close").click(function () {
-                $("input", $search).val("");
+            $close.click(function () {
+                $input.val("");
                 showClose();
-                $("input", $search).focus();
+                $input.focus();
+                $button.click();
             });
 
             function showClose() {
-                if ($("input", $search).val() == "") {
-                    $(".close", $search).hide();
+                if ($input.val() == "") {
+                    $close.hide();
                 } else {
-                    $(".close", $search).show();
+                    $close.show();
                 }
             }
             return this;
@@ -189,13 +191,13 @@
         },
         addItem: function (item) {
             var g = this,
-				p = this.options;
+                p = this.options;
             if (item.line || item.type == "line") {
                 this.addLine(item);
                 return;
             }
             if (item.type == "text") {
-                
+
                 this.addText(item);
                 return;
             }
