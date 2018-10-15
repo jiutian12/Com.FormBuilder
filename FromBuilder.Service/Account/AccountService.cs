@@ -42,14 +42,14 @@ namespace FormBuilder.Service
 
         }
 
-        public static bool changePassWord(string uid, string password, string salt, out string mes, Database db)
+        public static bool changePassWord(string uid, string password, out string mes, Database db)
         {
 
             //如果是自己的用户
             //如果是自己管理范围的用户
 
-            mes = "";
-            var sql = new Sql("update FBUserInfo  set password=@0 where  uid=@1", password, uid);
+            mes = "修改成功";
+            var sql = new Sql("update FBUserInfo  set UserPwd=@0 where  uid=@1", password, uid);
             db.Execute(sql);
             return true;
         }

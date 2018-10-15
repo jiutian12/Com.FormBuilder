@@ -4021,6 +4021,7 @@ window.Page.UI = (function (ui, service, model, win, $) {
                 if (editor.filter) {
                     var filterarr = $.parseJSON(editor.filter);
                     for (var item in filterarr) {
+                        //过滤界面上的条件
                         filterarr[item].ExpressValue = Page.ExpressParser.parser(filterarr[item].ExpressValue);
                     }
                     return filterarr;
@@ -4097,9 +4098,13 @@ window.Page.UI = (function (ui, service, model, win, $) {
 
                     ui.event.trigger(g.element.id, "onConfirmSelect", [data]);
                     //g.inputText.change();
+                    //触发验证事件
                     g.inputText.isValid();
                     // 多选这里是数组？ 如何处理呢？
                     // 多选最好用下拉框多选 帮助这里可能有问题 无法join出来
+
+                    ui.instance.getCtrl(); //获取界面上值赋值给模型
+                    Page.Calc.trigger(model.mainTableName, editor.bindfield); // 触发计算公式
                 }
             }
             return opts;

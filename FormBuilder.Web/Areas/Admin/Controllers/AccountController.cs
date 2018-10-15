@@ -1,13 +1,23 @@
-﻿using System;
+﻿using FormBuilder.Service;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using FormBuilder.Utilities;
 using System.Web.Mvc;
 
 namespace FormBuilder.Web.Areas.Admin.Controllers
 {
     public class AccountController : Controller
     {
+
+
+        IFBAccountService _service;
+
+        public AccountController(IFBAccountService service)
+        {
+            this._service = service;
+        }
         // GET: Admin/Account
         public ActionResult Index()
         {
@@ -28,9 +38,13 @@ namespace FormBuilder.Web.Areas.Admin.Controllers
             try
             {
 
-               //修改用户密码
-               //检查用户权限
-               return Json(new { res = true, mes = "修改成功！ " });
+                //修改用户密码
+                //检查用户权限
+                //var pwd = AESHelper.Decrypt(password, salt + salt, salt);
+                var mes = "修改成功";
+                var flag = this._service.ChangePassWord(uid, password, out mes);
+
+                return Json(new { res = flag, mes = mes });
             }
             catch (Exception ex)
             {

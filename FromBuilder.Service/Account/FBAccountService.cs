@@ -20,6 +20,13 @@ namespace FormBuilder.Service
         {
             
         }
+
+        public bool ChangePassWord(string uid, string password, out string mes)
+        {
+
+            mes = "";
+            return AccountService.changePassWord(uid, password, out mes, base.Db);
+        }
         #endregion
 
         public bool Login(string username, string password, out string mes)

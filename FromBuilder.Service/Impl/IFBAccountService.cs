@@ -12,7 +12,7 @@ namespace FormBuilder.Service
 
     public interface IFBAccountService : IDisposable
     {
-
+        bool ChangePassWord(string uid, string password, out string mes);
 
         bool Login(string username, string password, out string mes);
 

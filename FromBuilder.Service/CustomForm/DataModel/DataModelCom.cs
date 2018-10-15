@@ -623,7 +623,7 @@ namespace FormBuilder.Service
                     }
 
                     ywDB.Execute(sql);
-                    if (item.Tree != "")
+                    if (!string.IsNullOrEmpty(item.Tree))
                     {
                         DMTreeHelper treeHelper = new DMTreeHelper();
                         treeHelper.db = ywDB;
