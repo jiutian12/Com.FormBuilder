@@ -4011,6 +4011,7 @@ window.Page.UI = (function (ui, service, model, win, $) {
                     }
                     g.inputText.isValid();
                     g.inputText.change();
+                    ui.event.trigger(g.element.id, "onClearValue", []);
                     // 多选这里是数组？ 如何处理呢？
                     // 多选最好用下拉框多选 帮助这里可能有问题 无法join出来
                 }
@@ -4076,6 +4077,7 @@ window.Page.UI = (function (ui, service, model, win, $) {
                     var cell =
                         gridManger.getCellObj(p.gridEditParm.record, p.gridEditParm.column);
 
+                    //触发明细表计算公式 合计 主表合计等计算公式
 
                     window.setTimeout(function () { gridManger._applyEditor(cell) }, 100);
                 } else {
