@@ -21,6 +21,17 @@ namespace FormBuilder.Service
             
         }
 
+        public bool LockUser(string uid)
+        {
+            AccountService.LockUser(uid, base.Db);
+            return true;
+        }
+
+        public bool UnLockUser(string uid)
+        {
+            AccountService.UnLockUser(uid, base.Db);
+            return true;
+        }
         public bool ChangePassWord(string uid, string password, out string mes)
         {
 

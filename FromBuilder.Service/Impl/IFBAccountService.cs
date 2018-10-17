@@ -18,6 +18,9 @@ namespace FormBuilder.Service
 
 
         void LogOut();
+        bool LockUser(string uid);
 
+
+        bool UnLockUser(string uid);
     }
 }

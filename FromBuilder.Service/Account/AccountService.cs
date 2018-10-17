@@ -26,6 +26,7 @@ namespace FormBuilder.Service
         public static bool checkLogin(string username, string password, out string mes, Database db)
         {
             mes = "";
+            //password = DESEncrypt.Encrypt(password);
             var sql = new Sql("select * from FBUserInfo where usercode=@0 and userPwd=@1", username, password);
             var model = db.Fetch<FBUserInfo>(sql);
             if (model.Count <= 0)
@@ -39,6 +40,7 @@ namespace FormBuilder.Service
                 LoginSucess(model[0]);//
                 return true;
             }
+            //记录登录失败or成功日志
 
         }
 
@@ -49,6 +51,7 @@ namespace FormBuilder.Service
             //如果是自己管理范围的用户
 
             mes = "修改成功";
+            //password = DESEncrypt.Encrypt(password);
             var sql = new Sql("update FBUserInfo  set UserPwd=@0 where  uid=@1", password, uid);
             db.Execute(sql);
             return true;
@@ -57,7 +60,17 @@ namespace FormBuilder.Service
 
 
 
+        public static void LockUser(string uid, Database db)
+        {
+            var sql = new Sql("update FBUserInfo  set State=@0 where  uid=@1", "0", uid);
+            db.Execute(sql);
+        }
 
+        public static void UnLockUser(string uid, Database db)
+        {
+            var sql = new Sql("update FBUserInfo  set State=@0 where  uid=@1", "1", uid);
+            db.Execute(sql);
+        }
         /// <summary>
         /// 
         /// </summary>

@@ -87,13 +87,14 @@ namespace FormBuilder.Web.Areas.Admin.Controllers
             try
             {
 
+                this._service.LockUser(uid);
                 //修改用户密码
                 //检查用户权限
-                return Json(new { res = true, mes = "修改成功！ " });
+                return Json(new { res = true, mes = "锁定成功！ " });
             }
             catch (Exception ex)
             {
-                return Json(new { res = false, mes = "修改失败：" + ex.Message });
+                return Json(new { res = false, mes = "解锁失败：" + ex.Message });
             }
 
         }
@@ -109,13 +110,14 @@ namespace FormBuilder.Web.Areas.Admin.Controllers
             try
             {
 
+                this._service.UnLockUser(uid);
                 //修改用户密码
                 //检查用户权限
-                return Json(new { res = true, mes = "修改成功！ " });
+                return Json(new { res = true, mes = "解锁成功！ " });
             }
             catch (Exception ex)
             {
-                return Json(new { res = false, mes = "修改失败：" + ex.Message });
+                return Json(new { res = false, mes = "解锁失败：" + ex.Message });
             }
 
         }
