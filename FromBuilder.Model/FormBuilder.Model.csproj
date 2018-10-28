@@ -48,6 +48,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Admin\FBLoginLog.cs" />
     <Compile Include="Admin\FBMenuInfo.cs" />
     <Compile Include="Admin\FBPos.cs" />
     <Compile Include="Admin\FBRole.cs" />
