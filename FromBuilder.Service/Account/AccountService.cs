@@ -33,11 +33,23 @@ namespace FormBuilder.Service
             {
                 // 用户状态
                 mes = "用户名或密码不正确";
+                LoginLogService.AddLog(username + "登录失败：" + mes, db);
                 return false;
             }
             else
             {
-                LoginSucess(model[0]);//
+
+                var usermodel = model[0];
+
+                if (usermodel.State == "0")
+                {
+                    mes = "用户已经被锁定，无法登录";
+                    LoginLogService.AddLog(usermodel.UserCode + "登录失败：" + mes, db);
+                    return false;
+                }
+
+                LoginSucess(usermodel);//
+                LoginLogService.AddLog(usermodel.UserCode + "登录成功,：" + mes, db);
                 return true;
             }
             //记录登录失败or成功日志

@@ -53,6 +53,7 @@
     <Compile Include="Account\AccountService.cs" />
     <Compile Include="Account\Auth\FBAuthService.cs" />
     <Compile Include="Account\Auth\IFBAuthService.cs" />
+    <Compile Include="Account\LoginLogService.cs" />
     <Compile Include="Account\Menu\FBMenuService.cs" />
     <Compile Include="Account\Menu\IFBMenuService.cs" />
     <Compile Include="CustomForm\DataModel\DataModelCom.cs" />
