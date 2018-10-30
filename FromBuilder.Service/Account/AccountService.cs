@@ -44,12 +44,12 @@ namespace FormBuilder.Service
                 if (usermodel.State == "0")
                 {
                     mes = "用户已经被锁定，无法登录";
-                    LoginLogService.AddLog(usermodel.UserCode + "登录失败：" + mes, db);
+                    LoginLogService.AddLog(usermodel.UserCode + usermodel.UserName + "登录失败：" + mes, db);
                     return false;
                 }
 
                 LoginSucess(usermodel);//
-                LoginLogService.AddLog(usermodel.UserCode + "登录成功,：" + mes, db);
+                LoginLogService.AddLog(usermodel.UserCode + usermodel.UserName + "登录成功", db);
                 return true;
             }
             //记录登录失败or成功日志
@@ -98,8 +98,6 @@ namespace FormBuilder.Service
 
             //info.Token = CreateServerStateToken(info);
             // 生成token 更新在线用户列表
-
-
             // 这里自己写入即可？不需要做分支？JWTtoken？
             SessionProvider.Provider.AddCurrent(info);
             // 写入cookie
@@ -113,11 +111,18 @@ namespace FormBuilder.Service
 
 
 
-        public static void LogOut()
+        public static void LogOut(Database db)
         {
+            var usermodel = SessionProvider.Provider.Current();
+            LoginLogService.AddLog(usermodel.UserCode + usermodel.UserName + "注销登录", db);
             SessionProvider.Provider.EmptyCurrent();
         }
-
+        public static void OfflineUser(string uid, Database db)
+        {
+            var usermodel = SessionProvider.Provider.Current();
+            LoginLogService.AddLog($"管理员{usermodel.UserName}注销登录", db);
+            SessionProvider.Provider.EmptyUser(uid);
+        }
 
 
     }

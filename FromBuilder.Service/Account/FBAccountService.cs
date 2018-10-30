@@ -18,7 +18,7 @@ namespace FormBuilder.Service
         #region ctr 
         public FBAccountService(IDbContext context) : base(context)
         {
-            
+
         }
 
         public bool LockUser(string uid)
@@ -48,7 +48,13 @@ namespace FormBuilder.Service
 
         public void LogOut()
         {
-            AccountService.LogOut();
+            AccountService.LogOut(base.Db);
+        }
+
+        public void OfflineUser(string uid)
+
+        {
+            AccountService.OfflineUser(uid, base.Db);
         }
     }
 }

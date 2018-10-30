@@ -55,6 +55,12 @@ namespace FormBuilder.SessionProvider
             }
         }
 
+        public void EmptyUser(string uid)
+        {
+            ISessionKey user = new ISessionKey();
+            user.UserID = uid;
+            StateChecker.RemoveOnlineUser(user);
+        }
 
         public void EmptyCurrent()
         {

@@ -1,6 +1,7 @@
 ﻿using System.Web.Mvc;
 using FormBuilder.DataAccess.Interface;
 using FormBuilder.Service;
+using FormBuilder.Web.App_Start;
 using Ninject;
 
 namespace FormBuilder.Web.Areas.FormBuilder.Controllers
@@ -23,7 +24,7 @@ namespace FormBuilder.Web.Areas.FormBuilder.Controllers
             return View("~/Settings/DBConnection");
         }
 
-
+        [Authentication]
         public ActionResult Home()
         {
 

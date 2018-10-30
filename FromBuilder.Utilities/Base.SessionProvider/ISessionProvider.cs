@@ -15,6 +15,8 @@ namespace FormBuilder.Utilities
 
         void EmptyCurrent();
 
+        void EmptyUser(string uid);
+
         Database GetCurrentDataBase();
         bool IsOverdue();
     }

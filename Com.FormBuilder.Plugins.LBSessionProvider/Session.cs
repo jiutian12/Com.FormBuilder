@@ -36,7 +36,10 @@ namespace FormBuilder.LBSessionProvider
             session.IPAddress = "";
             return session;
         }
+        public void EmptyUser(string uid)
+        {
 
+        }
         public ISessionKey getLBFSession()
         {
             UserService svr = new UserService();

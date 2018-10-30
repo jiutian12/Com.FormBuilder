@@ -124,5 +124,10 @@ namespace FormBuilder.Utilities
         {
             return new Database("DataPlatformDB");
         }
+
+        public void EmptyUser(string uid)
+        {
+
+        }
     }
 }

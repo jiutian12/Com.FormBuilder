@@ -5,6 +5,7 @@ using System.Linq;
 using System.Web;
 using FormBuilder.Utilities;
 using System.Web.Mvc;
+using FormBuilder.Web.App_Start;
 
 namespace FormBuilder.Web.Areas.Admin.Controllers
 {
@@ -33,6 +34,7 @@ namespace FormBuilder.Web.Areas.Admin.Controllers
         /// <param name="salt"></param>
         /// <returns></returns>
         [HttpPost]
+        [Authentication]
         public JsonResult ChangePwd(string uid, string password, string salt)
         {
             try
@@ -59,14 +61,15 @@ namespace FormBuilder.Web.Areas.Admin.Controllers
         /// <param name="uid"></param>
         /// <returns></returns>
         [HttpPost]
+        [Authentication]
         public JsonResult OfflineUser(string uid)
         {
             try
             {
-
+                this._service.OfflineUser(uid);
                 //修改用户密码
                 //检查用户权限
-                return Json(new { res = true, mes = "修改成功！ " });
+                return Json(new { res = true, mes = "用户注销成功！ " });
             }
             catch (Exception ex)
             {
@@ -82,6 +85,7 @@ namespace FormBuilder.Web.Areas.Admin.Controllers
         /// <param name="uid"></param>
         /// <returns></returns>
         [HttpPost]
+        [Authentication]
         public JsonResult LockUser(string uid)
         {
             try
@@ -105,6 +109,7 @@ namespace FormBuilder.Web.Areas.Admin.Controllers
         /// <param name="uid"></param>
         /// <returns></returns>
         [HttpPost]
+        [Authentication]
         public JsonResult UnLockUser(string uid)
         {
             try
