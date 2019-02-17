@@ -8,6 +8,7 @@
   <bind service="FormBuilder.Service.IFBSmartHelpService, FormBuilder.Service" to="FormBuilder.Service.FBSmartHelpService, FormBuilder.Service" />
   <bind service="FormBuilder.Service.IFBFormService, FormBuilder.Service" to="FormBuilder.Service.FBFormService, FormBuilder.Service" />
   <bind service="FormBuilder.Service.IFBDataSourceService, FormBuilder.Service" to="FormBuilder.Service.FBDataSourceService, FormBuilder.Service" />
+  <bind service="FormBuilder.Service.IFBVisioGraphService, FormBuilder.Service" to="FormBuilder.Service.FBVisioGraphService, FormBuilder.Service" />
   <bind service="FormBuilder.Service.IFBFileService, FormBuilder.Service" to="FormBuilder.Service.FBFileService, FormBuilder.Service" />
   <bind service="FormBuilder.Utilities.ISessionProvider, FormBuilder.Utilities" to="FormBuilder.Utilities.BaseSessionProvider, FormBuilder.Utilities" />
   <bind service="FormBuilder.Service.IFBAccountService, FormBuilder.Service" to="FormBuilder.Service.FBAccountService, FormBuilder.Service" />

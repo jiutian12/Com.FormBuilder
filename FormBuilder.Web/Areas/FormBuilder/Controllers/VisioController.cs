@@ -45,15 +45,15 @@ namespace FormBuilder.Web.Areas.FormBuilder.Controllers
 
         [HttpPost]
         // GET: FBMeta
-        public JsonResult GetModel(string dataid)
+        public JsonResult GetModel(string id)
         {
             try
             {
-                if (string.IsNullOrEmpty(dataid))
+                if (string.IsNullOrEmpty(id))
                 {
                     return Json(new { res = true, data = new FBSmartHelp() });
                 }
-                var model = this._service.GetModel(dataid);
+                var model = this._service.GetModel(id);
                 return Json(new { res = true, data = model });
             }
             catch (Exception ex)
@@ -64,7 +64,7 @@ namespace FormBuilder.Web.Areas.FormBuilder.Controllers
         }
 
 
-  
+
 
         [HttpPost]
         public JsonResult getPageList(string pagesize, string page, string keyword, string order)
@@ -75,7 +75,7 @@ namespace FormBuilder.Web.Areas.FormBuilder.Controllers
                 // string page=HttpContext.Request.Form.Get("page");
                 long total = 0;
                 long totalpage = 0;
-                var list = this._service.GetPageList(order, keyword,  int.Parse(page), int.Parse(pagesize), out totalpage, out total);
+                var list = this._service.GetPageList(order, keyword, int.Parse(page), int.Parse(pagesize), out totalpage, out total);
                 return Json(list);
             }
             catch (Exception ex)
@@ -85,11 +85,11 @@ namespace FormBuilder.Web.Areas.FormBuilder.Controllers
         }
 
         [HttpPost]
-        public JsonResult deleteData(string graphID)
+        public JsonResult deleteData(string id)
         {
             try
             {
-                this._service.DeleteModel(graphID);
+                this._service.DeleteModel(id);
                 return Json(new { res = true, mes = "删除成功" });
             }
             catch (Exception ex)
@@ -119,7 +119,7 @@ namespace FormBuilder.Web.Areas.FormBuilder.Controllers
                     data.LastModifyUser = SessionProvider.Provider.Current().UserName;
                 }
                 this._service.SaveModel(data);
-                return Json(new { res = true, mes = "保存成功" });
+                return Json(new { res = true, mes = "保存成功", id = data.ID });
             }
             catch (Exception ex)
             {
