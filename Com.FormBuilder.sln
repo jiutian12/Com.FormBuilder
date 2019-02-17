@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.23107.0
+# Visual Studio 15
+VisualStudioVersion = 15.0.27130.2027
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "01 Core", "01 Core", "{4C3B4456-3E1E-46D8-BAD5-6C5C6051FCEF}"
 EndProject
@@ -48,6 +48,8 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "06 Tools", "06 Tools", "{472A1F15-EF30-47E9-97C8-F19975EB38A3}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FormBuilder.ExportTool", "FormBuilder.ExportTool\FormBuilder.ExportTool.csproj", "{679AAC7A-9120-42CE-B72D-D664B3957FFD}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "MSS", "MSS", "{1638614A-0627-4782-A69C-84CE068386CE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -125,5 +127,9 @@ Global
 		{74C89FD3-2972-4015-93F9-F3162EFE1463} = {377F5021-A2E6-4ED0-8DED-E18A29257B4B}
 		{EFFB8BF3-ABFA-43BF-9013-A3973CFB9961} = {D1694CD3-CEF8-4329-9CF6-B1F287BF8050}
 		{679AAC7A-9120-42CE-B72D-D664B3957FFD} = {472A1F15-EF30-47E9-97C8-F19975EB38A3}
+		{1638614A-0627-4782-A69C-84CE068386CE} = {4ACADD58-D64E-4414-83F5-B11078A03099}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {1E821282-7697-40F7-95E6-74F0F99F5055}
 	EndGlobalSection
 EndGlobal

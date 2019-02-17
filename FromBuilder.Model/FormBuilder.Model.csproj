@@ -91,6 +91,7 @@
     <Compile Include="CustomForm\Runtime\TreeNode.cs" />
     <Compile Include="CustomForm\SmartHelp\FBSmartHelp.cs" />
     <Compile Include="CustomForm\SmartHelp\FBSmartHelpCols.cs" />
+    <Compile Include="CustomForm\Visio\FBVisioGraph.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="CustomForm\SmartHelp\JFBSmartHelp.cs" />
   </ItemGroup>
@@ -100,6 +101,7 @@
       <Name>FormBuilder.Utilities</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

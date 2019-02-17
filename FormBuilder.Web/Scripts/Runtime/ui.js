@@ -1160,6 +1160,24 @@ window.Page.UI = (function (ui, service, model, win, $) {
             if (this.controls["grid"]) {
                 $.each(this.controls["grid"], function (id, ctrl) {
                     if (id == ui.gridController.mainGridID) {
+                        ui.event.register(id, "beforeSelectRow", function (e, rowdata, rowid, rowobj) {
+                            if (!ui.stateMachine.cannot("cancel")) {
+                                $.leeDialog.confirm("数据尚未保存，是否切换？", "确认", function (flag) {
+                                    if (flag) {
+                                        self.fsmController.action("cancel");
+                                        var grid = $("#" + id).leeUI();
+                                        grid.leeUI().select(rowobj);
+                                    }
+
+                                });
+                                return false;
+
+
+                            }
+
+
+                        });
+
                         ui.event.register(id, "selectRow", function (e, rowdata, rowid, rowobj) {
                             var id = this.id
                             var idField = model.pkCol;
@@ -2379,6 +2397,7 @@ window.Page.UI = (function (ui, service, model, win, $) {
                 alternatingRow: ctrl.alt,
                 rowHeight: 30,
                 onAfterShowData: this.onAfterShowData,
+                onBeforeSelectRow: this.onBeforeSelectRow,
                 onSelectRow: this.onSelectRow,
                 enabledEdit: true,
                 heightDiff: (ctrl.border ? 0 : 1),
@@ -2661,6 +2680,10 @@ window.Page.UI = (function (ui, service, model, win, $) {
             var id = this.id;
 
             ui.event.trigger(id, "afterShowData", arguments);
+        },
+        onBeforeSelectRow: function () {
+            var id = this.id;
+            ui.event.trigger(id, "beforeSelectRow", arguments);
         },
         onLookUpReturn: function () {
             //帮助返回值后 处理映射关系？

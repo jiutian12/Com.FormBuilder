@@ -55,7 +55,6 @@
             }
             return parsedResult;
         },
-
         formStateParser: function (express) {
             var matchExpression = /\{FormState.(\w+)\}/;
             var matchKeys, formKey, parsedResult = express;
@@ -72,8 +71,6 @@
             }
             return parsedResult;
         },
-
-
         dataParser: function (express) {
             var matchExpression = /\{Data:(\w+).(\w+)\}/;
             var matchKeys, sessionKey, parsedResult = express;

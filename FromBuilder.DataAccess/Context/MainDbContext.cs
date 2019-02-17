@@ -16,8 +16,8 @@ namespace FormBuilder.DataAccess
 
         public MainDbContext()
         {
-            this.Db = SessionProvider.Provider.GetCurrentDataBase();//
-            //new Database("DataPlatformDB");
+            //this.Db = SessionProvider.Provider.GetCurrentDataBase();//
+            this.Db = new Database("DataPlatformDB");
         }
 
         public void Dispose()

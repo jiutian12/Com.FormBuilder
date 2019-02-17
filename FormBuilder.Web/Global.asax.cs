@@ -12,10 +12,12 @@ namespace FormBuilder.Web
 
         protected void Application_Start(object sender, EventArgs e)
         {
+            BundleTable.EnableOptimizations = false;
             AreaRegistration.RegisterAllAreas();
             FilterConfig.Configure(GlobalFilters.Filters);
             RouteConfig.Configure(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
+            
         }
 
         protected void Session_Start(object sender, EventArgs e)

@@ -1475,6 +1475,8 @@
     <Content Include="DList\leeui\less\variables.less" />
     <Content Include="DList\leeui\less\variables\card.variables.less" />
     <Content Include="DList\leeui\less\variables\site.variables.less" />
+    <Content Include="Areas\FormBuilder\Views\Visio\List.cshtml" />
+    <Content Include="Areas\FormBuilder\Views\Visio\Edit.cshtml" />
     <None Include="Properties\PublishProfiles\1.pubxml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -1508,6 +1510,7 @@
     <Compile Include="Areas\FormBuilder\Controllers\LoginController.cs" />
     <Compile Include="Areas\FormBuilder\Controllers\RuntimeController.cs" />
     <Compile Include="Areas\FormBuilder\Controllers\SettingsController.cs" />
+    <Compile Include="Areas\FormBuilder\Controllers\VisioController.cs" />
     <Compile Include="Areas\FormBuilder\Controllers\SmartHelpController.cs" />
     <Compile Include="Areas\FormBuilder\FBuilderAreaRegistration.cs" />
     <Compile Include="Global.asax.cs">

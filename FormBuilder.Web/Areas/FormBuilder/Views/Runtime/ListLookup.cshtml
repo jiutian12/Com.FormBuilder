@@ -352,9 +352,19 @@
                         express.add("", "", this.selectField, keyword, "LIKE", " and");
                     }
                     else {
+
+                        for(var i=0;i< this.config.ColList.length;i++){
+                            var left="",right="",oper="or";
+                            if(i==0) left="(";
+                            if(i== this.config.ColList.length-1){
+                                right=")";
+                                oper="and";
+                            }
+                            express.add(left, right, this.config.ColList[i].code, keyword, "LIKE", oper);
+                        }
                         //编号 or 名称字段like
-                        express.add("(", "", this.options.codeField, keyword, "LIKE", "or");
-                        express.add("", ")", this.options.textField, keyword, "LIKE", "and");
+                        //express.add("(", "", this.options.codeField, keyword, "LIKE", "or");
+                        //express.add("", ")", this.options.textField, keyword, "LIKE", "and");
                     }
                 }
                 if (this.options.filter)

@@ -69,6 +69,7 @@
     <Compile Include="CustomForm\FBDataModelService.cs" />
     <Compile Include="CustomForm\FBDataObjectService.cs" />
     <Compile Include="CustomForm\FBCMPService.cs" />
+    <Compile Include="CustomForm\FBVisioGraphService.cs" />
     <Compile Include="CustomForm\FBDBSettingService.cs" />
     <Compile Include="CustomForm\FBCommonService.cs" />
     <Compile Include="Account\FBAccountService.cs" />
@@ -84,6 +85,7 @@
     <Compile Include="CustomForm\FileProvider\FileProvider.cs" />
     <Compile Include="Impl\IFBAccountService.cs" />
     <Compile Include="Impl\IFBCMPService.cs" />
+    <Compile Include="Impl\IFBVisioGraphService.cs" />
     <Compile Include="Impl\IFBModelExtend.cs" />
     <Compile Include="Impl\IFBModelExtendService.cs" />
     <Compile Include="Impl\IFBModelSQLService.cs" />

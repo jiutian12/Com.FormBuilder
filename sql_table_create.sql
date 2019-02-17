@@ -553,6 +553,8 @@ Create Table If Not Exists FBSettings
 
 
 
+
+
 /*帮助增加列*/
 
 
@@ -560,3 +562,17 @@ alter TABLE  FBSmartHelp ADD PageOption VARCHAR(200);
 
 alter TABLE  FBSmartHelp ADD PageSize VARCHAR(20);
 alter TABLE  FBSmartHelp ADD AutoCol char(1);
+
+
+
+/*Visio配置表*/
+Create Table If Not Exists FBVisioGraph
+	(
+	ID             VARCHAR (50) NOT NULL,
+	Code           VARCHAR (50),
+	Name           VARCHAR (100),
+	GraphConfig    VARCHAR (max),
+	GraphXML       VARCHAR (max),
+	CONSTRAINT PK_FBVISIOGRAPH PRIMARY KEY (ID)
+	)
+;

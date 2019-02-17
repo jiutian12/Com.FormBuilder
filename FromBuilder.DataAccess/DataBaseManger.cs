@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Collections;
 using NPoco;
 using FormBuilder.Utilities;
+using System.IO;
 
 namespace FormBuilder.DataAccess
 {
@@ -14,13 +15,17 @@ namespace FormBuilder.DataAccess
 
         private static Dictionary<string, DataBaseCache> _dictDataBase = new Dictionary<string, DataBaseCache>();
         private static Database _mainDB;
+        private static object lockObject = new object();
 
         static DataBaseManger()
         {
-            // _mainDB = new Database("DataPlatformDB");
+            lock (lockObject)//加锁，处理并发
+            {
+                _mainDB = new Database("DataPlatformDB");
 
-            _mainDB = SessionProvider.Provider.GetCurrentDataBase();
-            initDBCache();
+                //_mainDB = SessionProvider.Provider.GetCurrentDataBase();
+                initDBCache();
+            }
         }
 
         private static void initDBCache()
@@ -60,8 +65,7 @@ namespace FormBuilder.DataAccess
         }
 
 
-
-
+       
         /// <summary>
         /// 获取上下文数据信息
         /// </summary>
@@ -69,15 +73,42 @@ namespace FormBuilder.DataAccess
         /// <returns></returns>
         public static Database GetDB(string code)
         {
-            if (string.IsNullOrEmpty(code)) code = "defalutconnection";
 
-            if (_dictDataBase.ContainsKey(code))
+            try
             {
-                return new Database(_dictDataBase[code].ConnectStr, _dictDataBase[code].DbType);
+                if (string.IsNullOrEmpty(code)) code = "defalutconnection";
+
+                if (_dictDataBase.ContainsKey(code))
+                {
+                    return new Database(_dictDataBase[code].ConnectStr, _dictDataBase[code].DbType);
+                }
+
+
+                return new Database("DataPlatformDB");
             }
+            catch (Exception ex) {
+                WriteLog(ex.Message + ex.StackTrace);
+                throw ex;
+            }
+            
 
+        }
 
-            return SessionProvider.Provider.GetCurrentDataBase();
+        public static void WriteLog(string logInfo)
+        {
+
+            string Prefix = "FBBuilder";
+            string fileName = Prefix + DateTime.Now.ToString("yyyyMMdd") + ".txt";
+
+            //using (StreamWriter writer = new StreamWriter(fileName))
+            //{
+            //    //1,写入文本
+            //    writer.Write(str);
+            //}
+            ////2,追加文本
+            StreamWriter sw = System.IO.File.AppendText(fileName);
+            sw.WriteLine(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + logInfo);//自动换行
+            sw.Close();
         }
 
 

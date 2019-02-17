@@ -44,28 +44,6 @@ $.validator.config({
 });
 
 
-
-$(function () {
-
-    //$('#form').validator({ theme: 'yellow_top' });
-    //$('#form').validator("setField", {
-    //    "#input_j809xsf5p8808ghjhk": {
-    //        rule: "required;checkExits(FBDataObject,3);chinese"
-    //    },
-    //    "#textarea_j809xu6unmzjbzw9hc": {
-    //        rule: "required"
-    //    },
-    //    "#textarea_j809xusxn6fdqupay": {
-    //        rule: "required"
-    //    },
-    //    "SORT_ID": {
-    //        rule: "required;checkExits(test,请填写中文字符)"
-    //    }
-    //});
-});
-
-
-
 var Rules = {
     required: function (value, params) {
         //alert(value);

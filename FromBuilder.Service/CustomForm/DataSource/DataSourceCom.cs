@@ -228,7 +228,7 @@ namespace FormBuilder.Service
         #endregion
 
         #region 获取树形数据源的所有节点数据
-        public static List<Dictionary<string, object>> getDSTreeDataALL(string dsID, string keyWord, string filter, string order, Dictionary<string, object> formstate,Database Db)
+        public static List<Dictionary<string, object>> getDSTreeDataALL(string dsID, string keyWord, string filter, string order, Dictionary<string, object> formstate, Database Db)
         {
 
             FBDataSource model = getDSModel(dsID, Db);
@@ -239,7 +239,7 @@ namespace FormBuilder.Service
             var sql = model.SqlInfo;
 
 
-         
+
             List<Dictionary<string, object>> result = new List<Dictionary<string, object>>();
 
             // 获取树形取数的Sql信息
@@ -358,9 +358,15 @@ namespace FormBuilder.Service
                 foreach (var item in dict)
                 {
                     string columnname = item.Key;
+                    var sqlStrTmp = "#" + columnname;
+                    if (sql.IndexOf(sqlStrTmp) != -1)
+                        sql = sql.Replace("#" + columnname, item.Value.ToString());
+
                     if (sql.IndexOf("@" + columnname, StringComparison.OrdinalIgnoreCase) == -1)
                         continue;
                     sql = Regex.Replace(sql, "@" + columnname, "@" + i.ToString(), RegexOptions.IgnoreCase);
+                  
+
                     arr.Add(item.Value);
 
                     i++;
