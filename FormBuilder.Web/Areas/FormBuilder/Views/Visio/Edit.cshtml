@@ -39,13 +39,21 @@
         // Default resources are included in grapheditor resources
         mxLoadResources = false;
     </script>
-    <script type="text/javascript" src="~/Scripts/Graph/Init.js"></script>
 
+    <link href="/FormBuilder.Web/DList/leeui/css/bulid.css" rel="stylesheet" />
+    <link href="/FormBuilder.Web/DList/leeui/css/icon.css" rel="stylesheet" />
+
+
+
+
+    <script src="~/DList/jquery-1.10.2.min.js"></script>
+    <script src="~/Scripts/Utils/Base64.js"></script>
+
+    <script type="text/javascript" src="~/Scripts/Graph/Init.js"></script>
     <script type="text/javascript" src="~/DList/deflate/pako.min.js"></script>
     <script type="text/javascript" src="~/DList/deflate/base64.js"></script>
     <script type="text/javascript" src="~/DList/jscolor/jscolor.js"></script>
     <script type="text/javascript" src="~/DList/sanitizer/sanitizer.min.js"></script>
-
     <script type="text/javascript" src="~/DList/mxGraph/js/mxClient.js"></script>
     <script type="text/javascript" src="~/Scripts/Graph/EditorUi.js"></script>
     <script type="text/javascript" src="~/Scripts/Graph/Editor.js"></script>
@@ -57,8 +65,24 @@
     <script type="text/javascript" src="~/Scripts/Graph/Menus.js"></script>
     <script type="text/javascript" src="~/Scripts/Graph/Toolbar.js"></script>
     <script type="text/javascript" src="~/Scripts/Graph/Dialogs.js"></script>
+
+    <script src="~/Scripts/config.js"></script>
+    <script src="/FormBuilder.Web/DList/leeui/leeui.min.js"></script>
+    <script src="~/Scripts/Visio/edit.js"></script>
+
 </head>
 <body class="geEditor">
+    <style>
+        * {
+            box-sizing: content-box;
+        }
+        body {
+            overflow:hidden;
+        }
+        .geEditor {
+            font-family: 'Microsoft YaHei';
+        }
+    </style>
     <script type="text/javascript">
         // Extends EditorUi to update I/O action states based on availability of backend
         (function () {
@@ -66,7 +90,7 @@
 
             EditorUi.prototype.init = function () {
                 editorUiInit.apply(this, arguments);
-                
+
             };
 
             // Adds required resources (disables loading of fallback properties, this can only
@@ -83,9 +107,10 @@
                 // Configures the default graph theme
                 var themes = new Object();
                 themes[Graph.prototype.defaultThemeName] = xhr[1].getDocumentElement();
-
+                var editor = new Editor(urlParams['chrome'] == '0', themes)
                 // Main
-                new EditorUi(new Editor(urlParams['chrome'] == '0', themes));
+                VisioController.load(editor);
+                new EditorUi(editor);
             }, function () {
                 document.body.innerHTML = '<center style="margin-top:10%;">Error loading resource files. Please check browser console.</center>';
             });

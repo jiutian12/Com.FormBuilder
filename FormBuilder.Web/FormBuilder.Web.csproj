@@ -1576,7 +1576,7 @@
     <Content Include="Scripts\SHelp\list.js" />
     <Content Include="Scripts\Utils\Base64.js" />
     <Content Include="Scripts\Utils\Guid.js" />
-    <Content Include="Scripts\Visio\design.js" />
+    <Content Include="Scripts\Visio\edit.js" />
     <Content Include="Scripts\Visio\list.js" />
     <Content Include="Tmpl\column.list.html" />
     <Content Include="Tmpl\confirm.html" />
