@@ -309,3 +309,11 @@ writingDirection=书写方向
 zoom=缩放
 zoomIn=放大
 zoomOut=缩小
+startEvent=开始
+endEvent=结束
+userTask=用户任务
+approveTask=审批任务
+scriptTask=脚本任务
+waitTask=等待节点
+gateway=网关
+

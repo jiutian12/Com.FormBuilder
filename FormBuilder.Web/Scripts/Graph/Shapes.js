@@ -3963,3 +3963,323 @@
 	ProvidedRequiredInterfaceShape.prototype.constraints = [new mxConnectionConstraint(new mxPoint(0, 0.5), false),
         new mxConnectionConstraint(new mxPoint(1, 0.5), false)];
 })();
+
+
+
+(function () {
+    mxLabel.prototype.indicatorSize = 20;
+    mxLabel.prototype.indicatorSpacing = 20;
+    mxLabel.prototype.paintImage = function (p, o, s, r, q) { }
+        ;
+    mxLabel.prototype.paintIndicator = function (q, o, u, p, r) {
+        if (this.indicator != null) {
+            this.indicator.bounds = this.getIndicatorBounds(o, u, p, r);
+            this.indicator.paint(q);
+            return
+        }
+        var t = "";
+        if (this.image) {
+            if (this instanceof f) {
+                t = top.absUrl + "../../../../css/images/7.png"
+            } else {
+                if (this instanceof n) {
+                    t = top.absUrl + "../../../../css/images/9.png"
+                } else {
+                    if (this instanceof e) {
+                        t = top.absUrl + "../../../../css/images/8.png"
+                    } else {
+                        if (this instanceof b) {
+                            t = top.absUrl + "../../../../css/images/3.png"
+                        }
+                    }
+                }
+            }
+            if (t !== "") {
+                this.state.imagedrawed = true;
+                var s = this.getIndicatorBounds(o, u, p, r);
+                q.image(s.x, s.y, s.width, s.height, t, false, false, false)
+            }
+        }
+    }
+        ;
+    function j() {
+        mxEllipse.call(this)
+    }
+    mxUtils.extend(j, mxEllipse);
+    mxCellRenderer.defaultShapes.startEvent = j;
+    function i() {
+        mxEllipse.call(this)
+    }
+    mxUtils.extend(i, mxEllipse);
+    mxCellRenderer.defaultShapes.endEvent = i;
+    function f() {
+        mxLabel.call(this)
+    }
+    mxUtils.extend(f, mxLabel);
+    mxCellRenderer.defaultShapes.userTask = f;
+    function n() {
+        mxLabel.call(this)
+    }
+    mxUtils.extend(n, mxLabel);
+    mxCellRenderer.defaultShapes.approveTask = n;
+    function e() {
+        mxLabel.call(this)
+    }
+    mxUtils.extend(e, mxLabel);
+    mxCellRenderer.defaultShapes.scriptTask = e;
+    function b() {
+        mxLabel.call(this)
+    }
+    mxUtils.extend(b, mxLabel);
+    mxCellRenderer.defaultShapes.waitTask = b;
+    function a() {
+        mxCylinder.call(this)
+    }
+    mxUtils.extend(a, mxCylinder);
+    a.prototype.size = 30;
+    a.prototype.redrawPath = function (u, o, v, p, t, q) {
+        var r = Math.max(0, Math.min(p, Math.min(t, parseFloat(mxUtils.getValue(this.style, "size", this.size)))));
+        if (q) {
+            u.moveTo(p - r, 0);
+            u.lineTo(p - r, r);
+            u.lineTo(p, r);
+            u.end()
+        } else {
+            u.moveTo(0, 0);
+            u.lineTo(p - r, 0);
+            u.lineTo(p, r);
+            u.lineTo(p, t);
+            u.lineTo(0, t);
+            u.lineTo(0, 0);
+            u.close();
+            u.end()
+        }
+    }
+        ;
+    mxCellRenderer.defaultShapes.note = a;
+    function d() {
+        mxActor.call(this)
+    }
+    mxUtils.extend(d, mxActor);
+    d.prototype.size = 0.3;
+    d.prototype.redrawPath = function (u, o, t, q, s) {
+        var p = s * Math.max(0, Math.min(1, parseFloat(mxUtils.getValue(this.style, "size", this.size))));
+        var r = 1.4;
+        u.moveTo(0, 0);
+        u.lineTo(q, 0);
+        u.lineTo(q, s - p / 2);
+        u.quadTo(q * 3 / 4, s - p * r, q / 2, s - p / 2);
+        u.quadTo(q / 4, s - p * (1 - r), 0, s - p / 2);
+        u.lineTo(0, p / 2);
+        u.close();
+        u.end()
+    }
+        ;
+    mxCellRenderer.defaultShapes.document = d;
+    function c() {
+        mxRectangleShape.call(this)
+    }
+    mxUtils.extend(c, mxRectangleShape);
+    c.prototype.size = 0.1;
+    c.prototype.isHtmlAllowed = function () {
+        return false
+    }
+        ;
+    c.prototype.getLabelBounds = function (t) {
+        if (mxUtils.getValue(this.state.style, mxConstants.STYLE_HORIZONTAL, true) == (this.direction == null || this.direction == mxConstants.DIRECTION_EAST || this.direction == mxConstants.DIRECTION_WEST)) {
+            var o = t.width;
+            var q = t.height;
+            var s = new mxRectangle(t.x, t.y, o, q);
+            var p = o * Math.max(0, Math.min(1, parseFloat(mxUtils.getValue(this.style, "size", this.size))));
+            if (this.isRounded) {
+                var u = mxUtils.getValue(this.style, mxConstants.STYLE_ARCSIZE, mxConstants.RECTANGLE_ROUNDING_FACTOR * 100) / 100;
+                p = Math.max(p, Math.min(o * u, q * u))
+            }
+            s.x += p;
+            s.width -= 2 * p;
+            return s
+        }
+        return t
+    }
+        ;
+    c.prototype.paintForeground = function (u, o, t, p, r) {
+        var q = p * Math.max(0, Math.min(1, parseFloat(mxUtils.getValue(this.style, "size", this.size))));
+        if (this.isRounded) {
+            var s = mxUtils.getValue(this.style, mxConstants.STYLE_ARCSIZE, mxConstants.RECTANGLE_ROUNDING_FACTOR * 100) / 100;
+            q = Math.max(q, Math.min(p * s, r * s))
+        }
+        u.begin();
+        u.moveTo(o + q, t);
+        u.lineTo(o + q, t + r);
+        u.moveTo(o + p - q, t);
+        u.lineTo(o + p - q, t + r);
+        u.end();
+        u.stroke();
+        mxRectangleShape.prototype.paintForeground.apply(this, arguments)
+    }
+        ;
+    mxCellRenderer.defaultShapes.process = c;
+    var l = mxRhombus.prototype.paintVertexShape;
+    mxRhombus.prototype.getLabelBounds = function (o) {
+        if (this.style["double"] == 1) {
+            var p = (Math.max(2, this.strokewidth + 1) * 2 + parseFloat(this.style[mxConstants.STYLE_MARGIN] || 0)) * this.scale;
+            return new mxRectangle(o.x + p, o.y + p, o.width - 2 * p, o.height - 2 * p)
+        }
+        return o
+    }
+        ;
+    mxRhombus.paintVertexShape = function (t, o, s, p, q) {
+        l.apply(this, arguments);
+        if (!this.outline && this.style["double"] == 1) {
+            var r = Math.max(2, this.strokewidth + 1) * 2 + parseFloat(this.style[mxConstants.STYLE_MARGIN] || 0);
+            o += r;
+            s += r;
+            p -= 2 * r;
+            q -= 2 * r;
+            if (p > 0 && q > 0) {
+                t.setShadow(false);
+                l.apply(this, [t, o, s, p, q])
+            }
+        }
+    }
+        ;
+    mxPerimeter.LifelinePerimeter = function (q, s, p, r) {
+        var o = UmlLifeline.prototype.size;
+        if (s != null) {
+            o = mxUtils.getValue(s.style, "size", o) * s.view.scale
+        }
+        return new mxPoint(q.getCenterX(), Math.min(q.y + q.height, Math.max(q.y + o, p.y)))
+    }
+        ;
+    mxStyleRegistry.putValue("lifelinePerimeter", mxPerimeter.LifelinePerimeter);
+    mxPerimeter.OrthogonalPerimeter = function (p, r, o, q) {
+        q = true;
+        return mxPerimeter.RectanglePerimeter.apply(this, arguments)
+    }
+        ;
+    mxStyleRegistry.putValue("orthogonalPerimeter", mxPerimeter.OrthogonalPerimeter);
+    mxMarker.addMarker("dash", function (p, s, u, t, w, v, z, o, x, y) {
+        var r = w * (z + x + 1);
+        var q = v * (z + x + 1);
+        return function () {
+            p.begin();
+            p.moveTo(t.x - r / 2 - q / 2, t.y - q / 2 + r / 2);
+            p.lineTo(t.x + q / 2 - 3 * r / 2, t.y - 3 * q / 2 - r / 2);
+            p.stroke()
+        }
+    });
+    if (typeof mxVertexHandler !== "undefined") {
+        function m(t, r, p, q, o) {
+            var s = new mxHandle(t, null, mxVertexHandler.prototype.secondaryHandleImage);
+            s.execute = function () {
+                for (var u = 0; u < r.length; u++) {
+                    this.copyStyle(r[u])
+                }
+            }
+                ;
+            s.getPosition = p;
+            s.setPosition = q;
+            s.ignoreGrid = (o != null) ? o : true;
+            return s
+        }
+        function g(o, p) {
+            return m(o, [mxConstants.STYLE_ARCSIZE], function (r) {
+                var s = Math.max(0, parseFloat(mxUtils.getValue(o.style, mxConstants.STYLE_ARCSIZE, mxConstants.RECTANGLE_ROUNDING_FACTOR * 100))) / 100;
+                var q = (p != null) ? p : r.height / 8;
+                return new mxPoint(r.x + r.width - Math.min(Math.max(r.width / 2, r.height / 2), Math.min(r.width, r.height) * s), r.y + q)
+            }, function (r, t, q) {
+                var s = Math.min(50, Math.max(0, (r.width - t.x + r.x) * 100 / Math.min(r.width, r.height)));
+                this.state.style[mxConstants.STYLE_ARCSIZE] = Math.round(s)
+            })
+        }
+        function h() {
+            return function (p) {
+                var o = [];
+                if (mxUtils.getValue(p.style, mxConstants.STYLE_ROUNDED, false)) {
+                    o.push(g(p))
+                }
+                return o
+            }
+        }
+        var k = {
+            swimlane: function (q) {
+                var p = [m(q, [mxConstants.STYLE_STARTSIZE], function (s) {
+                    var r = parseFloat(mxUtils.getValue(q.style, mxConstants.STYLE_STARTSIZE, mxConstants.DEFAULT_STARTSIZE));
+                    if (mxUtils.getValue(q.style, mxConstants.STYLE_HORIZONTAL, 1) == 1) {
+                        return new mxPoint(s.getCenterX(), s.y + Math.max(0, Math.min(s.height, r)))
+                    } else {
+                        return new mxPoint(s.x + Math.max(0, Math.min(s.width, r)), s.getCenterY())
+                    }
+                }, function (r, s) {
+                    q.style[mxConstants.STYLE_STARTSIZE] = (mxUtils.getValue(this.state.style, mxConstants.STYLE_HORIZONTAL, 1) == 1) ? Math.round(Math.max(0, Math.min(r.height, s.y - r.y))) : Math.round(Math.max(0, Math.min(r.width, s.x - r.x)))
+                })];
+                if (mxUtils.getValue(q.style, mxConstants.STYLE_ROUNDED)) {
+                    var o = parseFloat(mxUtils.getValue(q.style, mxConstants.STYLE_STARTSIZE, mxConstants.DEFAULT_STARTSIZE));
+                    p.push(g(q, o / 2))
+                }
+                return p
+            },
+            rectangle: h(),
+            rhombus: h(),
+            process: function (p) {
+                var o = [m(p, ["size"], function (r) {
+                    var q = Math.max(0, Math.min(0.5, parseFloat(mxUtils.getValue(this.state.style, "size", c.prototype.size))));
+                    return new mxPoint(r.x + r.width * q, r.y + r.height / 4)
+                }, function (q, r) {
+                    this.state.style.size = Math.max(0, Math.min(0.5, (r.x - q.x) / q.width))
+                })];
+                if (mxUtils.getValue(p.style, mxConstants.STYLE_ROUNDED, false)) {
+                    o.push(g(p))
+                }
+                return o
+            },
+            note: function (o) {
+                return [m(o, ["size"], function (q) {
+                    var p = Math.max(0, Math.min(q.width, Math.min(q.height, parseFloat(mxUtils.getValue(this.state.style, "size", a.prototype.size)))));
+                    return new mxPoint(q.x + q.width - p, q.y + p)
+                }, function (p, q) {
+                    this.state.style.size = Math.round(Math.max(0, Math.min(Math.min(p.width, p.x + p.width - q.x), Math.min(p.height, q.y - p.y))))
+                })]
+            },
+            document: function (o) {
+                return [m(o, ["size"], function (q) {
+                    var p = Math.max(0, Math.min(1, parseFloat(mxUtils.getValue(this.state.style, "size", d.prototype.size))));
+                    return new mxPoint(q.x + 3 * q.width / 4, q.y + (1 - p) * q.height)
+                }, function (p, q) {
+                    this.state.style.size = Math.max(0, Math.min(1, (p.y + p.height - q.y) / p.height))
+                })]
+            }
+        };
+        mxVertexHandler.prototype.createCustomHandles = function () {
+            if (this.graph.isCellRotatable(this.state.cell)) {
+                var o = k[this.state.style.shape];
+                if (o != null) {
+                    return o(this.state)
+                }
+            }
+            return null
+        }
+            ;
+        mxEdgeHandler.prototype.createCustomHandles = function () {
+            var o = k[this.state.style.shape];
+            if (o != null) {
+                return o(this.state)
+            }
+        }
+    }
+    mxRectangleShape.prototype.constraints = [new mxConnectionConstraint(new mxPoint(0.25, 0), true), new mxConnectionConstraint(new mxPoint(0.5, 0), true), new mxConnectionConstraint(new mxPoint(0.75, 0), true), new mxConnectionConstraint(new mxPoint(0, 0.25), true), new mxConnectionConstraint(new mxPoint(0, 0.5), true), new mxConnectionConstraint(new mxPoint(0, 0.75), true), new mxConnectionConstraint(new mxPoint(1, 0.25), true), new mxConnectionConstraint(new mxPoint(1, 0.5), true), new mxConnectionConstraint(new mxPoint(1, 0.75), true), new mxConnectionConstraint(new mxPoint(0.25, 1), true), new mxConnectionConstraint(new mxPoint(0.5, 1), true), new mxConnectionConstraint(new mxPoint(0.75, 1), true)];
+    mxEllipse.prototype.constraints = [new mxConnectionConstraint(new mxPoint(0, 0), true), new mxConnectionConstraint(new mxPoint(1, 0), true), new mxConnectionConstraint(new mxPoint(0, 1), true), new mxConnectionConstraint(new mxPoint(1, 1), true), new mxConnectionConstraint(new mxPoint(0.5, 0), true), new mxConnectionConstraint(new mxPoint(0.5, 1), true), new mxConnectionConstraint(new mxPoint(0, 0.5), true), new mxConnectionConstraint(new mxPoint(1, 0.5))];
+    mxLabel.prototype.constraints = mxRectangleShape.prototype.constraints;
+    mxImageShape.prototype.constraints = mxRectangleShape.prototype.constraints;
+    mxSwimlane.prototype.constraints = mxRectangleShape.prototype.constraints;
+    a.prototype.constraints = mxRectangleShape.prototype.constraints;
+    mxRhombus.prototype.constraints = mxEllipse.prototype.constraints;
+    d.prototype.constraints = [new mxConnectionConstraint(new mxPoint(0.25, 0), true), new mxConnectionConstraint(new mxPoint(0.5, 0), true), new mxConnectionConstraint(new mxPoint(0.75, 0), true), new mxConnectionConstraint(new mxPoint(0, 0.25), true), new mxConnectionConstraint(new mxPoint(0, 0.5), true), new mxConnectionConstraint(new mxPoint(0, 0.75), true), new mxConnectionConstraint(new mxPoint(1, 0.25), true), new mxConnectionConstraint(new mxPoint(1, 0.5), true), new mxConnectionConstraint(new mxPoint(1, 0.75), true)]
+}
+)();
+(function () {
+    var a = '<shape name="Getway" h="57.43" w="98" aspect="variable" strokewidth="inherit">	<connections>	  <constraint x="0.5" y="0" perimeter="0" name="N"/>	  <constraint x="0.5" y="1" perimeter="0" name="S"/>	  <constraint x="0" y="0.5" perimeter="0" name="W"/>	  <constraint x="1" y="0.5" perimeter="0" name="E"/>	</connections>	<background>	  <path>		<move x="51" y="0.71"/>		<line x="97" y="26.71"/>		<arc rx="2.5" ry="2.5" x-axis-rotation="0" large-arc-flag="0" sweep-flag="1" x="97" y="30.71"/>		<line x="51" y="56.71"/>		<arc rx="4" ry="4" x-axis-rotation="0" large-arc-flag="0" sweep-flag="1" x="47" y="56.71"/>		<line x="1" y="30.71"/>		<arc rx="2.5" ry="2.5" x-axis-rotation="0" large-arc-flag="0" sweep-flag="1" x="1" y="26.71"/>		<line x="47" y="0.71"/>		<arc rx="4" ry="4" x-axis-rotation="0" large-arc-flag="0" sweep-flag="1" x="51" y="0.71"/>		<close/>	  </path>	</background>	<foreground>	  <fillstroke/>	</foreground></shape>';
+    var b = mxUtils.parseXml(a);
+    mxStencilRegistry.stencils.gateway = new mxStencil(b.documentElement)
+}
+)();

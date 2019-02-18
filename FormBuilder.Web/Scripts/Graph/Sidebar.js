@@ -86,7 +86,9 @@ Sidebar.prototype.init = function()
 	var dir = STENCIL_PATH;
 	
 	this.addSearchPalette(true);
-	this.addGeneralPalette(true);
+    this.addGeneral(true);
+    this.addGeneralPalette(true);
+     
 	this.addMiscPalette(false);
 	this.addAdvancedPalette(false);
 	this.addBasicPalette(dir);
@@ -909,6 +911,76 @@ Sidebar.prototype.insertSearchHint = function(div, searchTerm, count, page, resu
 		div.appendChild(err);
 	}
 };
+
+/**
+ * Adds the general palette to the sidebar.
+ */
+Sidebar.prototype.addGeneral = function () {
+    var a = "res/icons/plugin/16X16/"
+        , c = [{
+            style: "shape=startEvent;flowNode=1;arcsize=40;strokeWidth=1;fontSize=15;fontFamily=Microsoft YaHei;strokeColor=#4D4D4D;",
+            width: 40,
+            height: 40,
+            value: mxResources.get('startEvent'),
+            title: mxResources.get('startEvent'),
+            showLabel: null,
+            showTitle: null
+        }, {
+            style: "shape=userTask;flowNode=1;rounded=1;whiteSpace=wrap;html=1;spacingLeft=22;strokeColor=#4D4D4D;image=customer.png",
+            width: 40,
+            height: 40,
+            value: "",
+            title: mxResources.get('userTask'),
+            showLabel: null,
+            showTitle: null
+        }, {
+            style: "shape=approveTask;flowNode=1;rounded=1;whiteSpace=wrap;html=1;spacingLeft=22;strokeColor=#4D4D4D;showIcon=1;image=boss.png",
+            width: 40,
+            height: 40,
+            value: "",
+            title:mxResources.get('approveTask'),
+            showLabel: null,
+            showTitle: null
+        }, {
+            style: "shape=scriptTask;flowNode=1;rounded=1;whiteSpace=wrap;html=1;spacingLeft=22;strokeColor=#4D4D4D;image=scripts.png",
+            width: 40,
+            height: 40,
+            value: "",
+            title: mxResources.get('scriptTask'),
+            showLabel: null,
+            showTitle: null
+        }, {
+            style: "shape=waitTask;flowNode=1;whiteSpace=wrap;html=1;rounded=1;strokeColor=#4D4D4D;image=time.png",
+            width: 40,
+            height: 40,
+            value: "",
+            title: mxResources.get('waitTask'),
+            showLabel: null,
+            showTitle: null
+        }, {
+            style: "shape=gateway;flowNode=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;strokeWidth=1",
+            width: 40,
+            height: 40,
+            value: mxResources.get('gateway'),
+            title:mxResources.get('gateway'),
+            showLabel: null,
+            showTitle: null
+        }, {
+            style: "shape=endEvent;flowNode=1;arcsize=40;strokeWidth=1;strokeColor=#4D4D4D;",
+            width: 40,
+            height: 40,
+            value: mxResources.get('endEvent'),
+            title:mxResources.get('endEvent'),
+            showLabel: null,
+            showTitle: null
+        }]
+        , b = this;
+    c = $.map(c, function (d) {
+        return b.createVertexTemplateEntry(d.style, d.width, d.height, d.value, d.title, d.showLabel, d.showTitle)
+    });
+    this.addPaletteFunctions("general", mxResources.get('general'), true, c)
+};
+
 
 /**
  * Adds the general palette to the sidebar.
