@@ -140,6 +140,7 @@
     <Content Include="CSS\common.css" />
     <Content Include="CSS\designer.css" />
     <Content Include="CSS\file.css" />
+    <Content Include="CSS\flow\user.png" />
     <Content Include="CSS\formDesign.css" />
     <Content Include="CSS\framework\framework.css" />
     <Content Include="CSS\graph\save.png" />

@@ -918,29 +918,29 @@ Sidebar.prototype.insertSearchHint = function(div, searchTerm, count, page, resu
 Sidebar.prototype.addGeneral = function () {
     var a = "res/icons/plugin/16X16/"
         , c = [{
-            style: "shape=startEvent;flowNode=1;arcsize=40;strokeWidth=1;fontSize=15;fontFamily=Microsoft YaHei;strokeColor=#4D4D4D;",
+            style: "shape=startEvent;flowNode=1;rounded=1;whiteSpace=wrap;html=1;spacingLeft=22;strokeColor=none;showIcon=1;image=boss.png",
             width: 40,
             height: 40,
-            value: mxResources.get('startEvent'),
+            value: "",
             title: mxResources.get('startEvent'),
-            showLabel: null,
-            showTitle: null
+            showLabel: false,
+            showTitle: false
         }, {
             style: "shape=userTask;flowNode=1;rounded=1;whiteSpace=wrap;html=1;spacingLeft=22;strokeColor=#4D4D4D;image=customer.png",
             width: 40,
             height: 40,
-            value: "",
+            value: mxResources.get('userTask'),
             title: mxResources.get('userTask'),
-            showLabel: null,
-            showTitle: null
+            showLabel: false,
+            showTitle: false
         }, {
             style: "shape=approveTask;flowNode=1;rounded=1;whiteSpace=wrap;html=1;spacingLeft=22;strokeColor=#4D4D4D;showIcon=1;image=boss.png",
             width: 40,
             height: 40,
-            value: "",
+            value: mxResources.get('approveTask'),
             title:mxResources.get('approveTask'),
-            showLabel: null,
-            showTitle: null
+            showLabel: false,
+            showTitle: false
         }, {
             style: "shape=scriptTask;flowNode=1;rounded=1;whiteSpace=wrap;html=1;spacingLeft=22;strokeColor=#4D4D4D;image=scripts.png",
             width: 40,
@@ -949,15 +949,17 @@ Sidebar.prototype.addGeneral = function () {
             title: mxResources.get('scriptTask'),
             showLabel: null,
             showTitle: null
-        }, {
-            style: "shape=waitTask;flowNode=1;whiteSpace=wrap;html=1;rounded=1;strokeColor=#4D4D4D;image=time.png",
-            width: 40,
-            height: 40,
-            value: "",
-            title: mxResources.get('waitTask'),
-            showLabel: null,
-            showTitle: null
-        }, {
+        },
+        // {
+        //    style: "shape=waitTask;flowNode=1;whiteSpace=wrap;html=1;rounded=1;strokeColor=#4D4D4D;image=time.png",
+        //    width: 40,
+        //    height: 40,
+        //    value: "",
+        //    title: mxResources.get('waitTask'),
+        //    showLabel: null,
+        //    showTitle: null
+        //}, 
+        {
             style: "shape=gateway;flowNode=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;strokeWidth=1",
             width: 40,
             height: 40,
@@ -966,13 +968,13 @@ Sidebar.prototype.addGeneral = function () {
             showLabel: null,
             showTitle: null
         }, {
-            style: "shape=endEvent;flowNode=1;arcsize=40;strokeWidth=1;strokeColor=#4D4D4D;",
+            style: "shape=endEvent;flowNode=1;rounded=1;whiteSpace=wrap;html=1;spacingLeft=22;strokeColor=none;showIcon=1;image=boss.png",
             width: 40,
             height: 40,
-            value: mxResources.get('endEvent'),
+            value: "",
             title:mxResources.get('endEvent'),
-            showLabel: null,
-            showTitle: null
+            showLabel: false,
+            showTitle: false
         }]
         , b = this;
     c = $.map(c, function (d) {
@@ -3696,3 +3698,5 @@ Sidebar.prototype.destroy = function()
 		this.pointerOutHandler = null;
 	}
 };
+
+
