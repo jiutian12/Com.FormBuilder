@@ -1,0 +1,87 @@
+﻿
+@{
+    ViewBag.Title = "";
+    Layout = null;
+}
+<!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=5,IE=9" ><![endif]-->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>矢量图预览</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <link rel="stylesheet" type="text/css" href="~/CSS/graph/grapheditor.css">
+    <script type="text/javascript">
+        // Parses URL parameters. Supported parameters are:
+        // - lang=xy: Specifies the language of the user interface.
+        // - touch=1: Enables a touch-style user interface.
+        // - storage=local: Enables HTML5 local storage.
+        // - chrome=0: Chromeless mode.
+        var urlParams = (function (url) {
+            var result = new Object();
+            var idx = url.lastIndexOf('?');
+
+            if (idx > 0) {
+                var params = url.substring(idx + 1).split('&');
+
+                for (var i = 0; i < params.length; i++) {
+                    idx = params[i].indexOf('=');
+
+                    if (idx > 0) {
+                        result[params[i].substring(0, idx)] = params[i].substring(idx + 1);
+                    }
+                }
+            }
+
+            return result;
+        })(window.location.href);
+
+        // Default resources are included in grapheditor resources
+        mxLoadResources = false;
+    </script>
+
+    <link href="/FormBuilder.Web/DList/leeui/css/bulid.css" rel="stylesheet" />
+    <link href="/FormBuilder.Web/DList/leeui/css/icon.css" rel="stylesheet" />
+
+
+
+
+    <script src="~/DList/jquery-1.10.2.min.js"></script>
+    <script src="~/Scripts/Utils/Base64.js"></script>
+
+    <script type="text/javascript" src="~/Scripts/Graph/Init.js"></script>
+    <script type="text/javascript" src="~/DList/deflate/base64.js"></script>
+    <script type="text/javascript" src="~/DList/sanitizer/sanitizer.min.js"></script>
+    <script type="text/javascript" src="~/DList/mxGraph/js/mxClient.js"></script>
+
+    <script type="text/javascript" src="~/Scripts/Graph/Graph.js"></script>
+    <script type="text/javascript" src="~/Scripts/Graph/Shapes.js"></script>
+
+    <script src="~/Scripts/config.js"></script>
+    <script src="~/DList/leeui/leeui.min.js"></script>
+    <script src="~/Scripts/Visio/view.js"></script>
+
+</head>
+<body class="geEditor">
+    <style>
+        * {
+            box-sizing: content-box;
+        }
+
+        body {
+            overflow: hidden;
+        }
+
+        .geEditor {
+            font-family: 'Microsoft YaHei';
+        }
+    </style>
+    <div id="visioGraph">
+        <div style='text-align:center'>
+            <div id="visioGraphContainer" style='display:inline-block; margin:5px;'></div>
+
+        </div>
+    </div>
+
+</body>
+</html>

@@ -1576,6 +1576,7 @@
     <Content Include="Scripts\SHelp\list.js" />
     <Content Include="Scripts\Utils\Base64.js" />
     <Content Include="Scripts\Utils\Guid.js" />
+    <Content Include="Scripts\Visio\view.js" />
     <Content Include="Scripts\Visio\edit.js" />
     <Content Include="Scripts\Visio\list.js" />
     <Content Include="Tmpl\column.list.html" />
@@ -1725,6 +1726,7 @@
     <Content Include="DList\leeui\less\variables\site.variables.less" />
     <Content Include="Areas\FormBuilder\Views\Visio\List.cshtml" />
     <Content Include="Areas\FormBuilder\Views\Visio\Edit.cshtml" />
+    <Content Include="Areas\FormBuilder\Views\Visio\View.cshtml" />
     <None Include="Properties\PublishProfiles\1.pubxml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>

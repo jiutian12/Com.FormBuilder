@@ -23,9 +23,9 @@ namespace FormBuilder.Web.Areas.FormBuilder.Controllers
 
         #region views
         // GET: SmartHelp
-        public ActionResult Index()
+        public ActionResult Preiview()
         {
-            return View();
+            return View("View");
         }
 
         // GET: SmartHelp

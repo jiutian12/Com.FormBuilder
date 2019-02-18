@@ -5081,6 +5081,8 @@ EventFormatPanel.prototype.addEventName = function (container) {
     input.addEventListener("blur", function () { updateid(); }, false);
     input3.addEventListener("blur", function () { addCellProperty(); }, false);
     input2.addEventListener("blur", function () { addCellProperty(); }, false);
+    input3.addEventListener("keyup", function () { addCellProperty(); }, false);
+    input2.addEventListener("keyup", function () { addCellProperty(); }, false);
     //btnset.addEventListener("click", function () {
     //    Page.Config.General.onSetCellJS(input.value, input2.value, input2);
     //}, false);
