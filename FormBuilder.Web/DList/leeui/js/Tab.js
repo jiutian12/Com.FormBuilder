@@ -55,7 +55,7 @@
         },
         _render: function () {
             var g = this,
-				p = this.options;
+                p = this.options;
             if (p.height) g.makeFullHeight = true;
             g.tab = $(this.element);
             g.tab.addClass("lee-tab");
@@ -76,6 +76,8 @@
                     $("> a", li).html(contentitem.attr("title"));
                     contentitem.attr("title", "");
                 }
+
+                contentitem.attr("tabindex", i);
                 var tabid = contentitem.attr("tabid");
                 if (tabid == undefined) {
                     tabid = g.getNewTabid();
@@ -144,6 +146,8 @@
 
             g.set(p);
             g.setTabButton();
+            g._initToolbar();
+            g._initIcon();
             //set tab links width
             setTimeout(setLinksWidth, 100);
             $(window).resize(function () {
@@ -160,9 +164,55 @@
                 setLinksWidth.call(g);
             });
         },
+        _initToolbar: function () {
+            var g = this,
+                p = this.options;
+
+            if (p.toolbar) {
+                g.toolbars = [];
+                g.toolbarWrap = $("<div class='lee-tab-toolbar'></div>");
+                g.tab.links.append(g.toolbarWrap);
+                for (var i = 0; i < p.toolbar.length; i++) {
+                    var toolbar = $("<div></div>");
+                    toolbar.leeToolBar(p.toolbar[i]);
+                    g.toolbarWrap.append(toolbar);
+                    g.toolbars.push(toolbar);
+                }
+            }
+        },
+        _setToolbarVisible: function () {
+            var g = this,
+                p = this.options;
+            if (!g.toolbars) return;
+            for (var i = 0; i < g.toolbars.length; i++) {
+
+                if (i == g.selectIndex)
+                    g.toolbars[i].show();
+                else
+                    g.toolbars[i].hide();
+            }
+
+        },
+        _initIcon: function () {
+            var g = this,
+                p = this.options;
+            if (p.icons) {
+                for (var item in p.icons) {
+                    var $menuitem = $("li:eq(" + item + ")", g.tab.links.ul);
+                    if (p.icons[item].icon) {
+                        $menuitem.prepend("<i class='icon-img icon-" + obj.icon + "'></i>");
+                    } else if (p.icons[item].iconfont) {
+                        $menuitem.prepend("<i class='lee-ion lee-ion-" + obj.iconfont + "'></i>");
+                    }
+                }
+
+            }
+
+
+        },
         _initContextMenu: function () {
             var g = this,
-				p = this.options;
+                p = this.options;
             if (p.contextmenu && $.fn.leeMenu) {
                 g.tab.menu = $.fn.leeMenu({
                     items: [{
@@ -172,34 +222,34 @@
                             g._menuItemClick.apply(g, arguments);
                         }
                     },
-						{
-						    text: p.closeOtherMessage,
-						    id: 'closeother',
-						    click: function () {
-						        g._menuItemClick.apply(g, arguments);
-						    }
-						},
-						{
-						    text: p.closeAllMessage,
-						    id: 'closeall',
-						    click: function () {
-						        g._menuItemClick.apply(g, arguments);
-						    }
-						},
-						{
-						    text: p.reloadMessage,
-						    id: 'reload',
-						    click: function () {
-						        g._menuItemClick.apply(g, arguments);
-						    }
-						}
+                    {
+                        text: p.closeOtherMessage,
+                        id: 'closeother',
+                        click: function () {
+                            g._menuItemClick.apply(g, arguments);
+                        }
+                    },
+                    {
+                        text: p.closeAllMessage,
+                        id: 'closeall',
+                        click: function () {
+                            g._menuItemClick.apply(g, arguments);
+                        }
+                    },
+                    {
+                        text: p.reloadMessage,
+                        id: 'reload',
+                        click: function () {
+                            g._menuItemClick.apply(g, arguments);
+                        }
+                    }
                     ]
                 });
             }
         },
         _setShowSwitch: function (value) {
             var g = this,
-				p = this.options;
+                p = this.options;
             if (value) {
                 if (!$(".lee-tab-switch", g.tab.links).length) {
                     $("<div class='lee-tab-switch'><i class='lee-ion-chevron-down'></i></div>").appendTo(g.tab.links);
@@ -216,7 +266,7 @@
         _setShowSwitchInTab: function (value) {
 
             var g = this,
-				p = this.options;
+                p = this.options;
             if (p.showSwitch && value) {
                 $(g.tab).removeClass("lee-tab-switchable");
                 $(".lee-tab-switch", g.tab).remove();
@@ -231,7 +281,7 @@
         },
         toggleSwitch: function (btn) {
             var g = this,
-				p = this.options;
+                p = this.options;
             if ($("body > .lee-tab-windowsswitch").length) {
                 $("body > .lee-tab-windowsswitch").remove();
                 return;
@@ -268,7 +318,7 @@
         },
         _applyDrag: function (tabItemDom) {
             var g = this,
-				p = this.options;
+                p = this.options;
             g.droptip = g.droptip || $("<div class='lee-tab-drag-droptip' style='display:none'><div class='lee-drop-move-up'></div><div class='lee-ion-ios-arrow-down'></div></div>").appendTo('body');
             var drag = $(tabItemDom).leeDrag({
                 revert: true,
@@ -345,7 +395,7 @@
         _setDragToMove: function (value) {
             if (!$.fn.leeDrag) return; //需要ligerDrag的支持
             var g = this,
-				p = this.options;
+                p = this.options;
             if (value) {
                 if (g.drags) return;
                 g.drags = g.drags || [];
@@ -369,7 +419,7 @@
         //设置tab按钮(左和右),显示返回true,隐藏返回false
         setTabButton: function () {
             var g = this,
-				p = this.options;
+                p = this.options;
             var sumwidth = 0;
             $("li", g.tab.links.ul).each(function () {
                 sumwidth += $(this).outerWidth() + 2;
@@ -401,7 +451,7 @@
         //设置左右按钮的事件 标签超出最大宽度时，可左右拖动
         setTabButtonEven: function () {
             var g = this,
-				p = this.options;
+                p = this.options;
             $(".lee-tab-links-left", g.tab.links).hover(function () {
                 $(this).addClass("lee-tab-links-left-over");
             }, function () {
@@ -420,22 +470,22 @@
         //切换到上一个tab
         moveToPrevTabItem: function (tabid) {
             var g = this,
-				p = this.options;
+                p = this.options;
             var tabItems = $("> li", g.tab.links.ul),
-				nextBtn = $(".lee-tab-links-right", g.tab),
-				prevBtn = $(".lee-tab-links-left", g.tab);
+                nextBtn = $(".lee-tab-links-right", g.tab),
+                prevBtn = $(".lee-tab-links-left", g.tab);
             if (!nextBtn.length || !prevBtn.length) return false;
             var nextBtnOffset = nextBtn.offset(),
-				prevBtnOffset = prevBtn.offset();
+                prevBtnOffset = prevBtn.offset();
             //计算应该移动到的标签项,并计算从第一项到这个标签项的上一项的宽度总和
             var moveToTabItem = null,
-				currentWidth = 0;
+                currentWidth = 0;
             var prevBtnLeft = prevBtnOffset.left + prevBtn.outerWidth();
             for (var i = 0, l = tabItems.length; i < l; i++) {
                 var tabitem = $(tabItems[i]);
                 var offset = tabitem.offset();
                 var start = offset.left,
-					end = offset.left + tabitem.outerWidth();
+                    end = offset.left + tabitem.outerWidth();
                 if (tabid != null) {
                     if (start < prevBtnLeft && tabitem.attr("tabid") == tabid) {
                         moveToTabItem = tabitem;
@@ -446,7 +496,7 @@
                     break;
                 }
                 currentWidth += tabitem.outerWidth() + parseInt(tabitem.css("marginLeft")) +
-					parseInt(tabitem.css("marginRight"));
+                    parseInt(tabitem.css("marginRight"));
             }
             if (moveToTabItem == null) return false;
             //计算出正确的移动位置
@@ -459,24 +509,24 @@
         //切换到下一个tab
         moveToNextTabItem: function (tabid) {
             var g = this,
-				p = this.options;
+                p = this.options;
             var tabItems = $("> li", g.tab.links.ul),
-				nextBtn = $(".lee-tab-links-right", g.tab),
-				prevBtn = $(".lee-tab-links-left", g.tab);
+                nextBtn = $(".lee-tab-links-right", g.tab),
+                prevBtn = $(".lee-tab-links-left", g.tab);
             if (!nextBtn.length || !prevBtn.length) return false;
             var nextBtnOffset = nextBtn.offset(),
-				prevBtnOffset = prevBtn.offset();
+                prevBtnOffset = prevBtn.offset();
             //计算应该移动到的标签项,并计算从第一项到这个标签项的宽度总和
             var moveToTabItem = null,
-				currentWidth = 0;
+                currentWidth = 0;
             for (var i = 0, l = tabItems.length; i < l; i++) {
                 var tabitem = $(tabItems[i]);
                 currentWidth += tabitem.outerWidth() +
-					parseInt(tabitem.css("marginLeft")) +
-					parseInt(tabitem.css("marginRight"));
+                    parseInt(tabitem.css("marginLeft")) +
+                    parseInt(tabitem.css("marginRight"));
                 var offset = tabitem.offset();
                 var start = offset.left,
-					end = offset.left + tabitem.outerWidth();
+                    end = offset.left + tabitem.outerWidth();
                 if (tabid != null) {
                     if (end > nextBtnOffset.left && tabitem.attr("tabid") == tabid) {
                         moveToTabItem = tabitem;
@@ -490,7 +540,7 @@
             if (moveToTabItem == null) return false;
             //计算出正确的移动位置
             var left = currentWidth - (nextBtnOffset.left - prevBtnOffset.left) +
-				parseInt(moveToTabItem.css("marginLeft")) + parseInt(moveToTabItem.css("marginRight"));
+                parseInt(moveToTabItem.css("marginLeft")) + parseInt(moveToTabItem.css("marginRight"));
             g.tab.links.ul.animate({
                 left: -1 * left
             });
@@ -499,36 +549,36 @@
         //切换到指定的项目项
         moveToTabItem: function (tabid) {
             var g = this,
-				p = this.options;
+                p = this.options;
             if (!g.moveToPrevTabItem(tabid)) {
                 g.moveToNextTabItem(tabid);
             }
         },
         getTabItemCount: function () {
             var g = this,
-				p = this.options;
+                p = this.options;
             return $("li", g.tab.links.ul).length;
         },
         getSelectedTabItemID: function () {
             var g = this,
-				p = this.options;
+                p = this.options;
             return $("li.lee-selected", g.tab.links.ul).attr("tabid");
         },
         removeSelectedTabItem: function () {
             var g = this,
-				p = this.options;
+                p = this.options;
             g.removeTabItem(g.getSelectedTabItemID());
         },
         //覆盖选择的tabitem
         overrideSelectedTabItem: function (options) {
             var g = this,
-				p = this.options;
+                p = this.options;
             g.overrideTabItem(g.getSelectedTabItemID(), options);
         },
         //覆盖
         overrideTabItem: function (targettabid, options) {
             var g = this,
-				p = this.options;
+                p = this.options;
             if (g.trigger('beforeOverrideTabItem', [targettabid]) == false)
                 return false;
             var tabid = options.tabid;
@@ -574,19 +624,26 @@
         //选中tab项
         selectTabItem: function (tabid) {
             var g = this,
-				p = this.options;
-            if (g.trigger('beforeSelectTabItem', [tabid]) == false)
+                p = this.options;
+            var $ele = $("> .lee-tab-content-item[tabid=" + tabid + "]", g.tab.content);
+            var id = $ele[0].id;
+            var tabindex = $ele.attr("tabindex");
+            if (g.trigger('beforeSelectTabItem', [tabid, id, tabindex]) == false)
                 return false;
             g.selectedTabId = tabid;
-            $("> .lee-tab-content-item[tabid=" + tabid + "]", g.tab.content).show().siblings().hide();
-            var id = $("> .lee-tab-content-item[tabid=" + tabid + "]", g.tab.content)[0].id;
+            g.selectIndex = Number(tabindex);
+
+            $ele.show().siblings().hide();
+
             $("li[tabid=" + tabid + "]", g.tab.links.ul).addClass("lee-selected").siblings().removeClass("lee-selected");
-            g.trigger('afterSelectTabItem', [tabid, id]);
+
+            g._setToolbarVisible();
+            g.trigger('afterSelectTabItem', [tabid, id, tabindex]);
         },
         //移动到最后一个tab
         moveToLastTabItem: function () {
             var g = this,
-				p = this.options;
+                p = this.options;
             var sumwidth = 0;
             $("li", g.tab.links.ul).each(function () {
                 sumwidth += $(this).width() + 2;
@@ -601,22 +658,22 @@
         },
         getTabItemTitle: function (tabid) {
             var g = this,
-				p = this.options;
+                p = this.options;
             return $("li[tabid=" + tabid + "] a", g.tab.links.ul).text();
         },
         setTabItemTitle: function (tabid, title) {
             var g = this,
-				p = this.options;
+                p = this.options;
             $("li[tabid=" + tabid + "] a", g.tab.links.ul).text(title);
         },
         getTabItemSrc: function (tabid) {
             var g = this,
-				p = this.options;
+                p = this.options;
             return $(".lee-tab-content-item[tabid=" + tabid + "] iframe", g.tab.content).attr("src");
         },
         setTabItemSrc: function (tabid, url) {
             var g = this,
-				p = this.options;
+                p = this.options;
             var contentitem = $(".lee-tab-content-item[tabid=" + tabid + "]", g.tab.content);
             var iframeloading = $(".lee-tab-loading:first", contentitem);
             var iframe = $(".lee-tab-content-item[tabid=" + tabid + "] iframe", g.tab.content);
@@ -629,22 +686,22 @@
         //判断tab是否存在
         isTabItemExist: function (tabid) {
             var g = this,
-				p = this.options;
+                p = this.options;
             return $("li[tabid=" + tabid + "] a", g.tab.links.ul).length > 0;
         },
         //增加一个tab
         addTabItem: function (options) {
             var g = this,
-				p = this.options;
+                p = this.options;
             if (g.trigger('beforeAddTabItem', [options]) == false)
                 return false;
             var tabid = options.tabid;
             if (tabid == undefined) tabid = g.getNewTabid();
             var url = options.url,
-				content = options.content,
-				text = options.text,
-				showClose = options.showClose,
-				height = options.height;
+                content = options.content,
+                text = options.text,
+                showClose = options.showClose,
+                height = options.height;
             //如果已经存在
             if (g.isTabItemExist(tabid)) {
                 g.selectTabItem(tabid);
@@ -666,13 +723,13 @@
                     iframe[0].openerData = options.data;
                 }
                 iframe.attr("name", tabid)
-					.attr("id", tabid)
-					.attr("src", url)
-					.bind('load.tab', function () {
-					    iframeloading.hide();
-					    if (options.callback)
-					        options.callback();
-					});
+                    .attr("id", tabid)
+                    .attr("src", url)
+                    .bind('load.tab', function () {
+                        iframeloading.hide();
+                        if (options.callback)
+                            options.callback();
+                    });
             } else {
                 iframe.remove();
                 iframeloading.remove();
@@ -721,19 +778,19 @@
         },
         _addTabItemEvent: function (tabitem) {
             var g = this,
-				p = this.options;
+                p = this.options;
             tabitem.click(function () {
                 var tabid = $(this).attr("tabid");
                 g.selectTabItem(tabid);
             });
             $(tabitem).hover(
-				function () {
-				    tabitem.addClass("lee-tab-item-hover");
-				},
-				function () {
-				    tabitem.removeClass("lee-tab-item-hover");
-				}
-			);
+                function () {
+                    tabitem.addClass("lee-tab-item-hover");
+                },
+                function () {
+                    tabitem.removeClass("lee-tab-item-hover");
+                }
+            );
             //右键事件支持
             g.tab.menu && g._addTabItemContextMenuEven(tabitem);
             $(".lee-tab-links-item-close", tabitem).hover(function () {
@@ -749,7 +806,7 @@
         //移除tab项
         removeTabItem: function (tabid) {
             var g = this,
-				p = this.options;
+                p = this.options;
             if (g.trigger('beforeRemoveTabItem', [tabid]) == false)
                 return false;
             var currentIsSelected = $("li[tabid=" + tabid + "]", g.tab.links.ul).hasClass("lee-selected");
@@ -777,7 +834,7 @@
 
         hideTabItem: function (tabid) {
             var g = this,
-				p = this.options;
+                p = this.options;
             var currentIsSelected = $("li[tabid=" + tabid + "]", g.tab.links.ul).hasClass("lee-selected");
             if (currentIsSelected) {
                 $(".lee-tab-content-item[tabid=" + tabid + "]", g.tab.content).prev().show();
@@ -789,32 +846,32 @@
         },
         showTabItem: function (tabid) {
             var g = this,
-				p = this.options;
+                p = this.options;
             $("li[tabid=" + tabid + "]", g.tab.links.ul).show();
         },
 
         addHeight: function (heightDiff) {
             var g = this,
-				p = this.options;
+                p = this.options;
             var newHeight = g.tab.height() + heightDiff;
             g.setHeight(newHeight);
         },
         setHeight: function (height) {
             var g = this,
-				p = this.options;
+                p = this.options;
             g.tab.height(height);
             g.setContentHeight();
         },
         setContentHeight: function () {
             var g = this,
-				p = this.options;
+                p = this.options;
             var newheight = g.tab.height() - g.tab.links.height();
             g.tab.content.height(newheight);
             $("> .lee-tab-content-item", g.tab.content).height(newheight);
         },
         getNewTabid: function () {
             var g = this,
-				p = this.options;
+                p = this.options;
             g.getnewidcount = g.getnewidcount || 0;
             return 'tabitem' + (++g.getnewidcount);
         },
@@ -822,12 +879,12 @@
         //noclose 过滤掉没有关闭按钮的
         getTabidList: function (notabid, noclose) {
             var g = this,
-				p = this.options;
+                p = this.options;
             var tabidlist = [];
             $("> li", g.tab.links.ul).each(function () {
                 if ($(this).attr("tabid") &&
-					$(this).attr("tabid") != notabid &&
-					(!noclose || $(".lee-tab-links-item-close", this).length > 0)) {
+                    $(this).attr("tabid") != notabid &&
+                    (!noclose || $(".lee-tab-links-item-close", this).length > 0)) {
                     tabidlist.push($(this).attr("tabid"));
                 }
             });
@@ -835,7 +892,7 @@
         },
         removeOther: function (tabid, compel) {
             var g = this,
-				p = this.options;
+                p = this.options;
             var tabidlist = g.getTabidList(tabid, true);
             $(tabidlist).each(function () {
                 g.removeTabItem(this);
@@ -843,7 +900,7 @@
         },
         reload: function (tabid) {
             var g = this,
-				p = this.options;
+                p = this.options;
             var contentitem = $(".lee-tab-content-item[tabid=" + tabid + "]");
             var iframeloading = $(".lee-tab-loading:first", contentitem);
             var iframe = $("iframe:first", contentitem);
@@ -855,7 +912,7 @@
         },
         removeAll: function (compel) {
             var g = this,
-				p = this.options;
+                p = this.options;
             var tabidlist = g.getTabidList(null, true);
             $(tabidlist).each(function () {
                 g.removeTabItem(this);
@@ -863,7 +920,7 @@
         },
         onResize: function () {
             var g = this,
-				p = this.options;
+                p = this.options;
             if (!p.height || typeof (p.height) != 'string' || p.height.indexOf('%') == -1) return false;
             //set tab height
             if (g.tab.parent()[0].tagName.toLowerCase() == "body") {
@@ -879,7 +936,7 @@
         },
         _menuItemClick: function (item) {
             var g = this,
-				p = this.options;
+                p = this.options;
             if (!item.id || !g.actionTabid) return;
             switch (item.id) {
                 case "close":
@@ -907,7 +964,7 @@
         },
         _addTabItemContextMenuEven: function (tabitem) {
             var g = this,
-				p = this.options;
+                p = this.options;
             tabitem.bind("contextmenu", function (e) {
                 if (!g.tab.menu) return;
                 g.actionTabid = tabitem.attr("tabid");

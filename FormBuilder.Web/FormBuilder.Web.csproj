@@ -142,6 +142,8 @@
     <Content Include="CSS\file.css" />
     <Content Include="CSS\flow\user.png" />
     <Content Include="CSS\formDesign.css" />
+    <Content Include="CSS\framework\iconfont.css" />
+    <Content Include="CSS\framework\iconfont.svg" />
     <Content Include="CSS\framework\framework.css" />
     <Content Include="CSS\graph\save.png" />
     <Content Include="CSS\hook.css" />
@@ -1177,6 +1179,7 @@
     <Content Include="DList\leeui\js\ToolTip.js" />
     <Content Include="DList\leeui\js\Tree.js" />
     <Content Include="DList\leeui\js\Upload.js" />
+    <Content Include="DList\leeui\js\Wizard.js" />
     <Content Include="DList\leeui\layout.js" />
     <Content Include="DList\leeui\leeui.js" />
     <Content Include="DList\leeui\leeui.min.js">
@@ -1728,6 +1731,11 @@
     <Content Include="Areas\FormBuilder\Views\Visio\List.cshtml" />
     <Content Include="Areas\FormBuilder\Views\Visio\Edit.cshtml" />
     <Content Include="Areas\FormBuilder\Views\Visio\View.cshtml" />
+    <Content Include="Areas\FormBuilder\Views\HomePage\DashBoard.cshtml" />
+    <Content Include="CSS\framework\iconfont.eot" />
+    <Content Include="CSS\framework\iconfont.ttf" />
+    <Content Include="CSS\framework\iconfont.woff" />
+    <Content Include="CSS\framework\iconfont.woff2" />
     <None Include="Properties\PublishProfiles\1.pubxml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>

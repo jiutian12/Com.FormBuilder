@@ -202,13 +202,12 @@ window.lsp.cf = (function (cf, core, win, $) {
     //系统菜单
     cf.menu = {
         init: function () {
-
             var self = this;
             cf.service.getMenu(function (data) {
                 //
                 var res = core.utils.arrayToTree(data.data, "ID", "PID");
                 console.log(res);
-
+                //初始化加载
                 self.initView(res);
                 self.bind();
             })
@@ -249,7 +248,6 @@ window.lsp.cf = (function (cf, core, win, $) {
             });
             // $(".left-nav").empty();
             g.appendTo($(".left-nav"));
-
             function createDetail(node, wrap) {
                 var icon = node.ICON ? "<i class='" + node.ICON + "'></i>" : "";
                 var item = $('<li class="nav-item"><a href="#">' + icon + '<span class="menu-title">' + node.Name + '</span> </a></li>');
@@ -290,6 +288,20 @@ window.lsp.cf = (function (cf, core, win, $) {
         }
     }
 
+
+    function getChildWin(id) {
+        var frm = document.getElementById(id);
+        try {
+            if (frm.contentWindow.lsp.cf.childIframe)
+                return frm.contentWindow;
+            else {
+                return undefined;
+            }
+        }
+        catch (e) {
+            return undefined;
+        }
+    }
     // tab页管理
     cf.tab = {
         init: function () {
@@ -299,6 +311,10 @@ window.lsp.cf = (function (cf, core, win, $) {
                     //alert(1);
                 },
                 onAfterRemoveTabItem: function (tabid) {
+
+                    $("#" + tabid).find("iframe").focus();
+                    var w = getChildWin(tabid);
+                    w && w.lsp.cf.childIframe.show && w.lsp.cf.childIframe.show();
                     //alert(2);
                 },
                 onBeforeAddTabItem: function (tabid) {
@@ -316,17 +332,12 @@ window.lsp.cf = (function (cf, core, win, $) {
             });
         },
         addTab: function (opt) {
-
-            //function formatUrl(url) {
-            //    if (url.indexOf("?")) {
-            //    }
-            //}
             this.tab.addTabItem({
                 tabid: opt.ID,
                 text: opt.Name,
                 url: opt.URL + "&funcid=" + opt.ID,
                 callback: function () {
-                    //alert("加载完成!");
+                     
                 }
             });
         },
@@ -334,58 +345,75 @@ window.lsp.cf = (function (cf, core, win, $) {
             this.tab.removeTabItem(tabid);
         }
     };
-    cf.tab.init();
-    cf.menu.init();
 
-    //绑定事件
-    function bindEvent() {
-        $(".tooglebtn").click(function () {
-            var shirinkflag = $(this).data("shirink") || false;
-            $("body").toggleClass("shrink");
-            $(this).data("shirink", !shirinkflag);
-            $(window).resize();
-        });
+
+    //框架整体设置
+    cf.core = {
+        init: function () {
+            this.bind();
+        },
+        bind: function () {
+            $(".tooglebtn").click(function () {
+                var shirinkflag = $(this).data("shirink") || false;
+                $("body").toggleClass("shrink");
+                $(this).find("i").toggleClass("icon-zhankai");
+                $(this).data("shirink", !shirinkflag);
+                $(window).resize();
+            });
+        }
     }
 
+
+
+    /********iframe接口********/
+    cf.childIframe = (function (child) {
+        var $d = $(document);
+
+        child.hide = function () {
+            var e = $.Event('framehide');
+            $d.trigger(e);
+            return e.isDefaultPrevented();
+        };
+
+        child.show = function (e) {
+            $(window).resize();
+            var e = $.Event('frameshow');
+            $d.trigger(e);
+            return e.isDefaultPrevented();
+        };
+
+        child.refresh = function (e) {
+            var e = $.Event('framerefresh');
+            $d.trigger(e);
+            return e.isDefaultPrevented();
+        };
+
+        child.close = function (e) {
+            var e = $.Event('frameclose');
+            $d.trigger(e);
+            return e.isDefaultPrevented();
+        };
+
+        child.logout = function (e) {
+            var e = $.Event('framelogout');
+            $d.trigger(e);
+        };
+
+        return child;
+    })(cf.childIframe || {});
     /*处理菜单绑定*/
     $(function () {
-
         //初始化身份 
         //框架设置
-
-
-        //菜单
+        //整体设置
+        cf.core.init();
+        //多页签设置
+        cf.tab.init();
+        //菜单设置
+        cf.menu.init();
         //个人收藏
-
         //消息通知
         //审计日志
-
-        //绑定菜单收起事件
-       
-
-
-        //var tab = $(".tabbar").leeTab({
-        //    showSwitch: false,
-        //    onBeforeRemoveTabItem: function (tabid) {
-        //        //alert(1);
-        //    },
-        //    onAfterRemoveTabItem: function (tabid) {
-        //        //alert(2);
-        //    },
-        //    onBeforeAddTabItem: function (tabid) {
-        //        // alert(3);
-        //    },
-        //    onAfterAddTabItem: function (tabid) {
-        //        //alert(5);
-        //    },
-        //    onBeforeSelectTabItem: function (tabid) {
-        //        // alert(6);
-        //    },
-        //    onAfterSelectTabItem: function (tabid) {
-        //        //alert(7);
-        //    }
-        //});
-        bindEvent();
     });
     return cf;
 

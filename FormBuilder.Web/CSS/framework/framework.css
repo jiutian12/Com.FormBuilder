@@ -4,11 +4,17 @@
     box-shadow: 0 1px 9px rgba(136, 136, 136, 0.59);
 }
 
+.lee-menu-item {
+    transition: none;
+}
+
 .lee-menu-item.lee-menu-item-over,
 .lee-menu-item:hover {
     background: #2196F3;
     color: #FFF;
 }
+
+
 
 
 .top-nav {
@@ -27,14 +33,7 @@
     background-color: rgba(51, 51, 51, 0.1);
 }
 
-.center-nav .lee-tab-links li {
-    border-radius: 0;
-}
 
-.center-nav .lee-tab-links li.lee-selected {
-    border-radius: 0;
-    border-top: 2px solid #108ee9;
-}
 
 
 
@@ -43,18 +42,29 @@
 .top-nav .tooglebtn {
     display: inline-block;
     height: 43px;
-    line-height: 42px;
+    /*line-height: 42px;*/
     padding: 0 15px;
     color: #FFF;
     border: 0;
+    cursor:pointer;
     font-size: 27px;
 }
 
+.top-nav .tooglebtn:hover{
+    background-color: rgba(51, 51, 51, 0.1)
+}
+.top-nav .tooglebtn i {
+    font-size: 20px;
+}
 /*处理tab框架打开样式*/
 .center-nav .lee-tab-links {
     font-size: 14px;
     min-height: 37px;
-    overflow:hidden;
+    overflow: hidden;
+}
+
+.center-nav .lee-tab-links li {
+    border-radius: 0;
 }
 
 .center-nav .lee-tab-links li {
@@ -64,6 +74,13 @@
     border-color: #efecec;
     background: transparent;
 }
+
+.center-nav .lee-tab-links li.lee-selected {
+    border-radius: 0;
+    border-top: 2px solid #108ee9;
+}
+
+
 
 .center-nav .lee-tab-links li.lee-tab-hasclose {
     padding-right: 25px;
@@ -104,6 +121,9 @@
     color: #FFF;
 }
 
+.center-nav .lee-tab-links li {
+    border-bottom-color: #f9f9f9;
+}
 
 
 
@@ -125,18 +145,10 @@
     margin-right: 5px;
 }
 
-.center-nav .lee-tab-links li {
-    border-bottom-color: #f9f9f9;
-}
 
-.lee-menu-item {
-    transition: none;
-}
 
-.dropdown-menu > li > a {
-    padding: 6px 20px;
-    font-size: 14px;
-}
+
+
 
 .top-nav {
     z-index: 1000;
@@ -154,7 +166,6 @@
 .top-nav .username {
     padding-left: 35px;
 }
-
 
 
 .left-nav {
@@ -185,19 +196,27 @@
     bottom: 0;
 }
 
+/*覆盖系统样式*/
+
+
+.dropdown-menu > li > a {
+    padding: 6px 20px;
+    font-size: 14px;
+}
 .lee-tab-content {
     position: absolute;
     bottom: 0;
     top: 37px;
+}
+.lee-tab-content-item {
+    overflow: hidden;
 }
 
 .lee-menu, .lee-tab-windowsswitch {
     font-size: 14px;
 }
 
-.lee-tab-content-item {
-    overflow: hidden;
-}
+
 
 
 .lee-navbar {
@@ -219,6 +238,9 @@
     background-color: #0085e8 !important;
 }
 
+
+
+/*全局收起设置*/
 .shrink .left-nav {
     width: 60px;
 }

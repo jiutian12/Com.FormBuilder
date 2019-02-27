@@ -1,0 +1,1201 @@
+﻿
+@{
+    ViewBag.Title = "DashBoard";
+    Layout = "~/Areas/FormBuilder/Views/Layout/BaseListContainer.cshtml";
+}
+
+<h2>DashBoard</h2>
+
+<script src="https://gw.alipayobjects.com/os/antv/pkg/antv.g2-3.4.1/dist/g2.min.js"></script>
+<script src="https://gw.alipayobjects.com/os/antv/pkg/antv.data-set-0.10.1/dist/data-set.min.js"></script>
+<div title="首页" style="background: #fbfbfb;overflow: auto;">
+    <div class="row">
+        <div class="ui cards" style="margin:0;">
+
+            <div class="card">
+                <div class="content">
+                    <div class="header">总销售额</div>
+                    <div class="number">¥ 126,560</div>
+
+                    <div class="chart" id="mountNode"></div>
+                    <div class="divider"></div>
+                    <div class="description">Elliot Fu is a film-maker from New York. </div>
+                </div>
+            </div>
+            <div class="card">
+                <div class="content">
+                    <div class="header">访问量</div>
+                    <div class="number">6,590</div>
+                    <div class="chart" id="mountNode1"></div>
+                    <div class="divider"></div>
+                    <div class="description">日访问量1,234</div>
+                </div>
+            </div>
+            <div class="card">
+                <div class="content">
+                    <div class="header">支付笔数</div>
+                    <div class="number">114,435</div>
+
+                    <div class="chart">
+                        <div class="antd-pro-components-trend-index-trendItem" title="" style="margin-right: 16px;">
+                            <span>
+                                <span>周同比</span>
+                                <span class="antd-pro-pages-dashboard-analysis-trendText">12%</span>
+                            </span>
+                            <span class="antd-pro-components-trend-index-up" style="color: #f5222d;">
+                                <i class="anticon anticon-caret-up">
+                                    <svg viewBox="0 0 1024 1024" class="" data-icon="caret-up" width="1em" height="1em" fill="currentColor" aria-hidden="true">
+                                        <path d="M858.9 689L530.5 308.2c-9.4-10.9-27.5-10.9-37 0L165.1 689c-12.2 14.2-1.2 35 18.5 35h656.8c19.7 0 30.7-20.8 18.5-35z"></path>
+                                    </svg>
+                                </i>
+                            </span>
+                        </div>
+                        <div class="antd-pro-components-trend-index-trendItem" title="">
+                            <span>
+                                <span>日同比</span>
+                                <span class="antd-pro-pages-dashboard-analysis-trendText">11%</span>
+                            </span>
+                            <span class="antd-pro-components-trend-index-down" style="color: #52c41a;top: -1px;">
+                                <i class="anticon anticon-caret-down">
+                                    <svg viewBox="0 0 1024 1024" class="" data-icon="caret-down" width="1em" height="1em" fill="currentColor" aria-hidden="true">
+                                        <path d="M840.4 300H183.6c-19.7 0-30.7 20.8-18.5 35l328.4 380.8c9.4 10.9 27.5 10.9 37 0L858.9 335c12.2-14.2 1.2-35-18.5-35z"></path>
+                                    </svg>
+                                </i>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="divider"></div>
+                    <div class="description">转化率60% </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="content">
+                    <div class="header">运营活动效果</div>
+                    <div class="number">88%</div>
+
+
+                    <div class="antd-pro-components-charts-chart-card-index-content" style="height: 46px;margin-bottom: 12px;position: relative; width: 100%;">
+                        <div class="antd-pro-components-charts-chart-card-index-contentFixed" style="position: absolute;left: 0; bottom: 0;width: 100%;">
+                            <div class="antd-pro-components-charts-mini-progress-index-miniProgress" style="padding: 5px 0;position: relative; width: 100%;">
+                                <div class="antd-pro-components-charts-mini-progress-index-target" style="left: 80%;    position: absolute;top: 0;bottom: 0;">
+                                    <span style="background-color:rgb(116, 188, 255);border-radius: 100px;position: absolute; top: 0; left: 0;height: 4px;width: 2px;"></span>
+                                    <span style="background-color:rgb(116, 188, 255);border-radius: 100px;position: absolute; top: 0; left: 0;height: 4px;width: 2px;top: auto;bottom: 0;"></span>
+                                </div>
+                                <div class="antd-pro-components-charts-mini-progress-index-progressWrap" style="background-color: #f5f5f5;position: relative;">
+                                    <div class="antd-pro-components-charts-mini-progress-index-progress" style="border-radius: 1px 0 0 1px;background-color: rgb(116, 188, 255); width: 78%; height: 8px;"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="divider"></div>
+                    <div class="description">周同比12%日同比11% </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="ui cards" style="margin:0;">
+
+            <div class="card" style="width:90%">
+                <div class="content">
+                    <div class="header">待办任务</div>
+                    <div class="divider"></div>
+                    <div class="ant-table-content"><div class="ant-table-body"><table class="" style="width: 100%;border-spacing: 0;"><colgroup><col><col><col><col></colgroup><thead class="ant-table-thead"><tr><th class=""><div><span>排名</span></div></th><th class=""><div><span>搜索关键词</span></div></th><th class="ant-table-column-has-actions ant-table-column-has-sorters ant-table-column-sort"><div class="ant-table-column-sorters"><span>用户数</span><div title="排序" class="ant-table-column-sorter"><i aria-label="图标: caret-up" class="anticon anticon-caret-up ant-table-column-sorter-up on"><svg viewBox="0 0 1024 1024" class="" data-icon="caret-up" width="1em" height="1em" fill="currentColor" aria-hidden="true"><path d="M858.9 689L530.5 308.2c-9.4-10.9-27.5-10.9-37 0L165.1 689c-12.2 14.2-1.2 35 18.5 35h656.8c19.7 0 30.7-20.8 18.5-35z"></path></svg></i><i aria-label="图标: caret-down" class="anticon anticon-caret-down ant-table-column-sorter-down off"><svg viewBox="0 0 1024 1024" class="" data-icon="caret-down" width="1em" height="1em" fill="currentColor" aria-hidden="true"><path d="M840.4 300H183.6c-19.7 0-30.7 20.8-18.5 35l328.4 380.8c9.4 10.9 27.5 10.9 37 0L858.9 335c12.2-14.2 1.2-35-18.5-35z"></path></svg></i></div></div></th><th class="ant-table-column-has-actions ant-table-column-has-sorters ant-table-align-right" style="text-align: right;"><div class="ant-table-column-sorters"><span>周涨幅</span><div title="排序" class="ant-table-column-sorter"><i aria-label="图标: caret-up" class="anticon anticon-caret-up ant-table-column-sorter-up off"><svg viewBox="0 0 1024 1024" class="" data-icon="caret-up" width="1em" height="1em" fill="currentColor" aria-hidden="true"><path d="M858.9 689L530.5 308.2c-9.4-10.9-27.5-10.9-37 0L165.1 689c-12.2 14.2-1.2 35 18.5 35h656.8c19.7 0 30.7-20.8 18.5-35z"></path></svg></i><i aria-label="图标: caret-down" class="anticon anticon-caret-down ant-table-column-sorter-down off"><svg viewBox="0 0 1024 1024" class="" data-icon="caret-down" width="1em" height="1em" fill="currentColor" aria-hidden="true"><path d="M840.4 300H183.6c-19.7 0-30.7 20.8-18.5 35l328.4 380.8c9.4 10.9 27.5 10.9 37 0L858.9 335c12.2-14.2 1.2-35-18.5-35z"></path></svg></i></div></div></th></tr></thead><tbody class="ant-table-tbody"><tr class="ant-table-row ant-table-row-level-0" data-row-key="10"><td class=""><span class="ant-table-row-indent indent-level-0" style="padding-left: 0px;"></span>10</td><td class=""><a href="/">搜索关键词-9</a></td><td class="ant-table-column-has-actions ant-table-column-has-sorters ant-table-column-sort">5</td><td class="ant-table-column-has-actions ant-table-column-has-sorters" style="text-align: right;"><div class="antd-pro-components-trend-index-trendItem" title=""><span><span style="margin-right: 4px;">84%</span></span><span class="antd-pro-components-trend-index-down"><i aria-label="图标: caret-down" class="anticon anticon-caret-down"><svg viewBox="0 0 1024 1024" class="" data-icon="caret-down" width="1em" height="1em" fill="currentColor" aria-hidden="true"><path d="M840.4 300H183.6c-19.7 0-30.7 20.8-18.5 35l328.4 380.8c9.4 10.9 27.5 10.9 37 0L858.9 335c12.2-14.2 1.2-35-18.5-35z"></path></svg></i></span></div></td></tr><tr class="ant-table-row ant-table-row-level-0" data-row-key="32"><td class=""><span class="ant-table-row-indent indent-level-0" style="padding-left: 0px;"></span>32</td><td class=""><a href="/">搜索关键词-31</a></td><td class="ant-table-column-has-actions ant-table-column-has-sorters ant-table-column-sort">51</td><td class="ant-table-column-has-actions ant-table-column-has-sorters" style="text-align: right;"><div class="antd-pro-components-trend-index-trendItem" title=""><span><span style="margin-right: 4px;">41%</span></span><span class="antd-pro-components-trend-index-down"><i aria-label="图标: caret-down" class="anticon anticon-caret-down"><svg viewBox="0 0 1024 1024" class="" data-icon="caret-down" width="1em" height="1em" fill="currentColor" aria-hidden="true"><path d="M840.4 300H183.6c-19.7 0-30.7 20.8-18.5 35l328.4 380.8c9.4 10.9 27.5 10.9 37 0L858.9 335c12.2-14.2 1.2-35-18.5-35z"></path></svg></i></span></div></td></tr><tr class="ant-table-row ant-table-row-level-0" data-row-key="21"><td class=""><span class="ant-table-row-indent indent-level-0" style="padding-left: 0px;"></span>21</td><td class=""><a href="/">搜索关键词-20</a></td><td class="ant-table-column-has-actions ant-table-column-has-sorters ant-table-column-sort">58</td><td class="ant-table-column-has-actions ant-table-column-has-sorters" style="text-align: right;"><div class="antd-pro-components-trend-index-trendItem" title=""><span><span style="margin-right: 4px;">79%</span></span><span class="antd-pro-components-trend-index-up"><i aria-label="图标: caret-up" class="anticon anticon-caret-up"><svg viewBox="0 0 1024 1024" class="" data-icon="caret-up" width="1em" height="1em" fill="currentColor" aria-hidden="true"><path d="M858.9 689L530.5 308.2c-9.4-10.9-27.5-10.9-37 0L165.1 689c-12.2 14.2-1.2 35 18.5 35h656.8c19.7 0 30.7-20.8 18.5-35z"></path></svg></i></span></div></td></tr><tr class="ant-table-row ant-table-row-level-0" data-row-key="37"><td class=""><span class="ant-table-row-indent indent-level-0" style="padding-left: 0px;"></span>37</td><td class=""><a href="/">搜索关键词-36</a></td><td class="ant-table-column-has-actions ant-table-column-has-sorters ant-table-column-sort">62</td><td class="ant-table-column-has-actions ant-table-column-has-sorters" style="text-align: right;"><div class="antd-pro-components-trend-index-trendItem" title=""><span><span style="margin-right: 4px;">33%</span></span><span class="antd-pro-components-trend-index-up"><i aria-label="图标: caret-up" class="anticon anticon-caret-up"><svg viewBox="0 0 1024 1024" class="" data-icon="caret-up" width="1em" height="1em" fill="currentColor" aria-hidden="true"><path d="M858.9 689L530.5 308.2c-9.4-10.9-27.5-10.9-37 0L165.1 689c-12.2 14.2-1.2 35 18.5 35h656.8c19.7 0 30.7-20.8 18.5-35z"></path></svg></i></span></div></td></tr><tr class="ant-table-row ant-table-row-level-0" data-row-key="16"><td class=""><span class="ant-table-row-indent indent-level-0" style="padding-left: 0px;"></span>16</td><td class=""><a href="/">搜索关键词-15</a></td><td class="ant-table-column-has-actions ant-table-column-has-sorters ant-table-column-sort">74</td><td class="ant-table-column-has-actions ant-table-column-has-sorters" style="text-align: right;"><div class="antd-pro-components-trend-index-trendItem" title=""><span><span style="margin-right: 4px;">45%</span></span><span class="antd-pro-components-trend-index-down"><i aria-label="图标: caret-down" class="anticon anticon-caret-down"><svg viewBox="0 0 1024 1024" class="" data-icon="caret-down" width="1em" height="1em" fill="currentColor" aria-hidden="true"><path d="M840.4 300H183.6c-19.7 0-30.7 20.8-18.5 35l328.4 380.8c9.4 10.9 27.5 10.9 37 0L858.9 335c12.2-14.2 1.2-35-18.5-35z"></path></svg></i></span></div></td></tr></tbody></table></div></div>
+                </div>
+            </div>
+
+            <div class="card" style="width:90%">
+                <div class="content">
+                    <div class="header">销售额占比分析</div>
+                    <div class="divider"></div>
+
+
+                    <div id="mountNode2"></div>
+                    <div class="divider"></div>
+                    <div class="row  ">
+                        <div class="col-md-4 antd-pro-components-charts-radar-index-legend">
+                            <div class="antd-pro-components-charts-radar-index-legendItem" style="text-align: center;    color: rgba(0,0,0,.45);">
+                                <p>
+                                    <span class="antd-pro-components-charts-radar-index-dot" style="background-color: rgb(24, 144, 255);"></span><span>个人</span>
+                                </p><h6>34</h6>
+                            </div>
+                        </div>
+                        <div class="col-md-4 antd-pro-components-charts-radar-index-legend">
+                            <div class="antd-pro-components-charts-radar-index-legendItem" style="text-align: center;    color: rgba(0,0,0,.45);">
+                                <p>
+                                    <span class="antd-pro-components-charts-radar-index-dot" style="background-color: rgb(170, 170, 170);"></span><span>团队</span>
+                                </p><h6>22</h6>
+                            </div>
+                        </div>
+                        <div class="col-md-4 antd-pro-components-charts-radar-index-legend">
+                            <div class="antd-pro-components-charts-radar-index-legendItem" style="text-align: center;    color: rgba(0,0,0,.45);">
+                                <p><span class="antd-pro-components-charts-radar-index-dot" style="background-color: rgb(47, 194, 91);"></span><span>部门</span></p><h6>23</h6>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+</div>
+
+<style>
+    .ui.cards > .card {
+        width: auto;
+        flex: 1;
+        color: rgba(0,0,0,.65);
+        font-size: 14px;
+        border-radius: 0;
+        border: 0 !important;
+    }
+
+    .ui.cards .header {
+        color: rgba(0,0,0,.45) !important;
+        font-size: 14px !important;
+        line-height: 22px !important;
+        height: 22px !important;
+        font-weight: normal !important;
+        margin-bottom: 10px;
+    }
+
+    .number {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        word-break: break-all;
+        white-space: nowrap;
+        color: rgba(0,0,0,.85) !important;
+        margin-top: 4px;
+        margin-bottom: 0;
+        font-size: 30px;
+        line-height: 38px;
+        height: 38px;
+    }
+
+    .ui.cards .divider {
+        border-top: 1px solid #e8e8e8;
+        padding-top: 9px;
+        margin-top: 8px;
+    }
+
+    .ui.cards > .card > .content, .ui.card > .content {
+        padding: 15px 25px;
+    }
+
+    .chart {
+        height: 40px;
+    }
+
+    .description {
+        font-size: 14px;
+    }
+
+    .ant-table-wrapper {
+        zoom: 1
+    }
+
+    .ant-table-wrapper:after, .ant-table-wrapper:before {
+        content: "";
+        display: table
+    }
+
+    .ant-table-wrapper:after {
+        clear: both
+    }
+
+    .ant-table {
+        font-size: 14px;
+        font-variant: tabular-nums;
+        line-height: 1.5;
+        color: rgba(0,0,0,.65);
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+        list-style: none;
+        position: relative;
+        clear: both
+    }
+
+    .ant-table-body {
+        transition: opacity .3s
+    }
+
+    .ant-table-empty .ant-table-body {
+        overflow: auto !important
+    }
+
+    .ant-table table {
+        width: 100%;
+        border-collapse: collapse;
+        text-align: left;
+        border-radius: 4px 4px 0 0
+    }
+
+    .ant-table-thead > tr > th {
+        background: #fafafa;
+        transition: background .3s ease;
+        text-align: left;
+        color: rgba(0,0,0,.85);
+        font-weight: 500;
+        border-bottom: 1px solid #e8e8e8
+    }
+
+    .ant-table-thead > tr > th[colspan] {
+        text-align: center
+    }
+
+    .ant-table-thead > tr > th .ant-table-filter-icon, .ant-table-thead > tr > th .anticon-filter {
+        font-size: 12px;
+        cursor: pointer;
+        color: #bfbfbf;
+        transition: all .3s;
+        width: 28px;
+        position: absolute;
+        top: 0;
+        right: 0;
+        height: 100%;
+        text-align: center
+    }
+
+    .ant-table-thead > tr > th .ant-table-filter-icon > svg, .ant-table-thead > tr > th .anticon-filter > svg {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        margin-top: -5px;
+        margin-left: -6px
+    }
+
+    .ant-table-thead > tr > th .ant-table-filter-selected.anticon-filter {
+        color: #1890ff
+    }
+
+    .ant-table-thead > tr > th .ant-table-column-sorter {
+        position: absolute;
+        right: 6px;
+        top: 50%;
+        width: 14px;
+        height: 17px;
+        margin-top: -8.5px;
+        text-align: center;
+        color: #bfbfbf;
+        transition: all .3s
+    }
+
+    .ant-table-thead > tr > th .ant-table-column-sorter-down, .ant-table-thead > tr > th .ant-table-column-sorter-up {
+        display: inline-block;
+        font-size: 12px;
+        font-size: 11px\9;
+        transform: scale(.91666667) rotate(0deg);
+        line-height: 4px;
+        height: 4px;
+        transition: all .3s;
+        display: block
+    }
+
+    :root .ant-table-thead > tr > th .ant-table-column-sorter-down, :root .ant-table-thead > tr > th .ant-table-column-sorter-up {
+        font-size: 12px
+    }
+
+    .ant-table-thead > tr > th .ant-table-column-sorter-down.on, .ant-table-thead > tr > th .ant-table-column-sorter-up.on {
+        color: #1890ff
+    }
+
+    .ant-table-thead > tr > th .ant-table-column-sorter-down {
+        margin-top: 4px
+    }
+
+    .ant-table-thead > tr > th.ant-table-column-has-actions {
+        position: relative;
+        background-clip: padding-box
+    }
+
+    .ant-table-thead > tr > th.ant-table-column-has-actions.ant-table-column-has-filters .ant-table-filter-icon.ant-table-filter-open, .ant-table-thead > tr > th.ant-table-column-has-actions.ant-table-column-has-filters .anticon-filter.ant-table-filter-open {
+        color: rgba(0,0,0,.45);
+        background: #e5e5e5
+    }
+
+    .ant-table-thead > tr > th.ant-table-column-has-actions.ant-table-column-has-filters:hover .ant-table-filter-icon:hover, .ant-table-thead > tr > th.ant-table-column-has-actions.ant-table-column-has-filters:hover .anticon-filter:hover {
+        color: rgba(0,0,0,.45);
+        background: #e5e5e5
+    }
+
+    .ant-table-thead > tr > th.ant-table-column-has-actions.ant-table-column-has-filters:hover .ant-table-filter-icon:active, .ant-table-thead > tr > th.ant-table-column-has-actions.ant-table-column-has-filters:hover .anticon-filter:active {
+        color: rgba(0,0,0,.65)
+    }
+
+    .ant-table-thead > tr > th.ant-table-column-has-actions.ant-table-column-has-sorters {
+        cursor: pointer
+    }
+
+    .ant-table-thead > tr > th.ant-table-column-has-actions.ant-table-column-has-sorters:hover {
+        background: #f2f2f2
+    }
+
+    .ant-table-thead > tr > th.ant-table-column-has-actions.ant-table-column-has-sorters:hover .ant-table-filter-icon, .ant-table-thead > tr > th.ant-table-column-has-actions.ant-table-column-has-sorters:hover .anticon-filter {
+        background: #f2f2f2
+    }
+
+    .ant-table-thead > tr > th.ant-table-column-has-actions.ant-table-column-has-sorters:active .ant-table-column-sorter-down:not(.on), .ant-table-thead > tr > th.ant-table-column-has-actions.ant-table-column-has-sorters:active .ant-table-column-sorter-up:not(.on) {
+        color: rgba(0,0,0,.45)
+    }
+
+    .ant-table-thead > tr > th.ant-table-column-has-actions.ant-table-column-has-filters, .ant-table-thead > tr > th.ant-table-column-has-actions.ant-table-column-has-sorters {
+        padding-right: 30px !important
+    }
+
+    .ant-table-thead > tr > th.ant-table-column-has-actions.ant-table-column-has-sorters.ant-table-column-has-filters {
+        padding-right: 54px !important
+    }
+
+    .ant-table-thead > tr > th .ant-table-column-sorters > :not(.ant-table-column-sorter) {
+        position: relative
+    }
+
+    .ant-table-thead > tr > th .ant-table-column-sorters:before {
+        position: absolute;
+        content: "";
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: transparent;
+        transition: all .3s
+    }
+
+    .ant-table-thead > tr > th .ant-table-column-sorters:hover:before {
+        background: rgba(0,0,0,.04)
+    }
+
+    .ant-table-thead > tr > th.ant-table-column-has-filters .ant-table-column-sorter {
+        right: 34px
+    }
+
+    .ant-table-thead > tr > th.ant-table-column-has-sorters {
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none
+    }
+
+    .ant-table-thead > tr:first-child > th:first-child {
+        border-top-left-radius: 4px
+    }
+
+    .ant-table-thead > tr:first-child > th:last-child {
+        border-top-right-radius: 4px
+    }
+
+    .ant-table-thead > tr:not(:last-child) > th[colspan] {
+        border-bottom: 0
+    }
+
+    .ant-table-tbody > tr > td {
+        border-bottom: 1px solid #e8e8e8;
+        transition: all .3s,border 0s
+    }
+
+    .ant-table-tbody > tr, .ant-table-thead > tr {
+        transition: all .3s,height 0s
+    }
+
+    .ant-table-tbody > tr.ant-table-row-hover:not(.ant-table-expanded-row) > td, .ant-table-tbody > tr:hover:not(.ant-table-expanded-row) > td, .ant-table-thead > tr.ant-table-row-hover:not(.ant-table-expanded-row) > td, .ant-table-thead > tr:hover:not(.ant-table-expanded-row) > td {
+        background: #e6f7ff
+    }
+
+    .ant-table-thead > tr:hover {
+        background: none
+    }
+
+    .ant-table-footer {
+        padding: 16px;
+        background: #fafafa;
+        border-radius: 0 0 4px 4px;
+        position: relative;
+        border-top: 1px solid #e8e8e8
+    }
+
+    .ant-table-footer:before {
+        content: "";
+        height: 1px;
+        background: #fafafa;
+        position: absolute;
+        top: -1px;
+        width: 100%;
+        left: 0
+    }
+
+    .ant-table.ant-table-bordered .ant-table-footer {
+        border: 1px solid #e8e8e8
+    }
+
+    .ant-table-title {
+        padding: 16px 0;
+        position: relative;
+        top: 1px;
+        border-radius: 4px 4px 0 0
+    }
+
+    .ant-table.ant-table-bordered .ant-table-title {
+        border: 1px solid #e8e8e8;
+        padding-left: 16px;
+        padding-right: 16px
+    }
+
+    .ant-table-title + .ant-table-content {
+        position: relative;
+        border-radius: 4px 4px 0 0;
+        overflow: hidden
+    }
+
+    .ant-table-bordered .ant-table-title + .ant-table-content, .ant-table-bordered .ant-table-title + .ant-table-content .ant-table-thead > tr:first-child > th, .ant-table-bordered .ant-table-title + .ant-table-content table {
+        border-radius: 0
+    }
+
+    .ant-table-without-column-header .ant-table-title + .ant-table-content, .ant-table-without-column-header table {
+        border-radius: 0
+    }
+
+    .ant-table-tbody > tr.ant-table-row-selected td {
+        background: #fafafa
+    }
+
+    .ant-table-thead > tr > th.ant-table-column-sort {
+        background: #f5f5f5
+    }
+
+    .ant-table-tbody > tr > td.ant-table-column-sort {
+        background: rgba(0,0,0,.01)
+    }
+
+    .ant-table-tbody > tr > td, .ant-table-thead > tr > th {
+        padding: 16px
+    }
+
+    .ant-table-thead > tr > th.ant-table-selection-column-custom .ant-table-selection {
+        margin-right: -15px
+    }
+
+    .ant-table-tbody > tr > td.ant-table-selection-column, .ant-table-thead > tr > th.ant-table-selection-column {
+        text-align: center
+    }
+
+    .ant-table-tbody > tr > td.ant-table-selection-column .ant-radio-wrapper, .ant-table-thead > tr > th.ant-table-selection-column .ant-radio-wrapper {
+        margin-right: 0
+    }
+
+    .ant-table-expand-icon-th, .ant-table-row-expand-icon-cell {
+        text-align: center;
+        min-width: 50px;
+        width: 50px
+    }
+
+    .ant-table-header {
+        background: #fafafa;
+        overflow: hidden
+    }
+
+    .ant-table-header table {
+        border-radius: 4px 4px 0 0
+    }
+
+    .ant-table-loading {
+        position: relative
+    }
+
+    .ant-table-loading .ant-table-body {
+        background: #fff;
+        opacity: .5
+    }
+
+    .ant-table-loading .ant-table-spin-holder {
+        height: 20px;
+        line-height: 20px;
+        left: 50%;
+        top: 50%;
+        margin-left: -30px;
+        position: absolute
+    }
+
+    .ant-table-loading .ant-table-with-pagination {
+        margin-top: -20px
+    }
+
+    .ant-table-loading .ant-table-without-pagination {
+        margin-top: 10px
+    }
+
+    .ant-table-bordered .ant-table-body > table, .ant-table-bordered .ant-table-fixed-left table, .ant-table-bordered .ant-table-fixed-right table, .ant-table-bordered .ant-table-header > table {
+        border: 1px solid #e8e8e8;
+        border-right: 0;
+        border-bottom: 0
+    }
+
+    .ant-table-bordered.ant-table-empty .ant-table-placeholder {
+        border-left: 1px solid #e8e8e8;
+        border-right: 1px solid #e8e8e8
+    }
+
+    .ant-table-bordered.ant-table-fixed-header .ant-table-header > table {
+        border-bottom: 0
+    }
+
+    .ant-table-bordered.ant-table-fixed-header .ant-table-body > table {
+        border-top: 0;
+        border-top-left-radius: 0;
+        border-top-right-radius: 0
+    }
+
+    .ant-table-bordered.ant-table-fixed-header .ant-table-body-inner > table {
+        border-top: 0
+    }
+
+    .ant-table-bordered.ant-table-fixed-header .ant-table-placeholder {
+        border: 0
+    }
+
+    .ant-table-bordered .ant-table-thead > tr:not(:last-child) > th {
+        border-bottom: 1px solid #e8e8e8
+    }
+
+    .ant-table-bordered .ant-table-tbody > tr > td, .ant-table-bordered .ant-table-thead > tr > th {
+        border-right: 1px solid #e8e8e8
+    }
+
+    .ant-table-placeholder {
+        position: relative;
+        padding: 16px;
+        background: #fff;
+        border-radius: 4px;
+        border-bottom: 1px solid #e8e8e8;
+        text-align: center;
+        font-size: 14px;
+        color: rgba(0,0,0,.45);
+        z-index: 1
+    }
+
+    .ant-table-placeholder .anticon {
+        margin-right: 4px
+    }
+
+    .ant-table-pagination.ant-pagination {
+        margin: 16px 0;
+        float: right
+    }
+
+    .ant-table-filter-dropdown {
+        min-width: 96px;
+        margin-left: -8px;
+        background: #fff;
+        border-radius: 4px;
+        box-shadow: 0 2px 8px rgba(0,0,0,.15);
+        position: relative
+    }
+
+    .ant-table-filter-dropdown .ant-dropdown-menu {
+        border: 0;
+        box-shadow: none;
+        border-radius: 4px 4px 0 0
+    }
+
+    .ant-table-filter-dropdown .ant-dropdown-menu-without-submenu {
+        max-height: 400px;
+        overflow-x: hidden
+    }
+
+    .ant-table-filter-dropdown .ant-dropdown-menu-item > label + span {
+        padding-right: 0
+    }
+
+    .ant-table-filter-dropdown .ant-dropdown-menu-sub {
+        border-radius: 4px;
+        box-shadow: 0 2px 8px rgba(0,0,0,.15)
+    }
+
+    .ant-table-filter-dropdown .ant-dropdown-menu .ant-dropdown-submenu-contain-selected .ant-dropdown-menu-submenu-title:after {
+        color: #1890ff;
+        font-weight: 700;
+        text-shadow: 0 0 2px #bae7ff
+    }
+
+    .ant-table-filter-dropdown .ant-dropdown-menu-item {
+        overflow: hidden
+    }
+
+    .ant-table-filter-dropdown > .ant-dropdown-menu > .ant-dropdown-menu-item:last-child, .ant-table-filter-dropdown > .ant-dropdown-menu > .ant-dropdown-menu-submenu:last-child .ant-dropdown-menu-submenu-title {
+        border-radius: 0
+    }
+
+    .ant-table-filter-dropdown-btns {
+        overflow: hidden;
+        padding: 7px 8px;
+        border-top: 1px solid #e8e8e8
+    }
+
+    .ant-table-filter-dropdown-link {
+        color: #1890ff
+    }
+
+    .ant-table-filter-dropdown-link:hover {
+        color: #40a9ff
+    }
+
+    .ant-table-filter-dropdown-link:active {
+        color: #096dd9
+    }
+
+    .ant-table-filter-dropdown-link.confirm {
+        float: left
+    }
+
+    .ant-table-filter-dropdown-link.clear {
+        float: right
+    }
+
+    .ant-table-selection-select-all-custom {
+        margin-right: 4px !important
+    }
+
+    .ant-table-selection .anticon-down {
+        color: #bfbfbf;
+        transition: all .3s
+    }
+
+    .ant-table-selection-menu {
+        min-width: 96px;
+        margin-top: 5px;
+        margin-left: -30px;
+        background: #fff;
+        border-radius: 4px;
+        box-shadow: 0 2px 8px rgba(0,0,0,.15)
+    }
+
+    .ant-table-selection-menu .ant-action-down {
+        color: #bfbfbf
+    }
+
+    .ant-table-selection-down {
+        cursor: pointer;
+        padding: 0;
+        display: inline-block;
+        line-height: 1
+    }
+
+    .ant-table-selection-down:hover .anticon-down {
+        color: rgba(0,0,0,.6)
+    }
+
+    .ant-table-row-expand-icon {
+        cursor: pointer;
+        display: inline-block;
+        width: 17px;
+        height: 17px;
+        text-align: center;
+        line-height: 14px;
+        border: 1px solid #e8e8e8;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+        background: #fff
+    }
+
+    .ant-table-row-expanded:after {
+        content: "-"
+    }
+
+    .ant-table-row-collapsed:after {
+        content: "+"
+    }
+
+    .ant-table-row-spaced {
+        visibility: hidden
+    }
+
+    .ant-table-row-spaced:after {
+        content: "."
+    }
+
+    .ant-table-row[class*=ant-table-row-level-0] .ant-table-selection-column > span {
+        display: inline-block
+    }
+
+    tr.ant-table-expanded-row, tr.ant-table-expanded-row:hover {
+        background: #fbfbfb
+    }
+
+    tr.ant-table-expanded-row td > .ant-table-wrapper {
+        margin: -16px -16px -17px
+    }
+
+    .ant-table .ant-table-row-indent + .ant-table-row-expand-icon {
+        margin-right: 8px
+    }
+
+    .ant-table-scroll {
+        overflow: auto;
+        overflow-x: hidden
+    }
+
+    .ant-table-scroll table {
+        width: auto;
+        min-width: 100%
+    }
+
+    .ant-table-scroll table .ant-table-fixed-columns-in-body {
+        visibility: hidden
+    }
+
+    .ant-table-body-inner {
+        height: 100%
+    }
+
+    .ant-table-fixed-header > .ant-table-content > .ant-table-scroll > .ant-table-body {
+        position: relative;
+        background: #fff
+    }
+
+    .ant-table-fixed-header .ant-table-body-inner {
+        overflow: scroll
+    }
+
+    .ant-table-fixed-header .ant-table-scroll .ant-table-header {
+        overflow: scroll;
+        padding-bottom: 20px;
+        margin-bottom: -20px;
+        opacity: .9999
+    }
+
+    .ant-table-fixed-left, .ant-table-fixed-right {
+        position: absolute;
+        top: 0;
+        overflow: hidden;
+        transition: box-shadow .3s ease;
+        border-radius: 0;
+        z-index: 20
+    }
+
+    .ant-table-fixed-left table, .ant-table-fixed-right table {
+        width: auto;
+        background: #fff
+    }
+
+    .ant-table-fixed-header .ant-table-fixed-left .ant-table-body-outer .ant-table-fixed, .ant-table-fixed-header .ant-table-fixed-right .ant-table-body-outer .ant-table-fixed {
+        border-radius: 0
+    }
+
+    .ant-table-fixed-left {
+        left: 0;
+        box-shadow: 6px 0 6px -4px rgba(0,0,0,.15)
+    }
+
+    .ant-table-fixed-left .ant-table-header {
+        overflow-y: hidden
+    }
+
+    .ant-table-fixed-left .ant-table-body-inner {
+        margin-right: -20px;
+        padding-right: 20px
+    }
+
+    .ant-table-fixed-header .ant-table-fixed-left .ant-table-body-inner {
+        padding-right: 0
+    }
+
+    .ant-table-fixed-left, .ant-table-fixed-left table {
+        border-radius: 4px 0 0 0
+    }
+
+    .ant-table-fixed-left .ant-table-thead > tr > th:last-child {
+        border-top-right-radius: 0
+    }
+
+    .ant-table-fixed-right {
+        right: 0;
+        box-shadow: -6px 0 6px -4px rgba(0,0,0,.15)
+    }
+
+    .ant-table-fixed-right, .ant-table-fixed-right table {
+        border-radius: 0 4px 0 0
+    }
+
+    .ant-table-fixed-right .ant-table-expanded-row {
+        color: transparent;
+        pointer-events: none
+    }
+
+    .ant-table-fixed-right .ant-table-thead > tr > th:first-child {
+        border-top-left-radius: 0
+    }
+
+    .ant-table.ant-table-scroll-position-left .ant-table-fixed-left {
+        box-shadow: none
+    }
+
+    .ant-table.ant-table-scroll-position-right .ant-table-fixed-right {
+        box-shadow: none
+    }
+
+    .ant-table-middle > .ant-table-footer, .ant-table-middle > .ant-table-title {
+        padding: 12px 8px
+    }
+
+    .ant-table-middle > .ant-table-content > .ant-table-body > table > .ant-table-tbody > tr > td, .ant-table-middle > .ant-table-content > .ant-table-body > table > .ant-table-thead > tr > th, .ant-table-middle > .ant-table-content > .ant-table-fixed-left > .ant-table-body-outer > .ant-table-body-inner > table > .ant-table-tbody > tr > td, .ant-table-middle > .ant-table-content > .ant-table-fixed-left > .ant-table-body-outer > .ant-table-body-inner > table > .ant-table-thead > tr > th, .ant-table-middle > .ant-table-content > .ant-table-fixed-left > .ant-table-header > table > .ant-table-tbody > tr > td, .ant-table-middle > .ant-table-content > .ant-table-fixed-left > .ant-table-header > table > .ant-table-thead > tr > th, .ant-table-middle > .ant-table-content > .ant-table-fixed-right > .ant-table-body-outer > .ant-table-body-inner > table > .ant-table-tbody > tr > td, .ant-table-middle > .ant-table-content > .ant-table-fixed-right > .ant-table-body-outer > .ant-table-body-inner > table > .ant-table-thead > tr > th, .ant-table-middle > .ant-table-content > .ant-table-fixed-right > .ant-table-header > table > .ant-table-tbody > tr > td, .ant-table-middle > .ant-table-content > .ant-table-fixed-right > .ant-table-header > table > .ant-table-thead > tr > th, .ant-table-middle > .ant-table-content > .ant-table-header > table > .ant-table-tbody > tr > td, .ant-table-middle > .ant-table-content > .ant-table-header > table > .ant-table-thead > tr > th, .ant-table-middle > .ant-table-content > .ant-table-scroll > .ant-table-body > table > .ant-table-tbody > tr > td, .ant-table-middle > .ant-table-content > .ant-table-scroll > .ant-table-body > table > .ant-table-thead > tr > th, .ant-table-middle > .ant-table-content > .ant-table-scroll > .ant-table-header > table > .ant-table-tbody > tr > td, .ant-table-middle > .ant-table-content > .ant-table-scroll > .ant-table-header > table > .ant-table-thead > tr > th {
+        padding: 12px 8px
+    }
+
+    .ant-table-middle tr.ant-table-expanded-row td > .ant-table-wrapper {
+        margin: -12px -16px -13px
+    }
+
+    .ant-table-small {
+        border: 1px solid #e8e8e8;
+        border-radius: 4px
+    }
+
+    .ant-table-small > .ant-table-footer, .ant-table-small > .ant-table-title {
+        padding: 8px
+    }
+
+    .ant-table-small > .ant-table-title {
+        border-bottom: 1px solid #e8e8e8;
+        top: 0
+    }
+
+    .ant-table-small > .ant-table-content > .ant-table-body {
+        margin: 0 8px
+    }
+
+    .ant-table-small > .ant-table-content > .ant-table-body > table, .ant-table-small > .ant-table-content > .ant-table-fixed-left > .ant-table-body-outer > .ant-table-body-inner > table, .ant-table-small > .ant-table-content > .ant-table-fixed-left > .ant-table-header > table, .ant-table-small > .ant-table-content > .ant-table-fixed-right > .ant-table-body-outer > .ant-table-body-inner > table, .ant-table-small > .ant-table-content > .ant-table-fixed-right > .ant-table-header > table, .ant-table-small > .ant-table-content > .ant-table-header > table, .ant-table-small > .ant-table-content > .ant-table-scroll > .ant-table-body > table, .ant-table-small > .ant-table-content > .ant-table-scroll > .ant-table-header > table {
+        border: 0
+    }
+
+    .ant-table-small > .ant-table-content > .ant-table-body > table > .ant-table-tbody > tr > td, .ant-table-small > .ant-table-content > .ant-table-body > table > .ant-table-thead > tr > th, .ant-table-small > .ant-table-content > .ant-table-fixed-left > .ant-table-body-outer > .ant-table-body-inner > table > .ant-table-tbody > tr > td, .ant-table-small > .ant-table-content > .ant-table-fixed-left > .ant-table-body-outer > .ant-table-body-inner > table > .ant-table-thead > tr > th, .ant-table-small > .ant-table-content > .ant-table-fixed-left > .ant-table-header > table > .ant-table-tbody > tr > td, .ant-table-small > .ant-table-content > .ant-table-fixed-left > .ant-table-header > table > .ant-table-thead > tr > th, .ant-table-small > .ant-table-content > .ant-table-fixed-right > .ant-table-body-outer > .ant-table-body-inner > table > .ant-table-tbody > tr > td, .ant-table-small > .ant-table-content > .ant-table-fixed-right > .ant-table-body-outer > .ant-table-body-inner > table > .ant-table-thead > tr > th, .ant-table-small > .ant-table-content > .ant-table-fixed-right > .ant-table-header > table > .ant-table-tbody > tr > td, .ant-table-small > .ant-table-content > .ant-table-fixed-right > .ant-table-header > table > .ant-table-thead > tr > th, .ant-table-small > .ant-table-content > .ant-table-header > table > .ant-table-tbody > tr > td, .ant-table-small > .ant-table-content > .ant-table-header > table > .ant-table-thead > tr > th, .ant-table-small > .ant-table-content > .ant-table-scroll > .ant-table-body > table > .ant-table-tbody > tr > td, .ant-table-small > .ant-table-content > .ant-table-scroll > .ant-table-body > table > .ant-table-thead > tr > th, .ant-table-small > .ant-table-content > .ant-table-scroll > .ant-table-header > table > .ant-table-tbody > tr > td, .ant-table-small > .ant-table-content > .ant-table-scroll > .ant-table-header > table > .ant-table-thead > tr > th {
+        padding: 8px
+    }
+
+    .ant-table-small > .ant-table-content > .ant-table-body > table > .ant-table-thead > tr > th, .ant-table-small > .ant-table-content > .ant-table-fixed-left > .ant-table-body-outer > .ant-table-body-inner > table > .ant-table-thead > tr > th, .ant-table-small > .ant-table-content > .ant-table-fixed-left > .ant-table-header > table > .ant-table-thead > tr > th, .ant-table-small > .ant-table-content > .ant-table-fixed-right > .ant-table-body-outer > .ant-table-body-inner > table > .ant-table-thead > tr > th, .ant-table-small > .ant-table-content > .ant-table-fixed-right > .ant-table-header > table > .ant-table-thead > tr > th, .ant-table-small > .ant-table-content > .ant-table-header > table > .ant-table-thead > tr > th, .ant-table-small > .ant-table-content > .ant-table-scroll > .ant-table-body > table > .ant-table-thead > tr > th, .ant-table-small > .ant-table-content > .ant-table-scroll > .ant-table-header > table > .ant-table-thead > tr > th {
+        background-color: transparent;
+        border-bottom: 1px solid #e8e8e8
+    }
+
+    .ant-table-small > .ant-table-content > .ant-table-body > table > .ant-table-thead > tr > th.ant-table-column-sort, .ant-table-small > .ant-table-content > .ant-table-fixed-left > .ant-table-body-outer > .ant-table-body-inner > table > .ant-table-thead > tr > th.ant-table-column-sort, .ant-table-small > .ant-table-content > .ant-table-fixed-left > .ant-table-header > table > .ant-table-thead > tr > th.ant-table-column-sort, .ant-table-small > .ant-table-content > .ant-table-fixed-right > .ant-table-body-outer > .ant-table-body-inner > table > .ant-table-thead > tr > th.ant-table-column-sort, .ant-table-small > .ant-table-content > .ant-table-fixed-right > .ant-table-header > table > .ant-table-thead > tr > th.ant-table-column-sort, .ant-table-small > .ant-table-content > .ant-table-header > table > .ant-table-thead > tr > th.ant-table-column-sort, .ant-table-small > .ant-table-content > .ant-table-scroll > .ant-table-body > table > .ant-table-thead > tr > th.ant-table-column-sort, .ant-table-small > .ant-table-content > .ant-table-scroll > .ant-table-header > table > .ant-table-thead > tr > th.ant-table-column-sort {
+        background-color: rgba(0,0,0,.01)
+    }
+
+    .ant-table-small > .ant-table-content > .ant-table-fixed-left > .ant-table-body-outer > .ant-table-body-inner > table, .ant-table-small > .ant-table-content > .ant-table-fixed-left > .ant-table-header > table, .ant-table-small > .ant-table-content > .ant-table-fixed-right > .ant-table-body-outer > .ant-table-body-inner > table, .ant-table-small > .ant-table-content > .ant-table-fixed-right > .ant-table-header > table, .ant-table-small > .ant-table-content > .ant-table-scroll > .ant-table-body > table, .ant-table-small > .ant-table-content > .ant-table-scroll > .ant-table-header > table {
+        padding: 0
+    }
+
+    .ant-table-small > .ant-table-content .ant-table-header {
+        background-color: #fff
+    }
+
+    .ant-table-small > .ant-table-content .ant-table-placeholder, .ant-table-small > .ant-table-content .ant-table-row:last-child td {
+        border-bottom: 0
+    }
+
+    .ant-table-small.ant-table-bordered {
+        border-right: 0
+    }
+
+    .ant-table-small.ant-table-bordered .ant-table-title {
+        border: 0;
+        border-bottom: 1px solid #e8e8e8;
+        border-right: 1px solid #e8e8e8
+    }
+
+    .ant-table-small.ant-table-bordered .ant-table-content {
+        border-right: 1px solid #e8e8e8
+    }
+
+    .ant-table-small.ant-table-bordered .ant-table-footer {
+        border: 0;
+        border-top: 1px solid #e8e8e8;
+        border-right: 1px solid #e8e8e8
+    }
+
+    .ant-table-small.ant-table-bordered .ant-table-footer:before {
+        display: none
+    }
+
+    .ant-table-small.ant-table-bordered .ant-table-placeholder {
+        border-left: 0;
+        border-bottom: 0;
+        border-right: 0
+    }
+
+    .ant-table-small.ant-table-bordered .ant-table-tbody > tr > td:last-child, .ant-table-small.ant-table-bordered .ant-table-thead > tr > th:last-child {
+        border-right: none
+    }
+
+    .ant-table-small.ant-table-bordered .ant-table-fixed-left .ant-table-tbody > tr > td:last-child, .ant-table-small.ant-table-bordered .ant-table-fixed-left .ant-table-thead > tr > th:last-child {
+        border-right: 1px solid #e8e8e8
+    }
+
+    .ant-table-small.ant-table-bordered .ant-table-fixed-right {
+        border-left: 1px solid #e8e8e8;
+        border-right: 1px solid #e8e8e8
+    }
+
+    .ant-table-small tr.ant-table-expanded-row td > .ant-table-wrapper {
+        margin: -8px -16px -9px
+    }
+
+    h6 {
+        color: rgba(0,0,0,.85);
+        /* padding-left: 16px; */
+        font-size: 24px;
+        line-height: 32px;
+        margin-top: 4px;
+        margin-bottom: 0;
+        font-weight: normal;
+    }
+
+    .antd-pro-components-charts-radar-index-legendItem:after {
+        background-color: #e8e8e8;
+        position: absolute;
+        top: 8px;
+        right: 0;
+        height: 40px;
+        width: 1px;
+        content: "";
+    }
+
+    .antd-pro-components-charts-radar-index-legend:last-child .antd-pro-components-charts-radar-index-legendItem:after {
+        display: none
+    }
+</style>
+
+<script>
+    $(function () {
+        var data = [{
+            year: '1951 年',
+            sales: 38
+        }, {
+            year: '1952 年',
+            sales: 52
+        }, {
+            year: '1956 年',
+            sales: 61
+        }, {
+            year: '1957 年',
+            sales: 145
+        }, {
+            year: '1958 年',
+            sales: 48
+        }, {
+            year: '1959 年',
+            sales: 38
+        }, {
+            year: '1960 年',
+            sales: 38
+        }, {
+            year: '1962 年',
+            sales: 38
+        }];
+        var chart = new G2.Chart({
+            container: 'mountNode',
+            forceFit: true,
+            height: 40,
+            width: "100%",
+            padding: [0, 0, 0, 0]
+        });
+        chart.source(data);
+
+        chart.legend(false);
+        chart.axis(false);
+        chart.scale('sales', {
+            tickInterval: 20,
+            tickLine: {
+                lineWidth: 3,
+                length: 10,
+                stroke: 'red',
+                alignWithLabel: true
+            }
+        });
+
+
+        chart.interval().position('year*sales');
+        chart.render();
+
+
+        var data = [{
+            year: '1991',
+            value: 15468
+        }, {
+            year: '1992',
+            value: 16100
+        }, {
+            year: '1993',
+            value: 15900
+        }, {
+            year: '1994',
+            value: 17409
+        }, {
+            year: '1995',
+            value: 17000
+        }, {
+            year: '1996',
+            value: 31056
+        }, {
+            year: '1997',
+            value: 31982
+        }, {
+            year: '1998',
+            value: 32040
+        }, {
+            year: '1999',
+            value: 33233
+        }];
+        var chart = new G2.Chart({
+            container: 'mountNode1',
+            forceFit: true,
+            height: 40,
+            width: "100%",
+            padding: [0, 0, 0, 0]
+        });
+        chart.source(data);
+        chart.scale({
+            value: {
+                min: 10000
+            },
+            year: {
+                range: [0, 1]
+            }
+        });
+        chart.axis('value', {
+            label: {
+                formatter: function formatter(val) {
+                    return (val / 10000).toFixed(1) + 'k';
+                }
+            }
+        });
+        chart.tooltip({
+            crosshairs: {
+                type: 'line'
+            }
+        });
+        chart.legend(false);
+        chart.axis(false);
+        chart.area().position('year*value');
+        chart.line().position('year*value').size(2);
+        chart.render();
+
+
+
+        var _DataSet = DataSet,
+            DataView = _DataSet.DataView;
+
+        var data = [{
+            item: 'Design',
+            a: 70,
+            b: 30
+        }, {
+            item: 'Development',
+            a: 60,
+            b: 70
+        }, {
+            item: 'Marketing',
+            a: 50,
+            b: 60
+        }, {
+            item: 'Users',
+            a: 40,
+            b: 50
+        }, {
+            item: 'Test',
+            a: 60,
+            b: 70
+        }, {
+            item: 'Language',
+            a: 70,
+            b: 50
+        }, {
+            item: 'Technology',
+            a: 50,
+            b: 40
+        }, {
+            item: 'Support',
+            a: 30,
+            b: 40
+        }, {
+            item: 'Sales',
+            a: 60,
+            b: 40
+        }, {
+            item: 'UX',
+            a: 50,
+            b: 60
+        }];
+        var dv = new DataView().source(data);
+        dv.transform({
+            type: 'fold',
+            fields: ['a', 'b'], // 展开字段集
+            key: 'user', // key字段
+            value: 'score' // value字段
+        });
+        var chart = new G2.Chart({
+            container: 'mountNode2',
+            forceFit: true,
+            height: 350,
+            padding: [10, 10, 15, 10]
+        });
+        chart.source(dv, {
+            score: {
+                min: 0,
+                max: 80
+            }
+        });
+        chart.coord('polar', {
+            radius: 0.8
+        });
+        chart.axis('item', {
+            line: null,
+            tickLine: null,
+            grid: {
+                lineStyle: {
+                    lineDash: null
+                },
+                hideFirstLine: false
+            }
+        });
+        chart.axis('score', {
+            line: null,
+            tickLine: null,
+            grid: {
+                type: 'polygon',
+                lineStyle: {
+                    lineDash: null
+                },
+                alternateColor: 'rgba(0, 0, 0, 0.04)'
+            }
+        });
+        chart.legend('user', {
+            marker: 'circle',
+            offset: 30
+        });
+        chart.line().position('item*score').color('user').size(2);
+        chart.point().position('item*score').color('user').shape('circle').size(4).style({
+            stroke: '#fff',
+            lineWidth: 1,
+            fillOpacity: 1
+        });
+        chart.render();
+    });
+
+
+    //chart.axis('type', {
+    //    label: {
+    //        textStyle: {
+    //            fill: '#aaaaaa'
+    //        }
+    //    },
+    //    tickLine: {
+    //        alignWithLabel: false,
+    //        length: 0
+    //    }
+    //});
+
+</script>
