@@ -181,7 +181,7 @@ CREATE TABLE FBPos
 	PosType  VARCHAR (50),
 	Ord      INT,
 	Note     VARCHAR (200),
-	State    CHAR (1),
+	PosState    CHAR (1),
 	OrgID    VARCHAR (50),
 	DepartID VARCHAR (50),
 	CONSTRAINT PK_FBPOS PRIMARY KEY (ID)
