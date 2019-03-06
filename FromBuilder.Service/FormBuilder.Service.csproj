@@ -64,6 +64,7 @@
     <Compile Include="CustomForm\DataModel\FileOpService.cs" />
     <Compile Include="CustomForm\DataModel\ISQLStrategy.cs" />
     <Compile Include="CustomForm\DataModel\MSSStrategy.cs" />
+    <Compile Include="CustomForm\DataModel\ORAStrategy.cs" />
     <Compile Include="CustomForm\DataModel\MySqlStrategy.cs" />
     <Compile Include="CustomForm\DataSource\DataSourceCom.cs" />
     <Compile Include="CustomForm\FBDataModelService.cs" />

@@ -43,12 +43,12 @@ namespace FormBuilder.Web.Areas.FormBuilder.Controllers
                 if (flag)
                     return Json(new { res = true, mes = "登录成功！" });
                 else
-                    return Json(new { res = true, mes = mes });
+                    return Json(new { res = false, mes = mes });
                 //return Content("213213");
             }
             catch (Exception ex)
             {
-                return Json(new { res = true, mes = "登录异常" + ex.Message });
+                return Json(new { res = false, mes = "登录异常" + ex.Message });
             }
         }
     }

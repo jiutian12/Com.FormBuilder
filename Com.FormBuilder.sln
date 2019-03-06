@@ -36,8 +36,6 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "07 SQL", "07 SQL", "{4ACADD58-D64E-4414-83F5-B11078A03099}"
 	ProjectSection(SolutionItems) = preProject
 		sql_data_ini.sql = sql_data_ini.sql
-		sql_table_create.sql = sql_table_create.sql
-		sql_table_frame.sql = sql_table_frame.sql
 		sql_test.sql = sql_test.sql
 	EndProjectSection
 EndProject
@@ -50,6 +48,18 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FormBuilder.ExportTool", "FormBuilder.ExportTool\FormBuilder.ExportTool.csproj", "{679AAC7A-9120-42CE-B72D-D664B3957FFD}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "MSS", "MSS", "{1638614A-0627-4782-A69C-84CE068386CE}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ORA", "ORA", "{53A7DFAA-454F-4C57-BB06-41DD0E928D10}"
+	ProjectSection(SolutionItems) = preProject
+		ora_table_create.sql = ora_table_create.sql
+		ora_table_frame.sql = ora_table_frame.sql
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "MySQL", "MySQL", "{BFB8D6B1-FC5D-438B-9F4C-279C3CDB9972}"
+	ProjectSection(SolutionItems) = preProject
+		sql_table_create.sql = sql_table_create.sql
+		sql_table_frame.sql = sql_table_frame.sql
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -128,6 +138,8 @@ Global
 		{EFFB8BF3-ABFA-43BF-9013-A3973CFB9961} = {D1694CD3-CEF8-4329-9CF6-B1F287BF8050}
 		{679AAC7A-9120-42CE-B72D-D664B3957FFD} = {472A1F15-EF30-47E9-97C8-F19975EB38A3}
 		{1638614A-0627-4782-A69C-84CE068386CE} = {4ACADD58-D64E-4414-83F5-B11078A03099}
+		{53A7DFAA-454F-4C57-BB06-41DD0E928D10} = {4ACADD58-D64E-4414-83F5-B11078A03099}
+		{BFB8D6B1-FC5D-438B-9F4C-279C3CDB9972} = {4ACADD58-D64E-4414-83F5-B11078A03099}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {1E821282-7697-40F7-95E6-74F0F99F5055}

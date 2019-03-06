@@ -7,6 +7,36 @@
 
 @*左侧布局*@
 
+
+<style>
+
+
+
+
+
+    .lee-search-words {
+        border: 1px solid #e6f7f8;
+        background-color: #e6f7f8;
+    }
+
+    .lee-search-wrap .search {
+        border: 1px solid #e6f7f8;
+        background-color: #e6f7f8;
+    }
+
+    .lee-search-wrap .search:hover {
+        background: #c4dfe0;
+        border-color: #c4dfe0;
+    }
+    .dropdown-menu.typeahead{
+        width:227px;
+        font-size:12px;
+    }
+
+    .dropdown-menu > .active > a, .dropdown-menu > .active > a:hover, .dropdown-menu > .active > a:focus {
+        color: #2b2b2b;
+    }
+</style>
 <section class="left-nav">
     <ul>
         <li>
@@ -31,7 +61,9 @@
             </ul>*@
         <ul style="float: right;">
             <li>
-                <a href="#"><i style="margin-right: 5px;" class="lee-ion-search"></i>搜索</a>
+
+                <div class="lee-search-wrap lee-toolbar-item" style="margin-top: 8px;"><input class="lee-search-words" id="searchKeyWord" type="text" placeholder="请输入查询关键字"><i class="lee-ion-close close"></i><button class="search lee-ion-search" type="button"></button></div>
+                @*<a href="#"><i style="margin-right: 5px;" class="lee-ion-search"></i>搜索</a>*@
             </li>
             <li>
                 <a href="#"><i style="font-size:16px;" class="lee-ion-android-notifications"></i></a>
@@ -76,8 +108,13 @@
 
     @*<script src="~/Scripts/FrameWork/page.js"></script>*@
     <script src="~/Scripts/FrameWork/framework.js"></script>
+    <script src="~/DList/typeahead.js"></script>
     @*<link rel="stylesheet" href="~/CSS/runtime.css"/>*@
     <link rel="stylesheet" href="~/CSS/framework/framework.css" />
     <link rel="stylesheet" href="~/CSS/framework/iconfont.css" />
-    
+
+    <script>
+       
+    </script>
+
 }

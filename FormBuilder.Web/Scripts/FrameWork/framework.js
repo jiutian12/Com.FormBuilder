@@ -205,6 +205,23 @@ window.lsp.cf = (function (cf, core, win, $) {
             var self = this;
             cf.service.getMenu(function (data) {
                 //
+                var arr = [];
+                $.each(data.data, function (i, obj) {
+                    obj.id = obj.ID;
+                    obj.name = obj.Name;
+                    if (obj.ShowType == "2") {
+                        arr.push(obj);
+                    }
+                   
+                });
+                $('#searchKeyWord').typeahead({
+                    source: arr,
+                    minLength:0,
+                    afterSelect: function (obj) {
+                        console.log(obj);
+                        cf.tab.addTab(obj);
+                    }
+                })
                 var res = core.utils.arrayToTree(data.data, "ID", "PID");
                 console.log(res);
                 //初始化加载

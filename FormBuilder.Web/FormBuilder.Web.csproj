@@ -950,6 +950,7 @@
     <Content Include="DList\angular\ng-context-menu.js" />
     <Content Include="DList\angular\ng-infinite-scroll.js" />
     <Content Include="DList\angular\ng-infinite-scroll.min.js" />
+    <Content Include="DList\typeahead.js" />
     <Content Include="DList\bootstrap\css\bootstrap-theme.css" />
     <Content Include="DList\bootstrap\css\bootstrap-theme.min.css" />
     <Content Include="DList\bootstrap\css\bootstrap.css" />
