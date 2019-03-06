@@ -30,7 +30,7 @@ namespace FormBuilder.DataAccess
 
         private static void initDBCache()
         {
-            var sql = new Sql("select Code,Catalog,DBType,Name,IPAddress,UserName,PassWord,PortInfo from FBDBSetting where IsUsed='1'");
+            var sql = new Sql("select * from FBDBSetting where IsUsed='1'");
             List<Dictionary<string, object>> list = _mainDB.Fetch<Dictionary<string, object>>(sql);
 
             foreach (var item in list)

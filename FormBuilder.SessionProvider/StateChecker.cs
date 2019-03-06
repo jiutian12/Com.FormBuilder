@@ -31,7 +31,7 @@ namespace FormBuilder.SessionProvider
         private static void CheckPCState(ISessionKey user)
         {
             Database db = DataBaseManger.GetDB("");
-            var sql = new Sql("select count(1) from FBOnlineUser where UserToken=@0 and UID=@1 and DeviceType='PC'", user.Token, user.UserID);
+            var sql = new Sql("select count(1) from FBOnlineUser where UserToken=@0 and UserID=@1 and DeviceType='PC'", user.Token, user.UserID);
 
             if (db.ExecuteScalar<long>(sql) <= 0)
             {
@@ -92,7 +92,7 @@ namespace FormBuilder.SessionProvider
 
             Database db = DataBaseManger.GetDB("");
             //info.Token
-            var clearSql = new Sql("delete from FBOnlineUser where uid=@0 and DeviceType='PC'", info.UserID);
+            var clearSql = new Sql("delete from FBOnlineUser where UserID=@0 and DeviceType='PC'", info.UserID);
             db.Execute(clearSql);
             
         }
@@ -103,10 +103,10 @@ namespace FormBuilder.SessionProvider
             Database db = DataBaseManger.GetDB("");
             var token = Guid.NewGuid().ToString();
             // 这里要预留出pc端登陆的接口
-            var clearSql = new Sql("delete from FBOnlineUser where uid=@0 and DeviceType='PC'", info.UserID);
+            var clearSql = new Sql("delete from FBOnlineUser where UserID=@0 and DeviceType='PC'", info.UserID);
             db.Execute(clearSql);
 
-            var sql = new Sql("insert into FBOnlineUser(ID,UID,LoginIP,LoginMachine,State,CreateTime,UserToken,DeviceType) values(@0,@1,@2,@3,@4,@5,@0,@6)",
+            var sql = new Sql("insert into FBOnlineUser(ID,UserID,LoginIP,LoginMachine,UserState,CreateTime,UserToken,DeviceType) values(@0,@1,@2,@3,@4,@5,@0,@6)",
                 token, info.UserID, info.IPAddress, WebHelper.GetMachineName(), "1", DateTime.Now.ToString(), "PC");
             db.Execute(sql);
             return token;

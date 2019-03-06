@@ -49,7 +49,7 @@ namespace FormBuilder.Model
         /// <summary>
         /// 授权类型 Func 菜单/SetID 数据模型权限/Field 字段权限/Button 按钮权限
         /// </summary>
-        public string Access { get; set; }
+        public string AccessType { get; set; }
         /// <summary>
         /// 授权操作 * 无 select 查询update  更新delete 删除 insert 插入
         /// </summary>

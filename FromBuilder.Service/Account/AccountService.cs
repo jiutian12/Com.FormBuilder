@@ -41,7 +41,7 @@ namespace FormBuilder.Service
 
                 var usermodel = model[0];
 
-                if (usermodel.State == "0")
+                if (usermodel.UserState == "0")
                 {
                     mes = "用户已经被锁定，无法登录";
                     LoginLogService.AddLog(usermodel.UserCode + usermodel.UserName + "登录失败：" + mes, db);
@@ -64,7 +64,7 @@ namespace FormBuilder.Service
 
             mes = "修改成功";
             //password = DESEncrypt.Encrypt(password);
-            var sql = new Sql("update FBUserInfo  set UserPwd=@0 where  uid=@1", password, uid);
+            var sql = new Sql("update FBUserInfo  set UserPwd=@0 where  UserId=@1", password, uid);
             db.Execute(sql);
             return true;
         }
@@ -74,13 +74,13 @@ namespace FormBuilder.Service
 
         public static void LockUser(string uid, Database db)
         {
-            var sql = new Sql("update FBUserInfo  set State=@0 where  uid=@1", "0", uid);
+            var sql = new Sql("update FBUserInfo  set State=@0 where  UserID=@1", "0", uid);
             db.Execute(sql);
         }
 
         public static void UnLockUser(string uid, Database db)
         {
-            var sql = new Sql("update FBUserInfo  set State=@0 where  uid=@1", "1", uid);
+            var sql = new Sql("update FBUserInfo  set State=@0 where  UserID=@1", "1", uid);
             db.Execute(sql);
         }
         /// <summary>
@@ -90,7 +90,7 @@ namespace FormBuilder.Service
         public static void LoginSucess(FBUserInfo user)
         {
             ISessionKey info = new ISessionKey();
-            info.UserID = user.UID;
+            info.UserID = user.UserID;
             info.UserName = user.UserName;
             info.UserCode = user.UserCode;
             info.CurDate = DateTime.Now.ToString("yyyy-MM-dd");

@@ -12,7 +12,7 @@ namespace FormBuilder.Model
     public class FBLoginLog
     {
         public string ID { get; set; }
-        public string UID { get; set; }
+        public string UserID { get; set; }
         public string LoginIP { get; set; }
         public string LoginMachine { get; set; }
         public string LoginResult { get; set; }

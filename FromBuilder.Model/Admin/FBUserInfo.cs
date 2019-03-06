@@ -12,7 +12,7 @@ namespace FormBuilder.Model
     [PrimaryKey("UID", AutoIncrement = false)]
     public class FBUserInfo
     {
-        public string UID { get; set; }
+        public string UserID { get; set; }
 
         public string UserCode { get; set; }
 
@@ -31,6 +31,6 @@ namespace FormBuilder.Model
         /// <summary>
         /// 用户状态 1正常0 锁定
         /// </summary>
-        public string State { get; set; }
+        public string UserState { get; set; }
     }
 }

@@ -434,6 +434,10 @@ Create Table If Not Exists FBSmartHelp
 	LastModifyUser VARCHAR (50),
 	Asyn           CHAR (1),
 	StartLevel     VARCHAR (20),
+	PageOption     VARCHAR (200),
+	IsAuto         CHAR (1),
+	PageSize       VARCHAR (20),
+	AutoCol        CHAR (1),
 	CONSTRAINT PK_FBSMARTHELP PRIMARY KEY (ID)
 	)
 ;
