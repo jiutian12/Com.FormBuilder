@@ -1,30 +1,44 @@
  
 
 /*数据库连接配置*/
-Create Table  FBDBSetting
-	(
-	ID             VARCHAR (50) NOT NULL,
-	Code           VARCHAR (100),
-	DBType         VARCHAR (100),
-	"Name"           VARCHAR (100),
-	IPAddress      VARCHAR (100),
-	UserName       VARCHAR (100),
-	"PassWord"       VARCHAR (100),
-	IsUsed         CHAR (1),
-	CreateUser     VARCHAR (50),
-	CreateTime     VARCHAR (20),
-	LastModifyUser VARCHAR (50),
-	LastModifyTime VARCHAR (20),
-	"Catalog"        VARCHAR (100),
-	PortInfo       VARCHAR (20),
-	CONSTRAINT PK_FBDBSETTING PRIMARY KEY (ID)
-	)
-;
+declare v_cnt  number;
+begin
+select count(*) into v_cnt from user_all_tables where Upper(table_name) =Upper('FBDBSetting');
+if (v_cnt< 1) then
+execute immediate('
+	Create Table  FBDBSetting
+		(
+		ID             VARCHAR (50) NOT NULL,
+		Code           VARCHAR (100),
+		DBType         VARCHAR (100),
+		"Name"           VARCHAR (100),
+		IPAddress      VARCHAR (100),
+		UserName       VARCHAR (100),
+		"PassWord"       VARCHAR (100),
+		IsUsed         CHAR (1),
+		CreateUser     VARCHAR (50),
+		CreateTime     VARCHAR (20),
+		LastModifyUser VARCHAR (50),
+		LastModifyTime VARCHAR (20),
+		"Catalog"        VARCHAR (100),
+		PortInfo       VARCHAR (20),
+		CONSTRAINT PK_FBDBSETTING PRIMARY KEY (ID)
+		)
+	'); 
+end if;end;
+go
+
 
 
 
 /*数据对象表*/
-Create Table  FBDataObject
+
+declare v_cnt  number;
+begin
+select count(*) into v_cnt from user_all_tables where Upper(table_name) =Upper('FBDataObject');
+if (v_cnt< 1) then
+execute immediate('
+	Create Table  FBDataObject
 	(
 	ID             VARCHAR (50) NOT NULL,
 	Code           VARCHAR (50),
@@ -38,9 +52,17 @@ Create Table  FBDataObject
 	LastModifyTime VARCHAR (20),
 	CONSTRAINT PK_FBDATAOBJECT PRIMARY KEY (ID)
 	)
-;
+	'); 
+end if;end;
+go
+
 /*数据对象列信息*/
-Create Table  FBDataObjectCols
+declare v_cnt  number;
+begin
+select count(*) into v_cnt from user_all_tables where Upper(table_name) =Upper('FBDataObjectCols');
+if (v_cnt< 1) then
+execute immediate('
+	Create Table  FBDataObjectCols
 	(
 	ID           VARCHAR (50) NOT NULL,
 	ObjectID     VARCHAR (50),
@@ -58,12 +80,20 @@ Create Table  FBDataObjectCols
 	ord          VARCHAR (50),
 	CONSTRAINT PK_FBDATAOBJECTCOLS PRIMARY KEY (ID)
 	)
-;
+	'); 
+end if;end;
+go
 /*================数据对象End=================*/
 
 
 /*数据模型主表*/
-Create Table  FBDataModel
+
+declare v_cnt  number;
+begin
+select count(*) into v_cnt from user_all_tables where Upper(table_name) =Upper('FBDataModel');
+if (v_cnt< 1) then
+execute immediate('
+	Create Table  FBDataModel
 	(
 	ID             VARCHAR (50) NOT NULL,
 	Code           VARCHAR (100),
@@ -79,10 +109,19 @@ Create Table  FBDataModel
 	DetailSaveMode CHAR (1),
 	CONSTRAINT PK_FBDATAMODEL PRIMARY KEY (ID)
 	)
-;
+	'); 
+end if;end;
+go
+
+
 
 /*数据模型列信息*/
-Create Table  FBDataModelCols
+declare v_cnt  number;
+begin
+select count(*) into v_cnt from user_all_tables where Upper(table_name) =Upper('FBDataModelCols');
+if (v_cnt< 1) then
+execute immediate('
+	Create Table  FBDataModelCols
 	(
 	ID             VARCHAR (50) NOT NULL,
 	ModelID        VARCHAR (50),
@@ -106,11 +145,19 @@ Create Table  FBDataModelCols
 	Ord            VARCHAR (20),
 	CONSTRAINT PK_FBDATAMODELCOLS PRIMARY KEY (ID)
 	)
-;
-
+	'); 
+end if;
+end;
+go
  
 /*数据模型表关联管理*/
-Create Table  FBDataModelObjects
+
+declare v_cnt  number;
+begin
+select count(*) into v_cnt from user_all_tables where Upper(table_name) =Upper('FBDataModelObjects');
+if (v_cnt< 1) then
+execute immediate('
+	Create Table  FBDataModelObjects
 	(
 	ID        VARCHAR (50) NOT NULL,
 	ObjectID  VARCHAR (50),
@@ -131,11 +178,20 @@ Create Table  FBDataModelObjects
 	ChangeFields VARCHAR(2000),
 	CONSTRAINT PK_FBDATAMODELOBJECTS PRIMARY KEY (ID)
 	)
-;
+	'); 
+end if;
+end;
+go
 
 
 /*数据模型字段关联*/
-Create Table  FBDataModelRealtions
+
+declare v_cnt  number;
+begin
+select count(*) into v_cnt from user_all_tables where Upper(table_name) =Upper('FBDataModelRealtions');
+if (v_cnt< 1) then
+execute immediate('
+	Create Table  FBDataModelRealtions
 	(
 	ID                 VARCHAR (50) NOT NULL,
 	ModelID            VARCHAR (50),
@@ -151,11 +207,23 @@ Create Table  FBDataModelRealtions
 	ModelObjectColCode VARCHAR (50),
 	CONSTRAINT PK_FBDATAMODELREALTIONS PRIMARY KEY (ID)
 	)
-;
+	'); 
+end if;
+end;
+go
 
+
+
+ 
 
 /*模型删除检查表*/
-Create Table  FBModelDeleteCheck(
+
+declare v_cnt  number;
+begin
+select count(*) into v_cnt from user_all_tables where Upper(table_name) =Upper('FBModelDeleteCheck');
+if (v_cnt< 1) then
+execute immediate('
+	Create Table  FBModelDeleteCheck(
 	ID           VARCHAR (50) NOT NULL,
 	ModelID      VARCHAR (50),
 	ObjectID     VARCHAR (50),
@@ -167,10 +235,19 @@ Create Table  FBModelDeleteCheck(
 	IsUsed       CHAR (1),
 	CONSTRAINT PK_FBDeleteCheck PRIMARY KEY (ID)
 	)
-;
+	'); 
+end if;
+end;
+go
+
 
 /*模型保存检查表*/
-Create Table  FBModelModifyCheck(
+declare v_cnt  number;
+begin
+select count(*) into v_cnt from user_all_tables where Upper(table_name) =Upper('FBModelModifyCheck');
+if (v_cnt< 1) then
+execute immediate('
+	Create Table  FBModelModifyCheck(
 	ID        VARCHAR (50) NOT NULL,
 	ObjectID  VARCHAR (50),
 	TableName VARCHAR (50),
@@ -180,11 +257,18 @@ Create Table  FBModelModifyCheck(
 	ModelID   VARCHAR (50),
 	CONSTRAINT PK_FBModelModifyCheck PRIMARY KEY (ID)
 	)
-;
-
+	'); 
+end if;
+end;
+go
 
 /*模型动作扩展SQL*/
-Create Table  FBModelSQL(
+declare v_cnt  number;
+begin
+select count(*) into v_cnt from user_all_tables where Upper(table_name) =Upper('FBModelSQL');
+if (v_cnt< 1) then
+execute immediate('
+	Create Table  FBModelSQL(
 	ID        	VARCHAR (50) NOT NULL,
 	ModelID   	VARCHAR (50),
 	SQLInfo   	VARCHAR (2000),
@@ -193,10 +277,19 @@ Create Table  FBModelSQL(
 	IsUsed    CHAR (1),
 	CONSTRAINT PK_FBModelSQL PRIMARY KEY (ID)
 )
-;
+	'); 
+end if;
+end;
+go
+
 
 /*模型事件扩展*/
-Create Table  FBModelExtend
+declare v_cnt  number;
+begin
+select count(*) into v_cnt from user_all_tables where Upper(table_name) =Upper('FBModelExtend');
+if (v_cnt< 1) then
+execute immediate('
+	Create Table  FBModelExtend
 	(
 	ID				VARCHAR (50) NOT NULL,
 	ModelID			VARCHAR (50),
@@ -205,13 +298,22 @@ Create Table  FBModelExtend
 	IsUsed			CHAR (1),
 	CONSTRAINT PK_FBMODELEXTEND PRIMARY KEY (ID)
 	)
-;
+	'); 
+end if;
+end;
+go
 
 /*================数据模型End=================*/
 
 
 /*数据源信息*/
-Create Table  FBDataSource
+
+declare v_cnt  number;
+begin
+select count(*) into v_cnt from user_all_tables where Upper(table_name) =Upper('FBDataSource');
+if (v_cnt< 1) then
+execute immediate('
+	Create Table  FBDataSource
 	(
 	ID             VARCHAR (50) NOT NULL,
 	Code           VARCHAR (50),
@@ -229,10 +331,19 @@ Create Table  FBDataSource
 	LastModifyUser VARCHAR (50),
 	CONSTRAINT PK_FBDATASOURCE PRIMARY KEY (ID)
 	)
-;
+	'); 
+end if;
+end;
+go
+ 
 
 /*数据字段信息*/
-Create Table  FBDataSourceCols
+declare v_cnt  number;
+begin
+select count(*) into v_cnt from user_all_tables where Upper(table_name) =Upper('FBDataSourceCols');
+if (v_cnt< 1) then
+execute immediate('
+	Create Table  FBDataSourceCols
 	(
 	ID       VARCHAR (50) NOT NULL,
 	DSID     VARCHAR (50),
@@ -241,13 +352,23 @@ Create Table  FBDataSourceCols
 	DataType CHAR (1),
 	CONSTRAINT PK_FBDATASOURCECOLS PRIMARY KEY (ID)
 	)
-;
+	'); 
+end if;
+end;
+go
+
 
 /*================SQL业务End=================*/
 
 
 /*附件信息表*/
-Create Table  FBFileSave(
+
+declare v_cnt  number;
+begin
+select count(*) into v_cnt from user_all_tables where Upper(table_name) =Upper('FBFileSave');
+if (v_cnt< 1) then
+execute immediate('
+	Create Table  FBFileSave(
 	ID         VARCHAR (50) NOT NULL,
 	FileID     VARCHAR (50),
 	"FileName"   VARCHAR (200),
@@ -259,10 +380,19 @@ Create Table  FBFileSave(
 	DataID     VARCHAR (50),
 	Note       VARCHAR (200)
 )
-;
+	'); 
+end if;
+end;
+go
 
 /*表单定义主表*/
-Create Table  FBForm
+
+declare v_cnt  number;
+begin
+select count(*) into v_cnt from user_all_tables where Upper(table_name) =Upper('FBForm');
+if (v_cnt< 1) then
+execute immediate('
+	Create Table  FBForm
 	(
 	ID             VARCHAR (50) NOT NULL,
 	Code           VARCHAR (50),
@@ -290,11 +420,19 @@ Create Table  FBForm
 	ExpressInfo    clob,
 	CONSTRAINT PK_FBFORM PRIMARY KEY (ID)
 	)
-;
-
+	'); 
+end if;
+end;
+go
 
 /*表单引入sql业务*/
-Create Table  FBFormDS
+
+declare v_cnt  number;
+begin
+select count(*) into v_cnt from user_all_tables where Upper(table_name) =Upper('FBFormDS');
+if (v_cnt< 1) then
+execute immediate('
+	Create Table  FBFormDS
 	(
 	ID         VARCHAR (50) NOT NULL,
 	FormID     VARCHAR (50),
@@ -303,10 +441,19 @@ Create Table  FBFormDS
 	SingleLoad CHAR (1),
 	CONSTRAINT PK_FBFORMDS PRIMARY KEY (ID)
 	)
-;
+	'); 
+end if;
+end;
+go
+
 
 /*表单工具栏*/
-Create Table  FBFormToolBar
+declare v_cnt  number;
+begin
+select count(*) into v_cnt from user_all_tables where Upper(table_name) =Upper('FBFormToolBar');
+if (v_cnt< 1) then
+execute immediate('
+	Create Table  FBFormToolBar
 	(
 	ID          VARCHAR (50) NOT NULL,
 	FormID      VARCHAR (50),
@@ -329,11 +476,21 @@ Create Table  FBFormToolBar
 	BtnStyle    CHAR (1),
 	CONSTRAINT PK_FBFORMTOOLBAR PRIMARY KEY (ID)
 	)
-;
+	'); 
+end if;
+end;
+go
+ 
 
 
 /*表单绑定依赖字段信息*/
-Create Table  FBFormRef(
+
+declare v_cnt  number;
+begin
+select count(*) into v_cnt from user_all_tables where Upper(table_name) =Upper('FBFormRef');
+if (v_cnt< 1) then
+execute immediate('
+	Create Table  FBFormRef(
 	ID       VARCHAR (50) NOT NULL,
 	FormID   VARCHAR (50),
 	ModelID  VARCHAR (50),
@@ -345,10 +502,19 @@ Create Table  FBFormRef(
 	RefID    VARCHAR (50),
 	CONSTRAINT PK_FBFormRef PRIMARY KEY (ID)
 	)
-;
+	'); 
+end if;
+end;
+go
 
 /*表单引入自定义样式和脚本*/
-Create Table  FBFormLink(
+
+declare v_cnt  number;
+begin
+select count(*) into v_cnt from user_all_tables where Upper(table_name) =Upper('FBFormLink');
+if (v_cnt< 1) then
+execute immediate('
+	Create Table  FBFormLink(
 	ID       VARCHAR (50),
 	FormID   VARCHAR (50),
 	LinkType CHAR (1),
@@ -359,11 +525,20 @@ Create Table  FBFormLink(
 	Ord      VARCHAR (20),
 	CONSTRAINT PK_FBFormLink PRIMARY KEY (ID)
 	)
-;
+	'); 
+end if;
+end;
+go
 
 
 /*元数据资源表*/
-Create Table  FBMetaData
+
+declare v_cnt  number;
+begin
+select count(*) into v_cnt from user_all_tables where Upper(table_name) =Upper('FBMetaData');
+if (v_cnt< 1) then
+execute immediate('
+	Create Table  FBMetaData
 	(
 	ID             VARCHAR (50) NOT NULL,
 	Code           VARCHAR (100),
@@ -380,11 +555,22 @@ Create Table  FBMetaData
 	ModuleID       VARCHAR (50),
 	CONSTRAINT PK_FBMETADATA PRIMARY KEY (ID)
 	)
-;
+	'); 
+end if;
+end;
+go
+
+ 
 
 
 /*元数据模块*/
-Create Table  FBMetaModule(
+
+declare v_cnt  number;
+begin
+select count(*) into v_cnt from user_all_tables where Upper(table_name) =Upper('FBMetaModule');
+if (v_cnt< 1) then
+execute immediate('
+	Create Table  FBMetaModule(
 	ID       VARCHAR (50) NOT NULL,
 	Code     VARCHAR (50),
 	"Name"     VARCHAR (50),
@@ -393,53 +579,94 @@ Create Table  FBMetaModule(
 	ParentID VARCHAR (50),
 	CONSTRAINT PK_FBMetaModule PRIMARY KEY (ID)
 	)
-;
+	'); 
+end if;
+end;
+go
 
 /*元数据依赖表*/
-Create Table  FBMetaDependence
+
+
+declare v_cnt  number;
+begin
+select count(*) into v_cnt from user_all_tables where Upper(table_name) =Upper('FBMetaDependence');
+if (v_cnt< 1) then
+execute immediate('
+	Create Table  FBMetaDependence
 	(
 	SourceID   VARCHAR (50),
 	SourceType CHAR (1),
 	TargetID   VARCHAR (50),
 	TargetType CHAR (1)
 	)
-;
+	'); 
+end if;
+end;
+go
 
 /*元数据类型字典*/
-Create Table  FBMetaType
+
+
+declare v_cnt  number;
+begin
+select count(*) into v_cnt from user_all_tables where Upper(table_name) =Upper('FBMetaType');
+if (v_cnt< 1) then
+execute immediate('
+	Create Table  FBMetaType
 	(
 	ID   VARCHAR (50) NOT NULL,
 	Code VARCHAR (50),
 	"Name" VARCHAR (50)
 	)
-;
+	'); 
+end if;
+end;
+go
+
 
 /*智能帮助主表*/
- CREATE TABLE  FBSmartHelp
-  (
-  ID             VARCHAR (50) NOT NULL,
-  Code           VARCHAR (100),
-  Name           VARCHAR (100),
-  Title          VARCHAR (100),
-  ModelID        VARCHAR (50),
-  Sort           clob,
-  Filter         clob,
-  ViewType       CHAR (1),
-  CreateTime     VARCHAR (20),
-  CreateUser     VARCHAR (50),
-  LastModifyTime VARCHAR (20),
-  LastModifyUser VARCHAR (50),
-  Asyn           CHAR (1),
-  StartLevel     VARCHAR (20),
-  PageOption     VARCHAR (200),
-  IsAuto         CHAR (1),
-  PageSize       VARCHAR (20),
-  AutoCol        CHAR (1),
-  CONSTRAINT PK_FBSMARTHELP PRIMARY KEY (ID)
-  )
+
+declare v_cnt  number;
+begin
+select count(*) into v_cnt from user_all_tables where Upper(table_name) =Upper('FBSmartHelp');
+if (v_cnt< 1) then
+execute immediate('
+	 CREATE TABLE  FBSmartHelp
+	  (
+	  ID             VARCHAR (50) NOT NULL,
+	  Code           VARCHAR (100),
+	  Name           VARCHAR (100),
+	  Title          VARCHAR (100),
+	  ModelID        VARCHAR (50),
+	  Sort           clob,
+	  Filter         clob,
+	  ViewType       CHAR (1),
+	  CreateTime     VARCHAR (20),
+	  CreateUser     VARCHAR (50),
+	  LastModifyTime VARCHAR (20),
+	  LastModifyUser VARCHAR (50),
+	  Asyn           CHAR (1),
+	  StartLevel     VARCHAR (20),
+	  PageOption     VARCHAR (200),
+	  IsAuto         CHAR (1),
+	  PageSize       VARCHAR (20),
+	  AutoCol        CHAR (1),
+	  CONSTRAINT PK_FBSMARTHELP PRIMARY KEY (ID)
+	  )'); 
+end if;
+end;
+go
+
+
    
 /*帮助列信息*/
-Create Table  FBSmartHelpCols
+
+declare v_cnt  number;
+begin
+select count(*) into v_cnt from user_all_tables where Upper(table_name) =Upper('FBSmartHelpCols');
+if (v_cnt< 1) then
+execute immediate('
+	 Create Table  FBSmartHelpCols
 	(
 	ID       VARCHAR (50) NOT NULL,
 	HelpID   VARCHAR (50),
@@ -456,36 +683,32 @@ Create Table  FBSmartHelpCols
 	Ord      VARCHAR (50),
 	Visible  CHAR (1),
 	CONSTRAINT PK_FBSMARTHELPCOLS PRIMARY KEY (ID)
-	)
-;
+	)'); 
+end if;
+end;
+go
 
 
-/*平台用户表*/
-Create Table  FBUserInfo(
-	"UID"      VARCHAR (50) NOT NULL,
-	UserCode VARCHAR (20),
-	UserName VARCHAR (40),
-	Email    VARCHAR (100),
-	Telphone VARCHAR (20),
-	UserPwd  VARCHAR (50),
-	UserSalt VARCHAR (20),
-	Note     VARCHAR (200),
-	Avavtar  VARCHAR (100),
-	CONSTRAINT PK_FBUserInfo PRIMARY KEY (UID)
-	)
-;
 
 
 /*平台日志表*/
-Create Table  FBLog(
+
+declare v_cnt  number;
+begin
+select count(*) into v_cnt from user_all_tables where Upper(table_name) =Upper('FBLog');
+if (v_cnt< 1) then
+execute immediate('
+	Create Table  FBLog(
 	ID       VARCHAR (50),
 	LogLevel CHAR (1),
 	LogInfo  VARCHAR (1000),
 	OpUser   VARCHAR (50),
 	OpTime   VARCHAR (50),
 	CONSTRAINT PK_FBLog PRIMARY KEY (ID)
-	)
-;
+	)'); 
+end if;
+end;
+go
 
 
 
@@ -493,9 +716,12 @@ Create Table  FBLog(
 
 
 
-
-
-CREATE TABLE  FBComponent
+declare v_cnt  number;
+begin
+select count(*) into v_cnt from user_all_tables where Upper(table_name) =Upper('FBComponent');
+if (v_cnt< 1) then
+execute immediate('
+	CREATE TABLE  FBComponent
 	(
 	ID             VARCHAR (50) NOT NULL,
 	Code           VARCHAR (200),
@@ -509,10 +735,18 @@ CREATE TABLE  FBComponent
 	LastModifyUser VARCHAR (20),
 	LastModifyTime VARCHAR (50),
 	CONSTRAINT PK_FBComponent PRIMARY KEY (ID)
-	)
-;
+	)'); 
+end if;
+end;
+go
 
-CREATE TABLE  FBCMPMethod
+
+declare v_cnt  number;
+begin
+select count(*) into v_cnt from user_all_tables where Upper(table_name) =Upper('FBCMPMethod');
+if (v_cnt< 1) then
+execute immediate('
+	CREATE TABLE  FBCMPMethod
 	(
 	ID         VARCHAR (50) NOT NULL,
 	CMPID      VARCHAR (50),
@@ -520,10 +754,17 @@ CREATE TABLE  FBCMPMethod
 	ReturnType CHAR (1),
 	Note       VARCHAR (200),
 	CONSTRAINT PK_FBCMPMethod PRIMARY KEY (ID)
-	)
-;
+	)'); 
+end if;
+end;
+go
 
-CREATE TABLE  FBCMPPara
+declare v_cnt  number;
+begin
+select count(*) into v_cnt from user_all_tables where Upper(table_name) =Upper('FBCMPPara');
+if (v_cnt< 1) then
+execute immediate('
+	CREATE TABLE  FBCMPPara
 	(
 	ID        VARCHAR (50) NOT NULL,
 	CMPID     VARCHAR (50),
@@ -533,12 +774,20 @@ CREATE TABLE  FBCMPPara
 	Ord       VARCHAR (50),
 	Note      VARCHAR (200),
 	CONSTRAINT PK_FBCMPPara PRIMARY KEY (ID)
-	)
-;
-
+	)'); 
+end if;
+end;
+go
+ 
 
 /*系统参数设置表*/
-Create Table  FBSettings
+
+declare v_cnt  number;
+begin
+select count(*) into v_cnt from user_all_tables where Upper(table_name) =Upper('FBSettings');
+if (v_cnt< 1) then
+execute immediate('
+	Create Table  FBSettings
 	(
 	ID				VARCHAR (50) NOT NULL,
 	Code			VARCHAR (100),
@@ -549,15 +798,23 @@ Create Table  FBSettings
 	IsClient		CHAR (1),
 	IsSys			CHAR (1),
 	CONSTRAINT PK_FBSettings PRIMARY KEY (ID)
-	)
-;
+	)'); 
+end if;
+end;
+go
 
 
 
 
 
 /*Visio配置表*/
-Create Table  FBVisioGraph
+
+declare v_cnt  number;
+begin
+select count(*) into v_cnt from user_all_tables where Upper(table_name) =Upper('FBVisioGraph');
+if (v_cnt< 1) then
+execute immediate('
+	Create Table  FBVisioGraph
 	(
 	ID             VARCHAR (50) NOT NULL,
 	Code           VARCHAR (50),
@@ -565,5 +822,7 @@ Create Table  FBVisioGraph
 	GraphConfig    clob,
 	GraphXML       clob,
 	CONSTRAINT PK_FBVISIOGRAPH PRIMARY KEY (ID)
-	)
-;
+	)'); 
+end if;
+end;
+go
