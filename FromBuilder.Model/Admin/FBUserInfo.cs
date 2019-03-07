@@ -29,7 +29,7 @@ namespace FormBuilder.Model
         public string Avavtar { get; set; }
 
         /// <summary>
-        /// 用户状态 1正常0 锁定
+        /// 用户状态 1正常0 锁定  master分支
         /// </summary>
         public string UserState { get; set; }
     }
